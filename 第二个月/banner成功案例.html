@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+*{margin:0px;padding:0px;font-size:0px;}
+
+a{display:inline-block;width:20px;height:20px;text-align:center;line-height:20px;font-size:12px;color:#fff;background-color:pink;margin-right:30px;text-decoration:none;}
+
+#pic{margin:200px auto;width:400px;height:260px;position:relative;overflow:hidden;}
+
+
+
+#console{width:200px;margin:20px auto;}
+
+#pic img{position:absolute;top:0px;transition:left 0.2s linear;}
+
+#img1{left:0px;z-index:1;}
+#img2{left:400px;z-index:-1;}
+#img3{left:800px;z-index:-1;}
+#img4{left:-400px;z-index:-1;}
+
+
+
+
+
+
+
+
+#pic #before{; width:40px;height:50px;background:rgba(248,180,180,0.2);position:absolute;left:0px;top:50%;transform:translateY(-50%);color:#fff;font-size:30px;line-height:50px;text-align:center;z-index:2;cursor:pointer;}
+#pic #after{ width:40px;height:50px;background:rgba(248,180,180,0.2);position:absolute;right:0px;top:50%;transform:translateY(-50%);color:#fff;font-size:30px;line-height:50px;text-align:center;z-index:2;cursor:pointer;}
+
+
+
+
+
+
+
+</style>
+</head>
+
+<body>
+<div id="pic">
+	
+	<img id="img1" src="../desk/banner/01.jpg">
+    <img id="img2" src="../desk/banner/02.jpg">
+    <img id="img3" src="../desk/banner/03.jpg">
+    <img id="img4" src="../desk/banner/04.jpg">
+    
+    <div id="before"><</div>
+    <div id="after">></div>
+	
+</div>
+
+<div id="console">
+	<a href="#" id="btn1">1</a>
+	<a href="#"  id="btn2">2</a>
+	<a href="#"  id="btn3">3</a>
+	<a href="#"  id="btn4">4</a>
+    
+    
+</div>
+
+</body>
+</html>
+<script>
+
+var btn1=document.getElementById("btn1");
+var btn2=document.getElementById("btn2");
+var btn3=document.getElementById("btn3");
+var btn4=document.getElementById("btn4");
+var img1=document.getElementById("img1");
+var img2=document.getElementById("img2");
+var img3=document.getElementById("img3");
+var img4=document.getElementById("img4");
+var before=document.getElementById("before");
+var after=document.getElementById("after");
+var page=1;
+			     												//找对象 绑定函数
+																
+
+
+
+
+
+before.onclick=run5;
+after.onclick=run6;
+
+btn1.onclick=run1;
+btn2.onclick=run2;
+btn3.onclick=run3;
+btn4.onclick=run4;
+
+
+			                                                          //声明函数 函数的样式
+
+
+
+
+function run5(){if(page==1){
+				
+				btn1.style.backgroundColor="pink";
+				btn2.style.backgroundColor="red";
+				btn3.style.backgroundColor="pink";
+				btn4.style.backgroundColor="pink";
+			
+				img4.style.zIndex="-2";  /*下面图层覆盖上面图层*/
+				img1.style.zIndex="-1";
+				img2.style.zIndex="1";
+				img3.style.zIndex="1";
+				
+				img4.style.left="800px";
+				img1.style.left="-400px";
+				img2.style.left="0px";
+				img3.style.left="400px";
+				
+				page=2;
+			}else if(page==2){
+				btn1.style.backgroundColor="pink";
+				btn2.style.backgroundColor="pink";
+				btn3.style.backgroundColor="red";
+				btn4.style.backgroundColor="pink";
+				
+				img4.style.zIndex="1";
+				img1.style.zIndex="-1";
+				img2.style.zIndex="-1";
+				img3.style.zIndex="1";
+				
+				img1.style.left="800px";
+				img2.style.left="-400px";
+				img3.style.left="0px";
+				img4.style.left="400px";
+
+				page=3;
+			}else if(page==3){
+				btn1.style.backgroundColor="pink";
+				btn2.style.backgroundColor="pink";
+				btn3.style.backgroundColor="pink";
+				btn4.style.backgroundColor="red";
+				
+				img4.style.zIndex="1";
+				img1.style.zIndex="1";
+				img2.style.zIndex="-1";
+				img3.style.zIndex="-1";
+				
+				img1.style.left="400px";
+				img2.style.left="800px";
+				img3.style.left="-400px";
+				img4.style.left="0px";
+				
+				
+				page=4;
+			}else {
+				btn1.style.backgroundColor="red";
+				btn2.style.backgroundColor="pink";
+				btn3.style.backgroundColor="pink";
+				btn4.style.backgroundColor="pink";
+				
+				img4.style.zIndex="-1";
+				img1.style.zIndex="1";
+				img2.style.zIndex="1";
+				img3.style.zIndex="-1";
+				
+				img1.style.left="0px";
+				img2.style.left="400px";
+				img3.style.left="800px";
+				img4.style.left="-400px";
+				
+				page=1;
+				
+				
+			}
+	
+
+	
+	
+	}
+	
+
+function run6(){if(page==1){
+				
+				btn1.style.backgroundColor="pink";
+				btn2.style.backgroundColor="pink";
+				btn3.style.backgroundColor="pink";
+				btn4.style.backgroundColor="red";
+				
+				img4.style.zIndex="1";
+				img1.style.zIndex="1";
+				img2.style.zIndex="-1";
+				img3.style.zIndex="-1";
+				
+				img1.style.left="400px";
+				img2.style.left="800px";
+				img3.style.left="-400px";
+				img4.style.left="0px";
+				
+				page=4;
+				
+			}else if(page==2){
+				btn1.style.backgroundColor="red";
+				btn2.style.backgroundColor="pink";
+				btn3.style.backgroundColor="pink";
+				btn4.style.backgroundColor="pink";
+				
+				img4.style.zIndex="-1";
+				img1.style.zIndex="1";
+				img2.style.zIndex="1";
+				img3.style.zIndex="-1";
+				
+				img1.style.left="0px";
+				img2.style.left="400px";
+				img3.style.left="800px";
+				img4.style.left="-400px";
+				
+				page=1;
+			}else if(page==3){
+				btn1.style.backgroundColor="pink";
+				btn2.style.backgroundColor="red";
+				btn3.style.backgroundColor="pink";
+				btn4.style.backgroundColor="pink";
+			
+				img4.style.zIndex="-2";  /*下面图层覆盖上面图层*/
+				img1.style.zIndex="-1";
+				img2.style.zIndex="1";
+				img3.style.zIndex="1";
+				
+				img4.style.left="800px";
+				img1.style.left="-400px";
+				img2.style.left="0px";
+				img3.style.left="400px";
+				
+				page=2;
+			}else {
+				btn1.style.backgroundColor="pink";
+				btn2.style.backgroundColor="pink";
+				btn3.style.backgroundColor="red";
+				btn4.style.backgroundColor="pink";
+				
+				img4.style.zIndex="1";
+				img1.style.zIndex="-1";
+				img2.style.zIndex="-1";
+				img3.style.zIndex="1";
+				
+				img1.style.left="800px";
+				img2.style.left="-400px";
+				img3.style.left="0px";
+				img4.style.left="400px";
+
+				page=3;
+			}
+
+	} 
+	
+
+function run1(){
+	var n=page;
+	for(i=0;i<n-1;i++){
+	run6();
+	}
+	}
+
+function run2(){
+	var n=page;
+	if(page>=2){
+		for(i=0;i<n-2;i++){
+		run6();
+		}
+	}else{
+		for(i=0;i<2-n;i++){
+		run5();
+		}
+	}
+}
+function run3(){
+	var n=page;
+	if(page>=3){
+	for(i=0;i<n-3;i++){
+		run6();
+	}
+}else{
+	var n=page;
+	for(i=0;i<3-n;i++){
+		run5();
+	}
+	}
+	}
+	
+function run4(){
+	var n=page;
+	for(i=0;i<4-n;i++){
+	run5();
+	}
+	}
+
+
+
+
+</script>

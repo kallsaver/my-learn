@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+*{margin:0px;padding:0px;font-size:0px;}
+h3{margin:0px;padding:0px;}
+.box1{width:200px;height:200px;background:rgba(138,99,100,1.00);border-top:10px solid blue;border-left:10px solid brown;border-right:10px solid green;border-bottom:10px solid pink;position:absolute;line-height:200px;text-align:center;font-size:100px;color:#fff;top:30px;left:50px;z-index:1;cursor:move;}
+
+.box2{width:200px;height:200px;background:pink;border-top:10px solid blue;border-left:10px solid brown;border-right:10px solid green;border-bottom:10px solid red;margin:500px auto;text-align:center;color:#fff;position:relative;}
+
+.box2>span{width:50px;height:50px;font-size:20px;position:absolute;line-height:50px;text-align:center;color:red;right:0px;top:0px;}
+
+.box2>h3{border-bottom:1px solid #000;width:100px;font-size:16px;font-family:"宋体";display:inline-block;color:red;line-height:30px;height:30px;}
+
+.cart{font-size:16px;font-family:"宋体";color:black;margin-top:70px;}
+
+
+</style>
+
+<script>
+//事件1:点击A方块任意的位置不松手(onmousedown事件) 在点击的位置能把A拖拽（A的样式跟着鼠标变化）
+
+//事件2:A方块和B方块碰撞时 B方块变黄色  A拖拽过程中发生的
+
+//事件3：A方块和B方块碰撞时松开鼠标 B的数字+1  并且A方块回到原位
+
+window.onload=function(){
+	var box1=document.getElementsByClassName("box1")[0];
+	var box2=document.getElementsByClassName("box2")[0];
+	var number=document.getElementsByTagName("span")[0];
+	var n=1;
+	var box1_former_left=box1.offsetLeft;
+	var box1_former_top=box1.offsetTop;
+	var bool;
+	var title=document.getElementsByTagName("h3")[0];
+	var cart=document.getElementsByClassName("cart")[0];
+	
+	//onmousedown记录下点击位置的偏移量   //oEvent.clientX和box1.offsetLeft在move过程中增长量一样,所以disX是常量 
+	box1.onmousedown=function(ev){
+		var oEvent=ev||window.event;
+	//	alert(oEvent)
+		var disX=oEvent.clientX-this.offsetLeft;
+		var disY=oEvent.clientY-this.offsetTop;	
+		
+		//  拖拽事件的移动事件在父元素上执行  不然鼠标会跑出来
+		document.onmousemove=function(ev){
+			var oEvent=ev||window.event;
+			console.log(oEvent.clientX)
+			//js改变的样式=自变量(鼠标的坐标)的表达式+"样式的单位"
+			box1.style.left=oEvent.clientX-disX+"px";
+			box1.style.top=oEvent.clientY-disY+"px";
+			
+			if(box1.offsetLeft<0){
+				box1.style.left=0+"px";
+			}
+			
+			if(box1.offsetTop<0){
+				box1.style.top=0+"px";
+			}
+			
+			//不要瞎定义新的变量,用系统的就好,虽然名字是长了点,除非用的地方多
+			if(box1.offsetLeft+box1.offsetWidth>document.documentElement.clientWidth){
+				box1.style.left=document.documentElement.clientWidth-box1.offsetWidth+"px";
+			}
+			
+			if(box1.offsetTop+box1.offsetHeight>document.documentElement.clientHeight){
+				box1.style.top=document.documentElement.clientHeight-box1.offsetHeight+"px";
+			}
+			
+			
+			var a_left=box1.offsetLeft;
+			var a_right=box1.offsetLeft+box1.offsetWidth;
+			var a_top=box1.offsetTop;
+			var a_bottom=box1.offsetTop+box1.offsetHeight;
+			
+			var b_left=box2.offsetLeft;
+			var b_right=box2.offsetLeft+box2.offsetWidth;
+			var b_top=box2.offsetTop;
+			var b_bottom=box2.offsetTop+box2.offsetHeight;
+			
+			if(a_left>b_right||a_top>b_bottom||a_right<b_left||a_bottom<b_top){				
+				box2.style.background="pink";
+				bool=false;
+			}
+			else{
+				box2.style.background="yellow";
+				bool=true;
+			}
+			
+		
+		}
+		
+		document.onmouseup=function(){
+			document.onmousemove=null;
+			box1.style.left=box1_former_left+"px";
+			box1.style.top=box1_former_top+"px";
+			box2.style.background="pink";
+			
+			//如果碰撞了   购物车的数量+1
+			if(bool){			
+			number.innerHTML="+"+n;
+			cart.innerHTML="你已经购买"+n+"件商品";
+			n++;
+			
+			//执行完了数量+1  bool要重置 不然碰撞发生之后,onmouseup一直发生,购物车一直加
+			bool=false;
+			
+			}
+		}
+		
+		//
+		return false;
+		
+	}
+	
+}
+	
+</script>
+
+
+</head>
+
+
+
+
+<body>
+<div class="box1">A</div>
+<div class="box2">
+	<h3>购物车</h3>
+	<span>+0</span>  
+    <div class="cart">欢迎购物</div>
+</div>
+</body>
+</html>

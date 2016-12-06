@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        周作业的两个难点：1)贷款利率的确定； 2）计算月均还款额(只考虑“等额本息”即可)
+           贷款利率的确定，取决于三个参数：
+           1) 贷款类别
+           2) 按揭年数
+           3) 贷款利率基准数
+
+           说明：为了简化周作业的难度，贷款类别只考虑前两种即可。
+                 计算利息的方法，也只考虑“等额本息”即可。
+        */
+        // 计算贷款利率的函数
+        /**
+         * @param loanType  贷款类别：商业贷款/公积金贷款
+         * @param years     按揭年数
+         * @param option    索引值(基准贷款利率)
+         * @returns {*}  返回最终的贷款利率
+         */
+        function getInterest(loanType,years,option){
+            // 数据结构 - 这个解决问题的关键 - 算法 《数据结构与算法》
+			
+			//一级一级属性分类 最后的数据才用数组
+            var interest = {
+                "商业贷款":{"1-5年":[1.11,2.22,3.33],"6-30年":[1.22,2.33,3.44]},
+                "公积金贷款":{"1-5年":[1.01,2.02,3.03],"6-30年":[1.20,2.30,3.40]}
+            };
+            return interest[loanType][years][option];
+        }
+        console.log(getInterest("商业贷款","1-5年",1));
+        console.log(getInterest("公积金贷款","6-30年",0));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0;}
+ul{ list-style:none}
+a{text-decoration:none; }
+span{ border:5px solid transparent; border-top-color:red; position:absolute; top:19px; right:5px; display:none;}
+.wrap{  height:40px; background:pink; list-style:none;}
+.wrap>li{ float:left; position:relative; width:150px;}
+ul li a{font:20px/40px '宋体';margin:0 20px; }
+.wrap>li>ul{ display:none; background:#0898F4;}
+.sun span{display:block;}
+ul>li:hover{background:#19C305;}
+.ww li:hover{background:#F7E604;}
+</style>
+</head>
+
+<body>
+<ul class="wrap">
+	<li><a href="#">哈</a><span></span></li>
+	<li><a href="#">哈是是是哈</a><span></span>
+    
+    	<ul>
+        	<li><a href="#">呵呵呵</a></li>
+        	<li><a href="#">呵呵呵</a></li>
+        	<li><a href="#">呵呵呵</a></li>
+        	<li><a href="#">呵呵呵</a></li>
+        	<li><a href="#">呵呵呵</a></li>
+        </ul>
+   
+    </li>
+	<li><a href="#">哈哈</a><span></span>
+     
+        <ul>
+        	<li><a href="#">呵呵呵</a></li>
+        	<li><a href="#">呵呵呵</a></li>
+        	<li><a href="#">呵呵呵</a></li>
+        	<li><a href="#">呵呵呵</a></li>
+        	<li><a href="#">呵呵呵</a></li>
+        </ul>
+    
+    </li>
+	<li><a href="#">哈电放费哈</a><span></span></li>
+	<li><a href="#">哈试试哈</a><span></span>
+    
+    	<ul>
+        	<li><a href="#">呵呵呵</a></li>
+        	<li><a href="#">呵呵呵</a></li>
+        	<li><a href="#">呵呵呵</a></li>
+        	<li><a href="#">呵呵呵</a></li>
+        	<li><a href="#">呵呵呵</a></li>
+        </ul>
+        
+    </li>
+	<li><a href="#">哈哈</a><span></span></li>
+</ul>
+</body>
+</html>
+<script>
+
+	var ali = document.getElementsByTagName('li');
+	alert(ali.length)
+	
+	for( var i =0;i<ali.length; i++){
+		
+		var sunMeun = ali[i].getElementsByTagName('ul')[0];
+		
+		if(sunMeun){
+			
+			ali[i].className = 'sun';
+	
+		}
+		
+		ali[i].onmouseover = function (){
+			
+			if(this.className == 'sun'){
+				var hah = this.getElementsByTagName('ul')[0];
+				hah.style.display= 'block';
+				hah.className = 'ww';
+			}
+				
+		}
+		ali[i].onmouseout = function (){
+			
+			if(this.className == 'sun'){
+				var hah = this.getElementsByTagName('ul')[0];
+				hah.style.display= 'none';
+			}
+				
+		}
+		
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

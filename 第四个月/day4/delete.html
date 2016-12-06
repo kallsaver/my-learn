@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+//1. delete只能删除属性  
+	var obj={name:'jhon',age:'18'}
+	delete obj.age;
+	console.log(obj)
+	
+	run()
+	
+	function run(){
+		
+	
+		console.log(obj)
+		//delete语句被提前了? console.log()短暂的延迟执行
+		delete obj.name
+	}
+
+	
+	
+
+
+
+</script>
+
+</html>
+

@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script src="jQuery_lib/jquery-3.1.0.min.js"></script>
+</head>
+	<div></div>
+	<div></div>
+	<div><img src="images/countryside03.jpg" /></div>
+	<div><span></span></div>
+	<div></div>
+<body>
+</body>
+</html>
+<script>
+var n=0
+$(function(){
+	$(this).each(function(){
+		if($(this).has("img")){
+			n++
+		}
+	})
+	
+	alert(n)
+
+})
+	
+</script>

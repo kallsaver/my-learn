@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+</html>
+<script>
+function run(){
+	var a=20;
+	//a=20;
+	run2=function(){a+=1}
+	function run1(){
+		alert(a);
+		}
+	return run1;
+}
+var b=run();//var b=function run1(){}
+b();//20
+run2();
+b();//21
+</script>

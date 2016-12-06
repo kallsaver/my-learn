@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>仿网易首页登录</title>
+    <style>
+        #nav {
+            height: 50px;
+            background-color: #333;
+        }
+
+        #nav li {
+            list-style: none;
+            float: left;
+            position: relative;
+        }
+
+        #nav li a {
+            display: block;
+            width: 120px;
+            height: 50px;
+            line-height: 50px;
+            background-color: #FF5300;
+            margin-right: 10px;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+        }
+
+        #loginform {
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 60px;
+            -webkit-box-shadow: 0 0 5px #ccc;
+            -moz-box-shadow: 0 0 5px #ccc;
+            box-shadow: 0 0 5px #ccc;
+            display: none;
+        }
+    </style>
+   <script src="jQuery_lib/jquery-3.1.0.min.js"></script>
+    <script>
+	//鼠标滑入登录时 出现弹窗  滑出登录 弹窗消失 鼠标移入弹窗 弹窗不消失  移出弹窗 弹窗不消失 再次移入登录条再移出 消失 点击除了弹窗之外的地方 弹窗消失 
+		var disappear=null;
+		//hover 有两个参数 over和out 是两个函数  相当于绑了两个事件 
+		$(function(){
+			$("li:first a").hover(function(){
+					//show()方法把display=block   next()是紧紧跟着的兄弟元素
+				$(this).next().show();
+			},function(){
+				var $this=$(this)
+				disappear=setTimeout(function(){
+					$this.next().hide();
+				},200)
+				
+			})
+			
+			
+			$("#loginform").on("mouseover",function(){
+				//clearTimeout把disappear函数体的内容清空了
+				clearTimeout(disappear);	
+			}).on("click",function(ev){
+				//阻止事件冒泡
+				ev.stopPropagation()
+			})
+				
+			$(document).on("click",function(){
+				$("#loginform").hide();	
+			})	
+			
+
+		})
+		
+    </script>
+</head>
+<body>
+<div>
+    <ul id="nav">
+        <li>
+            <a href="#">登录</a>
+            <div id="loginform">
+                登录表单部分<br />
+                <input type="text" placeholder="请输入登录密码"/>
+            </div>
+        </li>
+
+        <li>
+            <a href="#">other</a>
+            <div style="display: none;">any content</div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

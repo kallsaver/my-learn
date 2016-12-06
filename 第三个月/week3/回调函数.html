@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script>
+/*	function run(fn){
+		alert(0)
+		fn&&fn()
+	}
+	
+	
+	run(function(){
+		alert(1)
+	})*/
+	
+	function run(fn){
+		fn&&fn()
+
+	}
+	
+	run(function(){
+		return function(a,b,c){
+			var a=1
+			a++
+			console.log(a)
+		}
+	})
+	
+
+
+</script>
+
+
+</head>
+<body>
+</body>
+</html>

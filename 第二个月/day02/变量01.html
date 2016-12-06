@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+#box{width:200px; height:200px; background:red}
+
+</style>
+</head>
+
+<body>
+<div id="box"></div>
+</body>
+</html>
+<script>
+	
+	var a=1;
+	var b=2;
+	
+	//alert(a++)
+	a=a+b;
+	a+=b;//是a=a+b简写
+	
+	//a+=2;
+	//a++;//a+=1
+	
+	alert(a);
+	
+	
+	
+
+
+
+	var oDiv=document.getElementById('box');
+	
+	oDiv.onclick=function(){
+		a+=2;
+		console.log(a);
+
+	}
+
+
+
+</script>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script>
+window.onload=function(){
+	var oDiv=document.getElementById('box');
+	var btn=document.getElementsByTagName('button')[0];
+	var n=0;
+	var timer;
+	
+		
+	//点击按钮 开始动画
+	btn.onclick=function(){
+		clearInterval(timer);//清除定时器
+		timer=setInterval(function(){
+			n+=10;
+			oDiv.style.left=n+'px';
+		},30);
+	};
+	//点击div，停止动画
+	oDiv.onclick=function(){
+		clearInterval(timer);
+	};
+	
+
+
+
+};
+	
+
+
+
+</script>
+
+
+
+</head>
+
+<body>
+<div id="box" style="width:200px; height:200px; background:red; position:absolute"></div>
+<button type="button" style="margin-top:300px">延时隐藏div</button>
+</body>
+</html>

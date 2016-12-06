@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/lib/angular-route.min.js"></script>
+    <script>
+        var myapp=angular.module("myapp",[])
+        myapp.controller("myCtrl",function($scope,$http){
+           /* var url="data/comment.json"
+
+            $http.get(url).success(function(data){
+
+                console.log(data);
+                $scope.data = data;
+
+            });*/
+
+
+           $scope.data=[
+               {"name":"阿尼玛","comment":"比如现在去超市购物都要自己掏钱买塑料袋了","imgsrc":"images/001.jpg"},
+               {"name":"我是红包","comment":"只允许生产环保型塑料,价格上来了自然人珍惜","imgsrc":"images/002.jpg"},
+               {"name":"桐桐桃子","comment":"和超市塑料袋一样的标准？","imgsrc":"images/004.jpg"},
+               {"name":"万事屋小琦","comment":"人家日本发快递，胶带箱子","imgsrc":"images/005.jpg"},
+               {"name":"p平东轮胎店","comment":"快递只能服3家，京东、顺丰和被骂成狗的EMS","imgsrc":"images/006.jpg"},
+               {"name":"fedfdfjdoshg","comment":"看到了商机有没有","imgsrc":"images/007.jpg"},
+               {"name":"我先赚他一个亿","comment":"怎么不说建建筑垃圾可以一年填平太平洋呢。🇨🇳","imgsrc":"images/008.jpg"},
+               {"name":"阿尼玛","comment":"比如现在去超市购物都要自己掏钱买塑料袋了","imgsrc":"images/001.jpg"},
+               {"name":"我是红包","comment":"只允许生产环保型塑料,价格上来了自然人珍惜","imgsrc":"images/002.jpg"},
+               {"name":"桐桐桃子","comment":"和超市塑料袋一样的标准？","imgsrc":"images/004.jpg"},
+               {"name":"万事屋小琦","comment":"人家日本发快递，胶带箱子","imgsrc":"images/005.jpg"},
+               {"name":"p平东轮胎店","comment":"快递只能服3家，京东、顺丰和被骂成狗的EMS","imgsrc":"images/006.jpg"},
+               {"name":"fedfdfjdoshg","comment":"看到了商机有没有","imgsrc":"images/007.jpg"},
+               {"name":"我先赚他一个亿","comment":"怎么不说建建筑垃圾可以一年填平太平洋呢。🇨🇳","imgsrc":"images/008.jpg"},
+               {"name":"阿尼玛","comment":"比如现在去超市购物都要自己掏钱买塑料袋了","imgsrc":"images/001.jpg"},
+               {"name":"我是红包","comment":"只允许生产环保型塑料,价格上来了自然人珍惜","imgsrc":"images/002.jpg"},
+               {"name":"桐桐桃子","comment":"和超市塑料袋一样的标准？","imgsrc":"images/004.jpg"},
+               {"name":"万事屋小琦","comment":"人家日本发快递，胶带箱子","imgsrc":"images/005.jpg"},
+               {"name":"p平东轮胎店","comment":"快递只能服3家，京东、顺丰和被骂成狗的EMS","imgsrc":"images/006.jpg"},
+               {"name":"fedfdfjdoshg","comment":"看到了商机有没有","imgsrc":"images/007.jpg"},
+               {"name":"我先赚他一个亿","comment":"怎么不说建建筑垃圾可以一年填平太平洋呢。🇨🇳","imgsrc":"images/008.jpg"},
+               {"name":"阿尼玛","comment":"比如现在去超市购物都要自己掏钱买塑料袋了","imgsrc":"images/001.jpg"},
+               {"name":"我是红包","comment":"只允许生产环保型塑料,价格上来了自然人珍惜","imgsrc":"images/002.jpg"},
+               {"name":"桐桐桃子","comment":"和超市塑料袋一样的标准？","imgsrc":"images/004.jpg"},
+               {"name":"万事屋小琦","comment":"人家日本发快递，胶带箱子","imgsrc":"images/005.jpg"},
+               {"name":"p平东轮胎店","comment":"快递只能服3家，京东、顺丰和被骂成狗的EMS","imgsrc":"images/006.jpg"},
+               {"name":"fedfdfjdoshg","comment":"看到了商机有没有","imgsrc":"images/007.jpg"},
+               {"name":"我先赚他一个亿","comment":"怎么不说建建筑垃圾可以一年填平太平洋呢。🇨🇳","imgsrc":"images/008.jpg"}
+
+           ]
+
+            $scope.pageNum = 1;
+            $scope.pageSize = 5;
+
+
+            $scope.go=function(newPage){
+                $scope.pageNum=newPage
+
+                if($scope.pageNum==0){
+                    $scope.pageNum=1
+                }
+                console.log($scope.pageNum)
+                if($scope.pageNum>=Math.ceil($scope.data.length/4)){
+                    $scope.pageNum=Math.ceil($scope.data.length/4)-1
+                }
+            }
+
+            $scope.pasts=function(){
+                $scope.pageNum=$scope.pageNum-1
+
+                if($scope.pageNum==0){
+                    $scope.pageNum=1
+                }
+            }
+
+            $scope.future=function(){
+                $scope.pageNum=$scope.pageNum+1
+
+
+                if($scope.pageNum>=Math.ceil($scope.data.length/4)){
+                    $scope.pageNum=Math.ceil($scope.data.length/4)-1
+                }
+
+            }
+
+
+
+        })
+
+        myapp.filter("postsFilter",function(){
+            return function(productList,pageNum){
+                return productList.slice()
+            }
+
+        })
+
+        myapp.filter("pagerFilter", function () {
+                    /**
+                     * productList：要被过滤的商品集合 - 数组
+                     * pageNum: 要显示的页码 - 整数
+                     * pageSize：页面大小-每页显示的商品数量 - 整数
+                     *
+                     * Angular中提供了一些工具方法，用来判断数据的类型
+                     */
+                    return function (productList, pageNum, pageSize) {
+                        // 判断传入的参数类型是否正确
+                        if (angular.isArray(productList) && angular.isNumber(pageNum) && angular.isNumber(pageSize)) {
+                            // 先计算起始索引值 (n-1)*pageSize
+                            var startIndex = (pageNum - 1) * pageSize;
+
+                            // 如果计算的起始索引值超出了最大范围，返回空数组
+                            if (startIndex >= productList.length) {
+                                return [];
+                            }
+
+                            // 从startIndex索引处开始，截取pageSize大小数量的商品，并返回
+                            //return productList.splice(startIndex, pageSize);
+                            return productList.slice(startIndex, startIndex + pageSize);     // [startIndex,endIndex)
+                        } else {
+                            return productList; // 不干涉
+                        }
+                    };
+                })
+        myapp.filter("pageCountFilter",function(){
+                    return function (productList, pageSize){
+                        if(angular.isArray(productList) && angular.isNumber(pageSize)){
+                            // 计算总页数
+                            var total = Math.ceil(productList.length / pageSize);
+
+                            // 根据总页数，构造一个整数数组，元素是序列整数，然后返回
+                            var arr = [];
+                            for(var i=0;i<total;i++){
+                                arr.push(i+1);  // [1,2,3,...]
+                            }
+                            return arr;
+                        }else{
+                            return productList;
+                        }
+                    };
+                });
+
+
+
+    </script>
+</head>
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+<body ng-app="myapp">
+<div class="wrap" ng-controller="myCtrl">
+    <h3>最新跟帖</h3>
+<div class="top">
+    <div class="box" ng-repeat="product in data| pagerFilter:pageNum:pageSize">
+        <div class="pic"><img src="{{product.imgsrc}}"></div>
+        <div class="right">
+            <div class="name">{{product.name}}</div>
+            <div class="comment">{{product.comment}}</div>
+        </div>
+    </div>
+</div>
+    <div class="bot">
+        <a class="go" ng-click="pasts()" >前一页</a>
+        <a class="gos" ng-class="number==pageNum?'red':'' "  ng-repeat="number in data| pageCountFilter:pageSize" ng-click="go(number)" ng-show="number-pageNum<4&&number>=pageNum">{{number}}</a>
+        <a class="gos" style="border:none">...</a>
+        <!--<a class="go"  ng-click="go(Math.ceil(data.length/4))">尾页</a>-->
+        <a class="go" ng-click="future()" >后一页</a>
+    </div>
+</div>
+<div class="talk">
+    <textarea cols=""></textarea>
+    <button></button>
+
+</div>
+
+</body>
+</html>

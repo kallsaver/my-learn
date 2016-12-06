@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+//Fruit是个预加载的全局的函数 所谓的工厂模式 根据参数不同构造不同的对象的方法(返回值是生成的对象) 相当于myapp
+//这里的Fruit的参数是一个字符串"banana"  传到函数里面后 变成一个全局的函数	window.banana
+//真实应用中 factory方法封装了套路内容  factory的第二个回调函数才是业务
+	 
+	function Fruit() {} 
+	
+	Fruit.factory = function(type) { 
+		window[type]=function(){
+			this.price = '$1.5' 
+		}
+	//fruit={price : '$1.5' }
+	var fruit = new window[type] 
+	console.log(typeof(fruit))
+	return fruit 
+		
+	} 
+// 制造不同的水果 
+	var banana =Fruit.factory('Banana')  
+	window.console.log(banana)
+	console.log(banana.price)
+	
+</script>
+</html>

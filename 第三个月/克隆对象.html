@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+	var b=[{title:"a","name":"b"},{title:"a1","name":"b2"}]
+	
+	var a=b
+
+	
+	function clone3(obj){  
+    	function Clone(){}  
+    	Clone.prototype = obj;  
+    	var o = new Clone();  
+    	for(var a in o){  
+        	if(typeof o[a] == "object") {  
+            	o[a] = clone3(o[a]);  
+        	}  
+    	}  
+    	return o;  
+	} 
+	
+	clone3(b)
+</script>
+</html>

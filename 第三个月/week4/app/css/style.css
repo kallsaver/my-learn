@@ -1,0 +1,11 @@
+/*
+    angular会自动生成className  要寻找这些className设置样式
+*/
+/*icon是伪元素   slide-icon是自定义className 用来设置图标的样式*/
+#tour-view .slide-icon{font-size: 20em}
+
+#tour-view .slider{height:100%}
+
+/*silder-slide 对应<ion-slide>*/
+#tour-view .slider-slide{margin-top:100px; text-align: center}
+

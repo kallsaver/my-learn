@@ -1,0 +1,223 @@
+全局函数
+--------------------------------------------------------------------------------------
+escape(), unescape(), eval(), isNan(), isFinite(), parseFloat(), parseInt()
+
+
+运算符
+--------------------------------------------------------------------------------------
+运算符					描述
+. [] ()					字段访问、数组下标、函数调用以及表达式分组
+
+++ -- - ~ ! delete new typeof void	一元运算符、返回数据类型、对象创建、未定义值
+
+* / %					乘法、除法、取模
+
++ - +					加法、减法、字符串连接
+
+<< >> >>>				移位
+
+< <= > >= instanceof			小于、小于等于、大于、大于等于、instanceof
+
+== != === !==				等于、不等于、严格相等、非严格相等
+
+&					按位与
+
+^					按位异或
+
+|					按位或
+
+&&					逻辑与
+
+||					逻辑或
+
+?:					条件
+
+= oP=					赋值、运算赋值
+
+,					多重求值
+
+运算符的类型 根据运算数的个数，可以将运算符分为三种类型：
+ 
+
+一元运算符：是指只需要一个运算数参与运算的运算符，一元运算符的典型应用是取反运算。 
+
+二元运算符：需要两个运算数参与运算，JavaScript中的大部分运算符都是二元运算符，比如加法运算符、比较运算符等等。
+
+三元运算符：“?:”，这种运算符比较特殊，它可以将三个表达式合并为一个复杂的表达式。
+
+
+全局对象
+--------------------------------------------------------------------------------------------
+
+Object对象
+	constructor	        对一个Javascript函数的引用,该函数是对象的构造函数
+	hasOwnProperty()	检查对象是否有局部定义的(非继承的)、具有特定名字的属性
+	isPrototypeOf()	        检查对象是否是指定对象的原型
+	propertyIsEnumerable()	检查指定的属性是否存在,以及是否能用for/in循环枚举
+	toLocaleString()	返回对象地方化的字符串表示
+	toString()	        返回对象的字符串表示
+	valueOf()	        返回对象的原始值(如果存在)
+	Arguments               对象(只在函数内部定义)
+	callee	                对当前正在执行函数的引用
+	length	                传递给函数的实际参数个数
+
+Array对象
+	length	        数组长度
+	concat()	连接多个数组
+	join()	        把数组中所有元素转换成字符串,然后连接起来
+	shift()	        删除并返回数组的头部元素
+	pop()	        删除并返回数组最后一个元素
+	push()	        把一个元素添加到数组的尾部,返回值为数组的新长度
+	unshift()	在数组头部插入一个元素, 返回值为数组的新长度
+	reverse()	颠倒数组中元素的顺序
+	slice()	        返回数组的一个子数组,该方法不修改原数组
+	sort()	        从原数组上对数组进行排序
+	splice()	插入,删除,替换一个数组元素
+	toLocalString()	把数组转换成一个局部字符串
+	toString()	把数组转换成一个字符串
+	
+
+Boolean对象(0、NaN、null、空字符串和undefined都将转换成false)
+
+Date对象
+	getDate()	        返回天
+	getDay()	        返回星期
+	getFullYear()	        返回年份
+	getUTCFullYear()	同上
+	getHours()	        返回小时
+	getUTCHours()	        同上
+	getMilliseconds()	返回毫秒
+	getUTCMilliseconds()	同上
+	getMinutes()	        返回分钟
+	getUTCMinutes()  	同上
+	getMouth()	        返回月份
+	getUTCMouth()	        同上
+	getSeconds()	        返回秒
+	getUTCSeconds()	        同上
+	getTime()	        返回对象内部的毫秒表示
+	getTimezoneoffset()	返回这个日期的本地时间和UTC表示之间的时差,以分钟为单位
+	getYear()	        推荐使用getFullYear()
+	
+	setDate()	        设置天
+	setUTCDate()	        同上
+	setFullYear()	        设置年份
+	setUTCFullYear()	同上
+	setHours()	        设置小时
+	setUTCHours()	        同上
+	setMilliseconds()	设置毫秒
+	setUTCMilliseconds()	同上
+	setMinutes()	        设置分钟
+	setUTCMinutes()	        同上
+	setMouth()	        设置月份
+	setUTCMouth()	        同上
+	setSeconds()	        设置秒
+	setUTCSeconds() 	同上
+	setTime()	        使用毫秒的形式设置对象
+	setYear()	        推荐使用setFullYear()
+	toDateString()	        返回日期的日期部分的字符串表示
+	toGMTString()	        推荐使用toUTCString()
+	toLacaleDataString()	返回日期的日期部分的字符串表示
+	toLocaleString()	将对象转换成一个字符串
+	toLacaleTimeString()	返回日期的时间部分的字符串表示
+	toString()	        将对象转换成一个字符串
+	toTimeString()	        将对象转换成一个字符串
+	toString()	        返回日期的时间部分的字符串表示
+	toUTCString()	        将对象转换成一个字符串
+	valueOf()	        将对象转换成它的内部毫秒格式
+	parse()	                解析日期和时间的字符串表示,返回它的内部毫秒表示
+	UTC()	                 返回指定的UTC日期和时间的毫秒表示
+
+Error对象
+	message	        提供异常详细信息的错误消息
+	name	        声名异常类型的字符串
+	toString()	返回一个表示Error对象的字符串
+	EvalError      (执行错误)
+	RangeError     (在数字超出合法范围时抛出)
+	ReferenceError  (在读取不存在的变量时抛出)
+	SyntaxError     (抛出该错误用来通知语法错)
+	TypeError      (当一个值的类型错误时,抛出该异常)
+	URIError       (由URI的编码和解码方法抛出)
+
+Function对象
+	arguments     Arguments对象, 反对使用该属性
+	caller	      对调用当前函数的Funciton对象的引用,反对使用该属性
+	length	      在声名函数时指定的命名参数个数
+	prototype	一个对象,用于构造函数,这个对象定义的属性和方法由构造函数创建的所有对象共享
+	apply()	      将函数作为指定对象的方法来调用,传递给它的是指定的参数数组
+	call()	      将函数作为指定对象的方法来调用,传递给它的是指定的参数
+	toString()    返回函数的字符串表示
+
+Math对象
+	Math.E	        常量e,自然对数的底数
+	Math.LN10	10的自然对数
+	Math.LN2	2的自然对数
+	Math.LOG10E	以10为底的e的对数
+	Math.LOG2E	以2为底的e的对数
+	Math.PI	        π
+	Math.SQRT1_2	1/2的平方根
+	Math.SQRT2	2的平方根
+
+	round()    四舍五入
+	ceil()	   上舍入
+	floor()	   下舍入
+	abs()	   求绝对值
+	max(x,y)   返回 x 和 y 中的最高值	
+	min(x,y)   返回 x 和 y 中的最低值
+	radom()	   随机数
+	sqrt()	   开平方
+	sin(x)     x 的正玄值返回值在 -1.0 到 1.0 之间
+	cos(x)     x 的余弦值返回的是 -1.0 到 1.0 之间的数
+	tan(x)	   x 的正切值
+	acos(x)    x 的反余弦	
+	asin(x)	   x 的反正弦
+	atan(x)	   x 的反正切值
+	atan2()	   x 轴到点 (x,y) 之间的角度
+	exp()	   指数
+	log()	   计算自然对数
+	pow(x,y)   x 的 y 次幂
+	
+	
+	
+
+Number对象
+	Number.MAX_VALUE	     可表示的最大的数
+	Number.MIN_VALUE	     可表示的最小的数
+	Number.NaN	             非数字值
+	Number.NEGATIVE_INFINITY     负无穷大,溢出时返回该值
+	Number.POSITIVE_INFINITY     正无穷大,溢出时返回该值
+	toString()	             把数字转换成字符串,使用指定的基数
+	toLocaleString()	     把数字转换成字符串,使用本地格式数字规约
+	toFixed()	             把数字转换成字符串,结果的小数点后有指定位数的数字
+	toExponential()              把数字转换成字符串,结果采用指数计数法,小数点后有指定位数的数字
+	toPrecision()	             把数字转换成字符串,在对象的值超出指定位数时将其转换为指数计数法
+
+RegExp对象
+	global	        对象是否具有性质g
+	ignoreCase	对象是否具有性质i
+	lastIndex	上次匹配后的字符位置,用于一个字符串中进行多次匹配
+	multiline	对象是否具有性质m
+	source	        正则表达式的源文本
+	exec()	        执行强大的、通用的模式匹配
+	test()	        检测一个字符串是否含有某个模式
+
+
+String对象
+	fromCharCode()	  用作为参数而传递的字符代码创建一个新的字符串
+	length	          字符串的长度
+	charAt(x)	  符串中指定x索引字符
+	charCodeAt()	  返回字符串中指定位置的字符编码
+	concat()	  把一个或多个值连接到字符串上
+	indexOf()	  在字符串中检索一个字符或一个字符串
+	lastIndexOf()	  在字符串中从后向前检索一个字符或一个子串
+	localeCompare()	  用本地特定顺序来比较两个字符串
+	match()	          可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配,存放匹配结果的数组该数组的内容依赖于 regexp 是否具有全局标志g
+	replace()	  用正则表达式执行查找、替换操作
+	search()	  检索字符串中与正则表达式匹配的子串
+	slice(start,end)  从start开始 至 end索引之间的数，不含end
+	split()	          把字符串分割成一个字符串数组,在指定的分界字符处或正则表达式处执行分割
+	substring()	  从字符串中抽取一个子串
+	substr()	  从字符串中抽取一个子串
+	toLowerCase()	  把字符串中所有字符转换成小写的,然后返回一个副本
+	toString()	  返回原始的字符串值
+	toUpperCase()	  把字符串中所有字符转换成大写的,然后返回一个副本
+	valueOf()	  返回原始字符串值

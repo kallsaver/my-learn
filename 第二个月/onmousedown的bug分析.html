@@ -1,0 +1,250 @@
+    <html>
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title></title>
+    <style type="text/css">
+    *{
+    padding:0;
+    margin:0;
+    font-family:"微软雅黑";
+    }
+    #template{
+    width:100%;
+    height:100%;
+    background:#ccc;
+    position:relative;
+    filter:alpha(opacity:60);
+    opacity:0.6;
+    z-index:1;
+    display:none;
+    }
+    #btn{
+    width:200px;
+    height:50px;
+    background:green;
+    position:absolute;
+    top:20px;
+    left:30%;
+    text-align:center;
+    line-height:50px;
+    font-weight:700;
+    cursor:pointer;
+    }
+    #alert{
+    width:400px;
+    height:250px;
+    background:green;
+    position:absolute;
+    left:25%;
+    top:20px;
+    z-index:3;
+    color:white;
+    display:block;
+    font-weight:700;
+    text-align:center;
+    line-height:50px;
+    border:5px solid #999;
+    display:none;
+    filter:alpha(opacity:0);
+    opacity:0;
+    }
+    #alert span.title{
+    width:100%;
+    height:50px;
+    background:black;
+    color:white;
+    display:block;
+    font-weight:700;
+    text-align:center;
+    line-height:50px;
+    }
+    #alert span.yes , #alert span.no{
+    width:50%;
+    height:50px;
+    background:black;
+    color:white;
+    display:block;
+    font-weight:700;
+    text-align:center;
+    line-height:50px;
+    position:absolute;
+    bottom:0;
+    border:1px solid #ccc;
+    }
+    #alert span.yes{
+    left:0;
+    }
+    #alert span.no{
+    left:50%;
+    }
+    </style>
+    <!-- 运动框架 -->
+    <script type="text/javascript">
+
+    function getValue(obj,attr){
+    if( obj.currentStyle ){
+    return obj.currentStyle[attr];
+    }else{
+    return getComputedStyle(obj,false)[attr];
+    }
+    }
+
+    function startMove(obj,json,fn){
+
+    clearInterval(obj.timer);
+
+    obj.timer = setInterval(function(){
+    var bTrue = true;
+    //json循环
+    for(attr in json){
+
+    //循环开始
+    var nValue = 0;
+    if( attr == 'opacity'){
+    nValue = parseInt(parseFloat(getValue(obj,attr))*100);
+    }else{
+    nValue = parseInt(getValue(obj,attr));
+    }
+
+    var iSpeed = (json[attr] - nValue)/8;
+    iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+
+    if(nValue != json[attr]){
+    bTrue = false;
+    }
+
+
+    if( attr == 'opacity'){
+    obj.style.opacity = (iSpeed + nValue)/100;
+    obj.style.filter = 'alpha(opacity:'+(iSpeed+nValue)+')';
+    }else{
+    obj.style[attr] = iSpeed + nValue + 'px';
+    }
+    }
+    //循环结束
+
+    if(bTrue == true){
+    clearInterval(obj.timer);
+    if( fn ){
+    fn();
+    }
+    }
+
+    // json循环
+
+    },30);
+    }
+
+    window.onload = function(){
+
+    alert('本页面有bug,每次拖拽都会执行startMove top变成100 , 而且拖拽的时候会选中文字然后停止拖拽出bug 会修复的请告知！');
+
+
+    var oTemplate = document.getElementById('template');
+    var oBtn = document.getElementById('btn');
+    var oAlert = document.getElementById('alert');
+    var t = false;
+
+    //基本功能
+    oBtn.onclick = function(ev){
+    oAlert.style.display = 'block';
+    oTemplate.style.display = 'block';
+    var oEvent = ev || event;
+    oEvent.cancelBubble = true;
+    oBtn.style.display = 'none';
+
+    /*startMove(oAlert,'opacity',100,function(){
+    startMove(oAlert,'top',100);
+    });*/
+
+
+    startMove(oAlert,{'opacity':100,'top':100});
+    }
+
+
+
+    document.onclick = function(){
+
+    oTemplate.style.display = 'none';
+    oBtn.style.display = 'block';
+    startMove(oAlert,{'top':20,'opacity':0},function(){
+    oAlert.style.display = 'none';
+    });
+
+    }
+    oAlert.onclick = function(ev){
+    var oEvent = ev || event;
+    oEvent.cancelBubble = true;
+    }
+
+    //基本功能结束
+
+    //拖拽
+
+    oAlert.onmousedown = function(ev){
+    var oEvent = ev || event;
+    var disX = oEvent.clientX - oAlert.offsetLeft;
+    var disY = oEvent.clientY - oAlert.offsetTop;
+    oAlert.style.cursor = 'move';
+    //delete startMove();
+
+    document.onmousemove = function(ev){
+    var oEvent = ev || event;
+    var left = oEvent.clientX - disX;
+    var top = oEvent.clientY - disY;
+    var clientWidth = document.documentElement.clientWidth || document.body.clientWidth;
+    var clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+
+    if(left <= 0){
+    left = 0;
+    close();
+    }else if(left >= clientWidth-oAlert.offsetWidth){
+    left = clientWidth-oAlert.offsetWidth;
+    close();
+    }
+
+    if(top <=0){
+    top = 0;
+    close();
+    }else if(top >= clientHeight-oAlert.offsetHeight){
+    top = clientHeight-oAlert.offsetHeight;
+    close();
+    }
+    //delete startMove();
+
+    //startMove(oAlert,{'left':left,'top':top});
+
+    oAlert.style.left = left + 'px';
+    oAlert.style.top = top + 'px';
+
+    //oEvent.cancelBubble = true;
+    }
+
+    oAlert.onmouseup = close;
+
+    function close(){
+    document.onmousemove = null;
+    oAlert.onmouseup = null;
+    //delete startMove();
+
+    }
+    }
+
+    //拖拽结束
+
+    }
+
+    </script>
+    </head>
+    <body>
+    <div id="template"></div>
+    <div id="btn" type="button">open</div>
+    <div id="alert">
+    <span class="title">Welcome to this page</span>
+    Ladies and gentlemen, welcome to the JavaScript and the HTML and CSS classes !
+    <span class="yes">Yes</span>
+    <span class="no">No</span>
+    </div>
+    </body>
+    </html>
+

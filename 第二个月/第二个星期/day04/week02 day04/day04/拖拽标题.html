@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0}
+div{ width:200px; height:200px; position:absolute}
+p{ width:800px; background:#ddd; word-break:break-all}
+h3{ height:30px; background:#ccc; cursor:move}
+
+#box1{ top:100px; left:200px; background:red;}
+#box2{ top:200px; left:50px; background:green}
+#box3{ top:500px; left:600px; background:blue}
+
+</style>
+</head>
+
+<body>
+<div id="box1">
+	<h3>标题</h3>
+	<input type="text">
+</div>
+<div id="box2"></div>
+<div id="box3"></div>
+</body>
+</html>
+
+<script>
+	var oDiv1=document.getElementById('box1');
+	var oDiv2=document.getElementById('box2');
+	var oDiv3=document.getElementById('box3');
+	var oInput=document.getElementsByTagName('input')[0];
+	var title=document.getElementsByTagName('h3')[0];
+	
+	drag(oDiv1,title);
+	drag(oDiv2);
+	drag(oDiv3);
+	
+	
+	//阻止冒泡
+	oInput.onmousedown=function(ev){
+		var oEv=ev || window.event;
+		oEv.cancelBubble=true;
+	};
+	
+	
+	
+	
+	
+	function drag(obj,title){
+		title=title || obj;
+		
+		title.onmousedown=function(ev){
+			//记录偏移量 鼠标坐标--div的offsetLeft
+			var oEv=ev || window.event;
+			var disX=oEv.clientX-obj.offsetLeft;//distance
+			var disY=oEv.clientY-obj.offsetTop;//distance
+			
+			
+			//document开始移动
+			document.onmousemove=function(ev){
+				var oEv=ev || window.event;
+				var l=oEv.clientX-disX;//横坐标
+				var t=oEv.clientY-disY;//纵坐标
+				
+				if(l<0){
+					l=0;
+				};
+				if(l>document.documentElement.clientWidth-obj.offsetWidth){
+					l=document.documentElement.clientWidth-obj.offsetWidth
+				};
+				if(t<0){
+					t=0;
+				};
+				if(t>document.documentElement.clientHeight-obj.offsetHeight){
+					t=document.documentElement.clientHeight-obj.offsetHeight
+				}
+				
+				//屏幕宽度document.documentElement.clientWidth;
+				
+				obj.style.left=l+'px';
+				obj.style.top=t+'px';
+			};
+			
+			//document解除移动
+			document.onmouseup=function(){
+				document.onmousemove=null;
+			};
+			
+			return false;//阻止默认事件
+		
+		}
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+
+
+</script>
+

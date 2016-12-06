@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+table{ border:1px solid #333; border-collapse:collapse}
+td{ border:1px solid #333; padding:10px}
+</style>
+
+
+<script>
+window.onload=function(){
+var arr=['张三','李四','王五','赵六','小明','小红','小强','小王','小彤','小李']	
+	//创建table
+	var oTable=document.createElement('table');
+	//创建tbody
+	var oTbody=document.createElement('tbody');
+	
+	//创建5个tr
+	for(var i=0; i<5; i++){
+		var oTr=document.createElement('tr');
+
+		//每个tr里面插入arr的内容
+		for(var j=0; j<arr.length;j++){
+			var oTd=document.createElement('td');
+			oTd.innerHTML=arr[j];
+			oTr.appendChild(oTd);
+		};
+		//tbody里插入tr
+		oTbody.appendChild(oTr);
+	};
+	
+	//tbody插入到table
+	oTable.appendChild(oTbody);
+	
+	//table插入到body
+	document.body.appendChild(oTable)
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+</script>
+</head>
+
+<body>
+</body>
+</html>

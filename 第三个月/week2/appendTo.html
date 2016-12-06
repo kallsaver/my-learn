@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script src='jQuery_lib/jquery-3.1.0.min.js'></script>
+
+
+</head>
+
+<body>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+</body>
+</html>
+<script>
+	$("<p>p</p>")
+   .appendTo("div")
+   .addClass("test")
+   .end()
+   .css("background","red");
+	
+	//说明$("<p>p</p>")用了javascript创造元素的方法 var p=document.createElement("p")  最终的返回值是最后一个p
+</script>

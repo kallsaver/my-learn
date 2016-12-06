@@ -1,0 +1,96 @@
+ <!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0}
+ul{ list-style:none}
+ul li{ width:400px; height:120px; background:#ddd; margin-bottom:30px;}
+img{ width:80px; margin-top:15px;}
+.ac{ width:200px; background:red; position:absolute;top:0; left:0px}
+.box{ width:200px;background:#548283; padding:5px; position:fixed; left:100px;}
+.box .title{ height:25px; line-height:25px;border-bottom:1px dashed red}
+
+</style>
+<script>
+	var arr = [
+				 {'name':'大娃','work':'按时撒个谁的撒发生'},
+				 {'name':'二娃','work':'昂发是否撒案说法'},
+				 {'name':'三娃','work':'撒放撒个第三个第三个杀杀杀杀杀手'},
+				 {'name':'四娃','work':'哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈大蝴蝶结就可见就可见可见可见好就好  好'},
+				 {'name':'五娃','work':'萨芬萨芬按时发疯的方法返回给放还特意'},
+				 {'name':'六娃','work':' 广东省高发给而二广泛的二兔好的话放'},
+				 {'name':'七娃','work':' 烦得很号法定和人换个房间公园感受到个人换个问题就哥'},			 
+				 {'name':'大娃','work':'按时撒个谁的撒发生'},
+				 {'name':'二娃','work':'昂发是否撒案说法'},
+				 {'name':'三娃','work':'撒放撒个第三个第三个杀杀杀杀杀手'},
+				 {'name':'四娃','work':'哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈大蝴蝶结就可见就可见可见可见好就好  好'},
+				 {'name':'五娃','work':'萨芬萨芬按时发疯的方法返回给放还特意'},
+				 {'name':'六娃','work':' 广东省高发给而二广泛的二兔好的话放'},
+				 {'name':'七娃','work':' 烦得很号法定和人换个房间公园感受到个人换个问题就哥'}
+			  ];
+window.onload = function(){
+	var aImg = document.getElementsByTagName('img');
+	var aLi = document.getElementsByTagName('li');	
+	var popBox = document.createElement('div');	
+	var timer=null;
+	var hide = null;
+	popBox.className = 'box';
+	popBox.style.display = 'none';
+	document.body.appendChild(popBox);
+
+	for(var i=0;i<aImg.length;i++){
+		aImg[i].index = i; //发牌照
+		aImg[i].onmouseenter = function(e){
+			e = e || event;
+			var t = e.clientY;
+			var _this = this; 
+			timer = setTimeout(function(){
+				popBox.innerHTML = '<h5 class="title">姓名是：'+arr[_this.index].name+'</h5>'+
+								'<p class="work">职业是：'+arr[_this.index].work+'</p>';		
+				popBox.style.top = t+'px';
+				popBox.style.display = 'block';
+			},1000);
+	}
+		aImg[i].onmouseleave = function(){
+	
+			hide = setTimeout(function(){				
+				popBox.style.display = 'none';
+			},500);
+			popBox.onmouseenter = function(){
+					clearTimeout(hide);
+			}			
+			popBox.onmouseleave = function(){
+				hide = setTimeout(function(){				
+					popBox.style.display = 'none';
+				},500);
+			}
+			clearTimeout(timer);
+		}
+	}	
+
+}
+</script>
+</head>
+
+<body>
+
+<ul>
+	<li><img src="images/01_03.jpg"></li>
+	<li><img src="images/01_05.jpg"></li>
+	<li><img src="images/01_07.jpg"></li>
+	<li><img src="images/01_13.jpg"></li>
+	<li><img src="images/01_15.jpg"></li>
+	<li><img src="images/01_17.jpg"></li>
+	<li><img src="images/01_19.jpg"></li>	
+    <li><img src="images/01_03.jpg"></li>
+	<li><img src="images/01_05.jpg"></li>
+	<li><img src="images/01_07.jpg"></li>
+	<li><img src="images/01_13.jpg"></li>
+	<li><img src="images/01_15.jpg"></li>
+	<li><img src="images/01_17.jpg"></li>
+	<li><img src="images/01_19.jpg"></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!--引入angular库-->
+    <script src="js/angular.min.js"></script>
+    <script>
+		
+		 // step 1 :先创建一个主模块
+        //         angular对象的.module()方法，带有两个参数：
+        //          - 参数1：是模块的名称        //          - 参数2：是依赖模块名称列表(数组)
+        //         angular.module()方法的返回值，是对创建的模块的引用(它是一个对象)
+		var myapp=angular.module("myapp",[])
+		
+		
+		// step 2 :在主模块中，要创建对应的控制器(可以有多个)
+        //          $scope对象是由angular框架所创建，然后传进来使用的。- "依赖注入"
+        //         在模块对象上调用.controller()方法来创建一个控制器对象。
+        //         在创建控制器时，需要为控制器对象取一个名字，在方法的第一个参数中指定，控制器的名字是myCtrl，通过传参传入$scope
+		//$scope是一个系统变量(局部变量),指代myCity这个控制器 相当于this myCity是个对象
+		myapp.controller("myCity",function($scope){
+			$scope.city="北京";
+			$scope.acfun=function(){
+				$scope.city="北京市"
+			}
+			
+		})
+		
+		
+		myapp.controller("myCity2",function($scope){
+			$scope.city="深圳";
+			$scope.acfun=function(){
+				$scope.city="深圳市"
+			}
+			
+		})
+        
+    </script>
+</head>
+<!--
+   要使用控制器，需要通过ng-controller指令来指定
+-->
+<body >
+<div class="container" ng-app="myapp">
+<!--在下面这个div范围内，绑定的数量和事件都来源于myCtrl这个控制器对象-->
+	<div class="panel panel-primary" ng-controller="myCity">
+    	<div class="panel-heading">{{city}}</div>
+    	<div class="panel-body">
+        	<button class="btn btn-info">变</button>
+        </div>
+    </div>
+    
+    
+    <div class="panel panel-primary" ng-controller="myCity">
+    	<div class="panel-heading">{{city}}</div>
+    	<div class="panel-body">
+        	<button class="btn btn-info" ng-click="acfun()">变</button>
+        </div>
+    </div>
+    
+    
+    <div class="panel panel-primary">
+    	<div class="panel-heading">{{city}}</div>
+    	<div class="panel-body">
+        	<button class="btn btn-info">变</button>
+        </div>
+    </div>
+    
+    
+    <div class="panel panel-primary" ng-controller="myCity2">
+    	<div class="panel-heading">{{city}}</div>
+    	<div class="panel-body">
+        	<button class="btn btn-info" ng-click="acfun()">变</button>
+        </div>
+    </div>
+    
+</div>
+
+</body>
+</html>

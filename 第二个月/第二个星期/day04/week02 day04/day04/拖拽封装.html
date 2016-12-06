@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0}
+div{ width:200px; height:200px; position:absolute}
+p{ width:800px; background:#ddd; word-break:break-all}
+h3{ height:30px; background:#ccc; cursor:move}
+
+#box1{ top:100px; left:200px; background:red;}
+#box2{ top:200px; left:50px; background:green}
+#box3{ top:500px; left:600px; background:blue}
+
+</style>
+<script src="hxsd_tools.js"></script>
+
+<script>
+window.onload=function(){
+	
+	
+	var oDiv1=document.getElementById('box1');
+	var oDiv2=document.getElementById('box2');
+	var oDiv3=document.getElementById('box3');
+	
+	var oInput=document.getElementsByTagName('input')[0];
+	var title=document.getElementsByTagName('h3');
+	
+	drag(oDiv1,title[0]);
+	drag(oDiv2);
+	drag(oDiv3,title[1]);
+	
+	
+	//阻止冒泡
+	oInput.onmousedown=function(ev){
+		var oEv=ev || window.event;
+		oEv.cancelBubble=true;
+	};
+}
+</script>
+
+
+
+
+</head>
+
+<body>
+<div id="box1">
+	<h3>标题</h3>
+	<input type="text">
+</div>
+
+
+<div id="box2"></div>
+
+
+<div id="box3">
+	<h3>标题</h3>
+</div>
+</body>
+</html>
+
+

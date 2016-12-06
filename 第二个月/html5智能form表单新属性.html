@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>智能表单-HelloWeb前端网</title>
+<style type="text/css">
+input{width:180px;height:20px;margin:5px;}
+</style>
+</head>
+ 
+<body>
+<form action="" method="get" id="foo">
+  邮件：<input type="email" placeholder="请输入正确的邮箱地址"/><!--电子邮箱-->
+  <br />
+  网址：<input type="url" />
+  <br />
+  日期：<input type="date" />
+  <br />
+  月份：<input type="month" />
+  <br />
+  周：&nbsp;&nbsp;&nbsp;<input type="week" />
+  <br />
+  时间：<input type="datetime" />
+  <br />
+  数字：<input type="number"/>
+  <br />
+  滑动：<input type="range" min="0" max="100" step="1">
+  <br />
+  搜素：<input type="search" results="n" value="搜索">
+  <br />
+  颜色：<input type="color" />
+  <br />
+  正则表达式：<input type="text" pattern="[789]+" required />
+  <br />
+  <datalist id="mydata">
+    <option label="top1" value="asp.net"></option>
+    <option label="top2" value="C#"></option>
+    <option label="top3" value="ado"></option>
+    <option label="top4" value="server"></option>
+    <option label="top5" value="ajax"></option>
+  </datalist>
+  <input type="submit" />
+</form>
+</body>
+</html>

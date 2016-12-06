@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0px;padding:0px;font-size:0px;}
+button{width:100px;height:40px;line-height:40px;font-size:14px;margin:20px 0px 0px 20px;}
+.box{width:200px;height:200px;background:red;margin:20px 0px 0px 20px;position:absolute;}
+
+</style>
+<script>
+window.onload=function(){
+	var box=document.getElementsByClassName("box")[0];
+	
+	var btn=document.getElementsByTagName("button")[0];
+	
+	
+	btn.onclick=function(){
+		run(box,1)
+	};
+	
+	//这里的timer要写在函数的外面 如果写在里面的话 点击btn 会有很多个兄弟函数run在运行 而他们的timer不是同一个东西 不能互相影响
+	//而每个timer都影响到同一个对象obj.style.left(所有的系统变量都是全局变量)的值,所以会加快
+	
+	var timer=null;
+	function run(obj,speen){
+		
+		
+		//这个删除定时器的作用是防止连续执行函数 定时器叠加会越来越快
+		clearInterval(timer);
+		timer=setInterval(function(){
+			obj.style.left=obj.offsetLeft+speen+"px";
+			if(obj.offsetLeft>1900){
+				obj.style.left=1900+"px";
+				//这个删除定时器的作用是当box运动到尽头 定时器就不再跑了
+				clearInterval(timer)
+			}
+		},30)
+	}
+	
+}
+
+</script>
+
+</head>
+
+<body>
+<button>开始</button>
+<div class="box"></div>
+</body>
+</html>

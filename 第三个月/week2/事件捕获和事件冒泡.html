@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+	div{width:200px;height:200px;background:#333;border:1px solid #ffff;margin:100px auto;}
+	p{width:100px;height:100px;margin:0 auto;background:red;}
+</style>
+
+<script>
+	window.onload=function(){
+		var div=document.getElementsByTagName("div")[0]
+		var p=document.getElementsByTagName("p")[0]
+		
+		
+		//先弹p 所以先事件捕获 在事件冒泡  从顶部元素开始
+		
+		
+		div.onclick=function(){
+			alert("div")
+		}
+		
+		p.onclick=function(){
+			alert("p")
+		}
+		
+		
+	}
+
+</script>
+</head>
+
+
+<body>
+<div><p></p></div>
+</body>
+</html>

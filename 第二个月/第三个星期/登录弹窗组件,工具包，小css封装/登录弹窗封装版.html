@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<link href="login_widget.css" rel="stylesheet" type="text/css">
+</head>
+
+<style type="text/css">
+*{margin:0px;padding:0px;font-size:0px;}
+
+.login{background-color:green;border-radius:8px;width:300px;height:60px;line-height:60px;text-align:center;color:#fff;font-family:"宋体";font-weight:bolder;font-size:18px;margin:20px auto;}
+
+</style>
+
+<!--1.js组件中包含有create,innerHTML出来的结构 并且有相对应的组件小css样式表 (对应js中的className)
+2.工具包是个js文件 里面写有各种小函数 能实现居中 拖拽等功能 在js组件中能调用工具包
+3.在主html文件中的script中调用js组件和组件的css-->
+
+<!--工具包的js要写在组件的前面-->
+<script src="hxsd_tools.js"></script>
+<script src="login_widget.js"></script>
+
+
+<script>
+window.onload=function(){
+	var login=document.getElementsByClassName("login")[0];
+
+	
+	login.onclick=function(){
+		
+		login_widget();
+		
+		this.blur();
+	
+	
+	}
+}
+
+</script>
+
+
+
+<body>
+
+<!--<div class="modal"></div>-->
+<div class="login">点击登录</div>
+<!--<div class="popBox">
+	<h3 class="title"> <span class="close">×</span></h3>
+    <span><label>用户名:</label><input class="userName" type="text"></span>
+    <span><label>密码:</label><input type="text"></span>
+    <div><input type="submit" class="btn" value="确定"></div>
+    
+</div>-->
+
+
+</body>
+</html>

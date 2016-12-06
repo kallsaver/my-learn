@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+
+<!--input类型要写checkbox-->
+<input id="checkAll" type="checkbox"><label>全选</label><br>
+<div>
+	<input type="checkbox"><input type="checkbox"><input type="checkbox"><input type="checkbox">
+</div>
+
+</body>
+</html>
+<script>
+	var checkAll=document.getElementById('checkAll');
+	var oDiv=document.getElementsByTagName('div')[0];
+	var aInput=oDiv.getElementsByTagName('input');
+	//alert(aInput.length)
+	
+	//点击checkAll 如果checkAll是选中的，aInput4个也选中
+	var n=0;		
+	checkAll.onclick=function(){
+		for(var i=0; i<aInput.length; i++){
+			if(this.checked==true){
+				//type为checkbox的input框的特殊属性
+				aInput[i].checked=true;
+				n=4;
+			}
+			else{
+				aInput[i].checked=false;
+				n=0;
+			};
+		}
+	}
+	/*点击check 检测n>=4,true,check=checked..*/
+
+for(var i=0; i<aInput.length; i++){
+	aInput[i].onclick=function(){
+		
+		if(this.checked==true){
+			n++;
+		}else{
+			n--;
+		}
+		
+		//这里n是否等于4的判断要写在onclick事件里面,因为是发生onclick事件之后才判断,所以必须写在里面
+		//否则if马上就执行完毕
+		if(n==4){
+			checkAll.checked=true;
+		}else{
+			checkAll.checked=false;	
+		}
+
+		
+	}
+		
+}
+
+
+    
+</script>

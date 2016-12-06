@@ -1,0 +1,66 @@
+事件
+
+表单事件
+onblur	        元素失去焦点
+onfocus	        元素获得焦点
+onreset	        重置按钮被点击
+onsubmit	提交按钮被点击
+onchange	用户改变域的内容
+
+鼠标事件
+onclick	        鼠标点击
+ondblclick	鼠标双击
+onmousedown	某个鼠标按键被按下
+onmousemove	鼠标被移动
+onmouseout	鼠标从某元素移开
+onmouseover	鼠标被移到某元素之上
+onmouseenter
+onmouseup	某个鼠标按键被松开
+onmouseleave
+
+键盘事件
+onkeydown	某个键盘的键被按下
+onkeypress	某个键盘的键被按下或按住
+onkeyup	        某个键盘的键被松开
+
+window事件
+onload	        某个页面或图像被完成加载
+onunload	用户退出页面
+onresize	窗口或框架被调整尺寸
+
+------------------------------------------------------------
+事件对象
+键盘
+ctrlKey  "Ctrl" 是否被按下    ctrlKey==1
+altKey	 "Alt" 是否被按下      altKey==1
+shiftKey "Shift" 键是否被按下  shiftKey==1
+
+鼠标
+button	 鼠标按钮 0 1 2
+clientX	 鼠标指针的水平坐标
+clientY	 鼠标指针的垂直坐标
+
+-----------------------------------------------------------
+offset占位(只读属性)
+
+offsetWidth  可视宽度
+offsetHeight 可视高度
+offsetLeft   左定位距离
+offsetTop    上定位距离
+offsetParent 相邻最近具有position属性的父级
+
+----------------------------------------------------------
+阻止默认事件
+
+return false;
+
+---------------
+
+var oEv=ev || window.event;//ie8以下兼容
+
+if(window.event){//iE
+	oEv.returnValue=false;
+	return false;//ie9以上
+}else{
+	oEv.preventDefault();//w3c
+}

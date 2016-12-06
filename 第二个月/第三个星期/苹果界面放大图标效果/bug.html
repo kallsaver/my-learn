@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0;padding:0;font-size:0px;}
+/*定位absolute虽然是内容撑开  但是设置width:100%依然可以把宽度设为父级的宽度大小*/
+
+.box{position:absolute ;bottom:0px;text-align:center;width:100%;}
+
+/*父级元素没加position 子元素的offsetLeft是相对屏幕的  父元素加定位 子元素不用加定位 offsetLeft的值是距离父元素的左边的距离 offsetLeft的值包含margin-left的值*/
+
+ul{list-style:none;display:inline-block;}
+.clear:after{ content:'200B'; display:block; line-height:0px; font-size:0px; clear:both}
+li{float:left;width:60px;height:60px;margin:0px 5px;}
+img{width:100%;height:100%}
+
+</style>
+<script>
+//鼠标经过触法区域 li的图片会变大
+window.onload=function(){
+	var box=document.getElementsByTagName("div")[0];
+	var ul=document.getElementsByTagName("ul")[0];
+	var aLi=document.getElementsByTagName("li");
+	var screenH=document.documentElement.clientHeight;
+	
+	
+/*		for(var i=0;i<aLi.length;i++){
+			aLi[i].style.left=aLi[i].offsetLeft+"px";
+				alert(aLi[i].offsetLeft)			
+		}
+		//正循环也可实现居中布局 只不过ul的height变成0了会造成页面的晃动;
+		ul.style.display="block";
+		ul.style.height="100px";
+		for(var j=0;j<aLi.length;j++){
+			aLi[j].style.position="absolute";
+		}*/
+		
+		
+		for(var i=aLi.length-1;i<=0;i--){
+			aLi[i].style.left=aLi[i].offsetLeft+"px";
+			aLi[i].style.position="absolute";
+		}
+		
+		document.onmousemove=function scale(ev){
+			ev=ev||event;
+			
+			  var a=Math.abs(ev.clientX-0.5*aLi[0].offsetWidth-aLi[0].offsetLeft);
+			  var b=screenH-ev.clientY-0.5*aLi[0].offsetHeight;
+			  
+			  var c=Math.sqrt(a*a+b*b);
+			  
+			  console.log(a,b,c)
+			  
+			  var rate=1-c/500;
+			  if(rate<0){
+			  rate=0;
+			  }
+			  
+			  var w=rate*60+60;			
+			  aLi[0].style.width=w+"px";
+			  aLi[0].style.height=w+"px";
+						
+		}				
+}
+
+</script>
+</head>
+
+
+<body>
+<div class="box">
+	<ul class="clear">
+    	<li><img src="01.png"></li>
+    	<li><img src="02.png"></li>
+    	<li><img src="03.png"></li>
+    	<li><img src="01.png"></li>
+    	<li><img src="02.png"></li>
+    	<li><img src="03.png"></li>
+    </ul>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0px;padding:0px;font-size:0px;}
+.big{width:500px;border:1px solid red;height:500px;font-size:0px;background:#EBC8C9;margin:200px auto;}
+
+.box{width:300px;height:300px;margin:100px;background:green;border:1px solid red;}
+
+.box span{width:50px;height:50px;background:#3E9CBD;display:block;margin:125px;border:1px solid red;}
+
+/*span的margin-top:125传递给box 所以box的margin-top:125把box的margin-top:100冲掉*/
+</style>
+<script>
+window.onload=function(){
+	
+	var big=document.getElementsByClassName("big")[0];
+	var box=document.getElementsByClassName("box")[0];
+	var span=document.getElementsByTagName("span")[0];
+	var parent = span.offsetParent; 
+	var body=document.getElementsByTagName("body")[0]
+	if(body.offsetParent==null){
+		alert(1)
+	}
+}
+
+</script>
+
+
+</head>
+
+<body>
+<div class="big">
+	<div class="box">
+    	<span></span>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>display方式循环banner</title>
+
+<style type="text/css">
+*{margin:0px;padding:0px;font-size:0px;}
+
+button{width:20px;height:20px;text-align:center;line-height:20px;font-size:12px;color:#fff;background-color:pink;margin-right:30px;border:none;cursor:pointer;}
+
+.pic{margin:200px auto;width:400px;height:260px;position:relative;overflow:hidden;}
+
+
+
+
+
+#console{width:200px;margin:20px auto;}
+
+
+</style>
+</head>
+
+<body>
+<div class="pic">
+	
+	<img src="../desk/banner/01.jpg">
+    <img src="../desk/banner/02.jpg">
+    <img src="../desk/banner/03.jpg">
+    <img src="../desk/banner/04.jpg">
+    
+    <div id="before"><</div>
+    <div id="after">></div>
+	
+</div>
+
+<div id="console">
+	<button>1</button>
+	<button>2</button>
+	<button>3</button>
+	<button>4</button>
+
+    
+</div>
+
+
+
+
+</body>
+</html>
+<script>
+
+
+
+var aImg=document.getElementsByTagName("img");
+
+var aBtn=document.getElementsByTagName("button");
+
+//点击对应的数字对应的图片显示
+
+function show_img(n){
+	for(var i=0;i<aImg.length;i++){
+		aImg[i].style.display="none";
+		aBtn[i].style.background="pink";
+	}
+	
+	aImg[n].style.display="block";
+	aBtn[n].style.background="red";
+	
+	
+	}
+	
+aBtn[0].onclick=function(){
+	show_img(0);	
+	
+}	
+
+
+aBtn[1].onclick=function(){
+	show_img(1);	
+	
+}	
+
+aBtn[2].onclick=function(){
+	show_img(2);	
+	
+}	
+
+aBtn[3].onclick=function(){
+	show_img(3);	
+	
+}	
+
+</script>

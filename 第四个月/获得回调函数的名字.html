@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+	function gos(a){
+		a++;
+		console.log(a)
+	}
+
+	function run(fn){
+		if(fn){
+			alert(arguments.callee.name)
+		}
+		
+	}
+	
+	run(gos)
+
+</script>
+</html>

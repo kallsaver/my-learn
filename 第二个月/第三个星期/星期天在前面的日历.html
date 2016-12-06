@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0px;padding:0px;font-size:0px;}
+.calendar{width:600px;height:550px;border:1px solid black;text-align:center;margin:100px auto;}
+
+ul{list-style:none;display:inline-block;margin-top:50px;}
+
+.clear:after{content:"200B";display:block;font-size:0px;line-height:0px;clear:both;*zoom:1;}
+
+.week{border-bottom:1px solid green;}
+li{float:left;width:80px;height:40px;font-size:16px;line-height:40px;}
+
+h3{font-size:20px;line-height:100px;color:red;}
+
+.date{width:560px;margin-top:50px;}
+
+.date li{float:20px;}
+</style>
+<script>
+window.onload=function(){
+	var Ocaldendar=document.getElementsByClassName("calendar")[0];
+	var Odate=document.getElementsByClassName("date")[0];
+	
+	//时间实例化
+	var four=new Date();
+	
+	//get.Month等返回值得数据类型是number
+	var year=four.getFullYear();
+	
+	var month=four.getMonth();
+	
+	var today=four.getDate();
+	
+	
+	
+	//把时间拨到下个月的第0天  也就是这个月的最后一天
+	four.setMonth(month+1,0); 
+	
+	//这一天的号码就是这个月的天数
+	var fullday=four.getDate();
+	
+	//把时间拨到这个月的第一天 求这天的星期号码   four.getDay 0代表星期天 1代表星期一
+	four.setDate(1);
+	
+	var firstday_week=four.getDay();
+	
+	//alert(firstday_week);
+	
+	//插入空的li 个数为这个月第一天的星期号码
+	for(var i=0;i<firstday_week;i++){
+		var li=document.createElement("li");		
+		Odate.appendChild(li);
+	}
+	
+	for(var i=0;i<fullday;i++){
+		var li=document.createElement("li");		
+		li.innerHTML=i+1;
+		Odate.appendChild(li);
+		
+	}
+
+
+}
+
+
+</script>
+
+</head>
+<body>
+<div class="calendar">
+	<h3>2016年9月</h3>
+    <ul class="week clear">
+    	<li>星期天</li> 
+    	<li>星期一</li>
+    	<li>星期二</li>
+    	<li>星期三</li>
+    	<li>星期四</li>
+    	<li>星期五</li>
+    	<li>星期六</li>   	 
+    </ul>
+    
+    <ul class="date clear"></ul>
+
+</div>
+</body>
+</html>

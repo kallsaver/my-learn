@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script>
+window.onload=function(){
+	var money=3;
+	
+	function myhome(x){
+		//var money=3;
+		var a=3;
+		return function(y){
+			console.log("x+y+money:   "+(x+y+money));
+			x++;
+			money++;
+			
+		};
+	};
+	
+	//把匿名函数给key key就是一个闭包 key的数据类型就是一个函数了 并且这个匿名函数是有参数的  
+	var key=myhome(2);
+	
+	//10的值传给y	
+	key(10);
+	//a是找不到的 因为在全局里面没有申明 但是money(最顶级变量)的值改变了 说明 匿名函数里面的内容被扔到全局里面了 myhome函数是全局的第二级函数  变量有最顶级的第一级变量 函数的最顶级是第二级
+	console.log("money:  "  +money)
+	//console.log("a:  "  +a)
+	//alert(x)
+	key(10);
+	console.log("money:  "  +money)
+	
+	//闭包可以读取函数内部的变量
+	//另一个是让这些变量的值始终保持在内存里而没有运行完后立即释放
+}
+	
+	
+
+</script>
+
+</head>
+
+<body>
+</body>
+</html>

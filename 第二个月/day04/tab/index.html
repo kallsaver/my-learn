@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{ margin:0;  padding:0}
+body{ padding:20px}
+#box{ width:400px; height:260px; border:1px solid #ccc; margin-bottom:10px}    
+button{ border:none; background:#ccc; width:30px; height:30px; margin-left:10px}
+.ac{ background:red; color:#fff;}
+.hide{ display:none}    
+</style>
+</head>
+
+<body>
+<div id="box">
+	<img src="01.jpg">
+    <img class="hide" src="02.jpg">
+    <img class="hide" src="03.jpg">
+</div>
+<button class="ac" type="button">1</button><button type="button">2</button><button type="button">3</button>
+
+<script>
+	var aBtn=document.getElementsByTagName('button');//获取所有的按钮
+	var aImg=document.getElementsByTagName('img');//获取所有图片
+	
+	//谁  事件 让谁 干啥
+	for(var i=0; i<aImg.length; i++ ){
+		
+		
+		//按钮绑事件
+		aBtn[i].onclick=function(){
+			
+			for( var j=0; j<aImg.length; j++){
+				//全部删除ac
+				aBtn[j].className='';
+				//隐藏了所有图片
+				aImg[j].style.display='none';
+			};
+			//给自己加上ac
+			this.className="ac";
+			//让与我的编号相同的图片，显示出来
+			aImg[this.index].style.display="block";
+		};
+		
+		//发编号
+		aBtn[i].index=i;
+		
+	}
+	
+	
+</script>
+
+</body>
+</html>

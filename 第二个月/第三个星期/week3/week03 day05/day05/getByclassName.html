@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<div class="box">
+</div>
+<ul>
+	<li class="box"></li>
+    <li class="box ac hide"></li>
+    <li class="box"></li>
+</ul>
+<p class="box myBox"></p>
+
+
+</body>
+</html>
+<script>
+	var ss="as sad fasf sdf sa fsd eqwers dfsdfasdf";
+	
+	alert(   ss.indexOf('sa5656')   );
+	
+
+
+
+
+
+	//var aBox=document.getElementsByClassName('box');
+	//alert(aBox.length)
+	function getByClass(cls,oParent){//class名字  范围(父级)
+		//如果是新浏览器，支持原生方法
+		if(document.getElementsByClassName){
+			return oParent.getElementsByClassName(cls);
+		}else{
+			//声明了一个空数组作为容器
+			var arr=[];
+			
+			//找到所有子元素
+			var elements=oParent.getElementsByTagName('*');
+			
+			//循环比对
+			for(var i=0; i<elements.length; i++){
+				if(elements[i].className.indexOf(cls)){
+					arr.push(elements[i]);
+				}
+			};
+			
+			//把数组返回出去
+			return arr;
+		}
+	};
+	
+	
+	var aBox=getByClass('box',document);
+	alert(aBox.length)
+
+</script>

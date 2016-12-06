@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script>
+/*   function  a(callback){
+      alert('a');
+      callback.call(this)
+   }
+   function  b(){
+       alert('b');
+   }
+   调用
+   a(b);   //先弹a再弹b*/
+   
+   
+   
+function  c(callback){
+      alert('c');
+      callback.call(this,'d');
+    }
+//调用  e是形参
+c(function(e){
+	alert(this)
+    alert(e);
+});
+
+</script>
+
+</head>
+
+<body>
+</body>
+</html>

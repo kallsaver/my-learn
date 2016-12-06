@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+.protected{width:100px;height:100px;background:red;position:absolute;left:200px}
+.small{width:100px;height:100px;background:green;position:absolute;top:200px}
+
+</style>
+<script src="jQuery_lib/jquery-3.1.0.min.js"></script>
+</head>
+
+<body>
+<div class="protected a"></div>
+<div class="small"></div>
+</body>
+</html>
+<script>
+	$("div").click(function(){
+  if ( $(this).hasClass("protected") )
+    $(this)
+      .animate({ left: -10+"px" })
+      .animate({ left: 10 })
+      .animate({ left: -10 })
+      .animate({ left: 10 })
+      .animate({ left: 0+"px" });
+});
+
+</script>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="js/angular.min.js"></script>
+
+<script>
+	var myapp=angular.module("myapp",[])
+	myapp.controller("myCtrl",function($scope){
+		$scope.data=[
+			{
+				province:"河南省",
+			    cityList:[
+					{
+						city:"郑州市",
+						countyList:[
+							{county:'登封市',blockList:['aaa','bbb','ccc']},
+							{county:'新密市',blockList:['aaa','bbb','ccc']},
+							{county:'新郑市',blockList:['aaa','bbb','ccc']}
+						]
+					},
+					{
+						city:"洛阳市",
+						countyList:[
+							{county:'老城区',blockList:['aaa','bbb','ccc']},
+							{county:'洛宁县',blockList:['aaa','bbb','ccc']},
+							{county:'洛龙县',blockList:['aaa','bbb','ccc']}
+						]
+					},
+					{
+						city:"许昌市",
+						countyList:[
+							{county:'魏都区',blockList:['aaa','bbb','ccc']},
+							{county:'许昌县',blockList:['aaa','bbb','ccc']},
+							{county:'襄阳县',blockList:['aaa','bbb','ccc']}
+						]
+					}
+			 	]
+			},
+			
+			{
+				province:"四川省",
+			 	cityList:[
+					{
+						city:"成都市",
+						countyList:[
+							{county:'青羊区',blockList:['aaa','bbb','ccc']},
+							{county:'新都区',blockList:['aaa','bbb','ccc']},
+							{county:'邛崃市',blockList:['aaa','bbb','ccc']}
+						]
+					},
+					{
+						city:"绵阳市",
+						countyList:[
+							{county:'江油市',blockList:['aaa','bbb','ccc']},
+							{county:'三台县',blockList:['aaa','bbb','ccc']},
+							{county:'安州市',blockList:['aaa','bbb','ccc']}
+						]
+					},
+					{
+						city:"德阳市",
+						countyList:[
+							{county:'罗江县',blockList:['aaa','bbb','ccc']},
+							{county:'广汉县',blockList:['aaa','bbb','ccc']},
+							{county:'罗江县',blockList:['aaa','bbb','ccc']}
+						]
+					}
+				]
+			},
+			
+			{
+				province:"浙江省",
+			    cityList:[
+				  {
+					  city:"杭州市",
+					  countyList:[
+						  {county:'西湖区',blockList:['aaa','bbb','ccc']},
+						  {county:'余杭区',blockList:['aaa','bbb','ccc']},
+						  {county:'临安区',blockList:['aaa','bbb','ccc']}
+					  ]
+				  },
+			  
+				  {
+					  city:"舟山市",
+					  countyList:[
+						  {county:'岱山县',blockList:['aaa','bbb','ccc']},
+						  {county:'定海区',blockList:['aaa','bbb','ccc']},
+						  {county:'普陀区',blockList:['aaa','bbb','ccc']}
+					  ]
+				  },
+				  
+				  {
+					  city:"宁波市",
+					  countyList:[
+						  {county:'江北区',blockList:['aaa','bbb','ccc']},
+						  {county:'江东区',blockList:['aaa','bbb','ccc']},
+						  {county:'宁海县',blockList:['aaa','bbb','ccc']}
+					  ]
+				  }
+			 ]
+		  },
+		]
+	})	
+</script>
+</head>
+
+<body ng-app="myapp" ng-controller="myCtrl">
+<div class="panel panel-primary">
+	<div class="panel-heading">级联菜单</div>
+    <div class="panel-body">
+    	<select ng-model="selectedProvince"
+             	ng-options="item as item.province for item in data">
+        	<option value="">--请选择省份--</option>
+        </select>
+        
+        <!-- city for city in selectedProvince.cities 相当于
+             city as city for city in ["郑州市","洛阳市","开封市"]
+             var city = "郑州市"
+          -->
+    	<select ng-model="selectedCity" ng-options="item as item.city for  item in selectedProvince.cityList">
+        	<option value="">--请选择城市--</option>
+        </select>
+        
+        <select ng-model="selectedCounty" ng-options="item as item.county for item in selectedCity.countyList">
+        	<option value="">--请选择区县--</option>
+        </select>
+        
+        <select ng-model="selectedBlock" ng-options="item for item in selectedCounty.blockList">
+        	<option value="">--请选择街道--</option>
+        </select>
+        <br><br>
+        <p class="panel-primary">{{selectedProvince.province}} {{selectedCity.city}} {{selectedCounty.county}} 	{{selectedBlock}}</p>
+    </div>
+    
+    
+</div>
+</body>
+</html>

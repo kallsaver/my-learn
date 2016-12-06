@@ -1,0 +1,25 @@
+<ion-view view-title="我的预订">
+    <ion-content>
+        <div class="list">
+            <div class="item item-icon-left">
+                <i class="icon ion-key"></i> 房间号：{{reservation.room}}
+            </div>
+            <div class="item item-icon-left">
+                <i class="icon ion-calendar"></i>
+                入住日期：{{reservation.checkin | date:"yyyy年MM月dd日"}}
+            </div>
+            <div class="item item-icon-left">
+                <i class="icon ion-calendar"></i>退房日期：{{reservation.checkout | date:"yyyy年MM月dd日"}}
+            </div>
+            <div class="item item-icon-left">
+                <i class="icon ion-wifi"></i>WIFI：{{reservation.wifi}}
+            </div>
+            <div class="item item-icon-left">
+                <i class="icon ion-pricetag"></i>单价：{{reservation.price | currency:"RMB ￥"}}
+            </div>
+            <div class="item item-icon-left">
+                <i class="icon ion-pricetag"></i>总金额：{{reservation.price * 7 | currency:"RMB ￥"}}
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--将DOM的管理交给Angular框架的myapp这个模块来负责-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>demo02_自定义过滤器2</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!--引入angular库-->
+    <script src="js/angular.min.js"></script>
+    <script>
+        // step 1 :先创建一个主模块
+      var myapp=angular.module("myapp",[]);
+
+        // 实现一个自定义的敏感词过滤器
+        // 实现原理：输入原始内容 => 转换为一个新的内容，返回并显示
+      myapp.filter("wordFilter",function($scope){
+            // 被过滤的内容作为参数传入(比如：输入一头猪)
+            // 敏感词过滤: 枪，台独
+            return function (word){
+//                return angular.isUndefined(word)?"":"羊肉串";
+//                return word.replace(/枪|台独/g,"*");
+                return word.replace(/枪|台独|法轮功/g,function(w){
+                    var content = "";
+                    for(var i=0;i< w.length;i++){
+                        content += "*";
+                    }
+                    return content;
+                });
+            };
+        });
+
+        // 声明一个控制器
+        myapp.controller("MyCtrl",function($scope){
+            $scope.message = "";
+        });
+    </script>
+</head>
+<body class="container" ng-app="myapp" ng-controller="MyCtrl">
+<div class="panel panel-primary">
+    <div class="panel-heading text-center"><h4>自定义过滤器</h4></div>
+    <div class="panel-body">
+        <p><input type="text" class="form-control" ng-model="message"></p>
+        <p class="well">{{message | wordFilter}}</p>
+    </div>
+</div>
+</body>
+</html>

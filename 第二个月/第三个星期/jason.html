@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script>
+window.onload=function(){
+	var man={
+		"name" : "张三",
+		
+		"age" : 18,
+		
+		"live" : "北京"
+	
+	}
+	
+	
+	//拿到一个对象的属性 有两种方式 一种是用点语法  一种是用数字的方式
+	
+	//alert(man.name); alert(man["name"])
+	
+	/*for(var key in man){
+		//alert(key);
+		
+		//alert(man[key]); 
+		
+		console.log(key,man[key]);
+		
+	}*/
+	
+	
+	var kong={};
+	
+	//把man的内容加到 另一个jason kong{}中
+	
+	for(var key in man){
+	
+		kong[key]=man[key];
+		console.log(key,kong[key])
+		
+	}
+	
+	
+}
+
+</script>
+
+
+</head>
+
+<body>
+
+</body>
+</html>

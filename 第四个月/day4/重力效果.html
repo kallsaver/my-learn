@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{margin: 0px;padding: 0px;}
+	#div1{width: 100px;height:100px;background: red;position: absolute;cursor: pointer;border-radius: 50%;}
+	div{width: 3px;height: 3px;background: black;position: absolute;}
+	</style>
+</head>
+<body>
+	<div id = 'div1'></div>
+</body>
+<script>
+	var oDiv = document.getElementById('div1');
+	//拖曳
+	var lastX = 0;
+	var lastY = 0;
+	oDiv.onmousedown = function (ev){
+		 var ev = ev || event;
+		 var disX = ev.pageX - oDiv.offsetLeft;
+		 var disY = ev.pageY - oDiv.offsetTop;
+		 document.onmousemove = function (ev){
+		 	var ev = ev || event;
+		 	var l = ev.pageX - disX;
+		 	var t = ev.pageY - disY;
+		 	oDiv.style.left = l + 'px';
+		 	oDiv.style.top = t + 'px';
+		 	iSpeedX = l - lastX;
+		 	iSpeedY = t - lastY;
+		 	lastX = l;
+		 	lastY = t;
+		 }
+		 document.onmouseup = function(){
+		 	document.onmousemove = null;
+		 	document.onmouseup = null;
+		 	startMove();
+		 }
+		 clearInterval(timer);
+	}
+	var timer = null;
+	function startMove(){
+	var nowX = oDiv.offsetLeft;
+	var nowY = oDiv.offsetTop;
+	clearInterval(timer);
+	timer = setInterval(function(){
+		iSpeedY +=3
+		nowX+=iSpeedX;
+		if(nowX>document.documentElement.clientWidth-oDiv.offsetWidth)
+		{
+			iSpeedX *= -0.8;
+			nowX = document.documentElement.clientWidth-oDiv.offsetWidth;
+		}else if(nowX<0)
+		{
+			iSpeedX *= -0.8;
+			nowX = 0;
+		}
+		nowY+=iSpeedY;
+		if(nowY>document.documentElement.clientHeight-oDiv.offsetHeight)
+		{
+			iSpeedY *= -0.8;
+			iSpeedX *=0.8
+			nowY = document.documentElement.clientHeight-oDiv.offsetHeight;
+		}else if(nowY<0)
+		{
+			iSpeedY *= -1;
+			iSpeedX *= 0.8;
+			nowY = 0;
+		}
+		if(Math.abs(iSpeedX)<1)
+		{
+			iSpeedX = 0;
+			
+		}
+		if(Math.abs(iSpeedY)<1)
+		{
+			iSpeedY = 0 ;
+		}
+		if(iSpeedX ==0&&iSpeedY ==0&&nowY ==document.documentElement.clientHeight-oDiv.offsetHeight)
+		{
+			clearInterval(timer);
+		}
+		oDiv.style.left = nowX + 'px';
+		oDiv.style.top = nowY + 'px';
+	},30) 
+	}
+</script>
+</html>

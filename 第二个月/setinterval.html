@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<div class="big" style="width:100px;height:100px;background-color:red;"></div>
+
+
+<button>延时掩藏div</button>
+
+</body>
+</html>
+
+<script>
+ var button=document.getElementsByTagName("button")[0];
+ var div=document.getElementsByTagName("div")[0];
+ 
+ button.onclick=run;
+ 
+ div.onclick=stop;
+ 
+ var n=100;
+ var timer;
+ 
+ //调用run的是button 所以this是button  调用setTimeout的是window 所以它的this是window
+ 
+function run(){
+	//定时器可以累加 加速  先清定时器可以不累加
+	clearInterval(timer);					
+	timer=setInterval(function(){
+		
+		n+=10;
+		div.style.width=n+'px';
+
+		}
+	,30);
+	
+	
+	
+}
+	
+	
+function stop(){
+	clearInterval(timer);
+	
+}
+
+
+</script>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+body{height: 2000px}
+*{margin:0;padding:0;font-size:0px;}
+label{font-size:14px;}
+button{width:100px;height:40px;font-size:14px;}
+ul{list-style:none;}
+
+li{width:300px;height:100px;margin-top:40px;background-color:#ccc;position:relative;font-size:20px;line-height:100px;text-align:center;color:black;}
+
+.pop{width:80px;height:200px;background:green;position:absolute;left:350px;top:0px;}
+
+.triangle{width:0px;height:0px;border-top:20px solid transparent;border-bottom:20px solid transparent;border-right:20px solid green;position:absolute;left:330px;top:30px;}
+
+
+
+</style>
+<script>
+
+
+
+//事件1:每个li鼠标移动上去,右边出现个弹窗  鼠标移到另外一个li上弹窗消失 
+
+//事件2:li的位置处于屏幕的上方时 弹窗的定位偏上 li的位置处于屏幕的下方时 弹窗的定位偏下
+
+//事件3:点击button 显示ul
+window.onload=function(){
+	var button=document.getElementsByTagName("button")[0];
+	var arr=["1","2","3","4","5","6","7","8","9","10","11","12","13","14"];
+	var screenH=document.documentElement.clientHeight;
+	
+	
+			
+			
+			
+			button.onclick=function(){
+				//1.创建ul
+				var ul=document.createElement("ul");		
+				
+				//2.创建li 并把li插入ul
+				for(var i=0;i<arr.length;i++){
+					var li=document.createElement("li");
+					li.innerHTML=arr[i];
+					ul.appendChild(li);
+				}
+				//3.最后才把ul插入body中
+				document.body.appendChild(ul);
+		
+				var aLi=document.getElementsByTagName("li");
+				//var html='<div class="pop"></div><div class="triangle"></div>';
+				//1.创造一个div标签对象
+				var oPop=document.createElement("div");
+				var oTri=document.createElement("div");
+				//2.给创造的div标签加上预设好的样式
+				
+				oPop.className="pop";
+				oTri.className="triangle";
+				for(var i=0;i<aLi.length;i++){
+					aLi[i].onmousemove=function(ev){
+						ev=ev||event;
+						console.log(ev.clientY)
+						for(var j=0;j<aLi.length;j++){
+							aLi[j].innerHTML=arr[j];				
+						}
+						
+						//this.innerHTML+=html;
+						//3.给创造的div标签加到它的父元素中  这样它才会显示
+						this.appendChild(oPop);
+						this.appendChild(oTri);
+						if(ev.clientY>=0.5*screenH){
+							oPop.style.top=-100+"px";
+						}
+						
+						if(ev.clientY<0.5*screenH){
+							oPop.style.top=0+"px";
+						}
+						
+						
+					}
+				}
+			
+			}
+	
+	
+}
+
+</script>
+
+
+</head>
+
+<body>
+<button type="button">点击出来列表</button>
+</body>
+</html>

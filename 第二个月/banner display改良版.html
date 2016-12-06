@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>display方式循环banner</title>
+<script>
+window.onload=function(){
+	
+	function show(id){
+		
+		//在结构中根据图片数量添加button
+		var mo=document.getElementById(id);	
+		//id里面不可以找id;	
+		var pic=mo.getElementsByTagName("div")[0];	
+			
+		var aImg=mo.getElementsByTagName("img");
+		var html="";
+		var html1="";
+		
+		html1="<div></div>"
+		pic.innerHTML+=html1;
+		var consolo=pic.getElementsByTagName("div")[0];
+		//记得给div添加名字加"";
+		consolo.id="consolo";
+		
+		
+	for(var i=0;i<aImg.length;i++){
+			html="<button>"+(i+1)+"</button>";
+			consolo.innerHTML+=html;		
+		}	
+		
+		
+		var aBtn=mo.getElementsByTagName("button");
+		//
+		for(var j=0;j<aImg.length;j++){
+			aBtn[j].index=j;
+			aBtn[j].onclick=function(){
+				for(var n=0;n<aImg.length;n++){
+					aBtn[n].className="";
+					aImg[n].style.display="none";
+					
+				}				
+				aImg[this.index].style.display="block";
+				this.className="ac";
+			}
+
+		}
+	}
+	//注意封装时的格式
+	show("mo1");
+	show("mo2");
+	show("mo3");
+	
+}
+
+</script>
+
+
+<style type="text/css">
+*{margin:0px;padding:0px;font-size:0px;}
+
+button{width:20px;height:20px;text-align:center;line-height:20px;font-size:12px;color:#fff;background-color:pink;margin-right:30px;border:none;cursor:pointer;}
+
+
+#pic{margin:200px auto;width:400px;height:260px;position:relative;overflow:hidden;}
+.ac{background-color:red;}
+
+#consolo{width:200px;margin:20px auto;position:absolute;bottom:0px;z-index:1;left:50%;transform:translateX(-50%);}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+<div id="mo1" class="picTab">
+    <div id="pic">
+        
+        <img src="../desk/banner/01.jpg">
+        <img src="../desk/banner/02.jpg">
+        <img src="../desk/banner/03.jpg">
+        <img src="../desk/banner/04.jpg">
+        
+        <div id="before">< </div>
+        <div id="after">></div>
+        
+    </div>
+    
+        
+    
+</div>
+
+<div id="mo2" class="picTab">
+    <div id="pic">
+        
+        <img src="../desk/banner/01.jpg">
+        <img src="../desk/banner/02.jpg">
+        <img src="../desk/banner/03.jpg">
+        <img src="../desk/banner/04.jpg">
+        
+        <div id="before"><</div>
+        <div id="after">></div>
+        
+    </div>
+
+</div>
+
+<div id="mo3" class="picTab">
+    <div id="pic">
+        
+        <img src="../desk/banner/01.jpg">
+        <img src="../desk/banner/02.jpg">
+        <img src="../desk/banner/03.jpg">
+        <img src="../desk/banner/04.jpg">
+        
+        <div id="before"><</div>
+        <div id="after">></div>
+        
+    </div>
+
+</div>
+
+
+
+</body>
+</html>
+
