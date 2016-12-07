@@ -8,7 +8,7 @@
 <body>
 </body>
 <script>
-	
+	//主函数递归
 	function mulit(n){
 		if(n==1){
 			return 1;
@@ -16,6 +16,7 @@
 		else{
 			return n*arguments.callee(n-1)
 		}
+		//或者写成一句话     n==1?return 1:return n*arguments.callee(n-1) 
 	}
 
 	
@@ -26,6 +27,6 @@
 	
 	alert(c(6));
 	
-	alert(mulit)
+	alert(mulit);
 </script>
 </html>
