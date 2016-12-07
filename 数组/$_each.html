@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>each()方法</title>
+    <script src="jQuery_lib/jquery-3.1.0.min.js"></script>
+    <script>
+        // 1)迭代数组
+        var oneArr = ["one","two","three"];
+        /*
+        $.each(数组,回调函数)方法：迭代一个数组
+        回调函数接收两个参数：
+            参数index:是当前元素的索引值
+            参数n:是当前元素的值
+        如果回调函数返回false，则中止迭代(相当于for语句中的break)
+        如果回调函数返回true值，则中止当前元素的迭代，立即开始下
+            一个元素的迭代(相当于for语句中的continue)
+         */
+		 //返回值是自身   $.each和$.map都有遍历数组的作用  each是做判断用的  map只是处理所有的数据
+		/* var a=[]
+        $.each(oneArr,function(index,n){
+            if(index == 2)  return false;
+			
+			a.push(n)
+            //console.log("index=" + index + ", n=" + n);
+			
+        });
+		alert(a)*/
+        // 2)迭代对象	
+       /* var oneObj = {one:1,two:"tw",three:3};
+        迭代对象时，回调函数的两个参数，分别是对象的属性名称和属性值*/
+        /*$.each(oneObj,function(prop,n){
+            if(prop == "two") return true;  // return true; 相当于 continue
+            console.log(prop + "," + n);
+        });*/
+		
+		 var oneObj = {one:1,two:"tw",three:3};
+		 var a={}
+			/*for(var key in oneObj){
+				a[key]=oneObj[key]
+			}
+		console.log(a)*/
+        /*迭代对象时，回调函数的两个参数，分别是对象的属性名称和属性值*/
+        $.each(oneObj,function(prop,n){
+           if(!isNaN(n)){
+				
+			a[prop]=oneObj[prop]
+		   }
+        });
+		console.log(a)
+		//console.log(oneObj)
+    </script>
+</head>
+<body>
+</body>
+</html>

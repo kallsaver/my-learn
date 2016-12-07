@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin:0;padding:0}
+			p{width:200px;height: 50px;line-height: 50px;background: peru;margin-bottom:20px;}
+		</style>
+	</head>
+	<body>
+		<p>1</p>
+		<p>2</p>
+		<p>3</p>
+		<p>4</p>
+		<p>5</p>
+		<p>6</p>		
+	</body>
+	<script>
+		//Javascript中存在一种名为伪数组的对象结构。
+		//比较特别的是 arguments 对象，
+		//还有像调用 getElementsByTagName,document.childNodes之类的
+		//它们返回NodeList对象都属于伪数组。
+		//不能应用 Array下的 push , pop 等方法。
+		//但是我们能通过 Array.prototype.slice.call转换为真正的数组的带有 length属性的对象,
+		//这样 domNodes 就可以应用 Array 下的所有方法了。
+		
+		var aP=document.getElementsByTagName("p");
+		var arr=Array.prototype.slice.call(aP);
+		//console.log(arr)
+		//比如说 我想最后的倒数第二个p不弹1 其他点击弹1
+		arr.splice(-2,1)		//从arr中把倒数第二个元素切掉
+		
+		for(var i=0,length=arr.length;i<length;i++){
+			arr[i].onclick=function(){
+				alert(1)
+			}
+		}
+		
+		
+		
+		
+		
+		var a=["a","b","c","d"];
+		var b=a.slice();
+		console.log(b)
+		
+	</script>
+</html>

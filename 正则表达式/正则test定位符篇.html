@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var arr=new Array(102);
+		for(var i=0;i<arr.length;i++)arr[i]="p"+(i+1);
+		var str=arr.join("");
+		//console.log(str);
+		str="a"+str;
+		//console.log(str)		//"ap1p2..."
+		//想匹配到"p1~p99"
+		var a1=str.match(/^p1.*/g)	//null	//^一般是test用的
+		var a2=str.match(/p1.*/g)
+		console.log(a1)
+		console.log(a2)
+
+		
+	</script>
+</html>

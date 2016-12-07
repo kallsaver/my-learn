@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//对于是引用型数据 if比较的是它们的引用值是不是一样  
+		
+		var a={};
+		var b={};
+		var c={
+			name:"ccc"
+		}
+		var d=Object(c); //和d=c一样
+		console.log(d);
+		
+		if(a==b){		//比较的是引用值
+			alert(1)
+		}
+		
+		if(c==d){
+			alert(2)
+		}
+		
+	</script>
+</html>

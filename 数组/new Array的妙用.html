@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//当有多个参数时  都是元素
+		var a=new Array(7,0,1,2)
+		
+		console.log(a);
+	//当有一个参数是  这个参数是长度 这是个空数组	
+		var b=new Array(7)
+		
+		console.log(b)
+	
+	//应用1:  我要从0开始的100个平方数的数组
+	/*	var c = new Array(100);
+		for (var i = 0; i < x.length; i++)c[i]=i*i;
+		console.log(c)*/
+		
+	//应用2: 我要得到10个长度的"*",用一句代码实现
+		var d=new Array(11).join("*");		//最后一个元素没有分隔符 所以要+1
+		console.log(d)
+		
+		
+	//应用3:  我想var e=[{},{},{},{}]
+	
+		var e=new Array(10);
+		for(var i=0;i<e.length;i++)e[i]={};
+		console.log(e)
+	</script>
+</html>

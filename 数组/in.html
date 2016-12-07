@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function Student(){
+			this.type1="a student"
+		}
+		
+		var teacher={
+			type2:"a teacher"
+		}
+		var a={}
+		console.log(a)
+		a=Object.create(teacher);	//a有两个Object层 第一个Object层有type属性			
+		console.log(a);
+		a=new Student();
+		console.log(a)				//a有student层 两个Object层   第一个Object层type2:"a teacher"被冲掉了
+									//多了construtor:function Student(){}
+		
+	</script>
+</html>

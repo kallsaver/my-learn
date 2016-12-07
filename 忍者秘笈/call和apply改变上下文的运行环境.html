@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div></div>
+		<p></p>
+	</body>
+	<script>
+		//JavaScript函数存在定义时上下文和运行时上下文以及上下文是可以改变的这样的概念
+		
+		
+		function fruits(){	
+		}
+		
+		fruits.prototype={			//在上层Object加数据
+			color:"red",
+			say:function(){
+				alert(this.color)
+			}
+		}
+		
+		var apple=new fruits;		//apple是fruits的一个实例
+		console.log(apple)
+		apple.say();		//red;
+		
+		//但是如果我们有一个对象banana= {color : "yellow"},
+		//我们不想对它重新定义say方法那么我们可以通过 call或apply的say方法：
+		var banana={
+			color:"yellow"
+		}
+		//任何对象都可以通过call调用apply.speak方法
+		apple.say.call(banana) 	//yellow;
+		
+
+		
+		
+		/*//apply可以使数组降维		
+		//数组没有求元素最大值的方法  arr也没有  但是可以借助Math.max(a,b,c)
+		//Math.max(a,b,c)函数内部应该是这样写的 return max=最大值的那个参数
+		//这样的话对象,数组,甚至null都可以调用Math.max方法
+		var arr=[5,455,-120,-215,0];
+		var max=Math.max.apply(null,arr)
+		//或者
+		var max=Math.max.call(null,5,455,-120,-215,0);
+		//var max=Math.max.call(Math,5,455,-120,-215,0);	//借用方法
+		alert(max)*/
+		
+		/*//数组的很多方法  只有一些数据类型有length属性的才能借用 
+		//比如string,arguments(伪数组)
+		var domNodes = Array.prototype.slice.call(document.getElementsByTagName("*"));
+		console.log(domNodes);*/
+		
+		
+		
+	</script>
+</html>

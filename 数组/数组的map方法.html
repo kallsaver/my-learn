@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//map返回一个新数组		和$.map不同的是  有index参数  可以做对每一项做判断处理
+		//可以过滤用
+		var oldArr = [
+			{first_name:"Colin",last_name:"Toh"},
+			{first_name:"Addy",last_name:"Osmani"},
+			{first_name:"Yehuda",last_name:"Katz"}
+		];
+		
+		
+		var newArr=oldArr.map(function(item,index){
+				item.full_name=item.first_name+" "+item.last_name;
+				return item;
+		})
+		
+		console.log(newArr);
+		
+		//或者不希望有原来的属性出现:		
+		var Arr=oldArr.map(function(item,index){
+				var a={};
+				a.fullname=item.first_name+" "+item.last_name;//字符串赋值  拿到的不是引用了
+				return a;
+		})
+		
+		console.log(Arr)
+		
+		//拿值: 一维的
+		var take=[]; 
+		oldArr.map(function(item,index){
+				take[index]=item.first_name+" "+item.last_name;	//字符串赋值  拿到的不是引用了
+		})
+		
+		console.log(take)
+		
+	</script>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//splice是数组最强大的方法,可以接受3个以上的参数,但是它会改变原数组,返回被切开的新数组
+		
+		var arr=[0,1,2,3,4,5,6,7,8,9]
+		
+		//参数1:start 参数2:从start开始元素的数量  参数3+:从start索引位置新插入的元素
+		var a=arr.splice(4,3,0);	
+		
+		console.log(a)			//[4,5,6]	//返回切出来元素的新数组  和前面的两个参数有关
+		console.log(arr)		//[0,1,2,3,0,7,8,9]	//第start的索引值的位置插入0这个新元素
+		
+		//应用 :在想插入的位置插入新数组
+		
+		var arr1=[0,1,2,3,4,5,6,7,8,9];
+		
+		arr1.splice(5,0,"a","b")
+		
+		console.log(arr1)	//[0,1,2,3,4,"a","b",5,6,7,8,9]
+		
+		var arr2=[0,1,2,3,4,5,6,7,8,9];
+		
+		arr2.splice(-2,1)	//arr.splice(-2)会把[8,9]切掉
+		
+		console.log(arr2)	//[0,1,2,3,4,5,6,7,9]
+		
+	</script>
+</html>

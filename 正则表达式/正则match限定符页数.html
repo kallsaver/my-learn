@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	
+	<script>
+	//正则就是找共同点
+		var arr=new Array(103)
+		for(var i=0;i<arr.length;i++)arr[i]="p"+(i+1);
+		var str=arr.join("")	//p1p2p3....
+				
+		//匹配所有的页数:
+		var a1=str.match(/p[1-9][0-9]*/g);
+		console.log(a1);	//Array[103]
+		
+		//匹配p1到p99   	()和{}的配合	说明()内容的是每一个小块	{99}是固定限定符
+		var a2=str.match(/(p[1-9][0-9]*){99}/g);
+		console.log(a2)		//"p1~p99"
+		
+		//匹配到Array[99];		应该在g这里改  但是没有这种规则  可以通过改数组的长度
+		var a3=str.match(/p[1-9][0-9]*/g)	//Array[103] 大于99的元素
+		a3.length=99;
+		console.log(a3);
+		
+		//匹配p1到p99的错误写法;	
+		var a4=str.match(/p[1-9][0-9]?/g)	//p100会匹配到p10返回一个元素
+		console.log(a4)
+	</script>	
+</html>

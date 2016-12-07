@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="jquery-3.1.0.js"></script>
+	<script>
+	//1.$.each的第一个参数是对象时:
+		var oneObj = {one:1,two:"tw",three:3,four:{name:"john"}};
+		//$.each不是过滤函数  不需要返回true所以要在外面var一个变量直接拿值
+		//$.each返回值是oneObj	没有作用意义
+		//参数传进来的key是基本数据类型 在回调函数中改 对原对象是没有任何影响
+		//但是参数传进来的value可能还是对象  拿的是引用 这时候在回调函数中改 对原对象有影响
+		//demo1:
+		var a=$.each(oneObj,function(key,value){
+			if(key==="one"){
+				value=4;
+			}
+			
+			if(key==="four"){
+				value.name="aaa"
+			}
+			
+		})
+		
+		console.log(a);
+		console.log(oneObj);
+		
+		//demo2:  虽然$.each的return不像数组的filter函数那样使用  但是还是可以利用return结束 起到过滤
+		//不是filter函数  所以直接用一个变量拿值了
+		var take={};
+		//把two这项过滤掉				//本来想实现过滤奇数key,但是对象的key排列不好知道顺序
+		$.each(oneObj,function(key,value){	//each过滤强大之处是可以选择key或者value筛选都行
+			if(key==="two"){
+				return  ;//回调函数结束 进入下一个迭代
+			}
+			take[key]=value;
+		})
+		
+		console.log(take)
+		
+		//2.同理 $.each()第一个参数是数组时
+		//只是回调函数参数的意义不同而已    使用方法是一样的
+		var oneArr = ["one","two","three"]; 
+		$.each(oneArr,function(index,item){
+			
+		})
+		
+	</script>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var obj={}
+		var str1=new String("aa");
+		console.log(str1)		//有层
+		
+		var str2="aa"
+		console.log(str2)		//没有层
+		
+		//alert("aa".length)
+		//alert("aa".slice(0,1))
+		
+		String.prototype.add=function(){
+			alert("object")
+		}
+		
+		str2.add()				//弹
+		console.log(String.prototype)		//得到下层String
+		console.log(String.prototype.prototype)	//底层String不是构造函数 
+		//正确的写法:
+		//console.log(String.prototype.__proto__)
+		String.prototype.__proto__.reds=function(){
+			alert("reds")
+		}
+		
+		//str2.reds()			//弹
+		
+		//str1.reds()		//弹
+		obj.reds()			//弹
+		//console.log(str1)
+	</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//在javascript和jq中 凡是有回调函数的方法  都有迭代的作用
+		var arr=[
+  			{"name":"apple", "count": 2},
+  			{"name":"orange", "count": 5},
+  			{"name":"pear", "count": 3},
+  			{"name":"orange", "count": 16},
+		];
+		
+		
+		var newArr=arr.filter(function(item){
+			return item.name==="orange"			//如果return true 就filter出来
+		})
+		
+		
+		
+		
+		console.log(newArr)
+		console.log(arr)
+		var b=[]
+		b[0]=arr[0]; //拿到arr[0]的引用值
+		b[0].name="bbb"
+		console.log(arr[0].name)
+		arr[1].name="ooo"
+		console.log(newArr)		//数组的filter方法也是拿引用值  
+		
+		
+		
+	</script>
+</html>

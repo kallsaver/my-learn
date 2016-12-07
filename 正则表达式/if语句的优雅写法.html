@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var a=true||6		//惰性求值
+		var b=true&&6;
+		
+		console.log(a,b)	//true  6 
+		
+		var c=10;
+		//如果6等于6 那么c++
+		//一般写法:
+		/*if(b==6){
+			c++;
+		}
+		console.log(c)*/
+		
+		c+=b==6&&1;			//运算符的优先级   比较>逻辑>赋值
+		console.log(c)
+		
+		
+	</script>
+</html>

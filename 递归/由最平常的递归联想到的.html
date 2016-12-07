@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//num其实只是控制次数的 ,实现的功能是由+决定的
+		function sum(num){
+			if(num>1){
+				return num+arguments.callee(num-1)
+			}
+			else{
+				return 1;
+			}		
+		}
+		
+		//上面的传进来的是基本数据类型   
+		//如果传进来一个回调函数 
+		//for循环实现的功能,递归都能实现,所以递归要传进来一个number,控制执行的次数,
+		//回调函数的执行次数也可以通过arguments的个数来控制   这个就是2003年十全数的程序设计  
+		//回调函数的执行次数也可以把上面的arguments封装在一个数组中一起传进来  控制的次数可以由数组.length控制
+		//或者用外面的全局nummber,但是这是个不成熟的写法	
+		//当然arr可以不传 arr作为this,不然函数设计得很不人性化,arr参数要写两遍:
+		//未写完版:
+		function add(fn,arr,length){
+			if(typeof fn==="function"&&typeof length==="number"){
+				var b={
+					time:length
+				}
+				if(b.time>1){							
+					return fn(arr,b)	//事实上length是基本数据类型,通过传参的方法是不能在回调函数中改变主函数的值的
+				}						//应该把length封装在一个对象中
+				else{					//else即b.time==1时		
+					return arr;
+				};			
+			}
+			else{
+				throw TypeError("第一个参数是回调函数,第二个参数是number数据类型")
+			}
+		}
+		
+		
+	/*	add(function(arr,obj){
+			arr.push(1)
+		},arr,4)*/					//arr写了两遍
+		
+		
+		//改良版
+		//
+		var arr=[1,2,3]
+		Array.prototype.add=function(fn,length){
+			if(typeof fn==="function"&&
+			typeof length==="number"&&
+			Object.prototype.toString.call(this).slice(8,-1)==="Array"){
+				var b={
+					time:length
+				}
+				if(b.time>1){							
+					return fn(this,b)	//事实上length是基本数据类型,通过传参的方法是不能在回调函数中改变主函数的值的
+				}						//应该把length封装在一个对象中
+				else{					//else即b.time==1时		
+					return arr;
+				};			
+			}
+			else{
+				throw TypeError("error")
+			}
+		}
+		
+		arr.add(function(){
+			
+		},4)
+		//不想写了  实现的功能是处理一个数组里面的   可以看reduce的代码
+		
+		
+	</script>
+</html>

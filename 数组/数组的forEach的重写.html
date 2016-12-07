@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	function getArgs(func) {
+ // 先用正则匹配,取得符合参数模式的字符串.
+ // 第一个分组是这个: ([^)]*) 非右括号的任意字符
+ 		var args = func.toString().match(/function\s.*?\(([^)]*)\)/)[1];
+ // 用逗号来分隔参数(arguments string).
+ 		return args.split(",").map(function(arg) {
+  // 去除注释(inline comments)以及空格
+  			return arg.replace(/\/\*.*\*\//, "").trim();
+ 		}).filter(function(arg) {
+  // 确保没有 undefined.
+  			return arg;
+ 		});
+	}
+	
+	var arr=[59,21,58,48,8]
+	arr.length=10;			//arr是没有5—9项的
+	
+//if(!Array.prototype.forEach){
+	Array.prototype.forEach1=function(fn){
+		
+		if(typeof fn !="function"){
+			var name=getArgs(Array.prototype.forEach)[0]			
+			throw new TypeError( name+" is not a function")
+		}
+		//console.log(arguments[0]);
+		for(var i=0;i<this.length;i++){
+			if(i in this){						//防止arr.length>实际项目的做法
+				fn.call(this,this[i],i)
+			}			
+		}
+	}
+			
+	//arr.forEach(5)	//throw new TypeError( name+" is not a function")
+	
+	arr.forEach1(function(item,index){
+		item+=10;								//传参传的是基本数据类型;所以原数组就不会改变的
+	})
+	
+	console.log(arr)
+//}
+		
+		
+	</script>
+	
+	
+	
+</html>

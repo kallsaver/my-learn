@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//函数无法像对象那样无限加类  函数只有三层  上层Function 底层Function 底层Object 所以所有的函数__proto__都是底层Function
+	//一、所有构造器/函数的__proto__都指向Function.prototype，它是一个空函数（Empty function）	
+	console.log(Number.__proto__ === Function.prototype) 
+	console.log(Number.__proto__)	//	底层Function
+	console.log(Number.__proto__.__proto__)	//底层Object
+	// true			//Function.prototype是个空函数(底层Function)   Number就是Function层的  它是上层Function
+	//说明Number等都是构造器   这些构造器其实是Function的实例  	相当于Number=new Function() 那层
+	Boolean.__proto__ === Function.prototype 
+	// true
+	String.__proto__ === Function.prototype  
+	// true
+	Object.__proto__ === Function.prototype  
+	// true
+		Function.__proto__ === Function.prototype 
+	// true
+	Array.__proto__ ===Function.prototype   
+	// true
+	RegExp.__proto__ === Function.prototype  
+	// true
+	Error.__proto__ ===
+	Function.prototype   
+		// true
+	Date.__proto__ ===Function.prototype    
+	// true	
+	
+	
+	//但是
+	Math.__proto__ === Object.prototype  
+	// true
+	JSON.__proto__ === Object.prototype  
+	// true
+	</script>
+</html>

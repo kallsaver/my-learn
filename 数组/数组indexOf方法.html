@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var arr=["apple","orange","pear","aaa","bbb"]
+		
+		//数组的orange方法有这个元素就返回索引值,没有就返回-1  这样就不用一遍一遍for循环了
+		var a=arr.indexOf("aaa");   //3  
+		var b=arr.indexOf("ccc")
+		console.log(a)
+		console.log(b)  //返回-1说明没有这个元素
+		
+		//如果是多维数据结构:
+		var arr=[
+			{name:"aaa",price:"100"},
+			{name:"bbb",price:"200"},
+			{name:"ccc",price:"300"},
+		]
+		
+		var a=arr.indexOf({name:"aaa",price:"100"});
+		console.log(a)		//-1   说明indexOf方法只能比较基本数据类型 
+	</script>
+</html>

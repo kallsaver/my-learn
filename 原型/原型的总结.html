@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function student(){
+			this.type="a student"
+		}
+		
+		function hxsdStudent(){
+			this.type="a hxsdStudent"
+		}
+		
+		hxsdStudent.prototype=new student();
+		
+		var a=new hxsdStudent();
+		
+		console.log(a);
+		
+		var b=Object.create(a)
+		console.log(b)			//有一个上层hxsdStudent,下层hxsdStudent,都被改名为student
+		
+		hxsdStudent.prototype.add=function(){	//hxsdStudent是指构造函数  Object.create创造的层不能被检索
+			alert("add")
+		}										//在底层student加载该方法
+		
+		console.log(b.__proto__)	//底层hxsdStudent(被改名student)	得到的是一个层 是可以加数据的
+		
+		b.__proto__.speak=function(){	//在底层hxsdStudent(被改名student)加speak方法
+			alert("speak")
+		}
+		console.log(b)
+		
+		//或者:
+		student.prototype.loud=function(){		//底层的student的下一次 即底层Object加方法
+			alert("loud")
+		}
+		console.log(b)
+		
+		//关于原生层:
+		
+		var str=new String("aa")	//有上层String构造函数层  下层String克隆层(不是构造函数) 底层Object
+		
+		str.__proto__.loud=function(){		//在下层String加loud方法
+			alert("loud")
+		}
+		//或者 	一样的效果
+		String.prototype.loud1=function(){
+			alert("loud")
+		}
+		
+		console.log(str)
+		
+		//但是: 下层String克隆层(不是构造函数)	所以
+		//String.prototype.prototype.smile=function(){}是错误写法
+		//正确写法：
+		String.prototype.__proto__.smile=function(){
+			alert("smile")
+		}
+		
+		
+		
+		
+	</script>
+</html>

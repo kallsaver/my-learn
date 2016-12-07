@@ -1,0 +1,92 @@
+angular更注重的是数据
+搭建angular  先把路由功能实现  控制器先不要写 然后调试路由
+控制器有两种  一种是顶级控制器  负责全局的数据储存   在body上加 ng-controller=""
+一种控制器是顶级控制器下的控制器    负责分页的数据储存     不需要再html结构中写ng-controller 统一在路由配置中和url,templateUrl关联
+html中调用数据  首先从次级控制器中找数据  再从顶级控制器找数据  所以要注意数据的重名
+script引入顺序  :次模板>主模板>控制器js
+程序员应该更关心数据   初始数据时什么  用这个数据来过滤得到一系列交互需要的新数据   
+以及数据的结构很重要
+<!--左栏的点击关联右栏的变化  数据流: $scope(这里是全局控制器)-html子控制器的点击函数传参-子控制器scope存值-子控制器filter过滤函数的回调函数共享这个值-->
+页面的关联作用是利用函数传参  两个函数的全局变量可以分享来实现的    点击函数从html拿到参数到scope中可以和filterBycategory共享
+product in data.products| filter:filterByCategory | pagerFilter:pageNum:pageSize
+上面的数据流是  data.products这个数组  传入 系统过滤器filter(和javascript中数组的filter方法迭代功能一样)中,  而它的回调函数filterBycategory负责对数组每个元素进行判断
+filterBycategory对数组中每个元素进行判断  返回true给filter主函数体  filter返回一个新的数组  这样就过滤出来了
+//angular的设计理念就是原形的方法   封装好filter,controller这些构造函数  把字符串传进去 生成新的实例  这些实例具有原形的方法   
+但是这里的原型filter不具备数组filter的迭代功能    而系统自带的过滤器filter是有数组filter的迭代功能的
+
+//过滤器和过滤函数的总结:
+//过滤器是一个实例  左边的数组和右边的参数传入  返回一个新的数组
+//过滤函数是filter方法的参数(回调函数)  左边的数组传入filter函数  它负责对数组每个元素判断  返回的是true或者false 
+//用ng-repeat生成的对象  里面绑定了数组中对应元素的数据  这些数据可以在ng其他指令中(例如函数)作为函数的实参
+//ng-repeat储存的数据  一维是深度克隆的  二维是浅度克隆  可能会影响原始数据
+
+//angular大法好     ng-class是自运行   一旦页面有行为发生  就把对应controller的内容跑一遍
+//angular的设计理念是  一旦页面有行为发生  就重新加载ng-view部分  重新把js文件跑一遍   这样就不用重新向服务器请求
+//return 也要一级一级return出去才行
+//复杂交互可能要判断数据的,angular交互实现之一是DOM元素的私有变量和它的原型上的变量比较
+
+//angular的controller是个函数体  把这个函数体和它负责的html绑定  当它负责的html里面的发生变化的时候
+//controller函数体里面的内容就全部执行一遍
+//--------------------------------------------------------------
+非angular模式的工厂模式:
+//1factory函数改造出来的全局函数  这个函数是个返回一个对象的自运行函数  
+//2返回的对象封装有各种处理数据的方法   同时它因为有var有return 所以它更是一个工厂模式  
+//3工厂模式就是调用这个函数的函数会得到同名但是完全不同的引用地址的对象   
+//4这些对象的生命周期是随着调用工厂模式函数的函数的结束而结束    这个函数在angular中就是controller
+//5所以更通俗的理解就是有一个注入的全局对象(其实是个自运行的返回值是对象的函数)
+//6进入不同的controller被调用 开辟不同的引用地址  
+//7这对数据的理解很重要  说明不同controller调用这个全局对象的时候  不用担心是同一个引用地址  只是同名不同作用域
+//8并且这些controller是兄弟函数  没有在结尾return数据的话,彼此是不能访问对方数据的
+//
+//----------------------------------------------------------------------
+//--------------------------------------------------------------
+angular模式的工厂模式:		生命周期不断延续  说明它的数据可以不断积累保持下去
+//1factory函数改造出来的全局函数  这个函数是个返回一个对象的自运行函数 	并赋值给一个window的全局变量  所以cart永远不会消失 
+//2返回的对象封装有各种处理数据的方法   同时它因为有var有return 所以它更是一个工厂模式  
+//3工厂模式就是调用这个函数的函数会得到同名但是完全不同的引用地址的对象   
+//4这些对象的生命周期是随着调用工厂模式函数的函数的结束而结束    这个函数在angular中就是controller
+//5最大的不同的是  controller调用的是一个全局变量  这个变量引用了shopCart的地址
+//6进入不同的controller被调用 引用的是相同的地址  
+//7这对数据的理解很重要  说明不同controller调用这个全局对象的时候  调用的是一个生命周期是window的全局变量
+//8并且这些controller是兄弟函数  没有在结尾return数据的话,彼此是不能访问对方数据的
+//这里处理购物车的number的时候利用的就是工厂模式
+//----------------------------------------------------------------------
+
+//controller中有两种数据  一种是函数体中的数据 这种数据的生命周期是随着函数运行完就回收  要想保住它 return出去 垃圾回收机制就不会回收了
+//一种是scope中的数据  这种数据是写在原型中的 所以在html页面中是暴露的   
+//当然页面发生变化scope中的数据也会更新   区别是当html需要用ng调用这个数据时就要写成scope格式   
+//并且scope的数据是DOM数据  所以controller运行完页面生成  item.number * item.product.price能拿到数据
+
+//angular利用页面变化机制这点避免很多问题  他的数据是重新获取更新的  如果用jq写购物车  要自己写更新数据的代码
+//常见的理解误区: 
+//1angular这个案例的购物车不是全局的  每个controller都会有自己购物车的代码  购物车的计算工具包工厂模式shopCart才是全局
+//shopCart是个对象   其实它是个全局自运行返回值是个工具的并且是工厂模式的函数
+//shopCart如果是个全局对象   那么它的引用值只有一个  各个页面的controller对它的处理都会彼此影响  
+//事实上各个页面都是独立的  所以说明它是工厂模式  并且是个函数
+//事实上在angular中一个字符串右边的回调函数,就是字符串被改造成一类函数的业务部分的函数体
+
+//其实html页面是controller函数生成的  所以才会有监听的效果
+
+
+
+//angular页面是由数据生成的 product是由过滤出来的数组生成   结账页面是由生命周期window的cart数组生成
+
+
+
+关于表单   $error是收集验证器中的错误  shippingForm.email.$error的意思是
+//shippingForm.email 的意思是name为shippingForm的form标签下的name位email的input框下的错误集合
+//shippingForm.$invaild  的意思是shippingForm下有一个错误都返回true   
+//各个input的error是主表单shippingForm.$invaild的元素
+//$dirty是脏
+//input框注意要写ng-model="" 来在html中var一个变量保存输入的内容,如果有required 那么输入内容为空会变成$error集合的元素  
+//不写required  那么输入内容为空不是一种错误
+
+//ng-disable=""   在预设中设了样式  curror:not-allowed;  true不可点击  false可以点击
+
+//每个路由分页都可以<style></style>写样式
+<style>   /*css3过滤选择器*/   /*检测到不合法背景色为红*/
+    .ng-invalid[type="email"], .ng-invalid[name="username"] { background-color: red; } 
+    .ng-valid[type="email"], .ng-valid[name="username"] { background-color: lightgreen; }
+    span.error { color: red; font-weight: bold; }
+    .form-group{margin-bottom:20px}
+</style>
