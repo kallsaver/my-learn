@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+	//构造函数   person是原型
+	function person(n,a,j){
+		//this指的是实例化的那个对象
+		this.name=n;
+		this.age=a;
+		this.job=j;
+		this.addAge=function(){
+			this.age++;
+		}
+	}
+	
+	//实例化
+	var person1=new person("mike",20,"teacher");
+	var person2=new person("hone",24,"doctor");
+	
+	console.log(person1)
+	console.log(person2)
+	
+	
+</script>
+</html>

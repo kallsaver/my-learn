@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script>
+	//闭包是在父级函数内部声明的函数在父级函数外部使用   
+	//函数返回值 传参 自运行 闭包 都是技巧
+	
+	//自运行函数的重要作用是隔绝变量的作用域   
+	//造成这一切的原因是javascript函数的变量是一级一级往上找  兄弟函数不可互相访问兄弟函数里面var的变量 所以我们用到传参
+	//方法1是写程序的正常思路  从局部写到全局
+	//方法2是改程序的思路  加返回值 
+	window.onload=function(){
+		var buttons=document.getElementsByTagName("button");
+	//方法1:	
+		/*for(var i=0;i<buttons.length;i++){
+		//6个自运行的兄弟函数	
+			(function(i){
+				var a=0;
+				buttons[i].onclick=function(){				
+					alert(a);
+					a++;
+				}
+			})(i)
+			
+			
+		}*/
+		
+		
+		
+	//方法2:
+		for(var i=0;i<buttons.length;i++){
+			
+			
+			buttons[i].onclick=(function(){
+				
+				var a=0;  //6个a=0  a是在每个buttons的onclick下声明  return使得函数的作用域 
+				return function(){
+					alert(a);
+					a++
+				}
+				
+			})()
+		}
+	
+	}
+
+</script>
+</head>
+
+<body>
+<button>click0</button>
+<button>click1</button>
+<button>click2</button>
+<button>click3</button>
+<button>click4</button>
+<button>click5</button>
+</body>
+</html>

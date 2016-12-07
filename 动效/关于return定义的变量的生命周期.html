@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+	//return 更是一种工厂模式  产生同名但却不是同一个作用域的对象	
+
+/*	function add(){
+		var a={"name":"aa"}
+		//a这个变量不会被销毁
+		return a
+	}
+
+	//因为javascript的作用域规则 能调用add函数的全局都可以 所以a的内存无法被回收   
+	//但是return更是一种工厂模式  被调用的函数中产生的a都是不同的   而这些a的生命周期是随着函数的结束而结束   除非再次return
+	
+	function other1(){
+		//other1结束d会被销毁
+		var d=add();
+		d.name="dd";
+		console.log(d.name)  //dd
+	}
+	
+	other1()
+	
+	function other2(){
+		var c=add();   //c拿到工厂模式产生的a的引用
+		console.log(c.name)   //aa     c和d不是同一个变量   这是工厂模式
+		// 工厂模式得到
+		return c;     //a的生命周期得到延续
+		
+	}
+	
+	other2();*/
+	
+	//angular中的主模板和次模板的factory的结构应该是这样的:  
+	
+	
+	function zhumokuai(fn){				//cart的地址被引用了
+		
+		
+		function controller1(){			//cart相对于两个controller是全局函数  所有controller1结束cart的生命周期还没结束
+
+			var a={"name":"aa"}
+			fn.findAll().push(a)      	//cart的地址被引用了并加了内容  
+		}
+		
+		function controller2(){			//cart相对于两个controller是全局函数	所有controller1结束cart的生命周期还没结束
+			var a={"name":"bb"}
+			fn.findAll().push(a)			
+		}
+		controller1()
+		controller2()
+		console.log(fn.findAll())
+		
+										//函数结束 然而a是window全局变量   cart的地址被它引用  直到浏览器关闭a的内存才会被垃圾机制回收
+	}
+	
+	var a=(function cimokuaifactory(){		//cart的地址被引用了
+		var cart=[];
+		return {
+			
+			add:function(a){
+				cart.push(a)	
+			},
+			
+			findAll:function(){
+				//cart的生命周期没有结束了
+				return cart;
+			}
+				
+		}
+	})()
+	
+	//注入
+	zhumokuai(a)		
+	
+	
+	
+	
+
+	
+</script>
+</html>
