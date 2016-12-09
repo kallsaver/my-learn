@@ -42,17 +42,18 @@
 			var length=arguments.length;
 			var result=arguments[1];
 			var provider={
-				filterRepeat:function(f){
+				filterRepeat:function(result){
 					var filter=[];
-					for(var i=0;i<f.result.length;i++){
-						if(filter.indexOf(f.result[i])===-1){
-							filter.push(f.result[i])
+					for(var i=0;i<result.length;i++){
+						if(filter.indexOf(result[i])===-1){
+							filter.push(result[i])
 						}				
 					}
 					//console.log(filter)
-					f.result=filter;			//把新数组给arr  这样写的好处是回调函数部分写得更简单
-					console.log(f.result)
-					//return arr;
+					result=filter;			//设计的时候想到把新数组给result  这样写的好处是回调函数部分写得更简单   实际上:
+					console.log(result)		//传进主函数的result改变了 ,但是传进来的result其实是另外开辟了一个堆地址  拿了回调result的引用地址
+					//	这里只是改变了主函数中新开辟的result地址  只进不出   filter的地址没有传给回调result的地址
+					//这其实是一个内存地址问题   新开辟的result把回调result的地址弄丢了  自然就无法再去改变回调的result了					
 				},
 				
 			}
@@ -65,15 +66,15 @@
 		
 		//功能多样的:
 		var arrnew=run(function(a,b,c){	//c是工具包
-			var f={result:[]};
+			var result=[];
 						//由于主函数体工具包的功能   result会被filter方法所改变	不需要result=c.filterRepeat(a);
 			
 			//a.push.apply(a,b)			//一种不需要var result的方法  用a来接收返回值
 			//return a;		
-			f.result.push.apply(f.result,a);
-			f.result.push.apply(f.result,b);
-			c.filterRepeat(f)				//回调传主函数   传的一定是二维的
-			return f.result;
+			result.push.apply(result,a);
+			result.push.apply(result,b);
+			c.filterRepeat(result)				
+			return result;					//回调return传主函数   传的是一个一维的克隆体
 		},arr1,arr2,arr3)
 		
 		console.log(arrnew)

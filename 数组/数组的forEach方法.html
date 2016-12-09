@@ -12,21 +12,22 @@
 		//跟jq的each很像  为每个元素执行对应的方法  不过jq的参数是index,item,反过来
 		
 		var arr1=[]
-		arr.forEach(function(item,index){
+		var a=arr.forEach(function(item,index){
 			//console.log(item)
 			
 			if(index==0){				//forEach方法传参传的是number数据类型 
 				item+=100				//所以在回调函数中处理item的值 原数组是不会有任何变化的
 			}
 			//console.log(item)
-			arr1.push(item)
+			arr1.push(item);
+			return 1
 			
 		})
 		//同样不改变原数组
 		console.log(arr)
 		console.log(arr1)
-		
-		
+		//forEach没有返回值
+		console.log(a)
 		//arr.forEach(1)	//throw new TypeError()
 		
 	</script>

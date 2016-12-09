@@ -8,6 +8,7 @@
 	</body>
 	<script>
 		//map返回一个新数组		和$.map不同的是  有index参数  可以做对每一项做判断处理
+		//forEach和map方法很像   但是forEach是没有返回值的   要用一个变量去拿值     map会对数组的每一个元素进行判断  返回一个新的数组
 		//可以过滤用
 		var oldArr = [
 			{first_name:"Colin",last_name:"Toh"},
@@ -16,14 +17,17 @@
 		];
 		
 		
-		var newArr=oldArr.map(function(item,index){
-				item.full_name=item.first_name+" "+item.last_name;
+		var newArr=oldArr.map(function(item,index){//传进去的item是一个对象  所以oldArr是会改变的  如果传进去的是基本数据类型 oldArr是不会改变的
+				item.full_name=item.first_name+" "+item.last_name;	//item的地址没有丢失
 				return item;
 		})
 		
 		console.log(newArr);
+		console.log(oldArr)
+		if(newArr==oldArr){alert(1)}	//不是同一个地址
 		
-		//或者不希望有原来的属性出现:		
+		
+		/*//或者不希望有原来的属性出现:		
 		var Arr=oldArr.map(function(item,index){
 				var a={};
 				a.fullname=item.first_name+" "+item.last_name;//字符串赋值  拿到的不是引用了
@@ -38,7 +42,7 @@
 				take[index]=item.first_name+" "+item.last_name;	//字符串赋值  拿到的不是引用了
 		})
 		
-		console.log(take)
+		console.log(take)*/
 		
 	</script>
 </html>
