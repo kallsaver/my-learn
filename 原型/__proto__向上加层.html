@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var a={
+			type:"aaa"
+		}
+		
+		var b={
+			name:"bbb"
+		}
+		
+		a.__proto__=b
+		console.log(a)			///三层Object
+		console.log(a.name)		///bbb
+		console.log(a.hasOwnProperty(name))		//false
+		//但是这种只采用这种做法无法检测类型			
+		//如果b是构造函数的实例
+		
+		var c={
+			type:"ccc"
+		}
+		
+		function student(){
+			this.type="ddd"
+		}
+		
+		var d=new student()
+		
+		c.__proto__=d;
+		
+		console.log(c)
+		console.log(c instanceof student)	//true
+	</script>
+</html>

@@ -7,6 +7,9 @@
 	<body>
 	</body>
 	<script>
+	//其实下面的想法不是很正确   hxsdStudent.prototype的意思是所有"hxsdStudent的实例"的下一层,是"原型"的意思。     __proto__是真正找下一层的
+	//一个被构造函数构造出来的对象可以一直使用__proto__找下一层      
+	//所有构造函数的__proto__是function(){}   
 		function student(){
 			this.type="a student"
 		}
