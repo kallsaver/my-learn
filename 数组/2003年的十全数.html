@@ -9,6 +9,7 @@
 	<body>
 	</body>
 	<script>
+	function shiquanshu(year){
 		function getArr(length,start) {
 			if(start==undefined)start=0;
 			var arr=new Array(length)
@@ -23,7 +24,7 @@
 			return arr;
 		}
 		
-		function month(n){
+		function month(year,n){
 			switch(n){
 				case 1:
 				case 3:
@@ -35,7 +36,12 @@
 						return getArr(31,1)
 				})();
 				case 2: return (function(){
+					if(year%4==0&&year%100!=0||year%400==0){		//判断闰年
+						return getArr(29,1)
+					}
+					else{
 						return getArr(28,1)
+					}
 				})();
 				case 4:
 				case 6:
@@ -51,13 +57,16 @@
 			if(i<10){
 				var everymonth=["0"+i]
 			}
+			else if(i==11){			//把11月过滤掉
+				continue;			
+			}
 			else{
 				var everymonth=[""+i]
 			}
-			var dayArr=month(i);		
+			var dayArr=month(year,i);		
 			monthAndDay.push.apply(monthAndDay,run(con,everymonth,dayArr))
 		}
-		
+		//console.log(monthAndDay)
 		 
 		var hour =getArr(24);
 
@@ -67,11 +76,13 @@
 
 		//一个“递归”主函数 比较两个数组    return出一个["0123","0145"...]这样的新数组
 		function run(fn) {
+			//也可以主函数只对第一个数组做过滤处理   后面的过滤处理由回调函数来完成  这样既可以保证效率又能减少代码量
+			//都是月份数其实人为就能看出来11月份就是要被过滤的  可以再建一个大函数把所有内容都括起来,专门处理年份的十全数
 			if(typeof fn=="function"){
 				var result=arguments[1];
 				var length=arguments.length;
 				for(var i=2;i<length;i++){
-					result=fn(result,arguments[i])			//借鉴数组的reduce方法
+					result=fn(result,arguments[i])		
 				}
 				return result;
 			}
@@ -91,8 +102,7 @@
 					//要保证b是2位的,a一开始是2位就可以	
 					if(a[i].indexOf(b[j][0]) === -1 &&
 						a[i].indexOf(b[j][1]) === -1 &&
-						a[i][0] != a[i][1] &&
-						b[j][0] != b[j][1]) {			//这里可以改良写严禁点
+						b[j][0] != b[j][1]) {//这里做了改良 a是旧的数组不用比较自己的元素  b是新加入执行函数的数组要比较自己的元素
 						var str = a[i] + b[j];
 						result.push(str)
 					}
@@ -101,16 +111,21 @@
 			return result;
 		}
 		//console.log(monthAndDay)					//不信结果可以一个一个加参数
-		var a1=run(con,monthAndDay,hour)
+		//var a1=run(con,monthAndDay,hour)
 		//console.log(a1)
-		var a2=run(con,monthAndDay,hour,min)		
-		var _a2=run(con,a1,min)
-		console.log(a2)
-		console.log(_a2)
+		//var a2=run(con,monthAndDay,hour,min)		
+		//var _a2=run(con,a1,min)
+		//console.log(a2)
+		//console.log(_a2)
 		
 		//2003年的十全数
 		var ss=run(con,monthAndDay,hour,min,sec)			
 		console.log(ss)
+	}
+	
+	shiquanshu(2003)
+	shiquanshu(2004)
+		
 	</script>
 
 </html>

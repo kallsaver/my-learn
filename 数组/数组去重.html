@@ -20,6 +20,28 @@ window.onload=function(){
 	}
 	alert(arr)
 	
+var a={
+	0:"aaa",	//其实转成"0"
+	"0":"bbb"	
+}
+console.log(a[0])	//合理的
+console.log(a["0"])	//同一个东西  
+	
+//利用对象把重复属性冲掉		是有缺陷的
+Array.prototype.unique3 = function(){
+ var res = [];
+ var json = {};
+ for(var i = 0; i < this.length; i++){
+  if(!json[this[i]]){
+   res.push(this[i]);
+   json[this[i]] = 1;
+  }
+ }
+ return res;
+}
+var arr1 = [112,112,34,'你好',112,112,34,'你好','str','str1',"34"];
+alert(arr1.unique3());
+	
 }
 
 </script>

@@ -17,7 +17,7 @@
      			}
      
     			if (typeof callback === "function") {
-      				for (k; k < length; k++) {
+      				for (k; k < length; k++) {				
          				this.hasOwnProperty(k) && (previous = callback(previous, this[k], k, this));
       				}
     			}
@@ -28,7 +28,7 @@
 		var arr=[0,1,2,3,4]		
 		//prev一开始是arr[0]的值 ,current是arr[1]的值  然后prev就是每一次迭代回调函数的返回值  迭代了length-1次
 		var a1=arr.reduce(function(prev,current,index,array){
-			console.log(prev)		//
+			//console.log(prev)		//
 			return prev+current;
 		});
 		
