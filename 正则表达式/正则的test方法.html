@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var reg=/\d+\.\d{1,2}$/
+		
+		console.log(reg.test('123.45'))		//true
+		console.log(reg.test('123*45'))		//false
+		console.log(reg.test('123.456'))	//false
+		console.log(reg.test('1.4'))		//true
+		
+	</script>
+</html>

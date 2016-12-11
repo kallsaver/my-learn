@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//字符串的replace方法返回一个新的字符串  原字符串不变
+	//stringObject.replace(regexp/substr,replacement)
+		var str1 = 'abc4deab4cde8';
+		var a1=str1.replace(/\d/g,"*")
+		console.log(a1)				//'abc*deab*cde*'
+		console.log(str1)			//不变
+		
+		//replacement位置还可以写回调函数		//传进来的是基本数据类型  所以一定是要return出去的
+		var a2=str1.replace(/\d/g,function(item){		//把匹配到的元素迭代传进来
+			var num=parseInt(item)
+			return "*".repeat(num)
+		})	
+		console.log(a2)				//数字值为4返回4个*
+		
+		
+	</script>
+</html>

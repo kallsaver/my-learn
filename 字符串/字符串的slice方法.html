@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//字符串的slice和数组的slice方法一样  都是返回一个新的切片  
+		var str="0123456789"
+		
+		//start,end之间的   
+		var a1=str.slice(4,6)	
+		console.log(a1)				//"45"
+		
+		//倒数第一个索引值到最后一个
+		var a2=str.slice(-1)		
+		console.log(a2)				//"9"
+		
+		//第4个索引值到最后一个
+		var a3=str.slice(4)
+		console.log(a3)
+		
+		//倒数第三个索引值到倒数第一个索引值之间的
+		var a4=str.slice(-3,-1)
+		console.log(a4)				//"78"
+		
+		//slice方法前面的索引值一定要比后面小
+		var a5=str.slice(6,4)
+		console.log(a5)				//空
+		console.log(str)			//不变
+	</script>
+</html>

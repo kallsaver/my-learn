@@ -7,6 +7,7 @@
 	<body>
 	</body>
 	<script>
+	//index(item,start)
 		var arr=["apple","orange","pear","aaa","bbb"]
 		
 		//数组的orange方法有这个元素就返回索引值,没有就返回-1  这样就不用一遍一遍for循环了
@@ -22,7 +23,12 @@
 			{name:"ccc",price:"300"},
 		]
 		
-		var a=arr.indexOf({name:"aaa",price:"100"});
-		console.log(a)		//-1   说明indexOf方法只能比较基本数据类型 
+		var c=arr.indexOf({name:"aaa",price:"100"});
+		console.log(c)		//-1   说明indexOf方法只能比较基本数据类型 
+		
+		var arr=[1,2,8,9,5,4,1,7,2,3,7]
+		//indexOf第二个参数是从第n个索引值开始找
+		var d=arr.indexOf(2,4)
+		console.log(d)			//8
 	</script>
 </html>

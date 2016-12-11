@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//replace方法不改变原字符串
+		var str='2398rufdjg9w45hgiuerhg83ghvif';
+	//replace的回调函数有三个参数
+		str.replace(/\d+/g,function(item,index,source){
+			console.log(item);	//匹配到的元素		
+			console.log(index);	//在字符串中的索引位置
+			console.log(source);	//源字符串
+		})
+		console.log(str)
+		
+	</script>
+</html>

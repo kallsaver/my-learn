@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//match返回的是一个数组
+		var str = '1a2b3c4d5e1a2b3c4d5e';
+		var a1=str.match("1a")
+		console.log(a1)       //是一个只有一个元素的数组  并且有index属性:0,input属性:母字符串
+		console.log(a1.index)	//0
+		
+		
+		var a2=str.match(/1a/g)
+		console.log(a2)		  //[1a,1a]	//没有index属性
+		
+		var a3=str.match(/h/)
+		console.log(a3)       //null
+		
+		var a4=str.match(/\d/g)  //匹配数字
+		console.log(a4)			//Array[10]
+		console.log(typeof a4[0])	//String
+		
+	</script>
+</html>

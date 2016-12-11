@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+/*		function zhu(fn){
+			var arr=[1,2,3,4,5,6];
+			var xindizhi=["a","b","c"]
+			var result=[]
+			var provider={
+				removeAll:function(a){		//传进来的地址没有弄丢	可以继续改变回调函数传进来的arr1
+					a.length=0;				
+					console.log("a",a)
+				},
+				getNewaddress:function(a){
+					a=xindizhi;				//传进来的地址弄丢了  自然再也无法改变回调函数传进来的arr2
+				}			
+			}
+			if(fn)	return result=fn(arr,provider);		//主函数向回调函数传参	最后把arr2返回
+			//console.log("arr",arr)
+		}
+		
+		
+		var b=zhu(function(arr,provider){
+			var arr1=[7,8,9,10,11];
+			var arr2=[12,13,14,15]
+			provider.removeAll(arr1)				//某种意义上的回调函数向主函数传参
+			arr.length=0;
+			console.log("arr1",arr1);
+			provider.getNewaddress(arr2)				//某种意义上的回调函数向主函数传参
+			return arr2							
+		})
+		
+		console.log("b",b)*/
+		
+		
+		//一个简单的   主函数给回调函数传参 地址弄丢
+		
+		function run(fn){
+			var a=["a","b","c"]
+			fn&&fn(a)				//想把a变成[1,2,3]
+			return a
+		}
+		
+		var result=run(function(a){		
+			var arr=[1,2,3]
+			a=arr;			//新开辟的a把传进来的a的地址弄丢了,再无法改变主函数中的
+		})
+		
+		console.log("result",result)		//["a","b","c"]
+		
+		//解决方法就是用一个二维结构   比如var obj={a:[]}   把obj的地址传进去
+		function run1(fn){
+			var obj={a:["a","b","c"]};
+			fn&&fn(obj)
+			return obj.a;
+		}
+		
+		var result1=run1(function(obj){
+			var arr=[1,2,3]
+			obj.a=arr;
+		})
+		console.log("result1",result1)
+		
+	</script>
+</html>

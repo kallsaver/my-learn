@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//在全局调用正则的exec方法时,
+		var reg=/\d/g;
+		var a=reg.exec("aaalb2cc3")
+		console.log(a)				//[2]		
+		console.log(a.index)		//5
+		
+		var b=reg.exec("aaalb2cc3")
+		console.log(b)				//[3]
+		console.log(b.index)		//8
+		
+		var c=reg.exec("aaalb2cc3")
+		console.log(c)				//null
+		console.log(c.index)		//undefined
+		
+		
+		
+		//------------------------------------
+		var reg1=/\d/g;
+		var reg1=/\d/g;
+		while(r=reg1.exec("a1b2c3")){
+    		console.log(r.index+':'+r[0]);
+		}
+		
+	</script>
+</html>

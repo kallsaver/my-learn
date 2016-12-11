@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//split返回的是数组   可以用正则表达式  和数组的join方法刚好相反  
+		//字符串的split方法将一个字符串分割为子字符串，然后将结果作为字符串数组返回。
+		//sstrObj.split([separator,limit]) 
+		
+		var str="AAA BB CCC DD EE FFF"
+		
+		var a=str.split(" ",3)	//切割元素的分隔符是空格  只返回3个
+		console.log(a)			//["AAA","BBB","CCC"]
+		console.log(str)
+		
+		//-------------------------------------------------
+		var str1 = 'a|b|c|d|e';
+		console.log(str1.split('|'));    //返回["a", "b", "c", "d", "e"]
+		console.log(str1.split('|', 3)); //返回["a", "b", "c"]
+		console.log(str1.split('')); //返回["a", "|", "b", "|", "c", "|", "d", "|", "e"]
+		
+		//也可以用正则分割
+		var str2='a1b2c3d4e';
+		var a2=str2.split(/\d/)
+		console.log(a2)				//["a","b","c","d","e"]	
+		
+		
+		
+	</script>
+</html>
