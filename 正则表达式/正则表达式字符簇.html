@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//字符簇就是一个类别的匹配  比如说我只要a,b,c  他们不需要写在一起  [a,b,c]  
+	//^在[]中表示取反的	[^]表示匹配一起字符	
+	//. 点字符表示匹配除了回车(\r),(\n),分隔符(\u2028)和段分割符(\u2029)以外的所有字符  常.*
+	
+		var str='df4dg.84s?gG'
+		var a1=str.match(/[a-z]/g)		//全局匹配所有的单个小写字母
+		console.log(a1)					//["d","f","d","g","s","g"]
+		
+		var a2=str.match(/[a-zA-Z]/g)	//全局匹配所有的单个小写和大写字母
+		console.log(a2)					//["d","f","d","g","s","g","G"]
+		
+		var a3=str.match(/[a-z]/gi)		//全局匹配所有的单个字母  不区分大小写
+		console.log(a3)					//["d","f","d","g","s","g","G"]
+		
+		var b4=str.match(/[0-9]/g)		//全局匹配所有的单个数字
+		console.log(b4)					//["4","8","4"]
+		
+		var b5=str.match(/\d/g)			//全局匹配所有的单个数字
+		console.log(b5)					////["4","8","4"]
+		
+		var b6=str.match(/\D/g)			//全局匹配所有的非数字的单个字符
+		console.log(b6)					//["d","f","d","g",".","s","?","g","G"]
+		
+		var c7=str.match(/\w/g)			//全局匹配所有的非特殊符号的单个字符
+		console.log(c7)					//["d","f","4","d","g","8","4","s","g","G"]
+		
+		var c8=str.match(/\W/g)			//全局匹配所有的特殊符号的单个字符
+		console.log(c8)					//[".","?"]
+		
+		var d9=str.match(/\./g)			//全局匹配.
+		console.log(d9)					//["."]
+//字符簇		
+		var d10=str.match(/[\.\?]/g)	//匹配.和? 不需要写在一块
+		console.log(d10)				//[".","?"]
+		
+		var d11=str.match(/\.\?/)		//匹配".?" 需要写在一块
+		console.log(d11)				//null
+		
+		//反匹配	除了d和D  w和W的写法外
+		//还有[^\d] ,等同于D
+		var e12=str.match(/[^\d]/g)		//全局匹配所有的非数字的单个字符
+		console.log(e12)				//["d","f","d","g",".","s","?","g","G"]
+		
+		
+		
+	</script>
+</html>

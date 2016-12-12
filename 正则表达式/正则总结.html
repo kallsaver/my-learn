@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//相同优先级的从左到右进行运算，不同优先级的运算先高后低。
+		//1.	\ 转义符
+		//2.	()[](?:)(?=)  圆括号和方括号
+		//3.    * + ? {n} {n,} {n,m} 	限定符
+		//4.	^, $, \任何元字符、任何字符	定位符和序列    (位置和顺序)
+		//5.	|   或
+	
+	
+		//		/name{3}/;相当于nameee
+		var reg1=/name{3}/						//验证是否含有nammeee
+		console.log(reg1.test("lnameeee"))		//true
+		console.log(reg1.test("lnamee"))		//false
+		console.log("--------------------------------------")
+		
+		//test常和定位符起到整体验证			
+		var reg2=/^name{3}$/
+		console.log(reg2.test("lnameeee"))		//false
+		console.log(reg2.test("lnamee"))		//false
+		console.log(reg2.test("nameee"))		//true
+		console.log("--------------------------------------")
+		
+		//()块
+		var reg3=/^(name){3}$/
+		console.log(reg3.test("namenamename"))		//true
+		console.log(reg3.test("lnamenamename"))		//false
+		console.log(reg3.test("namenamenamee"))		//false
+		console.log("--------------------------------------")
+		
+		//  ^在//中表示开头定位符  ^在[]中表示取反    /^表示"^"
+		//	[^]表示所有的字符
+		//  . 点字符表示匹配除了回车(\r),(\n),分隔符(\u2028)和段分割符(\u2029)以外的所有字符
+		//	注意. 包括空格符制表符等空白符  常.*
+		//  - 在[]中表示连接符[1-9],[a-f]等
+		var reg4=/^[a-f]$/
+		console.log(reg4.test("b"))		//true
+		console.log(reg4.test("g"))		//false
+		console.log("--------------------------------------")
+		
+		//	定位符^遇到?{0,1},{0,n},*{0,}会向后传递
+		//  定位符$遇到?{0,1},{0,n},*{0,}会向前传递
+		var reg5=/^\-?\d*\.{0,1}[0-9]*$/		//数字
+		console.log(reg5.test(".2"))			//true
+		console.log("--------------------------------------")
+		
+		//字符簇[]表示一个类别   不用写在一块
+		var str1='df4dg.84s?gG'
+		var a1=str1.match(/[\.\?]/g)	//匹配.和? 不需要写在一块
+		console.log(a1)				//[".","?"]
+		console.log("--------------------------------------")
+		
+		//字边界\b和\非字边界符B定位符   修饰匹配元素  所以它是不打印的
+		var str2="f  dkj 5d df"
+		var b1=str2.match(/\b[a-z]/g)		//\b匹配一个字边界,后面要连着小写字母(单个)
+		console.log(b1)						//[f,d,d]
+		
+		var b2=str2.match(/\B[a-z]/g)		//\B匹配非字边界,后面要连着小写字母(单个)
+		console.log(b2)						//[k,j,d,f]	
+		
+		
+		//
+	</script>
+</html>

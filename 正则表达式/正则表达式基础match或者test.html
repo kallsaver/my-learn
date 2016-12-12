@@ -8,7 +8,9 @@
 	</body>
 	<script>
 	
-	//正则分两种使用模式   match模式(默认) 和test模式()
+	//正则两种常见的模式   match模式(默认) 和test模式()
+	//match方法常和g一起用   而test方法常和定位符^,$一起用
+	//match是字符串的方法 , test是正则对象的方法
 		var str="function add(fn){fn&&fn()}"
 		
 		var r1=/fn/g;
@@ -27,11 +29,13 @@
 			}
 			return s;*/
 			//优雅的写法:
-			return new Array(item.length).join("*")
+			return new Array(item.length).join("*")	//或者return "*".repeat(2)
 		})	
 		console.log(a2)
 		
 		//alert(new String("*",4))
+		
+		
 		
 	
 	</script>

@@ -14,20 +14,19 @@
 		var a1=str1.match(/\d+/ig)	//没有+  会得到[1,1,0,0]
 		console.log(a1)			//[1,100];
 		var _a1=str1.match(/\d{1,}/ig)
-		console.log(_a1)		//[1,100];
-		
+		console.log(_a1)		//[1,100];		
 		var a2=str1.match(/\d{3}/ig)
 		console.log(a2)			//[100]
+		console.log("-----------------------------------")
 		
 		var str2="bodfoodcoooooolpOOd"
 		var b1=str2.match(/o{2}/ig);
-		console.log(b1);		//[oo,oo,oo,oo,OO]
-		
+		console.log(b1);		//[oo,oo,oo,oo,OO]		
 		var b2=str2.match(/o{2,}/ig);	//{2,} 这里相当于oo+
-		console.log(b2)			//[oo,oooooo,OO]
-		
+		console.log(b2)			//[oo,oooooo,OO]	
 		var b3=str2.match(/o{2,3}/ig)	//{2,3}	2~3次
 		console.log(b3)			//[oo,ooo,ooo,OO]
+		console.log("-----------------------------------")
 		
 		var str3="z";
 		var str4="zooooa";
@@ -39,6 +38,7 @@
 		var _a4=str4.match(/zo{0,}/g)
 		console.log(a4)
 		console.log(_a4);
+		console.log("-----------------------------------")
 		
 		var str5="doesdodsodoesesdododd";
 		var a5=str5.match(/do(es)?/g);	//先考虑does再考虑do
@@ -51,11 +51,12 @@
 		console.log(__a5)		//[does,does]
 		console.log(___a5)		//[does,do,does,do]
 		console.log(b5)			//[do,do,d,do,do,do,d,d]
+		console.log("-----------------------------------")
 	
 	//*{0,} 贪婪的结果是全部   +{1,}贪婪的结果是全部   ?{0,1}贪婪的结果是1个
 	//*+?限定符都是贪婪的，它们会尽可能多的匹配文字，后面加?就可以实现非贪婪或最小匹配。
  		var str6="<H1> Chapter 1 – Introduction to Regular Expressions</H1>"
- 		//.的意思是匹配除换行符 \n 之外的任何单字符  即把换行的空格都过滤掉了
+ 		
  		//所以.*的意思是匹配任何字符(除了换行符 \n )
  		var a6=str6.match(/<.*>/g)		//贪婪的
  		var _a6=str6.match(/<.*?>/)		//最小匹配	在限定符后面加?
