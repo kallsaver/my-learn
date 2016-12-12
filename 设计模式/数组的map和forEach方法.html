@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+// 将英文转换成中文
+var keys = 'avaliable,forbidden,disabled';
+var en2cnMap = {
+    avaliable: '可用',
+    forbidden: '禁用',
+    disabled: '不可用'
+};
+var cnKeys = keys.split(/\,\s*/).map(function(key, idx) {
+    return en2cnMap[key];
+});
+
+// ["可用", "禁用", "不可用"]
+console.log(cnKeys);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*	var arr=[12,58,55,61]
+	
+	
+	var a=arr.map(function(){
+		
+	})*/
+
+
+</script>
+</html>

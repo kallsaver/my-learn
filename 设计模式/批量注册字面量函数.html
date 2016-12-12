@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+	var mathtool={};
+	//字符串中[]是有特殊含义的
+	for(var i=0;type=['String','Array','Number'][i++];){
+		(function(){
+			mathtool['is'+type]=function(o){
+			return Object.prototype.toString.call(o)=='[object'+type+']';
+			}	
+		})(type)	
+	}						//for循环和自运行函数传参完成同步
+	
+	alert(mathtool.isArray([]))
+	
+	
+		//比较的时候[]会自动省略掉?
+	//alert(Object.prototype.toString.call("a").slice(8,-1)==="String")
+	
+	
+
+</script>
+
+</html>
