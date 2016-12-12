@@ -8,19 +8,12 @@
 <body>
 </body>
 <script>
-	function gos(a){
-		a++;
-		console.log(a)
-	}
-
-	function run(fn){
-		if(fn){
-			alert(arguments.callee.name)
-		}
-		
+	
+	function run(){
+		alert(arguments.callee.name)
 	}
 	
-	run(gos)
+	run()
 
 </script>
 </html>
