@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//
+		Array.prototype.del=function(n){
+			if(n<0){
+				return this
+			}
+			else{
+				var a=this.slice(0,n).concat(this.slice(n+1,this.length))
+				this.length=0;
+				this.push.apply(this,a);
+			}
+		}
+		
+		var arr1=[0,1,2,3,4,5,6,7]
+		arr1.del(5)
+		console.log(arr1)	
+		
+	//delete 数组的元素		说明数组是个哈希表
+		var arr2=[0,1,2,3,4,5,6,7];
+		delete arr2[5]
+		console.log(arr2)			//但是长度是8  操作堆地址  console.log是无法"单线程的"
+		//arr2.length=7				//说明delect只能删除 value不能删除key
+		arr2[5]=100
+	
+	
+	//delete 对象
+	</script>
+</html>

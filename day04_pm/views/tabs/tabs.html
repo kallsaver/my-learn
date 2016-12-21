@@ -1,0 +1,14 @@
+<!--选项卡-->
+<ion-tabs class="tabs-assertive tabs-icon-top tabs-striped">
+    <!--第一个选项页-->
+    <ion-tab title="商品" icon-on="icon ion-ios-filing"
+             icon-off="icon ion-ios-filing-outline" ui-sref="tabs.products">
+        <ion-nav-view name="tab-products"></ion-nav-view>
+    </ion-tab>
+    <!--第二个选项页-->
+    <ion-tab title="购物车" icon-on="icon ion-ios-gear"
+             icon-off="icon ion-ios-gear-outline"
+             badge="buyNumber()" badge-style="badge-balanced" ui-sref="tabs.cart">
+        <ion-nav-view name="tab-cart"></ion-nav-view>
+    </ion-tab>
+</ion-tabs>

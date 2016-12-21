@@ -99,7 +99,7 @@ var $ = {
 var weather = {
     parseIcon: function (weatherName) {
         //
-        var icons = {
+    var icons = {
             晴: "1_07.png",
             阴: "1_30.png",
             多云:"1_03.png",

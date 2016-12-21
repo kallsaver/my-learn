@@ -28,7 +28,8 @@
 			type:"get",
 			url:"data.json",
 			dataType: "json",
-			success: function(data){		
+			success: function(data){	
+					console.log(data)
 					var a=[];
 					var b=[];
 					a=_.filter(data,function(item){
@@ -46,7 +47,9 @@
 						Array.prototype.push.apply(arr,b);
 					}   							 	 	
   		}			
-		});		
-		console.log(arr)
+		});	
+		
+		console.log(arr)	//ajax异步
+		arr.push(1)			//1才是第一个元素	
 	</script>
 </html>

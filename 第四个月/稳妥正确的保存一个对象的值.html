@@ -28,42 +28,54 @@
 	console.log(b)				//undefined*/
 	
 	
-	/*//改造:
-	function run(){
+	//改造:  错误的  因为$.ajax主函数没有返回值
+	/*function run(){
 		return $.ajax("data.json",function(data){//这个return并没有用 主函数体中没return return要一级一级来
 			data=JSON.parse(data)
-			//console.log(data)				//data拿到字面量数组
+			//console.log(data)				
 			var a={product:[]}
-			a.product=data;		//a.product拿到data的引用值  而不是data下数据堆地址的引用值
-			console.log(a.product)		//同理data拿到的是主函数体没被return的(只是传参)变量的引用值
-			return a//或者return data	//$.ajax结束 主函数体的变量被销毁  所以a和data拿到的都是空值
+			a.product=data;		
+			console.log(a.product)		
+			return a
 		})				 
-	}							//
+	}							
 	
 	var b=run();
 	console.log(b)				//undefined*/
 	
 	//正确的做法1:
 	
-	/*function run(){
-		var a={product:[]}		//这里不能var a={}
+	function run(){
+		var a={product:[]}		//这里不能var a=[]
 		
 		$.ajax("data.json",function(data){
+			data=JSON.parse(data)   
+			console.log(typeof data)
 			a.product=data;         //这里不能var a=data;  a拿到data的引用地址
 		})						//同理是因为运行完data是要被销毁的  a只能拿到空的东西
 		
 		return a			//应该把data封在a的二维中  这样data的生命周期才和a一样
 							//有二维结构的对象类似DOM元素 但是DOM元素的数据生命周期是window
-							//二维结构对象的数据的生命周期取决于这个对象的生命周期
-		
+							//二维结构对象的数据的生命周期取决于这个对象的生命周期		
 	}
 	
-	var b=run()
-	
-	console.log(b)*/
+	var b=run()							//b得到 retrun a  ajax函数是异步的 所以 b=[]
+	b.product.push(2)
+	b.product.push(2)
+	b.product.push(2)
+	b.product.push(2)					//ajax仍然没有执行
+	console.log("2",b.product)			//[2,2,2,2]
+	console.log("2",b)
+	b.product.push(3)
+	console.log("3",b.product)
+	setTimeout(function(){
+		b.product.push(1)
+		console.log("1",b)
+	},2000)
+	console.log("set",b)			//同样是异步的
 	
 	//正确的做法2:
-	var k=[];		//只开辟了栈地址 没有开辟堆地址
+/*	var k=[];		//只开辟了栈地址 没有开辟堆地址
 	
 	function run(){
 		var a=[];	//只开辟了栈地址 没有开辟堆地址
@@ -88,10 +100,12 @@
 	
 	var b=run();
 	console.log(b)
-	console.log(k)		//可以用数组的原型apply哦
+	console.log(k)		//可以用数组的原型apply哦*/
 
 
 //总结:要保存ajax请求回来的一个对象b的数据或者是通过函数传参过来的数据时   不能var a={}  a=b; 
-//稳妥的做法是   var a=[] a.push(b) 或者var a={product:{}}  a.product=b
+//稳妥的做法是   var a=[] a.push(b) 或者var a={product:{}}  a.product=b;
+//在不清楚库封装的主函数的处理数据手法时  最稳妥的做法是拿克隆值 而不是拿引用值:
+//Array.prototype.push.apply(a.product,data)
 </script>
 </html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="jquery-3.1.0.js"></script>
+	<script>
+		$.ajax({
+			type:"get",
+			url:"api.json",
+			async:true,
+			success:function(data,textStatus,request){
+				console.log(data)
+				console.log(textStatus)
+				console.log(request)
+			}
+		});
+	</script>
+</html>

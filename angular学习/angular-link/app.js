@@ -11,6 +11,7 @@ angular.module("myapp").controller("myCtrl",function($scope){
 		console.log(this)
 	}
 	$scope.wordclickhandle=function(word){
+		console.log(word.text())
 		if (word.hasClass("highlight")) {
 			word.removeClass("highlight");
 		} else {
@@ -31,7 +32,7 @@ angular.module("myapp").directive("word",function(){
 		scope:{
 			//@字符串 &函数  =变量	wordclickhandle是个变量  所以用"="  wordclickhandle拿到onwordclick的引用地址
 			onwordclick:"="	,	// wordclickhandle是<word>里写的,不是在templateUrl写的 所以可以访问到	myCtrl	 
-			
+			//onwordclick是<word>的自身属性  同时也是templateUrl每个元素原型中的属性
 		},
 		controller:function($scope){		//这个controller是<word>templateUrl的控制器
 			$scope.name="templateUrl"
@@ -39,7 +40,7 @@ angular.module("myapp").directive("word",function(){
 		//load -- compile -- link		//有多少个word 这个函数就执行多少遍
 		link:function(scope,element,attr,controller,transclude){
 			var text;
-			//console.log(scope.name)				//scope是<word>templateUrl控制器的$scope
+			//console.log(scope.name)			//scope是<word>templateUrl控制器的$scope
 			//console.log(element.html())		//element是<word>templateUrl的jq对象
 			//console.log(attr["text"])			//attr是存放<word>自定义属性的一个对象
 			//transclue是个交互函数  第一个参数是scope 第二个参数是回调函数  
@@ -64,7 +65,8 @@ angular.module("myapp").directive("word",function(){
 			secondDiv.find("w").on("click",function(){
 				//console.log(this) this是jq对象
 				var word=angular.element(this)   //转为angular阉割版jq对象
-				if (scope.onwordclick !== undefined)scope.onwordclick(word);	//word传参到html页面的wordclickhandle函数			
+				//word传参到html页面的wordclickhandle函数
+				if (scope.onwordclick !== undefined)scope.onwordclick(word);
 			})
 		}
 	}
