@@ -1,8 +1,7 @@
-
 html{font-size: 20px;}
 *{margin:0;padding:0;box-sizing: border-box}
 a{display: block;text-decoration: none;}
-.project{width:20rem;height: 20rem;margin:10rem auto;transform-style: preserve-3d;perspective: 1000px;background:red;}
+.project{width:20rem;height: 20rem;margin:10rem auto;transform-style: preserve-3d;perspective: 1000px;}
 .project .project_card{height: 100%;transform-style: preserve-3d;perspective: 1000px;
   box-shadow: 0 10px 30px transparent;position: relative;transition: box-shadow .3s ease-in;pointer-events: none;}
 .project_img{height: 100%}

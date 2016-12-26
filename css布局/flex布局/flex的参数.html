@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin:0;padding: 0;}
+		</style>
+	</head>
+	<body>
+		<!--flex 属性是 flex-grow、flex-shrink 和 flex-basis 属性的简写属性。-->
+		<!--flex-grow是一个数字,规定项目将相对于其他灵活的项目进行扩展的量-->
+		<!--flex-shrink是一个数字,规定项目将相对于其他灵活的项目进行收缩的量-->
+		<!--项目的长度-->
+		
+		<div style="display: flex;height: 200px;margin-top: 50px;">
+			<div style="flex: 0 0 200px;background: gold;"></div>
+			<div style="flex: 1;background: fuchsia;"></div>
+			<div style="flex: 0 0 200px;background: gold;"></div>
+		</div>
+		
+		<div style="display: flex;height: 200px;margin-top: 50px;">
+			<div style="flex: 0.5 1 200px;background: gold;"></div>
+			<div style="flex: 1;background: fuchsia;"></div>
+			<div style="flex: 0.5 1 200px;background: gold;"></div>
+		</div>
+	</body>
+</html>

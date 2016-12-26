@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin:0;padding: 0;font-size: 14px;}
+			.box{width:300px;height: 75px; margin: 30px auto;background: palegoldenrod;}
+			.left,.right,middle{font-size: 14px;}
+		</style>
+	</head>
+	<body>
+		<!--只有块元素不用考虑空格带来的间隙-->    
+		<!--vertical-align是两个子元素之间的对齐方式,并不是子元素和父元素的对齐方式-->
+		<!--margin和vertical-align的兼容性不行,要用padding-->
+		<div class="box" style="padding-top: 25px;"> <!--如果想使得它们都垂直居中,要使得最高的子元素居中即可-->
+			<div class="left" style="display: inline-block;
+				width:25px;height: 25px;background: red;
+				vertical-align: middle;">
+			</div>
+			<div class="middle" style="display: inline-block;
+				line-height: 50px;background: peru;
+				vertical-align: middle;">123456
+			</div>
+			<div class="right" style="display: inline-block;
+				line-height: 25px;background: fuchsia;
+				vertical-align: middle;">789ABC
+			</div>
+		</div>
+	</body>
+</html>
