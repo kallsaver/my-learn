@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="../jquery-3.1.0.js"></script>
+	<script>
+		var arr=["javascript","python","c","c++","Ruby"];
+		
+		var obj={"name":"aaa","age":24,address:"深圳",sex:"female"}
+		
+		$.each(arr,function(key,val){
+			if(val=="c") return false    //跳出整个each循环
+			console.log(key,val)
+		})
+		
+		
+		$.each(obj,function(key,val){
+			console.log(key,val)
+		})
+	</script>
+</html>

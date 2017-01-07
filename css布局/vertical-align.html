@@ -2,15 +2,19 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>vertical</title>
+
 		<style>
 			*{margin:0;padding: 0;font-size: 14px;}
 			.box{width:300px;height: 75px; margin: 30px auto;background: palegoldenrod;}
 			.left,.right,middle{font-size: 14px;}
 		</style>
+		<script>
+
+		</script>
 	</head>
 	<body>
-		<!--只有块元素不用考虑空格带来的间隙-->    
+		<!--只有块元素不用考虑空格带来的间隙-->
 		<!--vertical-align是两个子元素之间的对齐方式,并不是子元素和父元素的对齐方式-->
 		<!--margin和vertical-align的兼容性不行,要用padding-->
 		<div class="box" style="padding-top: 25px;"> <!--如果想使得它们都垂直居中,要使得最高的子元素居中即可-->
@@ -26,6 +30,30 @@
 				line-height: 25px;background: fuchsia;
 				vertical-align: middle;">789ABC
 			</div>
+			<div style="background:rgb(34, 129, 182)">
+
+			</div>
+			<div>
+				4445555
+			</div>
 		</div>
 	</body>
+	<script>
+	"use strict";
+
+function blockBindingDemo(){
+let a = 123;
+var b = 123;
+if(true){
+	let a = 456;
+	b = 456;
+	console.log("使用let语句块中的a为" +a);//456
+	console.log("使用var语句块中的b为" +b)
+}
+console.log("使用let语句块外的a为" +a);//123
+console.log("使用var语句块外的b为" +b);//456
+}
+
+blockBindingDemo();
+	</script>
 </html>

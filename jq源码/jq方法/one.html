@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-3.1.0.js"></script>
+	</head>
+	<body>
+		<div style="width: 300px;height: 300px;background: red;" id="a">
+			<div style="width:150px;height: 150px;background: peru;" id="b"></div>
+		</div>
+		<button>One</button>
+	</body>
+	<script>
+		//one只能执行一次,其他规则和bind函数相同
+		$("button").one("click",function(){
+			alert(1)
+		})
+		
+		//on
+		$("#b,#a").on("click",function(event){
+			event.stopPropagation()
+			alert(this.id)
+			//return false;				//return false阻止冒泡和默认事件
+		})
+		
+		/*$("#b,#a").one("click",function(){
+			alert(this.id);
+			return false
+		})*/
+		
+		
+		
+	</script>
+</html>

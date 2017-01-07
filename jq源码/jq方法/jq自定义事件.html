@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div style="width:200px;height: 200px;background: red;" id="ta">
+			<span style="width: 100px;height: 100px;background: fuchsia;display: block;" id="span"></span>
+		</div>
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+	/*//冒泡的trigger
+		
+		$("#ta,#span").on("meow",function(){
+			console.log(this.id)
+		})
+	//span 冒泡给父级元素
+		$("#span").trigger("meow")   //运行这个自定义事件     trigger是冒泡和执行默认事件的*/
+		
+	//不冒泡的triggerHandler
+		$("#ta,#span").on("newTool",function(){
+			console.log(this.id)
+		})
+		
+		$("#span").triggerHandler("newTool")
+		
+	
+		
+		
+	</script>
+</html>

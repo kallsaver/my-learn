@@ -20,7 +20,7 @@ angular.module("myApp").config(function($stateProvider,$urlRouterProvider){
 })
 
 .controller("myCtrl",function($scope,$state){
-	
+
 })
 
 .directive("load",function($http,$state){

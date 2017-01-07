@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+		<style>
+			.red{background: red;color: white;font-size: 26px;}
+		</style>
+		<script>
+			//内置事件指令的好处是:自动的运行脏检查
+			
+			angular.module("myApp",[])
+			
+			.controller("myCtrl",function($scope){
+				$scope.status = false;
+				
+				$scope.changeStatus = function(event){
+					console.log(event.target)
+					angular.element(event.target).html("切换成" + $scope.status)
+					$scope.status = !$scope.status
+				}
+			})
+			
+		</script>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+			<button ng-click="changeStatus($event)">切换状态</button>
+			<p>{{status}}</p>
+			<p ng-class="{red : status}">11111</p>
+		</div>
+		
+		
+	</body>
+</html>

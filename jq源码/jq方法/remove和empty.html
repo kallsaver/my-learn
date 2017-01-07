@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-3.1.0.js"></script>
+		<style>
+		*{margin: 0;padding: 0;}
+			span>div,button{display: inline-block;}
+			p{height: 40px;background: khaki;text-align: center;width: 300px;margin: 10px auto;line-height: 40px;}
+		</style>
+	</head>
+	<body>
+	<span id="box" style="margin:0px auto;width:500px;text-align: center;display: block;background: paleturquoise;">
+		<div style="width:200px;height: 200px;background: red;margin-right: 20px;"></div>
+		<div style="width:200px;height: 200px;background: fuchsia;margin-right: 20px;"></div>
+		<div style="width:200px;height: 200px;background: gold;" class="a"></div>
+		<br>
+		<button id="button1">点击执行remove</button>
+		<button id="button2">点击执行detach</button>
+		<button id="button3">点击恢复detach</button>
+	</span>	
+	
+	<span id="content" style="margin: 20px;width:500 ;">
+		<p>1 <span style="width:50px;height: 40px;background: fuchsia;display: block;"></span></p>
+		<p>2</p>
+		<p>3</p>
+	</span>
+	
+	
+	</body>
+	
+	<script>
+		var a=$("div");
+		var b=$("p")
+		
+		var $p,$a,em
+		$("#button1").click(function(){
+			//把class为a的DOM元素的节点删除
+			$a=a.remove(".a")
+			///把匹配到的元素全部删除a
+			//b.remove()
+			
+			//把匹配到的元素的所有子节点删除
+			 em=b.empty()
+		})
+		
+		//detach和remove都是删除匹配的节点 但是detach可以保留绑定的数据和事件   不是很懂
+		$("#button2").click(function(){
+			 $p=b.detach();
+		})
+		
+		$("#button3").click(function(){
+			$a.insertBefore($("br"))
+			$p.appendTo($("#content"))
+		})
+		
+		
+		
+		
+		
+		
+	</script>
+</html>

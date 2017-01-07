@@ -1,0 +1,14 @@
+MVC核心概念:把管理数据的代码(model),应用逻辑代码(controller),向用户展示数据的代码(view)清晰地分离开
+
+Angular应用中:
+视图就是Document Object Model
+控制器就是javascript类
+模板数据则被存储在对象的属性中
+
+数据绑定也是一种设计模式(Angular是MVVM框架)
+数据绑定可自动将model和view间的数据同步
+Angular实现数据绑定的方式,可以让我们把model当做程序中唯一可信的数据来源.view始终是model的投影
+当model发生变化时,会自动反映到view上
+
+依赖注入是一种设计模式,用来处理代码的依赖关系
+Angular的依赖注入

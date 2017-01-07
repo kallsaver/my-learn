@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<select>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			
+		</select>
+	</body>
+	<script src="jquery-3.1.0.js"></script>
+	<script>
+		/*var arr=[0,1,2,3,4,5,6]
+		
+		for(var i=0;i<arr.length;i++){
+			if(arr[i]==2)break;			//break是跳出for整个循环
+			console.log(arr[i])
+		}
+		console.log("-----------------------------")
+		for(var i=0;i<arr.length;i++){
+			if(arr[i]==2)continue;		//continue是跳出for当前的循环分支以后的语句
+			console.log(arr[i])
+		}
+		
+		console.log("-----------------------------")*/
+		
+		//jq中的each实现break和continue功能:    //或者使用$.each(arr,function(){})
+		$("option").each(function(){
+			//在jq的each的回调函数中,return false会结束整个each循环,相当于for循环中的break
+			if($(this).val()==="4"){return false}   
+			console.log($(this).val())				//1,2,3
+		})
+		
+		$("option").each(function(){
+			//在jq的each回调函数中,return true会结束当前循环分支以后的语句,相当于for循环中的continue
+			if($(this).val()==="3"){return  true}    //或者return
+			console.log($(this).val())		        //1,2,4,5		
+		})
+		
+		
+		
+	</script>
+</html>
