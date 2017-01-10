@@ -7,7 +7,7 @@
 		<style>
 			*{margin:0;padding: 0;font-size: 14px;}
 			.box{width:300px;height: 75px; margin: 30px auto;background: palegoldenrod;}
-			.left,.right,middle{font-size: 14px;}
+			.left,.right,middle{font-size: 14px;background: #000}
 		</style>
 		<script>
 
@@ -30,7 +30,7 @@
 				line-height: 25px;background: fuchsia;
 				vertical-align: middle;">789ABC
 			</div>
-			<div style="background:rgb(34, 129, 182)">
+			<div style="background:">5
 
 			</div>
 			<div>
@@ -39,21 +39,15 @@
 		</div>
 	</body>
 	<script>
-	"use strict";
+			var a=1;
+			var b="dfdfdfd";
+			var c=true;
+			var d={
+				name : "aaa"
+			}
 
-function blockBindingDemo(){
-let a = 123;
-var b = 123;
-if(true){
-	let a = 456;
-	b = 456;
-	console.log("使用let语句块中的a为" +a);//456
-	console.log("使用var语句块中的b为" +b)
-}
-console.log("使用let语句块外的a为" +a);//123
-console.log("使用var语句块外的b为" +b);//456
-}
-
-blockBindingDemo();
+			function run(){
+					a++
+			}
 	</script>
 </html>

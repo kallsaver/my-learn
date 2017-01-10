@@ -20,6 +20,7 @@
 		
 		var a=new A;
 		
+		//B函数中想利用getName的方法
 		var B = function(obj){
 			this.a=obj;
 			//依赖
@@ -28,7 +29,7 @@
 		
 		//注入
 		var b = new B(a)
-		
+		console.log(b)
 		
 	</script>
 </html>

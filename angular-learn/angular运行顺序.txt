@@ -1,0 +1,54 @@
+页面结构:
+<body ng-app="myApp">
+		<!--priority是处理指令的优先级的 ng-repeat的优先级默认1000,大部分默认是0-->
+		
+		<div ng-controller="myCtrl">
+			<!--complie先根据ng-repeat生成2个实例,
+			然后进入preLink函数,myCtrl的数据进入scope,
+			然后进入postLisk函数,user进入独立的scope,2个兄弟函数
+			-->
+			<div custom-tags custom-tags2 ng-repeat="user in userList" text="txt"></div>
+		</div>
+
+	</body>
+运行顺序:
+1.基础DOM元素加载
+
+2.myCtrl函数运行
+
+3.ng-repeat运行 生成2个实例DOM,读取directive上的属性,preLink和postLink是最后执行的
+
+4.如果custom-tags和custom-tags2的都是默认priority :0,并且templateUrl二者中只有一个有,左边的compile优先运行
+
+5.右边的compile运行 compile函数中,
+element是这个directive指令所在的元素(replace:false)或者tempalte的root element即最外围的元素
+这时候还是angular的DOM渲染时期,父DOM的myCtrl数据还没进来,所以compile函数是没有scope和controller参数的
+无论ng-repeat生成几个元素,compile只执行一遍(这不重要,因为compile只是DOM渲染,不是来处理js函数编程的)
+
+6.如果在compile函数中retrun {pre : function pre(){},post : function post(){}},那么link函数不会执行了,这个link就是postLink
+因为生成两个DOM子元素,所以link要运行两次,ng-repeat生成的第一个子元素运行完link再到第二个子元素的link
+优先级高的的directive的preLink优先运行
+preLink函数运行,父DOM的myCtrl数据通过作用域链继承给element和element下的子元素,element中出现ng-scope ng-binding属性,class="ng-binding"
+compile和preLink和postLink的elmement可以理解为同一个元素
+directive的scope属性指的是directive的controller方法的$scope
+如果scope:true,preLink函数中的scope是element自己的scope,可以设置自己的属性,父级不会受影响,可以通过继承链访问myCtrl的$scope
+如果scope:false,preLink函数中的scope就是父元素myCtrl的scope的引用值,在这里改变属性,父级是受影响的
+如果scope:{},preLink函数中的scope是element自己的scope,并且无法通过继承链访问myCtrl的$scope 
+scope:{}的情况,都是通过把属性包装成  【@字符串,=引用,&有返回值的函数】在html的属性中利用myCtrl的$scope暴露拿到$scope的个别数据:string类型数据,引用数据,引用数据
+=最实用但颠覆js的语法思维,directive的scope.b拿到myCtrl的$scope.bookList的引用后,如果scope.b=null会导致$scope.bookList=null
+&在controller中要()表示运行函数return出拿到的引用数据类型 
+&是符合正常的js理解的,scope.a()=null,$scope.bookList是不会变化的,scope.a().push(object),$scope.bookList也会push一个object
+@要注意加{{}},表示拿的是字符串而不是引用数据类型,
+
+7.postLink开始运行,user in userList的user进入template元素中, 没有template属性的directive不产生新的scope,所以先运行完毕,
+这时候prelink函数中的scope指的是和另一个ng-repeat生成的DOM元素平行的scope,可以访问父级DOM元素的myCtrl的$scope
+scope.user或者scope.userList都是可以访问的
+directive中的controller方法中的$scope和scope属性和link(preLisk,postLisk函数)的scope参数都是同一个引用值
+值得注意的是preLink执行时,先判断scope的继承选择,然后userLink进入scope,而user没有进入scope,在postLink阶段,myCtrl中从userLink迭代var n个变量给n个user
+所以scope :{} myCtrl的userLink,user是进不了scope的,directive的controller重写userLink后,user依然是没定义的
+
+//杂
+如果两个directive指令写在同一个DOM元素上,那么它们的directive的不能同时存在template,transclude,controller,scope属性,否则会严重报错
+因为angular的理念是controller是一个数据API,link是实现交互的函数,所以设计出从controller中拿方法注入到link函数中
+是根据require的规则找controllerAs属性的value,并用依赖注入和通过构造函数生成一个带方法的实例,把方法分享给link函数中
+

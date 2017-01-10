@@ -23,31 +23,22 @@
 				
 				
 			})
-		</script>
+		</script> 
 	</head>
+	<!--ng-style,ng-class,ng-class-even,
+	ng-class-odd,ng-show,ng-hide,ng-switch,ng-href,ng-if,ng-src-->
 	<body ng-app="myApp">
 		<div ng-controller="myCtrl">
 			<div ng-style="{'color':'white','background':'red','font-size':'40px'}">ng-style</div>
 			<div ng-style="defaultStyle">ng-style</div>
 			<div ng-class="{red : true}">ng-style</div>
 			<div ng-class="{red : true}">ng-style</div>
-			
-			<div *ngIf="selectedHero">
-  <h2>{{selectedHero.name}} details!</h2>
-  <div><label>id: </label>{{selectedHero.id}}</div>
-  <div>
-    <label>name: </label>
-    <input [(ngModel)]="selectedHero.name" placeholder="name"/>
-  </div>
-</div>
 		</div>
 		
 		<ul ng-init="cityList = ['上海','北京','深圳','杭州']">
 			<li ng-repeat="city in cityList" ng-class-even=" 'red' " ng-class-odd=" 'fuchsia' ">{{$index}}</li>
 		</ul>
 		
-		
-
 	</body>
 
 </html>

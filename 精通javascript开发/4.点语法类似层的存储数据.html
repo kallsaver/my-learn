@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function stackBlur(){
+			this.next=null;
+		}
+	
+		var stackStart=new stackBlur();
+		var stack=stackStart;
+		for(var i=0;i<3;i++){
+			//stack是for循环对准的指针  stack会进入下一轮
+			stack=stack.next=new stackBlur()
+		}
+		console.log(stackStart)   //保存完整数据的变量   类栈
+		
+		
+	</script>
+</html>

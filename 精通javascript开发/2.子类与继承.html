@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//凡是原型各个层里面如果某个属性是方法  那么function(){}函数体中的this都是指实例化的最顶层
+	
+	
+		//函数的提升 
+		Accommodation.prototype.lock=function(){
+			alert("lock")
+		}
+		
+		function Accommodation(){
+			this.type="aaa";
+		}
+		
+		
+		
+		function House(defaults){
+			this.floors=2;
+			this.rooms=defaults.rooms||7;
+		}
+		//House是Accommodation的子类,并且拿到Accommodation的所有数据
+		House.prototype=new Accommodation();
+		//如果没有这一步,通过House的类创建的对象就会报告说它们是通过Accommodation创造的
+		House.prototype.constructor=House;
+		
+		var a=new House({
+			rooms:4
+		})
+		console.log(a)
+		console.log(a.constructor===House)  		//true
+		console.log(a.constructor===Accommodation)  //false  优先访问顶层的constructor
+		console.log(a instanceof House)				//true   instanceof会沿着原型链查询
+		console.log(a instanceof Accommodation)		//true	 instanceof会沿着原型链查询
+		
+	</script>
+</html>

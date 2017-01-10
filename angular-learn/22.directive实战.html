@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<script src="js/angular.js"></script>
+		<script>
+			angular.module('myApp',[],[function(){
+				
+			}])
+			
+			.factory('Data',function(){
+				return [
+					{name : 'node',index : 90},
+					{name : 'python',index : 95},
+					{name : 'angular',index : 85},
+					{name : 'ruby',index : 92},
+				]
+			})
+			
+			.controller('myCtrl',['$scope','Data',function($scope,Data){
+				$scope.dataList = Data;
+			}])
+			
+			.directive('kittencupGroup',function(){
+				return {
+					restrict : 'ECA',
+					replace : true,
+					template :'<div class="panel-group" id="accordion" ng-transclude></div>',
+					//是否保留原来的子元素(或者文本),如果保留,会迁移到template的写ng-transclude属性的div上
+					transclude :true    //默认false,会把原有的子元素冲掉
+				}
+			})
+			
+			.directive('kittencupCollapse',function(){
+				return {
+					restrict : 'ECA',
+					replace : true,
+					templateUrl : 'temp/kittencupCollapse.html',
+					scope :{
+						//简写,表示$scope.heading : '@heading'  右边的heading是标签上的属性名
+						heading :'@'
+					},
+					controller :function($scope){
+						
+					},
+					transclude : true,
+					link :function(scope){
+						console.log(scope.heading)
+					}
+				}
+			})
+		</script>
+	</head>
+	<body ng-app='myApp'>
+		<div class="container">
+			<div ng-controller="myCtrl">
+				<div kittencup-group>
+					<div kittencup-collapse  ng-repeat='data in dataList' heading="{{data.name}}">指数 : {{data.index}}</div>
+				</div>				
+			</div>
+		</div>
+	</body>
+</html>

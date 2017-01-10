@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+		<script src="js/angular.js"></script>
+		<script>
+			angular.module("myApp",[])
+			
+			.directive("customTags",function(){
+				return {
+					restrict : 'ECAM',
+					templateUrl : 'temp/other.html',
+					replace : true,      //replace是针对E的  true会把自定义标签变为div
+					compile : function(){
+
+					},
+					transclude : true,    //原始数据放在templateUrl的带ng-tranclude属性的标签中
+					priority : -1
+				}
+			})
+			
+			.directive("customTags2",function(){
+				return {
+					restrict : 'ECAM',
+					template : '<div>2<div>',
+					replace : true,      //replace是针对E的  true会把自定义标签变为div
+					compile : function(){
+
+					},
+					transclude : true,    //原始数据放在templateUrl的带ng-tranclude属性的标签中
+					priority : -1
+				}
+			})
+			
+			.directive("customTags3",function(){
+				return {
+					restrict : 'ECAM',
+					replace : true,      //replace是针对E的  true会把自定义标签变为div
+					compile : function(){
+
+					},
+					//一个DOM不能两个templateUrl和transclude
+					//transclude : true,    //原始数据放在templateUrl的带ng-tranclude属性的标签中
+					priority : 0,
+					//terminal : true       //小于0的directive都不会执行了
+				}
+			})
+
+			
+			.controller("myCtrl",function($scope){
+				$scope.name = 'aaa';
+				$scope.data = "新数据"
+			})
+			
+		</script>
+	</head>
+	<body ng-app="myApp">
+		<!--priority是处理指令的优先级的 ng-repeat的优先级默认1000,大部分默认是0-->
+		
+		<div ng-controller="myCtrl">
+			<custom-tags>旧数据</custom-tags>
+		</div>
+		
+		<!--不写terminal会报错,因为一个div只能有一个template,优先级custom-tags3高先执行
+			然后再执行custom-tags2
+		-->
+		<div custom-tags2 custom-tags3></div>
+		
+	</body>
+</html>

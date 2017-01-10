@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+		<style>
+			ul {list-style: none;}
+		</style>
+		<script>
+			<div>
+				controller和controllerAs和require
+					controller会暴露一个API,利用这个API可以在多个指令之间通过依赖注入进行通信
+					controllerAs是给controller起个别名,方便使用
+			</div>
+		</script>
+		<script>
+		
+			angular.module("myApp",[])
+			
+			.directive('bookList',function(){
+				return {
+					restrict : "ECAM",
+					template : "<ul><li ng-repeat='book in bookList'>{{book.name}}</li></ul>",
+					replace : true,
+					//由此可见controller是个构造函数,$scope是在原型上写方法属性
+					controller : function($scope){
+						//这个controller就是myCtrl
+						$scope.bookList = [
+							{
+								name : 'php',
+							},
+							{
+								name : 'javascript',
+							},
+							{
+								name : 'python',
+							}
+						];
+						console.log($scope.bookList)
+						
+						//当然也可以scope.addBook,但是这样做每个myCtrl下的元素都绑定
+						this.addBook = function(){
+							alert("addBook")
+						}
+						
+					},
+					controllerAs :"bookListCtrl",	//在link函数依赖注入
+					//bookListCtrl的注入会实例化一个controller的对象
+					link : function(scope,element,attr,bookListCtrl){
+						//console.log(scope.bookList);
+						element.on('click',bookListCtrl.addBook)
+					}
+				}
+			})
+			
+			
+			.directive('bookList2',function(){
+				return {
+					restrict : "ECAM",
+					template : "<ul><li ng-repeat='book in bookList'>{{book.name}}</li></ul>",
+					replace : true,
+					//由此可见controller是个构造函数,$scope是在原型上写方法属性
+					controller : function($scope){
+						//这个controller的$scope就是myCtrl的$scope 
+						//即它们的原型都是一样
+						//但是它们是不同的controller函数
+						$scope.bookList = [
+							{
+								name : 'php2',
+							},
+							{
+								name : 'javascript2',
+							},
+							{
+								name : 'python2',
+							}
+						];
+						console.log($scope.bookList)
+						
+						this.addBook = function(){
+							alert("addBook2")
+						}
+						
+					},
+					controllerAs :"bookListCtrl2",	//在link函数依赖注入
+					//没有写require规则,bookListCtrl这个controller就是自己的controller函数,名字随便给
+					//如果有require规则,必须依照依赖注入的规则
+					link : function(scope,element,attr,a){
+						//console.log(scope.bookList);
+						element.on('click',a.addBook)
+					}
+				}
+			})
+			
+			
+			.controller('myCtrl',['$scope',function($scope){
+				//就是directive中的controller  不过这个controller会先执行
+				console.log($scope)
+				
+			}])
+			
+			
+		</script>
+	</head>
+	<body ng-app="myApp">
+		<!--priority是处理指令的优先级的 ng-repeat的优先级默认1000,大部分默认是0-->
+		
+		<div ng-controller="myCtrl">
+			<div book-list></div>
+			<div book-list2></div>
+		</div>
+
+	</body>
+
+</html>
