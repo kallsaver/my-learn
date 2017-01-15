@@ -26,10 +26,23 @@
 			.directive('kittencupGroup',function(){
 				return {
 					restrict : 'ECA',
-					replace : true,
+					replace : true,     //原标签舍弃用一个div重写
 					template :'<div class="panel-group" id="accordion" ng-transclude></div>',
 					//是否保留原来的子元素(或者文本),如果保留,会迁移到template的写ng-transclude属性的div上
-					transclude :true    //默认false,会把原有的子元素冲掉
+					transclude :true,   //默认false,会把原有的子元素冲掉   kittencup-collapse会被冲掉
+					controller : ['$scope',function($scope){
+						this.groupList = [];   //angular加载完后这个数组有4个元素
+						//有4个兄弟的scope
+						this.closeOtherCollpase = function(selectedScope){
+							angular.forEach(this.groupList,function(item,index){
+								if( item !== selectedScope ){
+									item.isOpen = false;
+								}
+							})
+						}
+					}],
+					controllerAs : 'kittencupGroupCtrl',
+					
 				}
 			})
 			
@@ -37,18 +50,51 @@
 				return {
 					restrict : 'ECA',
 					replace : true,
+					//require写的是directive的名字,不是controllerAs,注入的时候才是controllerAs的名字
+					require : '^kittencupGroup',
 					templateUrl : 'temp/kittencupCollapse.html',
+					//scope里面只能写&,@,=规则,不能加数据,数据写在controller函数中
 					scope :{
 						//简写,表示$scope.heading : '@heading'  右边的heading是标签上的属性名
 						heading :'@'
 					},
-					controller :function($scope){
-						
-					},
+					controller : ['$scope',function($scope){
+						console.log(1,$scope.$id)
+					}],
+					 //拿到文本区的{{data.index}}  transclude的意义在于在scope独立的情况下,是内置的从父级myCtrl中拿view层(文本区)的字符串的方法
 					transclude : true,
-					link :function(scope){
-						console.log(scope.heading)
-					}
+					//compile只会运行一次 ,而link有几个DOM元素会运行几次 ,利用这点可以用闭包给link或者说DOM元素发index
+					compile : function(){
+						var i = 0;        //只要i在闭包中被引用  i就能在内存中一直存在
+						return {
+							pre : function preLink(){
+								i++      //写在这里好维护   深入理解angular的运行顺序才能做到
+							},
+							//想要实现的功能是点击其中一个head区,它的body区可以关闭开启toggle,并且其它的全部关闭
+							//但是因为它们是兄弟函数,是无法改变对方的数据的,所以,要把装有数据的scope都传入
+							post :function postLink($scope,element,attr,kittencupGroupCtrl){
+								//console.log($scope.heading)  //独立的scope,controller中是没有数据的
+								//console.log($scope.dataList) //独立的scope,controller中是没有数据的
+								console.log(2,$scope.$id)
+								console.log('i',i)
+								if(i==1){
+									$scope.isOpen = true;
+								}
+								else{
+									$scope.isOpen =false;
+								}
+								//4个scope在angular渲染的时候已经进去了
+								kittencupGroupCtrl.groupList.push($scope)
+								$scope.changeOpen = function(){
+									$scope.isOpen = !$scope.isOpen;
+									kittencupGroupCtrl.closeOtherCollpase($scope)
+									//ng-click内置事件结束触发脏检查
+								}
+							},
+						}
+					},
+					
+					
 				}
 			})
 		</script>
@@ -57,9 +103,25 @@
 		<div class="container">
 			<div ng-controller="myCtrl">
 				<div kittencup-group>
+					<!--这个div{{data.name}}myCtrl下的,template中的DOM元素才是directive的-->
 					<div kittencup-collapse  ng-repeat='data in dataList' heading="{{data.name}}">指数 : {{data.index}}</div>
 				</div>				
 			</div>
 		</div>
 	</body>
+	<script>
+	//这种结构闭包也是可以拿到b的   
+		function run(){
+			var b = 0;
+			return {
+				post : function(){
+					b++;
+					console.log('b',b)
+				}
+			}
+		}
+		
+		var c=run()
+		c.post()
+	</script>
 </html>

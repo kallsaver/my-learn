@@ -46,8 +46,10 @@
 					//不写前缀符 表示默认找同一个元素上的指令  即找自己的controllerAs
 					//^表示在父级DOM元素中找
 					//?表示指令是可选的,如果找不到,不需要抛出移除
+					//require写的是指令名
 					require : '^bookList',
 					//bookListCtrl是通过require规则找到的controllerAs的名字,注入
+					//默认注入自己的controller
 					link : function(scope,element,attr,bookListCtrl){
 						//实例化bookListCtrl 这个对象下有addBook的方法
 						element.on('click',bookListCtrl.addBook)

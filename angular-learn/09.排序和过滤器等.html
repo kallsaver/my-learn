@@ -70,7 +70,7 @@
 			<!--遍历所有的属性的value,对key不起作用-->
 			<p>{{data.city | filter :"上海"}}</p>
 			<p>{{data.city | filter :"now"}}</p>
-			<!--只遍历py属性-->
+			<!--只遍历py属性-->  <!--是基于indexOf的语法,不能精准的查找-->
 			<p>{{data.city | filter :{py : "g"} }}</p>
 			<!--orderBy排序 根据属性key来排序-->
 			<p>{{data.city | orderBy :"index" }}</p>

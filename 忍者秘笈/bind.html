@@ -60,23 +60,25 @@
 		var bar2=bar1.bind(foo)  	//bar2的调用者被设置为foo了
 		bar2()						//3
 		
-		//bind只有第一次有效
+		//bind只有第一次有效(函数的this被绑定了,无法被修改)
 		var run=function(){
 			console.log(this.x)
 		}
-		
+		run()                      //undefined
+
 		var obj1={x:1}
 		var obj2={x:2}
 		var obj3={x:3}
 		
 		var run1=run.bind(obj1)
-		run1()				//1
+		run1()				//1   //run1()函数被obj1永远绑定
+		run()               //run没有被bind绑定,它是先拿到函数体   如果是拿到的是被绑定的函数体的指针才会被绑定
 		
 		var run2=run1.bind(obj2)
 		run2()				//1
 		
-		var run3=run2.bind(obj3)
-		run3()				//1
+		run1.call(obj3)     //1
+					
 		
 		
 	</script>

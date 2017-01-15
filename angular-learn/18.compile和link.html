@@ -5,8 +5,8 @@
 		<title></title>
 		
 		<script>
-		<div>
-			Angular指令编译三阶段:
+		
+			/*Angular指令编译三阶段:
 			1.标准浏览器API转化
 			将html转化成DOM,所以自定义的html标签必须符合html的格式
 			
@@ -15,11 +15,8 @@
 			compile函数对模板自身进行转换,仅仅在编译阶段运行一次
 			
 			3.Angular link
-			执行directive上的link方法,进行scope绑定和事件绑定
+			执行directive上的link方法,进行scope绑定和事件绑定*/
 			
-			
-			
-		</div>	
 		</script>
 		
 		<script src="js/angular.js"></script>
@@ -50,7 +47,6 @@
 						//如果只return一个函数而不是对象,这个函数就是postLink函数, 写compile就不用写link了
 						//ng-repeat生成多少个元素,link就运行多少次,把数组中的对应元素的数据传入元素中
 						return{
-							
 							
 							//表示在编译阶段之后,指令连接到子元素,独立的数据(user)没有进入对应的元素之前运行
 							pre : function preLink(scope,element,attr,controller){
@@ -83,6 +79,9 @@
 										//进行一次脏检查  不是内置事件触发的数据变动,需要手动加$apply触发$dirty
 									})
 								})*/
+								console.log('jqLite',angular.element(document.body))
+								//angular不支持jqLite的写法  ionic可以支持
+								//console.log('jqLite',jqLite(document))
 								//或者:
 								element.on("click",function(){
 									//find是找子元素 不能找自身
@@ -185,6 +184,42 @@
 		}*/
 		
 		//a.one()
+		
+	</script>
+	<script>
+		var a = angular.element(document.body)
+		var b = angular.element(document.body)
+		if(a==b){				//不弹,说明a和b分别是两个引用
+			alert(1)           
+		}
+		var c = a[0]
+		var d = b[0]
+		if (c==d){
+			alert(2)
+		}
+		
+		var str='{{aaa}}'
+		
+		var getContent1 = str.replace(/[{}]/g,"")
+		console.log('------------------------------')
+		console.log('getContent1',getContent1)
+		
+		var getContent2 = str.match(/^\{.*\}$/g)[0];
+		console.log('getContent2',getContent2)
+		var result = ''  //不声明会无法使用+=
+		for(var i=0,length=getContent2.length;i<length;i++){
+			//方法1:
+			if(i!==0&&i!==1&&i!==length-2&&i!==length-1) result+=getContent2[i]
+
+			//数组能借用字符串的方法,而字符串不能借用数组的方法
+		}
+
+		
+		console.log('result',result)
+			
+			
+		
+		
 		
 	</script>
 </html>

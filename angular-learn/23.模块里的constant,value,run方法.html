@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+		<script>
+			angular.module('myApp',[],['$provide',function($provide){
+				//$provide.factory
+				//$provide.service
+				
+				//$provide.constant
+				
+			}])
+			
+			//constant这个方法首先运行,可以用它来声明全局的常量,可以注入config,factory,service,controller任何方法中
+			.constant('APIKEY','key')
+			
+			//value 不能注入config,可以注入controller,factory,service
+			.value('vension','1,0,0')
+			
+			.config(function(APIKEY){
+				console.log('config',APIKEY)
+			})
+			
+			//注入启动之后执行某些操作,这些操作需要在页面对用户可用之前执行,config之后controller之前
+			//比如加载远程的模板,需要在使用前放入缓存,
+			//或者在使用操作前判断用户是否登录,未登录可以先去登录页面
+			.run(function(){
+				console.log('run');
+			})
+			
+			.factory('shopFactory',function(APIKEY,vension){
+				return {
+					fn : function(){
+						console.log('factory',APIKEY)
+						console.log('factory',vension)
+					}
+				}
+				
+			})
+			
+			.controller('myCtrl',['$scope','APIKEY','vension','shopFactory',function($scope,APIKEY,version,shopFactory){
+				console.log('controller',APIKEY)
+				console.log('controller',version)
+				shopFactory.fn()
+			}])
+		</script>
+	</head>
+	<body ng-app='myApp'>
+		<div ng-controller='myCtrl'></div>
+	</body>
+</html>

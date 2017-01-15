@@ -24,6 +24,9 @@
 element是这个directive指令所在的元素(replace:false)或者tempalte的root element即最外围的元素
 这时候还是angular的DOM渲染时期,父DOM的myCtrl数据还没进来,所以compile函数是没有scope和controller参数的
 无论ng-repeat生成几个元素,compile只执行一遍(这不重要,因为compile只是DOM渲染,不是来处理js函数编程的)
+要注意的是,transclude默认为false,会把原来模板的子元素冲到,所以要设transclude:true,并在templateUrl某个标签中加上ng-transclude
+transclude的意义在于,在scope独立的情况下,user和userList不会进入scope,它是内置的可以从父级myCtrl中拿view层(文本区)的字符串的方法
+解决了user无法进入scope,但是仍然可以在view层显示,是angular内置的便利方法(自定义方法有&=@)
 
 6.如果在compile函数中retrun {pre : function pre(){},post : function post(){}},那么link函数不会执行了,这个link就是postLink
 因为生成两个DOM子元素,所以link要运行两次,ng-repeat生成的第一个子元素运行完link再到第二个子元素的link
@@ -32,7 +35,7 @@ preLink函数运行,父DOM的myCtrl数据通过作用域链继承给element和el
 compile和preLink和postLink的elmement可以理解为同一个元素
 directive的scope属性指的是directive的controller方法的$scope
 如果scope:true,preLink函数中的scope是element自己的scope,可以设置自己的属性,父级不会受影响,可以通过继承链访问myCtrl的$scope
-如果scope:false,preLink函数中的scope就是父元素myCtrl的scope的引用值,在这里改变属性,父级是受影响的
+如果scope:false,preLink函数中的scope就是父元素myCtrl的scope的引用值,在这里改变属性,父级是受影响的  黑科技
 如果scope:{},preLink函数中的scope是element自己的scope,并且无法通过继承链访问myCtrl的$scope 
 scope:{}的情况,都是通过把属性包装成  【@字符串,=引用,&有返回值的函数】在html的属性中利用myCtrl的$scope暴露拿到$scope的个别数据:string类型数据,引用数据,引用数据
 =最实用但颠覆js的语法思维,directive的scope.b拿到myCtrl的$scope.bookList的引用后,如果scope.b=null会导致$scope.bookList=null
@@ -44,8 +47,9 @@ scope:{}的情况,都是通过把属性包装成  【@字符串,=引用,&有返�
 这时候prelink函数中的scope指的是和另一个ng-repeat生成的DOM元素平行的scope,可以访问父级DOM元素的myCtrl的$scope
 scope.user或者scope.userList都是可以访问的
 directive中的controller方法中的$scope和scope属性和link(preLisk,postLisk函数)的scope参数都是同一个引用值
-值得注意的是preLink执行时,先判断scope的继承选择,然后userLink进入scope,而user没有进入scope,在postLink阶段,myCtrl中从userLink迭代var n个变量给n个user
-所以scope :{} myCtrl的userLink,user是进不了scope的,directive的controller重写userLink后,user依然是没定义的
+值得注意的是preLink执行时,先判断scope的继承选择,然后userLink进入scope,而user没有进入scope,在postLink阶段,
+myCtrl中从userLink迭代var n个变量给n个user var $index,$first进入scope 
+所以scope :{} myCtrl的userLink,user,$index是进不了scope的,directive的controller重写userLink后,user依然是没定义的
 
 //杂
 如果两个directive指令写在同一个DOM元素上,那么它们的directive的不能同时存在template,transclude,controller,scope属性,否则会严重报错

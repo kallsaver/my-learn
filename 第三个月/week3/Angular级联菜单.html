@@ -119,15 +119,18 @@
              city as city for city in ["郑州市","洛阳市","开封市"]
              var city = "郑州市"
           -->
-    	<select ng-model="selectedCity" ng-options="item as item.city for  item in selectedProvince.cityList">
+    	<select ng-model="selectedCity" ng-options="item as item.city for  item in selectedProvince.cityList"
+    		ng-show="selectedProvince" >
         	<option value="">--请选择城市--</option>
         </select>
         
-        <select ng-model="selectedCounty" ng-options="item as item.county for item in selectedCity.countyList">
+        <select ng-model="selectedCounty" ng-options="item as item.county for item in selectedCity.countyList" 
+        	ng-show="selectedCity">
         	<option value="">--请选择区县--</option>
         </select>
         
-        <select ng-model="selectedBlock" ng-options="item for item in selectedCounty.blockList">
+        <select ng-model="selectedBlock" ng-options="item for item in selectedCounty.blockList"
+        	ng-show='selectedCounty' >
         	<option value="">--请选择街道--</option>
         </select>
         <br><br>
