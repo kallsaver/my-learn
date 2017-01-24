@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+	</head>
+	<!--table-responsive 当屏幕小于768px时并且这个元素有margin才会出现水平滚动条 -->
+	<body class="table-responsive" style="font-size: 30px;color:fuchsia;
+		font-weight: 900;margin-left:50px">
+		<!--1200px和992px是pc端的,sm是平板的,xs是手机的-->
+		1.visible只在某个区间可见<!---->
+		<div class="visible-lg">1200px可见</div>
+		<div class="visible-md">992px~1200px可见</div>
+		<div class="visible-sm">769px~992px可见</div>
+		<div class="visible-xs">小于769px可见</div>
+		
+		<br>
+		-----------------------------------------------------------
+		<br>
+		2.hidden只在某个区间不可见
+		<div class="hidden-lg">1200px不可见</div>
+		<div class="hidden-md">992px~1200px不可见</div>
+		<div class="hidden-sm">768px~992px不可见</div>
+		<div class="hidden-xs">小于768不可见</div>
+		<span>span</span>
+		
+		<br>
+		<br>
+		3.变体只有visible有,hidden没有 <!--inline-block,block,inline 显示的时候展示的是什么元素-->
+		<br>
+		<div class="visible-lg-inline">1200px可见</div>
+		<div class="visible-md-inline">992px~1200px可见</div>
+		<div class="visible-sm-inline">769px~992px可见</div>
+		<div class="visible-xs-inline">小于769px可见</div>
+		<span>span</span>
+		
+		
+	</body>
+</html>

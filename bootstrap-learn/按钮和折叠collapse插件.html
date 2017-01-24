@@ -1,0 +1,189 @@
+f<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js" ></script>
+		<style>
+			a,a:focus,a:hover{text-decoration: none;}
+			.panel-group a{display: block !important;}
+		</style>
+	</head>
+	<body>
+		<!--button,input的属性autocomplete默认为on,
+			其含义代表是否让浏览器自动记录之前输入的值,
+			很多时候,需要对客户的资料进行保密,防止浏览器软件或者恶意软件获取到,
+			可以在input中加入autocomplete="off"来关闭记录
+			系统需要保密的情况下可以使用此参数
+		-->
+		
+		
+		<!--在火狐多次页面加载时,按钮可能保持表单的禁用或者选择状态,在button上写autocomplete="off"-->
+		<br>1.点击之后一直被选中 再点击不选中 data-toggle="button" <br>  
+		<!--<button class="btn btn-primary" data-toggle="button" 
+			autocomplete="off" >  
+			单个切换
+		</button> -->
+		
+		<br>2.单选框<br>	 <!--check被data-toggle后没有小点了,缺少样式上的表现,需要在label上加上active-->
+		<!--<div class="btn-group" data-toggle="buttons">
+			<label for="" class="btn btn-primary active"> 
+				<input type="radio" name="sex" value="男" checked>男  
+			</label>
+			<label for="" class="btn btn-primary">
+				<input type="radio" name="sex" value="女" >女
+			</label>
+		</div>-->
+		
+		<!--<br>2.复选框<br>
+		<div class="btn-group" data-toggle="buttons">
+			<label class="btn btn-primary active">
+				<input type="checkbox" name="hobby" value="体育" checked="">体育
+			</label>
+			<label class="btn btn-primary">
+				<input type="checkbox" name="hobby" value="音乐">音乐
+			</label>
+			<label class="btn btn-primary">
+				<input type="checkbox" name="hobby" value="艺术">艺术
+			</label>
+			<label class="btn btn-primary">
+				<input type="checkbox" name="hobby" value="IT">IT
+			</label>
+		</div>-->
+		
+		<br>
+		<br>3.加载状态<br>
+		<!--在火狐多次页面加载(f5刷新)时,按钮可能保持表单的禁用或者选择状态,在button上写autocomplete="off"-->
+		<button id="myButton" type="button" data-loading-text="loading..."
+			class="btn btn-primary"	autocomplete="off">
+			加载状态
+		</button>
+		
+		<br>
+		<br>4. 在1.中不用data-toggle="button" 用js的方法<br>
+		<button class="btn btn-primary" id="button4"
+			autocomplete="off" >  
+			单个切换
+		</button> 
+		
+		<br>
+		<br>5. 折叠collapse插件<br>
+		<button class="btn btn-primary" 
+			data-toggle="collapse" data-target="#myCollapse">
+			显示折叠
+		</button>
+		
+		<div class="collapse" id="myCollapse">
+			<div class="well">bootstrap是twitter推出的一个前端开发工具包</div>
+		</div>
+		<br> <br> <br>
+		<p>-----------------------------------------------------------------</p>
+		
+<!--		<br>6. 手风琴折叠<br> 
+		<div class="panel-group">
+			<div class="panel panel-primary">
+				<div class="panel-heading">     
+					<h4 class="panel-title">
+						<a href="#collapseOne" data-toggle="collapse">点击我进行展示,再点击我进行折叠第一部分</a>
+					</h4>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse">    
+					<div class="panel-body">
+						这里是第一部分
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-primary">
+				<div class="panel-heading">     
+					<h4 class="panel-title">
+						<a href="#collapseTwo" data-toggle="collapse">点击我进行展示,再点击我进行折叠第一部分</a>
+					</h4>
+				</div>
+				<div id="collapseTwo" class="panel-collapse collapse in">   
+					<div class="panel-body">
+						这里是第二部分
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-primary">
+				<div class="panel-heading">     
+					<h4 class="panel-title">
+						<a href="#collapseThree" data-toggle="collapse">点击我进行展示,再点击我进行折叠第一部分</a>
+					</h4>
+				</div>
+				<div id="collapseThree" class="panel-collapse collapse in">    
+					<div class="panel-body">
+						这里是第三部分
+					</div>
+				</div>
+			</div>
+		</div>-->
+		
+		<br>7. 手风琴折叠加强版br>
+		<div class="panel-group" id="accordion">
+			<div class="panel panel-primary">
+				<div class="panel-heading">     <!--heading是和collapse对应的-->
+					<h4 class="panel-title">
+						<a href="#collapseOne" data-toggle="collapse" data-parent="#accordion">
+							点击我进行展示,再点击我进行折叠第一部分
+						</a>
+					</h4>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse in">    <!--加in可以展示-->
+					<div class="panel-body">
+						这里是第一部分
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-primary">
+				<div class="panel-heading">     <!--heading是和collapse对应的-->
+					<h4 class="panel-title">	
+						<a href="#collapseTwo" data-toggle="collapse" data-parent="#accordion"> 
+							点击我进行展示,再点击我进行折叠第二部分
+						</a>
+					</h4>
+				</div>
+				<div id="collapseTwo" class="panel-collapse collapse" data-parent="#accordion">   
+					<div class="panel-body">
+						这里是第二部分
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-primary">
+				<div class="panel-heading">     <!--heading是和collapse对应的-->
+					<h4 class="panel-title">
+						<a href="#collapseThree" data-toggle="collapse" data-parent="#accordion">
+							点击我进行展示,再点击我进行折叠第三部分
+						</a>
+					</h4>
+				</div>
+				<div id="collapseThree" class="panel-collapse collapse">   
+					<div class="panel-body">
+						这里是第三部分
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		//button插件有三个参数toggle,reset,string
+		//3.
+		$("#myButton").on("click",function(){
+			var $btn=$(this).button("loading");
+			setTimeout(function(){
+				$btn.button("reset")
+			},3000)
+		})
+		
+		//4.
+		$("#button4").on("click",function(){
+			$(this).button("toggle")
+		})
+		
+		
+		
+		
+	</script>
+</html>

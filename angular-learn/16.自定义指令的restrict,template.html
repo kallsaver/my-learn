@@ -46,7 +46,8 @@
 					//M注释
 					restrict : 'ECAM',
 					templateUrl : 'temp/other.html',
-					replace : true,      //replace是针对E的  true会把自定义标签变为div
+					//replace是针对E的,true会把自定义标签变为div,自定义的标签的属性会转移到template的最外围的元素上
+					replace : true,      
 					compile : function(){
 						//执行了3次,分别是ECA
 						console.log(1)

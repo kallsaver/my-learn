@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!--分别是屏幕宽度和设备一致,初始缩放比例,最大缩放比例,禁止用户缩放-->
+		<meta name="viewport" content="width=device-width,
+			 initial-scale=1,
+			 maximum-scale=1,
+			 user-scalable=no">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<style>
+			.peru {
+				background: peru;
+			}
+			.gold{
+				background: gold;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--bootstrap栅格化源码看底部-->
+		<br> 1.两种容器不要互相嵌套
+		<!--有两种容器 container固定宽度和container-fluid 100%宽度-->
+		<div class="container" style="background: red;">
+			<!--contain是有padding的-->
+			<div class="container-fluid" style="background: peru;">
+				<p>1</p>
+			</div>
+		</div>
+
+		<div class="container-fluid" style="background: peru;">
+			<div class="container" style="background: red;">
+				<p>2</p>
+			</div>
+		</div>
+		
+		<br> 
+		<br> 2.源码中row把container的左右padding15抵消了
+		<div style="width:970px;background: plum;height: 50px;
+			padding-right:15px;padding-left: 15px;position: relative;margin: 0 auto;">
+			<span style="position: absolute;top:50%;left: 50%;">container</span>
+			<div style="height: 100%;background: blueviolet;
+				margin-left: -15px;margin-right: -15px;">row</div>
+		</div>
+
+		<br>
+		<br> 3.基本样式
+		<!--col-lg适用于屏幕大于1200px的情况,如果不是这个样式就无效了
+			同理col-md适用于屏幕992~1200px的情况
+			   col-sm适用于屏幕768~992px的情况
+			col-xs使用于屏幕小于768px的情况   
+		-->
+		<div class="container">
+			<div class="row" style="background: gold;">
+				<!--row分12列-->
+				<div class="col-md-1 peru" style="height: 60px;">1</div>
+				<div class="col-md-1 peru">2</div>
+				<div class="col-md-1 peru">3</div>
+				<div class="col-md-1 peru">4</div>
+				<div class="col-md-1 peru">5</div>
+			</div>
+		</div>
+		
+		<br>
+		<div class="container-fluid">
+			<div class="row gold">
+				<!--row分12列-->
+				<div class="col-md-1 peru" style="height: 60px;">1</div>
+				<div class="col-md-1 peru">2</div>
+				<div class="col-md-1 peru">3</div>
+				<div class="col-md-1 peru">4</div>
+				<div class="col-md-1 peru">5</div>
+			</div>
+		</div>
+		
+
+		
+		<br> 
+		<br> 4.让中间保持空隙
+		<div class="container">
+			<div class="row gold">
+				<div class="col-md-8 peru">8</div>
+				<div class="col-md-3 col-md-offset-1 peru">3</div>
+			</div>
+		</div>
+		
+		<br>
+		<br> 5.嵌套
+		<div class="container">
+			<div class="row" style="background: fuchsia;">
+				<div class="col-md-7 peru"> <!--col是有左右padding15的-->
+					<div class="col-md-8 gold">8</div>
+					<div class="col-md-4 gold">4</div>
+				</div>
+				<div class="col-md-3 col-md-offset-2 peru">
+					<div class="col-md-7 gold">7</div>
+					<div class="col-md-5 gold">5</div>
+				</div>
+			</div>
+		</div>
+		
+		<br>
+		<br> 6.正确的嵌套
+		<div class="container">
+			<div class="row" style="background: fuchsia;">
+				<div class="col-md-7 peru"> <!--col是有左右padding15的-->
+					<div class="row">
+						<div class="col-md-8 gold">8</div>
+						<div class="col-md-4 gold">4</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-md-offset-2 peru">
+					<div class="row">
+						<div class="col-md-7 gold">7</div>
+						<div class="col-md-5 gold">5</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<br> 
+		<br> 7.两个列交换位置  <!--push向右移动,pull向左移动-->
+		<div class="container">
+			<div class="row" style="background: fuchsia;">
+				<div class="col-md-8 col-md-push-4 gold">8</div>
+				<div class="col-md-3 col-md-pull-8 peru">3</div>
+			</div>
+		</div>
+		
+		<br> 
+		<br> 8.container-fluid的栅格化系统和container一样
+		<div class="container-fluid">
+			<div class="row peru">
+				<div class="col-md-8 gold">8</div>
+				<div class="col-md-3 gold">3</div>
+			</div>
+		</div>
+		
+
+	</body>
+	<style>
+		.container {
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: auto;
+		}
+		
+		@media (min-width: 768px) {
+			.container {
+				width: 750px;
+			}
+		}
+		
+		@media (min-width: 992px) {
+			.container {
+				width: 970px;
+			}
+		}
+		
+		@media (min-width: 1200px) {
+			.container {
+				width: 1170px;
+			}
+		}
+		
+		.container-fluid {
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: auto;
+		}
+		
+		.row {
+			margin-right: -15px;
+			margin-left: -15px;
+		}
+	</style>
+
+</html>

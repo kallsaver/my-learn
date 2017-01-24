@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+	</head>
+	<body>
+		<br> 1.基本列表  颜色使用bg-xxx无效  要使用list-group-item-xxx
+		<ul class="list-group">
+			<li class="list-group-item">1<span class="badge">10</span></li>
+			<li class="list-group-item">2<span class="badge">10</span></li>
+			<li class="list-group-item">3<span class="badge">10</span></li>
+			<li class="list-group-item">4<span class="badge">10</span></li>
+			<li class="list-group-item disabled">禁用<span class="badge">10</span></li>
+			<li class="list-group-item list-group-item-success">6<span class="badge">10</span></li>
+		</ul>
+		
+		<br> 2.链接列表 a元素被block了 
+		<div class="list-group">
+			<a href="#" class="list-group-item" style="background: red;">1<span class="badge">10</span></a>
+			<a href="#" class="list-group-item list-group-item-danger">2<span class="badge">10</span></a>
+			<a href="#" class="list-group-item">3<span class="badge">10</span></a>
+			<a href="#" class="list-group-item">4<span class="badge">10</span></a>
+			<a href="#" class="list-group-item">5<span class="badge">10</span></a>
+		</div>
+		
+		<br> 3.按钮列表 button没有被block  button列表化意义不大
+		<div class="list-group">
+			<button class="list-group-item" style="background: red;">1<span class="badge">10</span></button>
+			<button class="list-group-item list-group-item-danger">2<span class="badge">10</span></button>
+			<button class="list-group-item">3<span class="badge">10</span></button>
+			<button class="list-group-item">4<span class="badge">10</span></button>
+			<button class="list-group-item">5<span class="badge">10</span></button>
+		</div>
+		
+		<br> 4.定制内容
+		<div class="list-group">
+			<a href="#" class="list-group-item active">
+				<h3>内容标题</h3>
+				<p class="list-group-item-text">1.内容详情</p>
+			</a>
+			<a href="#" class="list-group-item">
+				<h4>内容标题</h4>
+				<p class="list-group-item-text">2.内容详情</p>
+			</a><a href="#" class="list-group-item">
+				<h5>内容标题</h5>
+				<p class="list-group-item-text">3.内容详情</p>
+			</a>
+		</div>
+		
+		
+	</body>
+</html>

@@ -22,7 +22,7 @@
 9.grunt 执行Gruntfile.js要运行的函数  如果出现"Use --force to continue."可以敲grunt --force强制执行
 然后打开dest文件夹看看吧
 
-10.以上是grunt的原理,还有更自动化的前端工具 不是很会用 yaoman脚手架工具和bower包管理工具和grunt工具或者gulp工具
+10.以上是grunt的原理,还有更自动化的前端工具 不是很会用 yeoman脚手架工具和bower包管理工具和grunt工具或者gulp工具
 
 
 

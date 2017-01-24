@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+		<script>
+			angular.module('myApp',[])
+			
+			.controller('testCtrl',['$scope',testCtrl])
+			
+			.controller('childCtrlOne',['$scope',childCtrlOne])
+			
+			.controller('childCtrlTwo',['$scope',childCtrlTwo])
+			
+			function testCtrl($scope){
+				console.log($scope.$id)    //$id2
+				var vm = this
+				//监听的事件名,监听的事件发生时发生的函数
+				$scope.$on('toFather',function(obj,passArg){
+					console.log('obj',obj)
+					console.log('passArg',passArg)
+					vm.number = passArg;
+					//向下级已注册的作用域广播指定的事件    
+					//实现了兄弟controller传递参数: 1->父级->2
+					$scope.$broadcast('toChild',passArg)
+				})
+			}
+			
+			function childCtrlOne($scope){
+				console.log($scope.$id)     //$id3
+				var count = 0;
+				
+				/*$scope.$on('toFather',function(obj,passArg){
+					console.log('obj1',obj)
+					//阻止向上级冒泡
+					obj.stopPropagation()
+				})*/
+				
+				//count被封在构造函数的实例的构造函数中,是个闭包(childOne实例)
+				this.toFatherScope = function(){
+					count += 100;
+					//向自己或者上级已经注册的作用域传播'toFather'事件 ,并把count传参给事件触发的函数
+					//上级会$on('toFather',function(){}) 监听'toFather'事件的信号,一旦有就触发回调函数
+					$scope.$emit('toFather',count)
+				}
+			}
+			
+			function childCtrlTwo($scope){
+				console.log($scope.$id)      //$id4
+				var vm = this;
+				//监听的事件名,监听的事件发生时发生的函数
+				$scope.$on('toChild',function(obj,passArg){
+					vm.number = passArg
+				})
+			}
+			
+		</script>
+	</head>
+	<body ng-App='myApp'>
+		<div ng-controller="testCtrl as ctrl">
+			<!--{{里面写html记得加引号}}-->
+			{{ctrl.number || 'Here where receive a number from childScope'}}
+			<div ng-controller='childCtrlOne as childOne'>
+				<input type='button' ng-click='childOne.toFatherScope()' value='click me'>
+			</div>
+			<div ng-controller='childCtrlTwo as childTwo'>
+				{{childTwo.number || 'Here where receive a number from fatherScope'}}
+			</div>
+		</div>
+	</body>
+</html>

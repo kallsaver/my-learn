@@ -1,0 +1,66 @@
+<!doctype html>
+<html dir="ltr" lang="zh-CN">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <title>tabIndex By 司徒正美</title>
+    <script>
+      window.onload = function(){
+        var els = document.getElementsByTagName("input");
+        for(var i=0,n=els.length;i<n;i++){
+          els[i].onfocus = function(){
+            this.style.cssText='background:#69C;border-color:#6cc;';
+          };
+          els[i].onblur = function(){
+            this.style.cssText='background:#fff;border-color:#000;';
+          };
+        }
+      }
+      
+      /*默认情况下，只有链接元素和表单元素可通过tab按键获得焦点。
+		如果对其它元素使用tabindex属性也可以获得焦点，并可以实现focus（）方法。
+		如果其它元素通过tab键获得焦点，只需将tabindex值为-1  -1代表没有顺序
+		tabindex的值是按下tab键获得焦点的先后顺序  从1开始  input等框不写默认是0
+	 */
+		
+    </script>
+    <style>
+    	p{background: peru;width: 300px;margin-bottom: 30px;font-size: 20px;}
+    </style>
+  </head>
+  <body>
+    <form name="nasami">
+      <input tabindex="1" value="第一个" type="text" ><br />
+      <input tabindex="3" value="第三个" type="text" ><br />
+      <input tabindex="5" value="第五个" type="text" ><br />
+      <input tabindex="6" value="第六个" type="text" ><br />
+      <input tabindex="4" value="第四个" type="text" ><br />
+      <input tabindex="2" value="第二个" type="text" >
+    </form>
+    
+    
+<!--    <div id="div">
+      <p tabindex="-1">1</p>
+      <p tabindex="0">2</p>
+      <p tabindex="1" style="display: none;">3</p>
+      <p tabindex="1">4</p>
+      <p tabindex="2">5</p>
+      <p tabindex="-1">6</p>
+      <p tabindex="-1">7</p>
+      <p>没有设置tabindex="-1"</p>
+    </div>-->
+    
+  </body>
+  <script>
+  	var aP=document.getElementsByTagName("p")
+  	for(var i=0,l=aP.length;i<l;i++){
+  		aP[i].onfocus=function(){
+  			this.style.background="red";
+  		}
+  		aP[i].onblur=function(){
+  			this.style.background="peru"
+  		}
+  	}
+  	
+  </script>
+</html>

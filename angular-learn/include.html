@@ -1,1 +1,8 @@
-other html page
+<div>
+<p style="background: #8064a1;padding: 5px 0px;">other html page form ng-include</p>
+<label>改这个无法该父级上的scope.lastName</label><input type='text' ng-model='lastName'>
+<br>
+<label>这个绑定的是父级上的scope.lastName</label><input type='text' ng-model='$parent.lastName'>
+<br>
+<label>这个绑定的是父级上user对象上的</label><input type='text' ng-model='user.lastName'>
+</div>

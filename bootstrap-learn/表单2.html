@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<style>
+			/*	form-control的源码*/
+			
+			.form-control {
+				display: block;
+				width: 100%;
+				height: 34px;
+				padding: 6px 12px;
+				font-size: 14px;
+				line-height: 1.42857143;
+				color: #555;
+				background-color: #fff;
+				background-image: none;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+				box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+				-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+				-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+				transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+			}
+			
+			.form-control:focus {
+				border-color: #66afe9;
+				outline: 0;
+				-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+				box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+			}
+			/*自定义一个focus:*/
+			
+			.abc:focus {
+				border-color: #985F0D;
+				outline: 0;
+				-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(200, 50, 0, .6);
+				box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(200, 50, 0, .6);
+			}
+		</style>
+	</head>
+
+	<body>
+		字符集fieldset标签
+		<!--form下的字符集fieldset-->
+		<form role="form">
+			<fieldset disabled>
+				<div class="form-group">
+					<label class="col-sm-2 control-label"></label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="禁止输入" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label"></label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="禁止输入" />
+					</div>
+				</div>
+			</fieldset>
+
+			<div class="form-group has-error"> <!--has-error把盒子阴影的颜色改了-->
+				<label class="col-sm-2 control-label"></label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="账号" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label"></label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="密码" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label "></label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control abc" placeholder="验证码" />
+					<!--abc自定义的的focus-->
+				</div>
+			</div>
+		</form>
+
+		<form role="form">
+			<span>帮助文本实例</span>
+			<input class="form-control" type="text" placeholder="输入你的简介">
+			<span class="help-block">一个较长的帮助文本块，超过一行，
+  			需要扩展到下一行。本实例中的帮助文本总共有两行。一个较长的帮助文本块，超过一行，
+  			需要扩展到下一行。本实例中的帮助文本总共有两行。一个较长的帮助文本块，超过一行，
+  			需要扩展到下一行。本实例中的帮助文本总共有两行。一个较长的帮助文本块，超过一行，
+  			需要扩展到下一行。本实例中的帮助文本总共有两行。一个较长的帮助文本块，超过一行，
+  			需要扩展到下一行。本实例中的帮助文本总共有两行。</span>
+		</form>
+
+		<input type="text" placeholder="" class="help-block"> input也能使用help-block变为block元素,不过它的边框不能100%,如果想边框也100%,加class="form-control"或者width:100%
+		<span style="background: peru;">aaaaaaa</span> 这个span没加help-block
+		<span style="background: peru;" class="help-block">aaaaaaa</span>span能使用help-block变为block元素
+
+		<br>
+		<br>
+		<form role="form">
+			<div class="row">
+				<div class="col-lg-2">   <!--可以看出只对屏幕大的时候才有效,因此栅格化还需要添加col-sm-2等等-->
+					<input type="text" class="form-control" placeholder="col-lg-2">
+				</div>
+				<div class="col-lg-3">
+					<input type="text" class="form-control" placeholder="col-lg-3">
+				</div>
+				<div class="col-lg-4">
+					<input type="text" class="form-control" placeholder="col-lg-4">
+				</div>
+			</div>
+		</form>
+		
+		<br>
+		<br>
+		<!--图标和同步和定位-->  <!--glyphicon-remove(交叉) glyphicon-warning-sign警告-->
+		<form role="form">
+			<!--要加上has-feedback,有相对定位的功能-->
+			<div class="form-group has-success has-feedback">
+				<!--control-label是同步用的,同步上面的div 文字颜色和has-success一样了-->
+				<label class="control-label">Input with success</label>   
+				<input class="form-control" type="text"/>
+				<!--form-control-feedback会使得图标span绝对定位-->
+				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			</div>
+			
+		</form>
+	</body>
+
+</html>

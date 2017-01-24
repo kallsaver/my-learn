@@ -11,6 +11,7 @@
 			//$formatters保存了从modelValue向viewValue绑定过程中的处理函数
 			//$setViewValud:当view发生了某件事情时,从view向model绑定调用   $setViewValue把viewValue保存下来
 			
+			
 		</script>
 		<script>
 			angular.module('myApp',[],[function(){
@@ -35,6 +36,7 @@
 					require : 'ngModel',
 					//ngModelCtrl是找到的那个指令的controller,注入
 					link : function(scope,element,attr,ngModelCtrl){
+						//从view层想modal层处理
 						ngModelCtrl.$parsers.push(function(viewValue){
 							//console.log(viewValue)
 							if(viewValue % 2 === 0){
@@ -45,7 +47,12 @@
 							}
 							//记得return给view层   return出来的是输出的结果
 							return viewValue
-						})
+						});
+						//从modal层向view层处理
+						/*ngModelCtrl.$formatters.push(function(modelValue){
+							//console.log(modelValue)
+							return modelValue + 10000
+						})*/
 					}
 				}
 			})
@@ -381,6 +388,7 @@
   					<label class="col-sm-2 control-label">只能输入偶数</label>
   					<div class="col-sm-10">
   						<input type='number' name='even' ng-model='data.even' placeholder="偶数" even>
+  						<!--<input type='number' name='even' ng-model='data.even' placeholder="偶数" even>-->
   					</div>
   				</div>
   				<div class="alert alert-danger" 

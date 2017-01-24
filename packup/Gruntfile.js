@@ -58,3 +58,4 @@ module.exports = function(grunt) {
 
 //grunt还有清除源文件,copy源文件到一个目录,压缩图片等功能:
 //http://www.cnblogs.com/hubcarl/p/4095122.html
+//http://www.cnblogs.com/wangfupeng1988/p/4561993.html
