@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var arr = []
+		for(var i=0;i<100;i++){
+			if(i>49){
+				//throw new Error相当于alert了,后面的程序都不跑了
+				throw new Error("50")
+			}
+			arr.push(i)
+			console.log(arr)
+		}
+		
+		console.log(arr)
+		
+	</script>
+</html>

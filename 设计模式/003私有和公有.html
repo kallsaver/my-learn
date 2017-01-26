@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	
+		 function Book(id,name,price){
+			//私有属性
+			var num = 1;
+			//私有方法
+			function checkId(){}
+			
+			//公有方法
+			this.copy = function(){
+				console.log("copy")
+			}
+			
+			//一个闭包,可以获得Book函数中的私有变量,称为特权方法
+			this.getNum = function(){
+				console.log(num)
+			}
+			//特权方法
+			this.getId = function(){
+				console.log(id)
+			}
+			
+			this.id = id;
+			this.name = name;
+			this.price = price;
+			//this.setName(name);
+			
+			//实例不能访问
+			Book.isChinese = true;
+			//实例不能访问
+			Book.resetTime = function(){
+				console.log("resetTime")
+			};
+			
+		}
+		
+	   //Book.prototype的意思是访问Book的实例的下一层 而不是构造函数的下一层  Book.__proto__才是构造函数的下一层
+		//在构造函数里面改变它的实例的__proto__的指针是无效的,必须要在构造函数外面写
+		Book.prototype = {
+			display : function(){
+				console.log("no")
+			},
+			isJsBook : false,
+		}
+		
+		var a = new Book(11,'javascript',50)
+		
+		console.log(a)				//a.__proto__是上层object,是访问不到Book的原型链的
+		console.log(a.num)          //undefined
+		console.log(a.id)           //11
+		console.log(Book.isChinese) //true
+		console.log(a.isChinese)    //undefined
+		console.log(a.isJsBook)		//false
+		Book.resetTime()			//'resetTime'
+		console.log(Book.prototype === a.__proto__)    //true
+		a.getNum()                 // 1
+		a.getId()				   //11
+	</script>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		Function.prototype.addMethod = function(name,fn){
+			//这个this是new出来的实例
+			this[name] = fn;
+			return this;
+		}
+		//console.log(Function.prototype.__proto__)
+		
+		var methods = new Function();
+		
+		//console.log(methods.__proto__.__proto__ === Function.prototype.__proto__)
+		
+		//addMethod相当于一个函数注册器,第一个参数是函数名,第二个参数是对应的函数
+		//checkName是实例(不是原型上)的方法
+		//通过this定义的属性方法是该对象自身拥有的
+		methods.addMethod('checkName',function(){
+			console.log("checkName");
+			//并且这个函数不是回调函数,而是一个属性上的方法,this是new出来的实例
+			console.log(this)
+			return this
+		})
+		
+		.addMethod('checkEmail',function(){
+			console.log("checkEmail");
+			return this
+		})
+		
+		methods.checkName().checkEmail()
+	</script>
+</html>

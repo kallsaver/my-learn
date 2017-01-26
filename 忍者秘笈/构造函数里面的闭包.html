@@ -7,8 +7,10 @@
 	<body>
 	</body>
 	<script>
-		function Student(){
+		function Student(name){
 			var count = 0;
+			
+			this.name  = name
 			
 			this.speak = function(){
 				count ++;
@@ -16,12 +18,13 @@
 			}
 		}
 		
-		var a = new Student()
-		a.speak()
-		a.speak()
+		var a = new Student('aaa')
+		a.speak()   //1
+		a.speak()   //2
 		
 		var b = new Student()
-		b.speak()
+		b.speak()   //1
 		
+
 	</script>
 </html>
