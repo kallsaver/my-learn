@@ -19,7 +19,8 @@
 			Book.prototype.isJsBook = false;
 		}
 		
-		//私有作用域链,没有污染全局的上层Object,不能写在Book函数内部
+		//私有作用域链,没有污染全局的上层Object
+		//不能写在Book函数内部
 		Book.prototype = {
 			isChinese : true,
 			k : console.log(11111)

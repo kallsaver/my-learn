@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//在子类构造函数中执行父类构造函数,在子类原型上实例化父类就是组合模式
+		//把类式继承和构造函数继承相结合,并剔除他们的缺点
+		//顶层子类层有父类和子类构造函数中的所有数据,父类层有父类构造函数的数据
+		//这样一个子类实例不是通过prototype方式修改数据就不会影响其他的子类实例
+		//可以通过子类的prototype在父类层修改数据,从而影响其他子类实例
+		//父类Super会运行两次,一次是作为new一个原型对象,一次就作为功能函数使用,所以会有两层数据
+		//这种模式其实挺完美的
+	
+		function Super(name){
+			//Super层的name是undefined
+			this.name = name;
+			this.bookList = ['Jav ascript','Typescript','Python','Ruby'];
+			this.super = "Super";
+		}
+		
+		var obj = {name : 'obj'}
+		
+		//Super的默认的下一层(上层Object)修改后,多层构造函数new出来的实例有数据,这种模式挺完美的
+		/*Super.prototype = obj
+		
+		Super.prototype.getName = function(){
+			console.log(this.name)
+		}*/
+		
+		function Sub(name,time){
+			//Super既是作为普通功能函数用(这里),同时作为Sub的父类构造函数使用,这就是组合继承
+			//Super函数体中的数据在Super层和Sub层都有,这样避免了直接修改原型链上的属性
+			//好处是按照原型链法则优先访问Sub顶层的数据,所以修改这些数据不会影响到其它的实例
+			Super.call(this,name);
+			this.time = time;
+			this.sub = "Sub";
+			Sub.prototype.constructor = Sub
+		}
+		
+		//父类        所有的Sub的实例的父类Super层都是同一个指针的
+		Sub.prototype = new Super()
+		
+		//getTime加载在Sub实例的下一层,也就是Super层
+		Sub.prototype.getTime = function(){
+			console.log(this.time)
+		}
+		
+		var a = new Sub('js book',2017)
+		var b = new Sub('english book',2017)
+		a.bookList.push('Node')
+		
+		console.log(a) 
+		console.log(b)
+		console.log(b.bookList)			  //没有'Node' 
+		console.log(a instanceof Super)   //true
+		console.log(a instanceof Sub)     //true
+		
+		
+	</script>
+</html>

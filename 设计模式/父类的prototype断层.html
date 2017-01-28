@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function A(){
+			this.type = "A";
+			A.prototype.constructor = A;
+		}
+		
+		function B(){
+			this.type = "B";
+			B.prototype.constructor = B;
+		}
+		
+		var obj = {
+			name : "obj"
+		}
+		
+		//A的所有实例的下一层的指针都改为obj
+		//这句话要写在new A()之前,否则回出现断层
+		A.prototype = obj
+		
+		//B的所有实例的下一层都是同一个A的实例指针
+		B.prototype = new A()
+		
+		var a = new A()
+		
+		console.log(a)
+		
+		var b = new B()
+		console.log(b)
+		
+		var c =function(){}
+		console.log(a.__proto__ === obj)                      //true
+		console.log(a.__proto__ === b.__proto__.__proto__)    //false
+		//b.__proto__.__proto__的层相当于var new Object()
+		console.log(b.__proto__.__proto__)
+		//每个函数相当于var a ={},b={},然后在把a,b改造成函数,所以他们的上层Object是不同的指针
+		console.log(b.__proto__.__proto__ === c.prototype)    //false
+		//底层Object都是同一个指针
+		console.log(b.__proto__.__proto__.__proto__ === c.prototype.__proto__)    //true
+		
+	</script>
+</html>

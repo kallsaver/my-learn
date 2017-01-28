@@ -8,6 +8,7 @@
 	</body>
 	<script>
 		var Book = function(title,time,type){
+			//new先给实例加原型链
 			if(this instanceof Book){
 				this.title = title;
 				this.time = time;

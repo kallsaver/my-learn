@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//构造函数继承方法的所有数据都在顶层,没有父类,父类的函数是用于写数据的
+		
+		function Super(id){
+			this.bookList = ['Javascript','Typescript','Python','Ruby','Java'];
+			this.id = id;
+			this.super = "Super";
+			
+		}
+		
+		Super.prototype.showBooks = function(){
+			console.log(this.bookList)
+		}
+		
+		function Sub(id){
+			//在这里Super是作为普通功能函数运行,不是作为构造函数运行,不是Sub的父类
+			//只是把this绑定为Sub的实例,并且这些数据加载在Sub层
+			//所谓的构造函数继承的特征语句
+			Super.call(this,id);
+			this.sub = "Sub"
+		}
+		
+		var a = new Sub(10)
+		
+		var b = new Sub(11)
+		
+		a.bookList.push('Node')
+		
+		console.log(a)
+		console.log(b)
+		
+		
+	</script>
+</html>

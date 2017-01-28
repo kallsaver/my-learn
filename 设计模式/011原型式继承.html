@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function inheritObject(o){
+			
+			//缺陷是会有过滤类F
+			function F(){};
+			
+			F.prototype = o;
+			
+			return new F()
+		}
+		
+		var book ={name : 'js book',alikeBookList : ['css book','html book']}
+		
+		var newBook1 = inheritObject(book);
+		var newBook2 = inheritObject(book)
+		
+		//set属性方法是都是在顶层设置,get属性方法时可以在原型链上读取
+		newBook1.name = 'ajax book';
+		newBook2.name = 'angular book'
+		
+		newBook1.alikeBookList.push('less book');
+		
+		//加载在原型链上的数据改变会影响其它的实例
+		console.log(newBook1)
+		console.log(newBook2)
+		
+		
+	</script>
+</html>

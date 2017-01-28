@@ -45,9 +45,10 @@
 		console.log(a.__proto__.__proto__)	//Student层下一层就是上层Object层了  这层有construtor 	
 		console.log(a.__proto__.__proto__.__proto__)	//底层Object
 		
-		var b=Object.create(a) //这句话对a是有影响的  在浏览器中a的最顶层会被改名成次顶层
+		var b=Object.create(a) //这句话对a是有影响的  在浏览器中a的最顶层会被改名成次顶层的名字,
 		alert(a instanceof HxsdStudent)	//true  还是true但是在浏览器中已经看不到HxsdStudent层了 被改名为Student
-		console.log(b)		//有顶层HxsdStudent(被改名为Student) 底层HxsdStudent(被改名为Student) 底层Student 上层Object 底层Object
+		console.log('a',a)
+		console.log('b',b)		//有顶层HxsdStudent(被改名为Student) 底层HxsdStudent(被改名为Student) 底层Student 上层Object 底层Object
 		
 		Student.prototype.speak1=function(){	//再次说明HxsdStudent只是被改名了而已
 			alert("我在Object层")

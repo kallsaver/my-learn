@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//<javascript设计模式第25页,代码有错误>
+	//寄生式继承其实只是对原型式继承的封装,把顶层的属性方法封装在更大的函数中	
+	//其实没必要这样写,把o.getName=function(){}写在F中就可以实现new出来的实例在顶层有自己的属性方法
+	
+	//缺陷是有个过渡类,封装在函数内部,外部无法修改(自定义)
+		function createBook(obj){
+			function inheritObject(o){
+				function F(){
+					this.type = 'F';
+					F.prototype.constructor = F;
+				};
+			
+				F.prototype = o;
+			
+				return new F()
+			}
+			
+			var o = inheritObject(obj);
+			
+			o.getName = function(){
+				console.log(this.name)
+			}
+			
+			return o;
+		}
+		
+		var book = {name : 'js book', alikeBookList : ['css book','html book']}
+		var a = createBook(book);
+		console.log(a)
+		
+		//不加constructor会改类的名哦
+		function A(){
+			
+		}
+		
+		A.prototype = a;
+		console.log(a)
+		
+		
+	</script>
+</html>

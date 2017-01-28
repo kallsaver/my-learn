@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function A(){
+			
+		}
+		
+		function B(){
+			
+		}
+		
+		//定义一个函数时,每个构造函数的实例的下一层都是不同的,新开辟的地址,相当于var a = {};b= {},然后再把a和b改造成函数
+		console.log(A.prototype === B.prototype)      //false
+		console.log(A.__proto__ === B.__proto__)      //true
+		console.log(A.__proto__.__proto__ === B.__proto__.__proto__)    //true
+		
+		var a =　{}
+		var b = {}
+		
+		console.log(a.__proto__ === b.__proto__)     //true
+		
+		console.log(A.__proto__.__proto__ === a.__proto__)  //true
+		console.log(B.__proto__.__proto__ === a.__proto__)  //true
+		
+		function C(){
+			this.type = 'C'
+		}
+		
+		function D(){
+			this.type = "D"
+		}
+		//相当于var c={};var d={};c=d,c原本的指针消失了,d的指针换上(保留)
+		//使得C和D的显示原型的指针相等,D才是真的构造函数,C是假的类
+		C.prototype = D.prototype
+		//但是C的函数运行了,底层却是D的Object底层,即constructor是function D()
+		//constructor的作用是指明上一层
+		var c = new C()
+		console.log(c.constructor)   //function D(){}
+		//使得c作为A实例的下一层,后果是c的类由C变成了D!
+		//这是因为只有作为最顶层的对象才不受constructor的影响,D是来自上层Object的constructor,
+		//并且这里其他层没有设置constructor属性,所以除了顶层对象,其它的添加层都是D类了
+		A.prototype = c
+		console.log('c',c)
+		//因为c.__proto__是上层Object,就是D.prototype那个指针,所以true
+		console.log(c instanceof D)   //true
+		console.log(c instanceof C)   //true
+		
+		
+		//instanceof源码:   链接:http://www.ibm.com/developerworks/cn/web/1306_jiangjj_jsinstanceof/
+		 function instance_of(L, R) {//L 表示左表达式，R 表示右表达式
+ 			 var O = R.prototype;// 取 R 的显示原型
+  			L = L.__proto__;// 取 L 的隐式原型
+  			while (true) { 
+    			if (L === null) 
+      				return false; 
+   				if (O === L)// 这里重点：当 O 严格等于 L 时，返回 true 
+      				return true; 
+    			L = L.__proto__; 
+  			} 
+		}
+		 
+	</script>
+</html>
