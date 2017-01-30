@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	
+		Object.prototype.mix = function(){
+			var i = 0,
+			len = arguments.length,
+			target = this,
+			arg;
+			
+			//会把非原生的属性方法都提到顶层
+			/*for(;i<len;i++){
+				arg = arguments[i]
+				for(var property in arg){
+					target[property] = arg[property]
+				}
+			}*/
+			
+			//只复制私有层的(顶层)
+			for(;i<len;i++){
+				arg = arguments[i]
+				for(var property in arg){
+					if(arg.hasOwnProperty(property)){
+						target[property] = arg[property]
+					}
+				}
+			}
+			
+			return target;
+		}
+		
+		var book1 = {
+			name : 'Javascript',
+			alike1 : ['css','html']
+		}
+		
+		var book2 = {
+			name : 'Angular',
+			alike2 : ['React','Vue']
+		}
+		
+		var anotherBook ={
+			color : 'blue'
+		}
+		
+		anotherBook.mix(book1,book2)
+		
+		console.log(anotherBook)
+
+	</script>
+</html>
