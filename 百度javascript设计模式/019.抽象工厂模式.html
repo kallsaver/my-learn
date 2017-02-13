@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var VehicleFactory = function(subType,superType){
+			if(typeof VehicleFactory[superType] === 'function'){
+				//缓存类
+				function F(){
+					this.F = 'F';
+					F.prototype.constructor = F
+				}
+				F.prototype = new VehicleFactory[superType];
+				subType.prototype = new F()
+
+			}
+			else{
+				throw new Error('未创建该抽象类')
+			}
+		}
+		
+		VehicleFactory.Car = function(){
+			this.type = 'car';
+		}
+		
+		VehicleFactory.Car.prototype = {
+			getPrice : function(){
+				return new Error('抽象方法不能调用')
+			},
+			getSpeed : function(){
+				return new Error('抽象方法不能调用')
+			}
+		}
+		
+		VehicleFactory.Bus = function(){
+			this.type = 'bus'
+		}
+		
+		VehicleFactory.Bus.prototype = {
+			getPrice : function(){
+				return new Error('抽象方法不能调用')
+			},
+			getSpeed : function(){
+				return new Error('抽象方法不能调用')
+			}
+		}
+		
+		VehicleFactory.Truck = function(){
+			this.type = 'truck'
+		}
+		
+		VehicleFactory.Truck.prototype = {
+			getPrice : function(){
+				return new Error('抽象方法不能调用')
+			},
+			getSpeed : function(){
+				return new Error('抽象方法不能调用')
+			}
+		}
+		
+		var BMW = function(price,speed){
+			this.price = price;
+			this.speed = speed;
+		}
+		
+		VehicleFactory(BMW,'Car')
+		var a = new BMW(50000,1)
+		console.log(a)
+		function Student(){}
+		
+		Student.prototype = a
+		console.log(a)
+		
+	</script>
+</html>

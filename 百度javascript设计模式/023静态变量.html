@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var Conf =(function(){
+			
+			var conf = {
+				max_num : 100,
+				min_num : 1,
+				count : 1000,
+				name : 'con'
+			}
+			
+			return {
+				getName : function(){
+					return conf['name'] ? conf['name'] : null
+				},
+				getValue : function(Value){
+					return conf[Value] ? conf[Value] : null
+				}
+			}
+		})()
+		
+		var name = Conf.getName()
+		console.log(name)            //'con'
+		var id = Conf.getValue('k')
+		console.log(id)              //null
+		var count = Conf.getValue('count')
+		console.log(count)           //1000
+	</script>
+</html>

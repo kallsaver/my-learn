@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var Mediator = function(){
+			var _msg = {};
+			return {
+				register : function(type,action){
+					if(_msg[type]) _msg[type].push(action)
+					else{
+						_msg[type] = [];
+						_msg[type].push(action);
+					}
+				},
+				
+				send : function(){
+					
+				}
+			}
+		}
+		
+		
+	</script>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;text-align: center;}
+			ul{height: 200px;background: palegreen;list-style: none;width: 800px;}
+			li{height:50px ;background: chocolate;line-height: 50px;text-align: center;}
+			li>span{float: right;width: 50px;height: 30px;background: red;line-height: 30px;margin-top:10px ;}
+			span{display: inline-block;color: #333;}
+		</style>
+	</head>
+	<body>
+		<div style="background: khaki;width: 800px;">
+			<span>小明</span>
+			<span>等级 <strong>9</strong></span>
+			<span>消息 <strong id='msg_num'>5</strong></span>
+		</div>
+		<div >
+			<ul id='msg'></ul>
+		</div>
+		<!--input是inline-block元素-->
+		<textarea style="width: 200px;height: 100px;" id='user_input'></textarea>
+		<br>
+		<input id='user_submit' type="submit" value="提交">
+	</body>
+	<script>
+		var Observer = (function(){
+			var _message = {};
+			return {
+				register : function(type,fn){
+					if(typeof _message[type] === 'undefined'){
+						//注册的函数放在属性的数组里,可以重复注册
+						_message[type] = [fn]
+					}
+					//如果已经有了这个属性,这个属性作为一个数组继续存储后续的函数
+					else{
+						_message[type].push(fn)
+					}
+					//console.log(_message)
+					//链式编程
+					return this
+				},
+				fire : function(type,args){
+					//如果不存在,说明没有注册
+					if(!_message[type]){
+						alert(type+'没有注册')
+						return;
+					}
+					//events是fire的私有变量,当fire运行完毕后,events会被内存销毁,它是个暂存器
+					var events = {
+						type : type,
+						args : args || {}
+					},
+					len = _message[type].length;
+					for(var i=0;i<len;i++){
+						//借用register的回调函数
+						_message[type][i].call(this,events)
+					}
+					console.log(events)
+					
+				},
+				remove : function(type,fn){
+					if(_message[type] instanceof Array){
+						var i = _message[type].length - 1
+						for(;i>=0;i--){
+							_message[type][i] === fn&& _message[type].splice(i,1)
+						}
+					}
+				}
+			}
+		})()
+		
+		//测试:
+		//这样的设计并不好
+		//e是fire函数闭包中的events,负责存储fire函数的参数
+		//在Observer的_message闭包对象中注册test函数,相当于声明一个函数,回调函数并不会执行
+		//第一个参数是监听事件名,第二个参数是一个函数,并且这个函数只有一个e参数,对应fire函数第二个参数(一个对象)
+		Observer.register('test',function(e){
+			console.log(e.type,e.args.msg)
+		})
+		
+		//运行test这个函数(回调函数),第一个参数是监听事件名,第二个参数是一个对象
+		Observer.fire('test',{msg : '传递参数'})
+		
+		
+		//实例运用:模块间的耦合
+		function $(id){
+			return document.getElementById(id)
+		}
+		
+		//工程师A: 负责评论区的添加
+		;(function(){
+			//追加一则消息
+			function addMsgItem(e){
+				var text = e.args.text,
+				ul = $('msg'),
+				li = document.createElement('li'),
+				span = document.createElement('span');
+				span.innerHTML = '删除';
+				li.innerHTML = text;
+				span.onclick = function(){
+					ul.removeChild(li);
+					//removeCommentMessage在工程师B中注册
+					Observer.fire('removeCommentMessage',{
+						num : -1
+					})
+				}
+				li.appendChild(span);
+				ul.appendChild(li);
+				//console.log(1)
+			}
+			
+			//注册的事件在全部的模块中都可以使用,其它模块通过监听事件触发_message上的addMsgItem这个私有函数运行
+			Observer.register('addCommentMessage',addMsgItem);
+			//由于这个addCommentMessage比工程师B中的addCommentMessage(还不存在)注册先
+			//所以fire是不会运行工程师B中的addCommentMessage,所以num是无效的
+			Observer.fire('addCommentMessage',{
+				text : '工程师A发布的消息',
+				num : 100
+			})
+			
+		})()
+		
+		//自运行函数前面记得加;否则有语法错误
+		//工程师 B 负责消息数处理
+		;(function(){
+			console.log('b')
+			function changeMsgNum(e){
+				var num = e.args.num 
+				$('msg_num').innerHTML = parseInt($('msg_num').innerHTML) + num;
+			}
+			
+			//工程师A已经注册过addCommentMessage这个函数名了
+			//但是Observer的注册器是通过把回调函数放在一个属性数组中的,所以相当于对监听事件的回调函数的功能补充
+			Observer.register('addCommentMessage',changeMsgNum)
+			.register('removeCommentMessage',changeMsgNum)
+			
+			Observer.fire('addCommentMessage',{
+				text : '工程师B发布的消息',
+				num : 1
+			})
+			
+		})()
+		
+		//工程师C: 没有注册新的功能,直接用
+		;(function(){
+			$('user_submit').onclick = function(){
+				var textarea = $('user_input');
+				if(textarea.value === '') return
+				//工程师C的addCommentMessage是最后注册的,所以在这个模块中,fire也会运行前面所有模块中的addCommentMessage
+				//这个模块中的fire传的参数会分别作为三个函数的参数,num会在工程师B负责的消息数产生反应(注意这个模块并没有使用num的函数)
+				Observer.fire('addCommentMessage',{
+					text : $('user_input').value,
+					num : 1
+				})
+				$('user_input').value = '';
+			}
+		})()
+		
+		
+		//总结:观察者模式是解决模块间的通信,如果工程师C想用工程师B中的函数,那么B可以在观察者Observer中注册一个监听事件,C传参使用即可
+		//B可以注册A相同名字的监听事件,对原来的事件没有影响,相当于对监听事件功能的补充
+		//最后需要注意的是模块的先后问题,前面自运行的自定义监听事件无法有后面模块的补充的功能(可以放在onclick里面解决,此时后面模块的自运行的自定义监听事件已经注册完毕),
+		//后面模块的可以使用前面模块的功能
+	</script>
+</html>
