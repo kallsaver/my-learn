@@ -1,0 +1,100 @@
+//这种注释不会输出到css文件中
+/*这种可以输出到css文件中*/
+div{text-align: center;line-height: 100px;font-size: 30px;}
+//1.在less中,类是一种函数,加括号的不会输出到css文件中
+.font_hn1(){
+    color :white;font-family: "microsoft yahei",'黑体',Arial,Simsun;text-align: center;
+}
+.font_hn2{
+    color : green;
+}
+.box1{.font_hn1;width:100px;height: 100px;line-height: 100px;font-size: 30px;background: red;}
+
+//2.带&的混合   &相当于this
+.my_hover_mixin(){
+    &:hover{
+        background: khaki;
+    }
+    width:100px;height: 100px;
+}
+
+.box2{background: forestgreen;.my_hover_mixin}
+
+//3.带参数的混合
+.border(@color){
+    border : 2px solid @color;
+}
+
+.box3{.border(fuchsia);width:100px;height: 100px;}
+
+//4.带参数且有默认值的混合
+.bgColor(@color:peru){
+    background: @color;
+}
+
+.box4{.bgColor;width:100px;height: 100px;}
+.box5{.bgColor(gold);width:100px;height: 100px;}
+
+//4.带有多个参数的混合
+.minxin(@color:teal;@width:100px;@height:100px){
+    background: @color;
+    width: @width;
+    height: @height;
+}
+.box6{.minxin}
+.box7{.minxin(blue;200px;100px)}
+
+//';'和','的区别,';'和','同时使用时,';'作为组参数分隔,','作为一组参数中分隔
+.minxin1(@color:teal;@width:100px;@height:100px){
+    background-image: linear-gradient(@color);
+    width: @width;
+    height: @height;
+    line-height: @height;
+}
+//可以看出@color抓取了包括空格在内的'字符串'
+//10%全红色 从10%开始red和gold平分那90%区域
+.box8{.minxin1(45deg,red 10%,gold;200px;200px);line-height: 200px;}
+
+.box9{.minxin1(45deg,peru 10%,gold;)}
+.minxin2(@color:40,70,189,1;@width:100px;@height:100px){
+    //less中颜色是转rgba最后转#16进制,不支持rgba语法,使用~''避免编译,原封不动保留到css中
+    background: ~'rgba('@color~')';
+    width: @width;
+    height: @height;
+    line-height: @height;
+}
+.box10{.minxin2}
+.box11{background: rgba(40,70,189,1);width: 100px;height: 100px;}
+.box12{.minxin2(40,70,189,0.5;200px)}
+
+//5.@arguments
+.minxin3(@w:10px;@x:solid;@c:red){
+    border :@arguments;
+    width: 100px;
+    height: 100px;
+}
+.box13{.minxin3}
+
+//~'@{w}'表示@w在不编译部分的可以编译的部分,使用时注意元素一定是字符串
+//所以@{arguments}编译了,是一个数组,使用join(' ')后得到20px solid teal,
+.minxin4(@w:10px;@x:solid;@c:red){
+    border:  ~`@{arguments}.join(" ")`  ;
+    width: 100px ;
+    height: 100px;
+    color: ~'@{c}';
+    font-size : ~'@{w}' ;
+}
+.box14{.minxin4("20px","solid","teal")}
+
+//6.返回值.  在类函数内部写在左边的可以闭包在样式中使用,写在右边的不行
+//css每个{}样式都是一个模块函数
+.minxin5(@color:peru;@width:200px;@height:100px){
+    @c : @color;
+    //@result相当于一个模块中全局变量,css每个{}样式都是一个模块函数,没有minxin5的类函数无法使用@result
+    @result :(@width+@height)/2;
+    background: @color;
+    line-height: @result;
+}
+.box15{.minxin5(red;);width: @result;height: @result;font-size: 20px+30px;}
+//.box16模块函数没有运行.minxin5函数,因此无法使用欧冠@result
+//.box16{width: @result;height: @result;}
