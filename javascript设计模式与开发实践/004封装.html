@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	
+	    //除了es6提供的let之外,一般我们通过函数来创建作用域(闭包)
+		var myObject =(function(){
+			var name = 'kkk';           //私有(private)变量
+			return {
+				getName : function(){   //公开(public)方法
+					return name
+				}
+			}
+		})()
+	    //封装得目的是将信息隐藏,包括实现细节,设计细节已经隐藏对象的类型等
+	    //封装使得对象之间的耦合变松散,对象之间只通过暴露的API接口来通信.
+	    //当我们修改一个对象时,可以随意修改它的内部实现,只要对外的接口没有变化,就不会影响程序的其它功能
+	</script>
+</html>

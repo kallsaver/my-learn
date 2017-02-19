@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function Person(name){
+			this.name = name;
+		}
+		
+		Person.prototype.getName = function(){
+			return this.name;
+		}
+		
+		var objectFactory = function(){
+			var obj = new Object(),
+			//提取arguments的第一个元素
+			//或者Constructor = arguments[0]
+			Constructor = [].shift.call(arguments);
+			//把obj的底层Object换成Person构造函数的实例的下一层,即一个上层Object
+			obj.__proto__ = Constructor.prototype;
+			var ret = Constructor.apply(obj,arguments);
+			return typeof ret === 'object' ? ret : obj;
+		}
+		
+		var a = objectFactory(Person,'sven')
+		console.log(a)
+		
+		var b = new Person('sven')
+		console.log(a)
+		
+		//一个没有原型的对象
+		var c = Object.create(null)
+		console.log(c)
+		
+		c.__proto__ = a;
+		console.log(c)
+		
+	</script>
+</html>

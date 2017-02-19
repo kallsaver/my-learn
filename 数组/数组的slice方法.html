@@ -12,8 +12,13 @@
 		//slice(start,end)  返回一个新数组 如果没有end参数 返回从start到结尾的所有元素
 		//slice方法并不会修改数组，而是返回一个子数组。
 		
-		var arr=[0,1,2,3,4,5,6,7,8,9]
+		var arr=[0,1,2,3,4,5,6,7,8,9,{id :10}]
 		
+		//一维克隆一个数组,内部可能用的是push
+		var e = arr.slice()  //[0,1,2,3,4,5,6,7,8,9]
+		e[0]=100;
+		arr[10].id = 100;
+		console.log('e',e)
 		var a=arr.slice(5,8);
 		var b=arr.slice(5);
 		var c=arr.slice(5,-1);
@@ -33,7 +38,7 @@
 		var e=[1,2,3,4,5,6]
 		var f=e.slice();
 		console.log(f);
-		if(e==f){			//不弹   说明不是同一个数组  有不同的索引值
+		if(e === f){			//不弹   说明不是同一个数组  有不同的索引值
 			alert(1)
 		}
 	</script>

@@ -15,12 +15,17 @@
 			
 			//constant这个方法首先运行,可以用它来声明全局的常量,可以注入config,factory,service,controller任何方法中
 			.constant('APIKEY','key')
+			//可以声明一个函数,这个函数就可以注入了
+			.constant('fn',function(){
+				console.log('fn')
+			})
 			
 			//value 不能注入config,可以注入controller,factory,service
 			.value('vension','1,0,0')
 			
-			.config(function(APIKEY){
+			.config(function(APIKEY,fn){
 				console.log('config',APIKEY)
+				console.log('fn',fn)
 			})
 			
 			//注入启动之后执行某些操作,这些操作需要在页面对用户可用之前执行,config之后controller之前
@@ -31,6 +36,7 @@
 			})
 			
 			.factory('shopFactory',function(APIKEY,vension){
+				console.log('factory函数运行');
 				return {
 					fn : function(){
 						console.log('factory',APIKEY)

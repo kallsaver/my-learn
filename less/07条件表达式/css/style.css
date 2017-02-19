@@ -1,0 +1,33 @@
+.box1 {
+  background: khaki;
+  width: 150px;
+  height: 150px;
+}
+.box2 {
+  background: fuchsia;
+  width: 100px;
+  height: 100px;
+}
+.box3 {
+  background: khaki;
+  width: 150px;
+  height: 150px;
+}
+.box4 {
+  background: fuchsia;
+  width: 100px;
+  height: 100px;
+}
+.box5 {
+  width: 100px;
+  height: 100px;
+  background: fuchsia;
+  width: 200px;
+  height: 200px;
+}
+.box6 {
+  width: 100px;
+  background: fuchsia;
+  width: 50%;
+  height: 100px;
+}

@@ -25,7 +25,6 @@ gulp.task('scripts',function(){
 	.pipe(uglify())
 	.pipe(rename('vendor.min.js'))
 	.pipe(gulp.dest('dist/js'))
-	
 })
 
 gulp.task('server',function(){

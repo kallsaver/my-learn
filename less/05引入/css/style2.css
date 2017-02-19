@@ -1,0 +1,12 @@
+.centent {
+  width: 600px;
+  height: 80px;
+  background: red;
+  border: 10px solid chartreuse;
+}
+.centent2 {
+  width: 600px;
+  height: 80px;
+  background: red;
+  border: 20px solid slateblue;
+}

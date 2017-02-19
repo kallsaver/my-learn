@@ -1,0 +1,45 @@
+//1.带条件的混合
+.mixin(@a)when(lightness(@a)>=50%){
+    //255/2=127.5 rgb(128,128,128)的亮度值是大于50%的
+    background: khaki;
+    width:150px;
+    height: 150px;
+}
+
+.mixin(@a)when(lightness(@a)<50%){
+    //255/2=127.5 rgb(127,127,127)的亮度值是大于50%的
+    background: fuchsia;
+    width:100px;
+    height: 100px;
+}
+//128
+.box1{.mixin(#808080)};
+//126
+.box2{.mixin(#7e7e7e)};
+
+//2.类型检查函数
+//iscolor,isnumber,isstring,iskeyword,isurl,ispixel,ispercentage
+.mixin1(@a)when(iscolor(@a)){
+    background: khaki;
+    width:150px;
+    height: 150px;
+}
+.mixin1(@a)when(isnumber(@a)){
+    background: fuchsia;
+    width:100px;
+    height: 100px;
+}
+.mixin1(@a)when(ispixel(@a)){
+    background: fuchsia;
+    width:@a;
+    height: @a;
+}
+.mixin1(@a)when(ispercentage(@a)){
+    background: fuchsia;
+    width:@a;
+    height: 100px;
+}
+.box3{.mixin1(red)}
+.box4{.mixin1(20)}
+.box5{.mixin1(200px)}
+.box6{.mixin1(50%)}

@@ -20,7 +20,7 @@
 		console.log(a1)*/
 		
 		//实现concat
-		Array.prototype.concat=function(){
+		/*Array.prototype.concat=function(){
 			var length=arguments.length;
 			var arr=[];
 			arr.push.apply(arr,this);
@@ -31,7 +31,13 @@
 			
 		}
 		
-		console.log([1,2].concat([3,4,5]))
+		console.log([1,2].concat([3,4,5]))*/
+		
+		var arr = [0,1,2]
+		var a = [].concat.call(arr,arr)
+		console.log(a)
+		
+		
 		
 	</script>
 </html>

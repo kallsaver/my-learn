@@ -56,7 +56,7 @@
 				//c=null;					//没用  要操作的是c的堆地址才能使得a拿到一个空数组
 				//c=[];						//没用  要操作的是c的堆地址才能使得a拿到一个空数组
 				c.splice(0,c.length)		//成功销毁    通过c的引用地址的堆地址全部销毁了
-				//c.length=0;					//成功销毁    通过c的引用地址的堆地址全部销毁了 
+				//c.length=0;				//成功销毁    通过c的引用地址的堆地址全部销毁了 
 			}
 		
 			zhu(function(data){   		//传进来的是c的引用地址
@@ -76,10 +76,11 @@
 			var a=[];
 			
 			$.ajax("data.json",function(data){
+				console.log('success执行');
 				data=JSON.parse(data);
+				console.log(data);
 				a=data;
 			});
-			
 			return a;
 		}
 		
@@ -96,15 +97,16 @@
 			$.ajax("data.json",function(data){
 				data=JSON.parse(data)   
 				console.log(typeof data)	//异步的证明
-				a.product=data;         	//这里不能var a=data;  a拿到data的引用地址
-			})								//同理是因为运行完data是要被销毁的  a只能拿到空的东西
-		
-			return a						//应该把data封在a的二维中  这样data的生命周期才和a一样
+				a.product=data;         	//这里不能a=data; 
+			})								
+			//$.ajax的回调响应函数没执行,就已经return a了
+			return a						//应该把data封在a的二维中  
 											//有二维结构的对象类似DOM元素 但是DOM元素的数据生命周期是window
 											//二维结构对象的数据的生命周期取决于这个对象的生命周期		
 		}
 	
-		var b3=run3()
+		var b3=run3();
+		//浏览器console.log有"异步机制"
 		console.log("b3",b3)
 		
 		

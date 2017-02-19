@@ -1,0 +1,34 @@
+#bgcolor(){
+    background:peru;
+    .a{
+        color : #fff;
+        font-size: 30px;
+        text-align: center;
+        background: forestgreen;
+        //&就是this,指实例化出来的对象
+        &:hover{
+            background: gold;
+        }
+        .b(){
+            background: khaki;
+            width: 100px;height: 100px;line-height: 100px;font-weight: bolder;
+        }
+    } 
+}
+
+.box1{
+    //获得#bgcolor>.a的所有样式;相当从构造(类)函数于实例化一个对象
+    //由于#bgcolor>.a有.b,所以实例化之后会输出.box1 .b 的样式
+    //当然可以.b(){} 就不会输出到css文件中
+    #bgcolor>.a;
+    width:200px;height: 200px;line-height: 200px;font-weight: bolder;
+}
+
+.box2{
+    //获得#bgcolor>.a的所有样式;相当从构造(类)函数于实例化一个对象
+    #bgcolor .a;
+    width:200px;height: 200px;line-height: 200px;font-weight: bolder;
+}
+
+.box3{#bgcolor>.a>.b;text-align: center;}
+.box4{#bgcolor .a .b;text-align: center;}

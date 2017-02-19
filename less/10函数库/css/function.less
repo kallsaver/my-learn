@@ -1,0 +1,91 @@
+//http://www.lesscss.net/functions/
+//1.其他函数 color(),convert(),data-url(),default(),unit()
+//default
+.w(1){width :100px;height: 100px;background: fuchsia;};
+.w(2){width :200px;height: 200px;background: forestgreen;};
+.w(@x)when(default()){width : @x+0px;height: @x+0px;background: khaki;}
+
+.box1{
+    //把字符串转为颜色值
+    background : color('#f60');
+    //长度单位: pt,px,pc,in,cm...
+    width : convert(20mm,px);
+    height : convert(20pt,px);
+    background: red;
+    //时间单位: s,ms
+    seaond : convert(1s,ms);
+    //rad,deg,grad,turn
+    angle : convert(1rad,deg) convert(1grad,deg);
+    //data-url在winless开发编译工具中支持
+    //background: data-url(../images/01.jpg);
+}
+.box2{
+    .w(1)
+}
+.box3{
+    .w(2)
+}
+.box4{
+    .w(150)
+}
+.box5{
+    .w(150px)
+}
+//default只能在边界语句中使用,类似case和default的关系
+.x(@x)when(ispixel(@x)){
+    width :@x;height: @x;background: palevioletred;
+}
+
+.x(@x)when(iscolor(@x)){
+    width :100px;height:10px; background: @x;
+};
+
+//当输入的值只要不是default,都可以运行这个语句 when not(default())不能和when(default())同时使用
+//尽量少用when not,不实用,用when()和when(default())即可
+.x(@x)when not(default()){
+    border: 10px solid red;
+};
+.x(@x)when(default()),not(default()){
+    //alawys运行
+    border: 10px solid red;
+};
+
+
+.box6{
+    .x(150px);
+}
+.box7{
+    .x(red);
+}
+.box8{
+    .x(150cm);
+}
+
+.x {
+  .m(red)                                    {case-1: darkred}
+  .m(blue)                                   {case-2: darkblue}
+  .m(@x) when (iscolor(@x)) and (default())  {default-color: @x}
+  .m('foo')                                  {case-1: I am 'foo'}
+  .m('bar')                                  {case-2: I am 'bar'}
+  .m(@x) when (isstring(@x)) and (default()) {default-string: 'and' I am the default}
+
+  &-blue  {.m(blue)}
+  &-green {.m(green)}
+  &-foo   {.m('foo')}
+  &-baz   {.m('baz')}
+}
+
+.seeCss1{
+    //去掉单位
+    width :unit(100cm)
+}
+
+.seeCss2{
+    //添加单位
+    width :unit(100,px)
+}
+
+.seeCss3{
+    //转化单位
+    width :unit(100cm,px)
+}

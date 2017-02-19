@@ -75,7 +75,7 @@
             //赋值运算符的优先级比&&高哦  而&&运算符的优先级比||高哦
            /* return $scope.selects == null || product.category == $scope.selects;*/
 
-            return    !$scope.selects||    $scope.selects==product.category
+            return    !$scope.selects || $scope.selects==product.category
         }
 
 

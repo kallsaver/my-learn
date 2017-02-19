@@ -10,8 +10,8 @@ cmd命令:
 7.cd ..返回上一级目录
 
 npm命令:
-在first目录中npm init 创建一个项目
-1.会出现 name:(first) 回车即可
+在first目录中npm init 创建一个项目(npm init --yes走默认流程)
+1.会出现 name:(first) 回车即可 小写
 2.version :(1.0.0) 输入0.0.1 表示第一个版本的
 3.descripion(项目的描述) : Gulp course by ninghao.net
 4.entry point : 回车
@@ -29,4 +29,6 @@ npm命令:
 15.var gulp = require('gulp') 得到gulp对象
 16.gulp.task('hello',function(){ return ... })  注册gulp hello任务
 17.gulp的拷贝命名会自动检查文件的重复性,如果destination目标文件夹中已经有了同名文件,那么会删除开始的文件
-18.npm install gulp-sass --save-dev 安装sass插件到项目中 
+18.npm install gulp-sass --save-dev 安装sass插件到项目中
+
+其他.npm uninstall babel-cli -g 从全局删除babel-cli的命令
