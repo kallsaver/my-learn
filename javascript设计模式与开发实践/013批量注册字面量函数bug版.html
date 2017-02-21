@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+	var Type={};
+	//当i=0时,type=数组中的第一个元素;当i=1时,type=数组中的第二个元素
+	//因为这个for循环i是没有第三个语句的,第三个语句是在循环分支语句最后执行,而第一和第二语句是在循环分支最开始执行
+	//for循环中第二个语句是控制语句,为true时执行循环分支语句,当i=3时type=undefined,分支语句不再执行,最后i++,j++
+	for(var i=0,j=0;type=['String','Array','Number'][i++];j++){
+		(function(){
+			console.log(type)
+			//因为i在for循环没有参与第三个语句,所以i打印出来的结果是:1,2,3
+			console.log(i)
+			//而j打印出来的结果是:0,1,2
+			console.log(j)
+			Type['is'+type]=function(o){
+				//type是不能传进来的,传进来的是type = undefined了
+				console.log(type)
+				return Object.prototype.toString.call(o) ==='[object'+type+']';
+			}	
+		})(type)	
+	}						//for循环和自运行函数传参完成同步
+	
+	alert(Type.isArray([]))
+	
+	//slice(8,-1)是切出字符串索引值为8和从右边数索引值为1之间的片段
+	//alert(Object.prototype.toString.call("a").slice(8,-1)==="String")
+	
+	
+	console.log(type)       //undefined而不是is not defined,说明type是可以读取但是没有赋值
+	//for循环中的i是全局变量
+	console.log("i",i)
+	
+	console.log('j',j)
+	
+	//++的赋值机制
+	var a=0
+	var b=a++;    //先执行后++
+	console.log('b',b)
+	
+	
+</script>
+
+</html>

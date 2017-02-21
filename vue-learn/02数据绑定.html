@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">{{message}}</div>
+	</body>
+	<script>
+		var data = {
+			message : 'learn vue',
+			obj : {
+				name : 'aaa'
+			}
+		}
+	
+		var app = new Vue({
+			el : '#app',
+			data : data
+		});
+		console.log(data.obj === app.obj)    //true
+		app.obj.name = 'app';
+		app.obj.color = "red"
+		console.log(data.obj.name);          //app
+		console.log(data.obj.color);
+		
+		data.message = '更新'
+		
+	</script>
+</html>

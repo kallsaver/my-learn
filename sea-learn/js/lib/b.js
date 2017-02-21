@@ -25,13 +25,6 @@
 })*/
 
 //用法3: 直接返回一个数据
-/*define({
+define({
 	name : 'bbb'
-})*/
-
-//用法4:强烈推荐这种用法
-define(function(require,exports){
-	var $ = require('jquery');
-	console.log($);
-	exports.name = 'bbb';
 })

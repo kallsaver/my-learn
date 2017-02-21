@@ -87,8 +87,9 @@
 			console.log(this.name);
 			console.log([a,b,c,d])
 		}.bind(obj,1,2)
-		
+		//API使用者输入的是后两位参数
 		func(3,4)
 		
+		//bind的强大之处是不用函数体运行也能把外部的参数传入,永久绑定this,预定参数
 	</script>
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var Type = {};
+		
+		//当type = undefined时,循环体结束,i++语句是先赋值再++
+		for(var i = 0,type;type = ['String','Array','Number'][i++];){
+			(function(){
+				Type['is'+type] = function(type,obj){
+					//type传进来了
+					console.log(type)
+					return Object.prototype.toString.call(obj) === '[object '+type+']';
+				}.bind(Type,type)
+			})(type)
+		}
+		//利用bind可以预定前面的参数
+		console.log(Object.prototype.toString.call([]))
+		//API的使用者传入的参数只能是是后面的,前面的参数不能传了
+		console.log(Type.isArray([]));
+		console.log(Type.isNumber(5));
+		console.log(Type.isNumber('5'));
+		
+		
+		//
+		
+	</script>
+</html>
