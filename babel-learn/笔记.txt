@@ -1,5 +1,6 @@
 1.npm init --yes
-2.npm install babel-cli --save-dev
+2.npm install babel-cli --save-dev   npm install babel -g 全局安装babel
+npm install babel-core --save-dev而不是npm install babel --save-dev
 3../node_modules/.bin/babel -help
 4.新建一个script.js在js目录下
 5.babel ./js/script.js或者 babel js/script.js执行编译在git bash中
@@ -19,7 +20,10 @@
   "presets" : ["es2015"]
 }
 17.在react中的jsx文件需要编译
-18.npm install babel-preset-react 安装react的插件
+18.npm install babel-preset-react --save-dev安装react的插件
 19.在.babelrc中"presets"数组中添加元素 'react',
 20. babel可以和构架工具一起用
 21.npm install gulp gulp-babel --save-dev 安装gulp和gulp-babel
+22.可以使用babel-core的brower.js在浏览器上实时编译(但是貌似用不了,用gulp-plumber替代)
+23.http://blog.csdn.net/u011254082/article/details/51534394
+使用gulp-plumber插件处理编译错误进程挂起

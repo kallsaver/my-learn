@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-3.1.0.js"></script>
+	</head>
+	<body>
+	</body>
+	<script>
+		var a = 1;
+		var b = 'data';
+		
+		
+		//var promise = $.get('data/data.json');
+		//或者
+		//var promise = $.ajax('data/data.json');
+		//按照循环执行
+		/*promise.always(function(){
+			console.log(b)
+		})
+		
+		promise.done(function(data){
+			console.log(data)
+			a++
+			console.log(a)
+		})
+		
+		promise.fail(function(){
+			a--;
+			console.log(a)
+		})*/
+		
+		//链式写法:
+		/*$.ajax('data/data.json')
+		.done(function(data){
+			a++;
+			console.log(data)
+			console.log(a)
+		})
+		.fail(function(){
+			a--;
+			console.log(a)
+		})
+		.always(function(){
+			console.log(b)
+		})*/
+		
+		//$.when
+		$.when($.ajax('data/data.json'),$.ajax('data/message.json'))
+		.done(function(data1,data2){
+			console.log(data1)
+			console.log(data2)
+			console.log("都成功拿到数据")
+		})
+		.fail(function(){
+			console.log("其中一个数据没有拿到")
+		})
+		
+		
+		
+		
+	</script>
+</html>

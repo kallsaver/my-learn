@@ -1,2 +1,5 @@
 body {
   color: #333dff; }
+.box {
+	width:100px;height: 100px;background: red;
+}
