@@ -13,6 +13,9 @@ gulp.task('babel',function(){
   return gulp.src('app/src/js/*.js')
         .pipe(plumber())
         .pipe(babel())
+        .on('error',function(err){
+          console.log('Error:',err.message)
+        })
         .pipe(rename(function(path){
             path.basename += '-babel';
         }))
@@ -48,7 +51,8 @@ gulp.task('sass', function() {
 gulp.task('serve',['sass','less','babel'],function() {
     //启动服务器
     browserSync.init({
-        server: "./app"
+        server: "./app",
+        notify : false
     });
 
     gulp.watch("app/src/scss/*.scss", ['sass']);

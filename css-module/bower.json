@@ -1,0 +1,21 @@
+{
+  "name": "css-module",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "kallsaver <kallsaver@163.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1"
+  }
+}

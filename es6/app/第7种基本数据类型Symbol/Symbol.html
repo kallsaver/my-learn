@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  </body>
+  <script>
+    var str = new String('aaa');
+    console.log(str);
+
+    str['3'] = 'b';            //无效
+    console.log(str.length);   //3
+    str += 'c';                //有效
+    console.log(str)
+    console.log(str.length)    //4
+    //Symbol函数前不能使用new,可以说es6设计得相当糟糕了
+    //之所以不使用new,官方的想法是不想给它的顶层能加属性
+    //Symbol可以接受一个字符串的数据类型;
+    var s = Symbol();
+    console.log(s);             //Symbol()
+    var s1 = Symbol('foo');     //Symbol(foo)
+    console.log(s1);
+    console.log(s1.__proto__)   //可以看出Symbol的实例有三层
+    console.log('to',s1.toString())  //'Symbol(foo)';
+
+    //如果Symbol的参数是一个对象,
+    //那么调用这个对象的toString方法,转为字符串,再生成一个Symbol实例
+
+
+
+  </script>
+</html>

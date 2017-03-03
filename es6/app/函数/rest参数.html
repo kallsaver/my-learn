@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  </body>
+  <script type="text/javascript">
+     function add(...arr){
+       console.log(Object.prototype.toString.call(arr).slice(8,-1));       //Array
+       console.log(Object.prototype.toString.call(arguments).slice(8,-1)); //Arguments
+       let sum = 0;
+       for(var val of arr){
+         sum += val;
+       }
+       return sum;
+     }
+
+     console.log(add(1,4,5));   //10
+
+     //rest参数替代arguments
+     function sortNumbers1() {
+       //sort()默认是的排序是从小到大
+       'use strict';
+        return Array.prototype.slice.call(arguments).sort();
+     }
+
+     var a = sortNumbers1(4,1,6);
+     console.log(a);
+
+     const sortNumbers2 = (...numbers) => numbers.sort();
+
+     var b = sortNumbers2(5,2,9);
+     console.log(b);
+
+
+
+  </script>
+</html>

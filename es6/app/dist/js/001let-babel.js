@@ -46,7 +46,8 @@ var _loop = function _loop(j) {
 for (var j = 0; j < 10; j++) {
   _loop(j);
 }
-b[6]();
+b[6](); //6
+
 
 //let没有变量提升
 console.log(foo);
@@ -130,3 +131,5 @@ function f6() {
 
   f6(); //'I am outside!'
 })();
+
+var a = 1;

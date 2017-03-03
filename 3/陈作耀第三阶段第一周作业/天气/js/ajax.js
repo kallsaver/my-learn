@@ -98,22 +98,20 @@ var $ = {
 
 var weather = {
     parseIcon: function (weatherName) {
-        //
-    var icons = {
-            晴: "1_07.png",
-            阴: "1_30.png",
-            多云:"1_03.png",
-            小雨: "1_22.png",
-            阵雨: "1_22.png",
-            中雨: "1_11.png",
-            大雨: "1_24.png",
-            小雪: "1_36.png",
-            中雪: "1_09.png",
-            大雪: "1_23.png",
-            没有数据:"a_nothing.gif",
-
-        }
-
+        //相关数组
+	    var icons = {
+	            '晴': "1_07.png",
+	            '阴': "1_30.png",
+	            '多云':"1_03.png",
+	            '小雨': "1_22.png",
+	            '阵雨': "1_22.png",
+	            '中雨': "1_11.png",
+	            '大雨': "1_24.png",
+	            '小雪': "1_36.png",
+	            '中雪': "1_09.png",
+	    		'大雪': "1_23.png",
+	    		'没有数据':"a_nothing.gif"
+	    }
         return icons[weatherName] || "a_nothing.gif";
     }
 

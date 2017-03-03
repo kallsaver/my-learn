@@ -13,13 +13,25 @@
 <script>
 	function run(number,fn){
 		var b=number;
-		fn&&fn(b)
-		alert(b)
+		//如果fn这个参数存在 那么在这个位置执行它
+		//如果fn这个参数没有输入实参,那么不会执行fn()
+		fn&&fn(b);
+//		if(fn){
+//			fn(b)
+//		}
+		var a = 1 || 2;
+		console.log(a);
+		var c = 1 && 2;
+		console.log(c)
+		alert(b);
 		
 	}
-
+	
+	
 	run(5,function(add){
 		add++
 		alert(add)
 	})
+	
+	
 </script>

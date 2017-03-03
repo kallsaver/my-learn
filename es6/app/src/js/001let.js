@@ -1,6 +1,8 @@
 
 'use strict';
 
+
+
 if (true) {
   //let块级作用域,只在{}中有效
   //编译的处理是var _fruit = 1;区分全局下的fruit
@@ -40,7 +42,7 @@ for(let j=0;j<10;j++){
     console.log(j)
   }
 }
-b[6]();
+b[6]();   //6
 
 
 //let没有变量提升
@@ -122,3 +124,5 @@ function f6() { console.log('I am outside!'); }
 
   f6();         //'I am outside!'
 }());
+
+var a = 1;

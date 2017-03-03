@@ -13,12 +13,8 @@ var browserSync = require('browser-sync').create();
 
 gulp.task('babel', () =>{
   return gulp.src('src/*.js')
-  当发生编译错误,后面的命令不再执行,'babel'任务结束
-  .pipe(plumber({
-    errorHandler : function(error){
-      this.emit('end');
-    }
-  }))
+  //防止git bash被挂起
+  .pipe(plumber())
   .pipe(babel())
   .pipe(gulp.dest('lib'))
 });

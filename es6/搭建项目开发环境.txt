@@ -1,0 +1,197 @@
+0.先全局安装npm install gulp -g;npm install bower -g;
+1.cd es6(进入项目es6的文件夹)
+2.在es6目录中npm init 创建一个项目(npm init --yes走默认流程创建一个package.json)
+3.会出现 name:(first) 回车即可 小写
+4.version :(1.0.0) 输入0.0.1 表示第一个版本的
+5.descripion(项目的描述) : Gulp course by ninghao.net
+6.entry point : 回车
+7.test command(测试命令): 回车
+8.git repository(git的版本库) : 回车
+9.keywords :回车
+10.author :
+11.license(许可的协议) :回车
+12.然后会自动创建一个package.json文件 ,这个package.json文件很重要,里面的devDependencies节点
+记录了这个项目开发环境所依赖的自动化构建工具的信息,比如gulp,gulp-server,bower
+13.使用npm来管理项目的开发环境,比如npm install gulp --save-dev 
+这个命令做了两件事,一件是在项目根目录新建一个node_modules文件夹,把gulp的包放在里面,你会发现node_modules多了gulp包
+一件是在package.json的devDependencies节点输出"gulp": "^3.9.1"
+如果npm install gulp 没有--save-dev是不会在package.json中输出依赖信息的
+14.然后新建一个.gitignore的文件 这个文件写下:
+node_modules
+bower_components
+表示你在上传github的时候根目录下的node_modules和bower_components不会上传到github上
+15.package.json的作用在于,如果你把项目给别人,那么他只需要执行npm install就可以从package.json中
+读取这个项目的构架工具包的信息,下载devDependencies节点对应的包到node_modules这个文件中了
+而不用你把你项目中的node_modules包给他
+比如我的package.json:
+{
+  "name": "es6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "e": "echo hello",
+    "prestart": "npm install",
+    "start": "./node_modules/.bin/hs -a localhost -p 9000 -o",
+    "pretest": "npm install",
+    "test": "./node_modules/.bin/browser-sync start --server app --files 'app/index.html' --no-notify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "bower": "^1.8.0",
+    "browser-sync": "^2.18.8",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-less": "^3.3.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "http-server": "^0.8.5"
+  }
+}
+使用npm install 就可以一次性下载babel-cli,bower等等的包
+
+然后需要注意的是package.json的格式很严格,比如在结尾"http-server": "^0.8.5", 多了','都会下载失败的
+
+16.npm是管理开发环境的构架工具的,对应的是package.json 而bower是管理项目运行时的框架包,对应的是bower.json
+17.npm install bower --save-dev (bower同样是个构架工具)
+18.新建一个.bowerrc文件在项目根目录,这个文件是bower的配置文件,这个文件写下:
+{
+  "directory": "bower_components"
+}
+表示使用bower install命令下载的框架放在根目录下的bower_components文件夹中,当然你也可以写成
+{
+  "directory": "app/bower_components"
+}
+表示使用bower install命令下载的框架放在根目录下的app/bower_components文件夹中
+
+19.然后bower init 一路回车创建一个bower.json文件,这个文件是记录了项目所用到的框架,类似于package.json
+然后注意的是在git bash中貌似不能执行bower init命令,只能在cmd窗口执行bower init;
+20.然后我们才可以使用bower install命令 ,否则报错;bower install的意思是从bower.json读取节点信息下载记录的包
+当然这里的节点信息是空的,bower和npm原理一样
+
+21.如果项目需要用jquery,使用bower install jquery --save,注意不是--save-dev
+--save是表示运行依赖,--save-dev表示开发依赖,所以在npm中我们通常使用--save-dev(因为npm是管理构建工具)
+而在bower中使用的是--save,(因为bower管理运行的框架)
+
+22.使用bower的好处是可以自动下载依赖关系的包,比如bootstrap.js依赖jquery
+那么bower install bootstrap --save在下载bootstrap.css和bootstrap.js的同时也会下载jquery
+
+23.bower uninstall bootstrap --save 从bower_components文件夹删除bootstrap包
+并且从bower.json的节点删除
+
+24.比如我的bower.json：
+{
+  "name": "es6",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "kallsaver <kallsaver@163.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/kallsaver/my-learn",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "3.1.1",
+    "bootstrap": "^3.3.7",
+    "requirejs": "^2.3.3"
+  }
+}
+
+使用bower install 就会一键下载jquery,bootstap,requirejs框架到bower_component文件夹中
+
+25.在项目根目录新建一个gulpfile.js,我的gulpfile.js写好了:
+
+'use strict';
+var gulp        = require('gulp');
+var browserSync = require('browser-sync').create();
+var sass        = require('gulp-sass');
+var babel = require('gulp-babel');
+var less = require('gulp-less');
+var plumber = require('gulp-plumber');
+var rename = require('gulp-rename');
+
+
+
+gulp.task('babel',function(){
+		//拿到根目录下的app/src/js下的所有js文件
+  return gulp.src('app/src/js/*.js')
+  		//一个出现编译错误也不会挂起gitbash窗口的插件
+        .pipe(plumber())
+        //gulp-babel插件的编译功能,把拿到的js文件编译
+        .pipe(babel())
+       	//如果编译语法报错,显示在git bask或者cmd窗口中
+        .on('error',function(err){
+          console.log('Error:',err.message)
+        })
+        //gulp-rename插件的rename功能,编译后的js文件名字加上-babel
+        .pipe(rename(function(path){
+            path.basename += '-babel';
+        }))
+        //输出到app/dist/js文件夹中
+        .pipe(gulp.dest('app/dist/js'));
+});
+
+gulp.task('less',function(){
+  return gulp.src('app/src/less/*.less')
+        .pipe(plumber({
+          errorHandler : function(error){
+            console.log(error.message);
+            this.emit('end');
+          }
+        }))
+        .pipe(less())
+        .pipe(gulp.dest('app/dist/css'));
+});
+
+// Compile sass into CSS & auto-inject into browsers
+gulp.task('sass', function() {
+    return gulp.src("app/src/scss/*.scss")
+        .pipe(plumber({
+          errorHandler : function(error){
+            this.emit('end');
+          }
+        }))
+        .pipe(sass())
+        .pipe(gulp.dest("app/dist/css"))
+        .pipe(browserSync.stream());
+});
+
+// Static Server + watching scss/html files
+//cmd或者git bash敲下 gulp serve,会执行sass,less,babel任务,然后再执行回调函数中的语句
+gulp.task('serve',['sass','less','babel'],function() {
+    //启动服务器
+    browserSync.init({
+        server: "./app"
+    });
+
+    gulp.watch("app/src/scss/*.scss", ['sass']);
+    gulp.watch("app/src/less/*.less", ['less']);
+    gulp.watch("app/src/js/*.js", ['babel']);
+    //src变化触发编译dist变化,再触发浏览器刷新
+    gulp.watch("app/dist/js/*.js").on('change',browserSync.reload);
+    gulp.watch("app/*.html").on('change', browserSync.reload);
+});
+
+
+
+gulp.task('default', ['serve']);
+
+26.
+27.新建后index.html,你改下gulpfile.js路径为你的路径就可以用了,
+在cmd或者git bash下敲gulp就会打开浏览器窗口
+可以实现的功能有:在app/*.html中比如index.html中更改内容,ctrl+s保存后,浏览器自动刷新,再也不用你手动刷新了是不是很方便
+同时在app/src/js/*.js中更改内容,ctrl+s保存后,浏览器自动刷新
+更强大的功能是你可以打开谷歌,火狐浏览器输入你的项目http地址后,如果在谷歌浏览器上点击某个路由页面
+火狐浏览器也会跟着进入那个路由页面,就是多浏览器同步的功能

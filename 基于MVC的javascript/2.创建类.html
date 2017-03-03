@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		/*var A = function(){
+			this.a="a"
+		}
+		
+		//构造函数默认情况下是返回this(实例)
+		console.log(new A())*/
+		//我们可以返回一个新的构造函数创造一个新的类
+		
+		var Class = function(){
+			var klass = function(){
+				//借用下一层的init方法
+				this.init.apply(this,arguments)
+			}
+			//在new的时候  这个语句执行了
+			klass.prototype.init = function(a){
+				this.a=a
+			}
+			//这里构造函数返回的不是实例 而是一个构造函数
+			return klass
+		}
+		
+		//Person即是一个Class的实例  又是一个构造函数
+		var Person = new Class()
+		
+		//console.log(Person)
+		
+		//在Object层加   Person和klass的引用是一样的  所以这里冲突了
+		/*Person.prototype.init = function(){
+			//基于Person的实例做初始化
+		}*/
+		
+		var person = new Person()
+		
+		person.init("b")
+		
+		console.log(person)						//klass
+		
+		console.log(person instanceof Person)	//true
+		
+		//console.log(person instanceof klass)	//访问不了
+		
+		console.log(person instanceof Class)   //false
+		
+		
+		
+		
+	</script>
+</html>

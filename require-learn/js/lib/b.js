@@ -31,7 +31,13 @@
 
 //用法4:强烈推荐这种用法
 define(function(require,exports){
+	console.log("b.js运行")
 	var $ = require('jquery');
+	setTimeout(function(){
+		console.log("bbbb")
+	},2000)
 	console.log($);
+	var data = [1,2,3]
 	exports.name = 'bbb';
+	exports.data = data;
 })

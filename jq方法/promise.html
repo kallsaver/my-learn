@@ -8,57 +8,34 @@
 	<body>
 	</body>
 	<script>
-		var a = 1;
-		var b = 'data';
+		//jquery提供了$.Deferred.promise()方法,
+		//它的作用是在原来deferred对象返回另一个deferred对象
+		//后者只开放与改变执行状态无关的方法(done,fail)
+		//屏蔽与改变执行状态有关的方法(resolve,reject)
 		
+		var def =$.Deferred();
+		console.log(def);
+		var wait = function(def){
+			var tasks = function(){
+				console.log("执行完毕");
+				def.resolve();
+			}
+			setTimeout(tasks,5000);
+			console.log("return执行")
+			//返回promise对象
+			//def的状态会影响def.promise的状态
+			return def.promise();
+		};
 		
-		//var promise = $.get('data/data.json');
-		//或者
-		//var promise = $.ajax('data/data.json');
-		//按照循环执行
-		/*promise.always(function(){
-			console.log(b)
-		})
-		
-		promise.done(function(data){
-			console.log(data)
-			a++
-			console.log(a)
-		})
-		
-		promise.fail(function(){
-			a--;
-			console.log(a)
-		})*/
-		
-		//链式写法:
-		/*$.ajax('data/data.json')
-		.done(function(data){
-			a++;
-			console.log(data)
-			console.log(a)
+		var d = wait(def);
+		$.when(d)
+		.done(function(){
+			console.log("done函数执行")
 		})
 		.fail(function(){
-			a--;
-			console.log(a)
+			console.log("fail函数执行")
 		})
-		.always(function(){
-			console.log(b)
-		})*/
-		
-		//$.when
-		$.when($.ajax('data/data.json'),$.ajax('data/message.json'))
-		.done(function(data1,data2){
-			console.log(data1)
-			console.log(data2)
-			console.log("都成功拿到数据")
-		})
-		.fail(function(){
-			console.log("其中一个数据没有拿到")
-		})
-		
-		
-		
-		
+		//不会触发done,因为done不是它的done
+		def.reject()
 	</script>
 </html>

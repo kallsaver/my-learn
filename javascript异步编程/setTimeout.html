@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		/*for(var i=1;i<=3;i++){
+			setTimeout(function(){
+				console.log(i)
+			},0)
+		}							//4,4,4*/
+		
+		
+		var start=new Date();
+		var ss=start.getTime();
+		while((new Date()).getTime() - ss <1){console.log("les")}
+		
+		setTimeout(function(){
+			var end=new Date();
+			var es=end.getTime()
+			console.log(es-ss)
+		},500)
+		
+		
+		while((new Date()).getTime() - ss <1){console.log("less")}
+		
+	</script>
+</html>

@@ -1,9 +1,9 @@
 0.借鉴yeoman脚手架工具的目录结构
 app是项目的主要目录,下面有images,scripts,styles,views,index.html,404.html,.ico
-1.npm init --yes生成package.json
-2.npm install gulp --save-dev
+1.npm init 或者npm init --yes(快速走默认流程)生成package.json
+2.npm install gulp --save-dev 
 3.项目要用到es6和react语法,所以npm install babel-cli --save-dev
-4.npm install gulp-babel; gulp的babel编译插件
+4.npm install gulp-babel --save-dev; gulp的babel编译插件
 5.根目录下新建.babelrc配置babel:这个配置文件最终会在package.json输出dev插件依赖
 6.{
   "presets" : ["es2015","react"]
@@ -14,13 +14,13 @@ app是项目的主要目录,下面有images,scripts,styles,views,index.html,404.
 {
   "directory":"app/bower_components"
 }
-10.在git bash貌似执行不了bower init生成bower.json,可以在cmd命令中bower init
+10.在git bash貌似执行不了bower init(要先有.bowerrc文件和package.json文件)生成bower.json,可以在cmd命令中bower init
 11.bower init 一路回车
 bower install jquery只会在生成的bower_components库添加jquery库文件,不会输出到bower.json
 12.bower install jquery --save才会在bower.json文件,在里面的dev插件依赖
 13.npm install 一般使用--save-dev 因为都是开发依赖工具包
 14.而bower是运行依赖包,一般使用 bower install --save而不是--save-dev
-15.bower install 会读取bower.json中的开发依赖和运行依赖下载库到bower_components
+15.bower install 会读取bower.json中的开发依赖和运行依赖根据.bowerrc的配置下载库到bower_components
 16.bower install jquery#3.1.1 --save 下载指定版本的jq
 17.npm install http-server --save-dev
 18.在package.json中的script节点中可以定义脚本任务

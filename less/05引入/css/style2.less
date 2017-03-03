@@ -2,30 +2,35 @@
 //引入其他less文件,可以在这个less文件中使用其他less文件的变量
 //不能使用css的类
 //默认@import (once)'style1.less';
-//@import 'style1.less';  //会在css文件中输出引用的less不假括号的类
-@import (reference)'style1.less';  //不会在css文件中输出引用的less不假括号的类
+//@import 'style1.less';  //引用的less文件不加括号的类会在style2.css文件输出
+@import (reference)'style1.less';  //引用的less文件不加括号的类不会在style2.css文件输出,但是可以使用这个类
 
-//style1.less这个文件的所有内容会原封不动输入到这个less对应的css文件中,并且在这个less中无法使用style1.less的类
+//style1.less这个文件的所有内容会原封不动输入到这个less对应的css文件中,并且在这个less中无法使用style1.less的类和变量
+//不推荐使用,因为css是无法使用less的语法的
 //@import (inline)'style1.less';  
 
-//@import 'index.css';
+@import 'index.css';
+//和style1.less的类命名冲突
+.borderLess(){
+    border : 5px solid peru;
+};
 .centent{
-    width : @wp;
+    //width : @wp;
     height: 80px;
     background: red;
     //.borderCss          //不能使用css文件定义的类
-    .borderLess;          //可以使用less文件定义的类
+    .borderLess;          //可以使用style1.less文件定义的类和变量
 };
 
 //把引入的css文件转为less,这样就可以在这个less文件中使用css定义的类,并且输出到less对应的css文件中(加上reference不输出)
-@import (less,reference)'index.css';
-.centent2{
-    width : @wp;
-    height: 80px;
-    background: red;
-    //不能使用css文件定义的类
-    .borderCss;      
-};
+//@import (less,reference)'index.css';
+//.centent2{
+//  width : @wp;
+//  height: 80px;
+//  background: red;
+//  //不能使用css文件定义的类
+//  .borderCss;      
+//};
 
 //没有什么意义
 //@import (css)'style1.less';
