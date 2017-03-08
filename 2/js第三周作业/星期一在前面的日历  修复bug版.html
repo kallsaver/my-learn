@@ -220,8 +220,6 @@ window.onload=function(){
 		 console.log(b)*/
 		
 		four.setYear(presentyear,presentmonth,today)	
-		
-		
 		//插入1号前面的上个月的号码
 		 var lastmonthfullday=four.getDate();
 		 		 
@@ -308,14 +306,12 @@ window.onload=function(){
 
 	
 	function beforefn(){
-
 		//如果month用全局变量中的month的话,beforefn的month的增减影响不了afterfn的month,也影响不了全局month的值 month值的变化只在函数中有效
 		month--;
 		if(month==-1){
 			year--;
 			month=11;
 		}
-				
 		setmonth();
 	}
 	
@@ -331,7 +327,6 @@ window.onload=function(){
 		setmonth();
 	}
 	
-	
 	function modallayer(){
 	var modal=document.createElement("div");
 	modal.className="modal";
@@ -339,8 +334,6 @@ window.onload=function(){
 	//返回值扔出一个对象
 	return modal;
 	}
-
-	
 }
 
 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var arr = [5,18,69,41,14];
+		//判断arr中是否有大于18的元素,只要一项满足,返回true
+		var a = arr.some(function(item,index,arr){
+			return item > 18
+		})
+		
+		console.log(a)
+		//判断arr中是否所有的元素都大于18,全部都满足,返回true
+		var b = arr.every(function(item,index,arr){
+			return item > 18;
+			//return item > 1
+		})
+		
+		console.log(b)
+	</script>
+</html>

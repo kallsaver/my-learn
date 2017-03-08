@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			ul{list-style: none;}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li>
+				<label><input type="checkbox" name="super1" value="1000">纪律规范(10分)</label>
+			</li>
+			<ul>
+				<li style="padding-left: 2em;">
+					<label><input type="checkbox" name="sub_a" value="100">教案或学案1(5分)</label>
+					<ul>
+						<li style="padding-left: 4em;">
+							<label><input type="checkbox" name="option_a" value="1">1</label>
+						</li>
+						<li style="padding-left: 4em;">
+							<label><input type="checkbox" name="option_a" value="2">2</label>
+						</li>
+						<li style="padding-left: 4em;">
+							<label><input type="checkbox" name="option_a" value="3">3</label>
+						</li>
+						<li style="padding-left: 4em;">
+							<label><input type="checkbox" name="option_a" value="4">4</label>
+						</li>
+					</ul>
+				</li>
+				<li style="padding-left: 2em;">
+					<label><input type="checkbox" name="sub_b" value="200">教案或学案2(5分)</label>
+					<ul>
+						<li style="padding-left: 4em;">
+							<label><input type="checkbox" name="option_b" value="5">5</label>
+						</li>
+					</ul>
+				</li>
+				<li style="padding-left: 2em;">
+					<label><input type="checkbox" name="sub_c" value="300">教案或学案3(5分)</label>
+					<ul>
+						<li style="padding-left: 4em;">
+							<label><input type="checkbox" name="option_c" value="6">6</label>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</ul>
+		
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		
+
+		
+		function subject(subString,optionString,arr){
+			var sub = $(subString);
+			var optionList = $(optionString);
+			var length = $(optionString).length;
+			var arr = [];
+			
+			optionList.on('click',function(){
+				var index = arr.indexOf($(this).val());
+				if( index !== -1){
+					arr.splice(index,1);
+					console.log(arr);
+				}
+				else if( $(this).prop('checked') === true ){
+					arr.push($(this).val());
+					console.log(arr)
+				}
+				if( arr.length === length ){
+					console.log('change');
+					console.log(arr)
+					sub.prop('checked',true);
+					
+				}
+				else{
+					sub.prop('checked',false);
+				}
+			})
+			
+			sub.on('click',function(){
+				if (arr.length === length){
+					optionList.prop('checked',function(i,value){
+						value = false;
+						return value;
+					})
+					arr.length=0;
+					console.log(arr);
+				}
+				else{
+					arr = new Array(length);
+					$.each(optionList,function(index,value){
+						arr[index] = optionList[index].value;
+					})
+					optionList.prop('checked',function(i,value){
+						value = true;
+						return value;
+					})
+					$(this).prop('checked',true);
+				}
+			})
+			
+		};
+		//参数分别是次级,最底级,使用这个函数可以让它们的状态关联起来
+		subject("input[name='sub_a']","input[name='option_a']");
+		subject("input[name='sub_b']","input[name='option_b']");
+		subject("input[name='sub_c']","input[name='option_c']");
+		subject("input[name='super1']","input[name*='option']");
+		subject("input[name='super1']","input[name*='sub']");
+		
+		
+		
+	</script>
+</html>

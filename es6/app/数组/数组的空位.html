@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  </body>
+  <script type="text/javascript">
+    var a = new Array(3);
+    console.log(a);     //a是一个有3个空位的数组,没有任何值,连undefined都不是
+
+    //undefined也是值,是有key的
+    console.log(0 in [undefined,undefined]);   //true
+    //空位是没有key的,所以更加不用说value了
+    console.log(0 in new Array(3));            //false
+
+    //ES5对空位的处理很不一致,forEach,filter,every,some会跳过空位
+    //join和toString会将空位视为undefined,而undefined和null会被处理为字符串
+    //map会跳过空位,但是会保留这个空位
+    //数组的forEach方法
+    [,'a'].forEach((item,index) => {console.log(item,index)});
+    //数组的filter方法跳过空格
+    var filterArr = ['a',,'b'].filter(item => true);
+    console.log(filterArr.length);    //2,空格已经略过了
+    //数组的map方法,不会对空格进行运算等处理,结果会保留
+    var mapArr = [100,,50].map((item,index)=>item+1);
+    console.log(mapArr);
+    //数组的some和every方法跳过空格
+    var someReturn = [54,,17].some((item,index) => item === 17);
+    console.log(someReturn);  //true
+    var everyReturn = [17,,17].every((item,index) => item === 17);
+    console.log(everyReturn)  //true
+    //数组的join和toString方法会把undefined,null,空格处理为''
+    var c = ['a',,undefined,null,'b'].join('#');
+    console.log(c)          //'a####b'
+    var d = ['a',,undefined,null,'b'].toString();
+    console.log(d)          //'a,,,,b'
+
+    //扩展运算符...会将空格转为undefined;
+    console.log([...['a',,'b']]);
+    //Array.from方法也会将数组的空格,转为undefined;
+    var fromReturn = Array.from(['a',,'b']);
+    console.log(fromReturn);
+
+    //数组的copyWithin方法
+
+
+
+
+  </script>
+</html>

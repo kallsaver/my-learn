@@ -98,3 +98,8 @@ div {
   height: 150px;
   font-size: 50px;
 }
+.newdiv {
+  color: #ff0000;
+  padding: 20px;
+  margin: 3px;
+}

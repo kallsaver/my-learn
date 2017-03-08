@@ -3,6 +3,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<style>
+		  div{background:#ed6b41;color: #ffffff}
+		</style>
 	</head>
 	<body>
 		<div id="app2">
@@ -21,21 +24,23 @@
 			el : '#app2',
 			data : data
 		});
-		//data一旦被传参和vue实例关联,data将会被改造,
+		//一个对象一旦被传参和vue实例关联,data将会被改造,多了__ob__的链;
+		console.log(data)
 		console.log(data.obj)
 		console.log(data.obj.__ob__)    //vue的原型链
 		console.log(data.__ob__.value)
 		console.log(app2.$data === data)         //true
 		console.log(app2.$el === document.getElementById('app2'))   //true
 		console.log(app2.obj === data.obj)       //true
-		console.log(app2.$data.obj === data.obj) //true 
+		console.log(app2.$data.obj === data.obj) //true
 		//app2.message = 'some new message';
-		
+
 		app2.message = '更新';
 		console.log(data.message);
 		app2.obj={ KDA : 1};
-		console.log(data.obj)
-		
-		
+		console.log(data.obj);
+		docum
+
+
 	</script>
 </html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  </body>
+  <script type="text/javascript">
+    //数组的fill方法只用一个参数时,原有的数组所有元素都会被替换
+    var a = ['a','b','c'].fill(7);
+    console.log(a);                 //[7,7,7]
+    //对于给一个空数组初始化时是非常便利的
+    var arr1 = new Array(3).fill(5);
+    console.log(arr1);
+
+    //ES5中使用map是无法实现的,因为new Array(3)会得到[,,,];是没有任何值的
+    //连undefined都不是
+    var arr2 = new Array(3).map(function(item){
+      console.log(item)
+      return 5;
+    })
+
+    console.log(arr2);
+
+    
+
+  </script>
+</html>

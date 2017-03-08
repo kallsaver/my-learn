@@ -27,7 +27,8 @@
 			// 匹配包含内容(子字符串)
 			// $("a[title*='data']").css("background","red"); 
 			// 匹配前缀字符串: "data"或"data-"
-	         $("a[title|='data']").css("background","red"); 
+	         //$("a[title|='data']").css("background","red");
+	         $("a[title='sub'],a[title='super']").css("background","red"); 
 		})
 
     </script>
@@ -45,6 +46,8 @@
     <a href="#" title="data-link">aaaa</a><br/>
     <a href="#" title="this is datalink">aaaa</a><br/>
     <a href="#" title="this is link">aaaa</a><br/>
+    <a href="#" title="sub">aaaa</a><br/>
+    <a href="#" title="super">aaaa</a><br/>
 </div>
 </body>
 </html>

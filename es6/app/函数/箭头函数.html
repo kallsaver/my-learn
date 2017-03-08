@@ -123,16 +123,42 @@
     }).call({x:'outer'});
 
     (function(){
-      //箭头自运行函数
       (()=>{console.log(this.x)}).bind({x:'inner'})()    //'outer'
     }).call({x:'outer'});
 
     (function(){
-      //箭头自运行函数
       (()=>{console.log(this.x)}).call({x:'inner'})    //'outer'
     }).call({x:'outer'});
 
 
+    //当箭头函数返回一个对象时,由于{}表示块,所以要在外围加上();
+    let returnObj = () => ({name:'obj'});
+
+    console.log(returnObj());
+
+
+
+    //嵌套的箭头函数
+    //ES的多重嵌套函数
+    function insert(value) {
+      return {into: function (array) {
+          return {after: function (afterValue) {
+            //+1在afterValue的索引的后面插入,不+1会在afterValue前面插入
+            array.splice(array.indexOf(afterValue) + 1, 0, value);
+            return array;
+          }};
+        }};
+      }
+
+    console.log(insert(2).into([1,3]).after(1));     //[1,2,3]
+
+    //箭头函数改写:
+    let insert1 = (value) => ({into:(array)=>({after:(afterValue)=>{
+      array.splice(array.indexOf(afterValue) + 1, 0, value);
+      return array;
+    }})});
+
+    console.log(insert1(2).into([1,3]).after(1));     //[1,2,3]
 
 
 

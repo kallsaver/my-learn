@@ -35,6 +35,46 @@
      var b = sortNumbers2(5,2,9);
      console.log(b);
 
+     //...扩展运算符取代apply方法
+     //ES5:
+     console.log(Math.max.apply(null,[41,52,31]));
+     //ES6:
+     console.log(Math.max(...[41,52,31]));
+     //ES5:
+     var arr1 = [0,1,2];
+     var arr2 = [3,4,5];
+     Array.prototype.push.apply(arr1,arr2);
+     console.log(arr1);
+     //ES6:
+     var arr3 = [0,1,2];
+     var arr4 = [3,4,5];
+     arr3.push(...arr4);
+     console.log(arr3);
+
+     //合并数组新写法:
+     //ES5:
+     var arr5 = ['a','b'];
+     var arr6 = ['c','d'];
+     var arr7 = ['e','f']
+     var concatArr = arr5.concat(arr6,arr7);
+     console.log(concatArr);
+     //ES6
+     var concatList = [...arr5,...arr6,...arr7];
+     console.log(concatList);
+
+     //与解构赋值结合,数组里面的first,rest都是const声明的变量
+     const [first,...rest] = [1,2,3,4,5];
+     console.log(first,rest);      //1,[2,3,4,5]
+
+     const [first1,...rest1] = [];
+     console.log(first1,rest1);    //undefined,[];
+
+     //...扩展运算符只能放在参数的最后一位,否则报错
+     //const [first2,...middle,last] = [1,2,3,4,5];
+
+
+     //扩展运算符还可以将字符串转为真正的数组;
+     console.log([...'hello']);    //['h','e','l','l','o']
 
 
   </script>

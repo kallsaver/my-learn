@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//首先js中所有的东西,包括Number,String,Array,Function等等这些类型都是由一个原型(最底层)来的
+		
+		var obj = {
+			name : 'obj'
+		};
+		//你会发现obj有两层,一层是它私有的Object层,一层是最底层的Object
+		console.log(obj)  
+		console.log(Object.prototype === obj.__proto__)
+		
+		var arr1 = [1];
+		//你会发现arr有三层,一层是它私有的Array层,一层是所有数组共有的Array层(这层封了很多数组的方法),
+		//最底的一层是最底层的Object
+		console.log(arr1);
+		
+		//如果想拿到一个对象或者数组的下一层原型,那么使用__proto__
+		//比如我想拿到所有数组共有的Array层,也就是arr1的下一层原型
+		console.log(arr1.__proto__);  //去浏览器看这层是不是封了很多数组的方法
+		
+		var arr2 = [2];
+		//那么arr1和arr2的下一层原型,是不是同一个东西? 答案是是同一个东西(同一个引用地址)
+		console.log(arr1.__proto__ === arr2.__proto__)   //true
+		
+		//那么数组的的最底层原型和对象的最底层原型,是不是同一个东西? 答案 是是同一个东西
+		console.log(arr1.__proto__.__proto__ === obj.__proto__)   //true
+		//实际上js中所有的东西,包括Number,String,Array,Function等等这些类型都是由一个原型(最底层)来的
+		
+		
+		//然后讲下构造函数
+		//申明一个函数,js干了一些事
+		//1.新开辟一个内存地址给一个空对象(两层),在这个对象再往上加两层
+		//相当于var k = {} k再往上加两层,
+		//一层是底层的Function类,里面有call,prototype,apply,bind等只有函数才有的属性方法
+		//一层是Sudent自己私有的层,所以函数有四层
+		function Student(){
+			//this的意思是Student的实例
+			this.type = 'student'
+		} 
+		
+		var student1 = new Student();   //创造一个Student实例
+		var student2 = new Student();   //创造一个Student实例
+		console.log(Student.prototype)  //就是那个k了
+		//__proto__和prototype的意思
+		
+		//__proto__是一个对象的下一层原型,而prototype是函数才有的方法,对象是没有的
+		//prototype的意思是这个函数(构造函数)的实例的下一层,所以 student1.__proto__ === Student.prototype
+		// student1对象的下一层原型  === Student构造函数的实例的下一层原型
+		//一个构造函数.prototype === 这个构造函数创造出来的实例.__proto__
+		console.log(student1.__proto__ === Student.prototype)   //true
+		
+		//一个对象是可以无限加层的,这样它的原型会越来越多
+		function teacher(){
+			//构造函数中的this指的是实例出来的那个对象
+			this.type = 'a teacher';
+			teacher.prototype.constructor = teacher;      //这句话不重要,先别纠结
+		}
+		function man(){
+			//构造函数中的this指的是实例出来的那个对象
+			this.type = 'a man';
+			this.speak = 'speak'
+		}
+		
+		//teacher的实例的下一层是一个man的实例
+		teacher.prototype = new man();
+		
+		var xiaoming = new teacher();
+		//你会发现teacher类的下一层原型是man类
+		//并且你会发现在teacher类这层的type是'a man',而在man层的type是'a teacher'
+		console.log(xiaoming); 
+		
+		//所以xiaoming这个对象是有两个type属性的,分别在teacher类层和man类层,那么xiaoming.type会得到什么
+		
+		//优先得到的是上层的属性,一级一级往原型链找type属性,一旦找到了就不往下找了
+		console.log(xiaoming.type)   //a teacher
+		//在man层找到了speak属性
+		console.log(xiaoming.speak)  //speak
+		
+		
+		//instanceof可以判断一个对象是不是某个类的
+		
+		console.log( xiaoming instanceof teacher)  //true
+ 		console.log( xiaoming instanceof man)      //true
+ 		console.log( xiaoming instanceof Object)   //true
+		console.log( xiaoming instanceof Student)   //false
+		
+		//利用原型的应用
+		//1.如果我想在数组中添加一个方法,让任意的数组都可以使用
+		Array.prototype.talk = function(){
+			//会在数组实例的下一层加这个speak方法
+			console.log('talk')
+		}
+		
+		var arrNew = [4,5];
+		arrNew.talk();             //talk
+		
+		//2.面向对象编程
+		
+		//不具有扩展性体现对象的多态性的代码:
+		/*var makeSound = function(animal){
+			if(animal instanceof Duck){
+				console.log('嘎嘎嘎')
+			}
+			else if(animal instanceof Chicken){
+				console.log('咯咯咯')
+			}
+		}
+		
+		var Duck = function(){}
+		var Chicken = function(){}
+		
+		makeSound(new Duck())
+		makeSound(new Chicken())*/
+		
+		//多态背后的思想是将'做什么'和'谁去做以及怎么去做'分离开,也就是将不变的事物和可能改变的事物分离开
+		//所以把不变的部分提取出来,可变的部分隔离出来,从而可以消除分支if,else语句,并且可以使代码有扩展性
+		//具有扩展性体现对象的多态性的代码:
+		var makeSound = function(animal){
+			//animal其实是个超类型
+			animal.sound()
+		}
+		
+		var Duck = function(){}
+		
+		Duck.prototype.sound = function(){
+			console.log('嘎嘎嘎')
+		}
+		
+		var Chicken = function(){}
+		
+		Chicken.prototype.sound = function(){
+			console.log('咯咯咯')
+		}
+		
+		makeSound(new Duck())       
+		makeSound(new Chicken())
+		
+		//这样如果有一天增加一只狗,这时候就不需要改makeSound函数,只要加一行代码即可
+		
+		var Dog = function(){}
+		
+		Dog.prototype.sound = function(){
+			console.log('汪汪汪')
+		}
+		
+		makeSound(new Dog())
+		
+		function Foo(){}
+		var f1 = new Foo();
+		f1.a = 10;
+		//这句话的意思是所有Foo类的实例的下一层都有a=100 这个a是放在Foo类的实例的下一层的
+		Foo.prototype.a = 100;
+		Foo.prototype.b = 200;
+		console.log(f1)
+		var f2 = new Foo();
+		console.log(f2.a)    //100
+		console.log(f1.a)    //10
+		console.log(f1.b)    //20
+		
+		//如果你仅仅是f1.a = 10 这个a是私有的东西,不会共享的
+		//如果你f1.__proto__.a = 100 这样做不单单会影响到f1,所有的具有这个原型层的对象(即Foo的实例)都有这个属性了
+		//f1.__proto__  === f2.__proto__ ===所有Foo的实例.__proto__
+		
+		//给所有数值实例加speak方法
+		Array.prototype.speak = function(){}
+		
+		//或者
+		[1].__proto__.speak = function(){}
+		
+	</script>
+</html>
