@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	var App = function(initData) {
+    	var data = {
+       		aa: "default_aa",
+       		bb: "default_bb",
+       		cc: "default_cc"
+   		}
+
+    	var init = function() {
+        	$.extend(data, initData);
+    	}
+
+    	this.a = function() {
+       	   //公共函数
+           return data.aa;
+   		}
+
+    	this.b = function() {
+        	//公共函数
+        	return data.bb;
+    	}
+
+    	this.c = function() {
+        	//公共函数
+        	return data.cc;
+    	}
+    	
+    	init();
+	};
+
+	var app = new App({
+    	aa: 'aa',
+   		bb: 'bb'
+	});
+
+	console.log(
+  		app.a(), app.b(), app.c() //aa bb default_cc
+	);
+		
+		
+	</script>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var obj ={
+			name : 'obj',
+			size : {
+				name : 'size',
+				run : function(){
+					console.log(this)
+				}
+			}
+		}
+		
+		obj.size.run()   //obj.size
+		
+		//如果想绑定在obj上
+		
+		var obj1 ={
+			name : 'obj1',
+			size : {
+				name : 'size1',
+				run : function(){
+					console.log(this)
+				}.bind(obj1)          //无效
+				
+			}
+		}
+		
+		obj1.size.run()   //为啥变成window?
+		obj1.size.fn = function(){
+			console.log(this)
+		}.bind(obj1);
+		
+		obj1.size.fn();
+		
+		//利用闭包依然不行
+		var obj2 ={
+			name : 'obj2',
+			size : {
+				name : 'size2',
+				fn : (function(){
+					console.log(this)      //window
+					var a = function(){
+						console.log(this)  //window  //这有点说不过去
+					}.bind(obj2)
+					return a;
+				})() 
+				
+			}
+		}
+		
+		obj2.size.fn();
+		
+		
+		var a = {}
+		a.b = function(){
+			console.log(this)
+		}.bind(obj)
+		
+		a.b();
+		
+		var obj3 ={
+			name : 'obj3',
+			that : this,
+			size : {
+				name : 'size3',
+				fn : (function(){
+					//console.log(this);
+					var a = function(){
+						console.log(this)
+					}.bind(obj);  //obj3不行,其他有效
+					return a;
+				}).call(obj)      //obj3不行,其他有效
+			}
+		}
+		obj3.size.fn();
+		
+		//利用ES6箭头函数的特性 :外围环境就是它的this
+		
+		var obj4 ={
+			name : 'obj4',
+			that : this,
+			size : {
+				name : 'size4',
+				fn : (function(){
+					//console.log(this);
+					return () =>{
+						console.log(this)
+					}
+				}).call(obj)      //obj3不行,其他有效
+			}
+		}
+		obj3.size.fn();
+		
+	</script>
+</html>

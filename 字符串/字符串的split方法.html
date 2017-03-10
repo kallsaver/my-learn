@@ -7,14 +7,16 @@
 	<body>
 	</body>
 	<script>
-		//split返回的是数组   可以用正则表达式  和数组的join方法刚好相反  
+		//split返回的是数组,可以用正则表达式,和数组的join方法刚好相反  
 		//字符串的split方法将一个字符串分割为子字符串，然后将结果作为字符串数组返回。
 		//sstrObj.split([separator,limit]) 
 		
 		var str="AAA BB CCC DD EE FFF"
 		
-		var a=str.split(" ",3)	//切割元素的分隔符是空格  只返回3个
-		console.log(a)			//["AAA","BBB","CCC"]
+		var a = str.split(" ");
+		console.log(a);         //切割元素的分隔符是空格,返回所有的字符串元素组成的数组 ['AAA' 'BB' 'CCC' 'DD' 'EE' 'FFF']   
+		var a1=str.split(" ",3)	//切割元素的分隔符是空格  只返回3个
+		console.log(a1)			//["AAA","BBB","CCC"]
 		console.log(str)
 		
 		//-------------------------------------------------

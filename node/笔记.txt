@@ -11,3 +11,7 @@
 	
 5.Javascript不能做什么 :
 	文件操作(文件和文件夹的增删改查)
+	
+
+6.git bash清屏  reset
+	

@@ -29,7 +29,9 @@
 			}
 			return s;*/
 			//优雅的写法:
-			return new Array(item.length).join("*")	//或者return "*".repeat(2)
+			//return new Array(item.length+1).join("*")	
+			//或者
+			return "*".repeat(item.length)
 		})	
 		console.log(a2)
 		

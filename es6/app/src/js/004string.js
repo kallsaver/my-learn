@@ -6,7 +6,7 @@ let breakfast = '今天的早餐是' + dessert + '和' + drink + '!'
 
 console.log(breakfast);
 
-
+//``定义的字符串可以随意的回车换行,是模板字符串,用于字符画很方便
 let breakfast2 = `今天的早餐是
   ${dessert}和${drink}?`;
 

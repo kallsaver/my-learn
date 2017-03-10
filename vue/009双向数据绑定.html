@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--和ng一样,ng-model和v-model是双向数据绑定的-->
+		<!--vue同样是DOM子元素可以拿到父元素的数据-->
+		<div id="app" title="{{title}}">
+			<!--和ng一样,指令里面是不用写{{}},注意区分属性和指令-->
+			<input type="text" v-model="msg" />
+			<p>{{msg}}</p>
+		</div>
+		
+	</body>
+	<script src="js/vue.js"></script>
+	<script>
+		var app = new Vue({
+			el : '#app',
+			data : {
+				msg : 'aaaa',
+				title : '滑上去会出现'
+			}
+			
+		})
+
+		
+		
+	</script>
+</html>

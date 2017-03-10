@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//1.验证电话号码,如果没有$,那么[0-9]{10}只要满足后面有10+个数字就true了
+		var reg = /^1[0-9]{10}$/;
+		
+		var phone1 = '13590044028';
+		var phone2 = '135900440288';
+		var phone3 = '23590044028';
+		
+		console.log(reg.test(phone1));
+		console.log(reg.test(phone2));
+		console.log(reg.test(phone3));
+		
+		//2.把user-get-name变成驼峰命名
+		var str = 'user-get-name';
+		
+		function parseHump(str){
+			var result = str.replace(/\-[a-z]/g,function(item){
+				item = item[1].toUpperCase();
+				console.log(item)
+				return item;
+			})
+			return result;
+		}
+		
+		var strParse = parseHump(str);
+		console.log(strParse)
+		
+	</script>
+</html>

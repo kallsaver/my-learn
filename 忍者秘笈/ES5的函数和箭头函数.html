@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var obj = {
+			name : 'obj'
+		}
+		
+		var a = function father(){
+			console.log(this)       //obj
+			var son = function (){
+				//其实这样很不好,ES5中没申明一个函数,这个函数默认this是window,和作用域规则冲突
+				console.log(this)   //window 
+			}//.bind(this)          //要使得作用域规则不冲突,是使用bind
+			son();
+		}.bind(obj)
+		
+		a();
+		console.log(window.son)     //然而window没有挂载son这个函数
+		
+		var b = function mother(){
+			console.log(this);
+			var son = ()=>{
+				//箭头函数符合js的作用域规则,它是没有this的,而这时候this就是外部的全局变量this
+				//箭头函数使用bind,call,apply是无效的
+				console.log(this)   
+			};
+			son();
+		}.bind(obj)
+		
+		b();
+		
+		//总结: ES5的函数适合做构造函数使用,而箭头函数适合作为私有函数在一个作用域中声明
+		
+		
+		//而ES5的函数作为属性方法时,以下形式使用bind,call,apply,会把this改为window
+		
+		var strange = {
+			son : {
+				fn : function(){
+					console.log(this)   //window
+				}.bind(strange)     //可以绑定除了strange以外的对象
+			}
+		}
+		
+		strange.son.fn()
+		
+	</script>
+</html>
