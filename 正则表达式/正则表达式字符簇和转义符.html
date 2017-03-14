@@ -11,7 +11,7 @@
 	//^在[]中表示取反的	[^]表示匹配一起字符	
 	//. 点字符表示匹配除了回车(\r),(\n),分隔符(\u2028)和段分割符(\u2029)以外的所有字符  常.*
 	
-		var str='df4dg.84s?gG'
+		var str='df4dg.84s? gG'
 		var a1=str.match(/[a-z]/g);		//全局匹配所有的单个小写字母
 		console.log(a1);					//["d","f","d","g","s","g"]
 		
@@ -33,8 +33,8 @@
 		var c7=str.match(/\w/g)	;		//全局匹配所有的非特殊符号(和空格)的单个字符		\w+常用于匹配单词
 		console.log(c7);				//["d","f","4","d","g","8","4","s","g","G"]
 		
-		var c8=str.match(/\W/g)	;		//全局匹配所有的特殊符号的单个字符
-		console.log(c8)	;				//[".","?"]
+		var c8=str.match(/\W/g)	;		//全局匹配所有的特殊符号和空白符的单个字符
+		console.log(c8)	;				//[".","?",""]
 		
 		var d9=str.match(/\./g);			//全局匹配.
 		console.log(d9)	;				//["."]
@@ -50,8 +50,12 @@
 		var e12=str.match(/[^\d]/g);		//全局匹配所有的非数字的单个字符
 		console.log(e12);				//["d","f","d","g",".","s","?","g","G"]
 		
-		var f13=str.match(/\s/g);
-		console.log(f13)
+		// \s表示空白符
+		var f13 = str.match(/\s/g);
+		console.log(f13)                //['']
+		
+		var f14 = str.match(/\S/g);     //['d','f','4','d','g','.','8','4','s','?','g','G'];
+		console.log(f14)
 		
 	</script>
 </html>

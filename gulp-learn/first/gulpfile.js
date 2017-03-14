@@ -39,6 +39,13 @@ gulp.task('server',function(){
 	});
 });
 
+gulp.task('jsonp',function(){
+	return gulp.src('js/$jsonp.js')
+	.pipe(uglify())
+	.pipe(rename('$jsonp.min.js'))
+	.pipe(gulp.dest('dist'))
+})
+
 //任务的名字,执行命令运行的函数
 gulp.task('hello',function(){
   console.log('您好');

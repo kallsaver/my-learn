@@ -49,7 +49,9 @@
 				console.log($scope.data);
 				
 				//这个是个filter函数的回调函数(参数)  filter本身具有迭代的功能 obj是数组中每个元素
-				$scope.checkName = function(obj){
+				//这个filter的回调函数的参数在angular中已经预设好了
+				$scope.checkName = function(obj,index,oldArr){
+					console.log(arguments)
 					if(obj.py.indexOf("h") === -1)
 						return false
 					return true;

@@ -22,7 +22,8 @@
 					/*return {
 						message :  'I am a factory'
 					}*/
-					return "factory"
+					//return "factory"
+					return ['a','b','c']
 				})
 				
 				//自定义服务   返回的都是必须是一个引用类型数据
@@ -31,7 +32,14 @@
 				})
 				
 			})
-			
+			myApp.provider('myProvider',function(){
+				this.$get = function(){
+					return {
+						name : 'provider'
+					}
+				}
+			})
+
 			myApp.controller("myCtrl",function($scope,myService,shopFactory,shopService){
 				$scope.data={
 					name:"aaa"

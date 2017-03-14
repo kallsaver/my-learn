@@ -5,6 +5,9 @@
 		<title></title>
 		<script src="js/angular.js"></script>
 		<script>
+			
+			//$watch是监视这个值变化时,执行回调函数,功能比$apply多
+			//$apply是异步操作时,'同步'更新这个值,无法再做其他功能
 			angular.module("myapp",[])
 			angular.module("myapp").controller("myCtrl",function($scope){
 				$scope.name=12;
@@ -33,7 +36,8 @@
 					
 				},true)     //不加上true是监听data的引用值  只会在初始化的时候执行这个函数一次
 			})
-			
+				
+				
 		</script>
 	</head>
 	<!--view改变数据会影响module,module改变数据也会影响view-->

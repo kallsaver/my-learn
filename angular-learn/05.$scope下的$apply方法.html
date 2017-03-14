@@ -5,6 +5,8 @@
 		<title></title>
 		<script src="js/angular.js"></script>
 		<script>
+			//$watch是监视这个值变化时,执行回调函数,功能比$apply多
+			//$apply是异步操作时,'同步'更新这个值,无法再做其他功能
 			angular.module("myapp",[])
 			angular.module("myapp").controller("myCtrl",function($scope){
 				//$scope.data=12

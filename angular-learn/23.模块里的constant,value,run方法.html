@@ -43,12 +43,18 @@
 						console.log('factory',vension)
 					}
 				}
+			})
+			
+			.factory('shopArr',function(){
+				console.log('factory函数运行');
+				return [1,2,3]
 				
 			})
 			
-			.controller('myCtrl',['$scope','APIKEY','vension','shopFactory',function($scope,APIKEY,version,shopFactory){
+			.controller('myCtrl',['$scope','APIKEY','vension','shopFactory','shopArr',function($scope,APIKEY,version,shopFactory,shopArr){
 				console.log('controller',APIKEY)
 				console.log('controller',version)
+				console.log(shopArr)
 				shopFactory.fn()
 			}])
 		</script>

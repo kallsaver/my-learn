@@ -32,7 +32,12 @@
 		arr[1].name="ooo"
 		console.log(newArr)		//数组的filter方法也是拿引用值  
 		
-		
+		var arr1 = [1,2,3,4,5]
+		var newArr1 = arr1.filter(function(item,index,arr1){
+			console.log(arguments)   //可以看出是item,index,arr1
+			return    //null,'',false等都等同鱼false
+		})
+		console.log(newArr1)
 		
 	</script>
 </html>

@@ -22,6 +22,7 @@
 				$scope.a=true
 				
 				$scope.changeStatus = function(event){
+					console.log(this === $scope)     //true
 					console.log(event.target)
 					angular.element(event.target).html("切换成" + $scope.status)
 					$scope.status = !$scope.status;

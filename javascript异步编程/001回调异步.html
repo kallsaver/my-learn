@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//我想用a变量接受r的值
+		function run(fn){
+			var r = 0;
+			setTimeout(function(){
+				console.log('异步')
+				r+=2;
+				getAsync(r);
+			},2000)
+		}
+		
+		function getAsync(num){
+			a = num;
+			console.log('a',a)
+		}
+		
+		run(getAsync)
+		
+	</script>
+</html>

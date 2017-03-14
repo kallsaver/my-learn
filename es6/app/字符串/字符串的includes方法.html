@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		var str = 'Hello world';
+		
+		console.log(str.startsWith('Hello'));   //true
+		console.log(str.startsWith('hello'));   //false
+		
+		console.log(str.endsWith('world'));     //true
+		console.log(str.includes('o'));         //true
+		
+		//这三种方法都支持第二个参数,表示开始搜索的位置
+		
+		console.log(str.startsWith('world',6));   //true
+		
+	</script>
+</html>
