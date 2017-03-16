@@ -13,6 +13,7 @@ var breakfast = '今天的早餐是' + dessert + '和' + drink + '!';
 
 console.log(breakfast);
 
+//``定义的字符串可以随意的回车换行,是模板字符串,用于字符画很方便
 var breakfast2 = '\u4ECA\u5929\u7684\u65E9\u9910\u662F\n  ' + dessert + '\u548C' + drink + '?';
 
 console.log(breakfast2);

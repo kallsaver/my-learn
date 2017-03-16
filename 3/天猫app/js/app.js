@@ -26,10 +26,10 @@
                 url:"/detail",
                 views:{"tabs-detail":{templateUrl:"views/detail/detail.html",controller:"detailCtrl"}}
             })
-           /* .state("tabs.cart",{
+            .state("tabs.cart",{
                 url:"/cart",
                 views:{"tabs-cart":{templateUrl:"views/cart/cart.html",controller:"cartCtrl"}}
-            })*/
+            });
         $urlRouterProvider.otherwise("/home")
     })
 

@@ -24,7 +24,7 @@
 		function parseHump(str){
 			var result = str.replace(/\-[a-z]/g,function(item){
 				item = item[1].toUpperCase();
-				console.log(item)
+				console.log(item);
 				return item;
 			})
 			return result;
@@ -51,39 +51,69 @@
 //		console.log(upper0);
 		
 		//3.句子开头首字母大写:
-		String.prototype.capitalize1 = function(){
-			//(^)表示开头符的意思,即以空白(不是空格)开头,
-			//不信可以var upper1='qi am a boy'
-			//repalce(/(^q)([a-z])g/)
-			return this.replace(/(^)([a-z])/g,function(item,a,b,index){
-				console.log(item);        // 'i'
-				console.log(a);           // ''   括号左边
-				console.log(b);           // 'i'  括号右边
-				console.log(index);       // 0
-				//或者
-				return item.toUpperCase()
-				return a+b.toUpperCase();
-			})
-		};
-		
-		var upper1 = 'i am a boy'.capitalize1();
-		console.log(upper1);
+//		String.prototype.capitalize1 = function(){
+//			//(^)表示开头符的意思,即以空白(不是空格)开头,
+//			//不信可以var upper1='qi am a boy'
+//			//repalce(/(^q)([a-z])g/)
+//			return this.replace(/(^)([a-z])/g,function(item,a,b,index){
+//				console.log(item);        // 'i'
+//				console.log(a);           // ''   括号左边
+//				console.log(b);           // 'i'  括号右边
+//				console.log(index);       // 0
+//				//或者
+//				return item.toUpperCase();
+//				return a+b.toUpperCase();
+//			})
+//		};
+//		
+//		var upper1 = 'i am a boy'.capitalize1();
+//		console.log(upper1);
 		
 		
 		//3.单词首字母大写:
-		String.prototype.capitalize2 = function(){
-			//以空白(不是空格)开头或者\s的匹配
-			return this.replace(/(^|\s)([a-z])/g,function(item,a,b){
-				console.log(item)
-				console.log(a)
-				console.log(b)
-				return a+b.toUpperCase();
-			})
-		};
+//		String.prototype.capitalize2 = function(){
+//			//以空白(不是空格)开头或者\s的匹配
+//			return this.replace(/(^|\s)([a-z])/g,function(item,a,b){
+//				console.log(item);
+//				console.log(a);
+//				console.log(b);
+//				return a+b.toUpperCase();
+//			})
+//		};
+//		
+//		var upper2 = 'i am a boy'.capitalize2();
+//		console.log(upper2);            //I Am A Boy
 		
-		var upper2 = 'i am a boy'.capitalize2();
-		console.log(upper2);
 		
+		
+		//把#/in_theaters/1替换成 /in_theaters/1
+		//把#/in_theaters/100/1替换成 /in_theaters/100
+		//先看看匹配到了什么
+		var str1 = '#/in_theaters/1';
+		
+		var theaters1 = str1.replace(/\#(.+)\/\d+/,function(item){
+			//可以看到匹配成功了   '#/in_theaters/1'
+			console.log(item)         
+		});
+		
+		//但是+是贪婪的,所以上面这种方案是考虑欠佳的
+		var str2 = '#/in_theaters/100/1';
+		var theaters2 = str2.replace(/\#(.+)\/\d+/,function(item){
+			//可以看到匹配成功了   '#/in_theaters/100/1'
+			console.log(item)         
+		});
+		
+		//正确的匹配做法
+		var str3 = '#/in_theaters/100/1';
+		var theaters3 = str2.replace(/\#(.+?)\/\d+/,function(item){
+			//可以看到匹配成功了   '#/in_theaters/100'
+			console.log(item)         
+		});
+		
+		//替换使用$1代表括号里的内容
+		var str4 = '#/in_theaters/100/1';
+		var theaters4 = str2.replace(/\#(.+?)\/\d+/,"$1")      
+		console.log(theaters4)    //  '#/in_theaters/1'
 		
 		
 	</script>

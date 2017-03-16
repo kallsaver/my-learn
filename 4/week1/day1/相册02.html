@@ -29,43 +29,32 @@
                             //给li发牌照
                             .attr("index",i*COL+j)
                             .appendTo($ul)
-
                 }
             }
-
-
-            $("#sliceAni").click(sliceAni)
-
-
-            $("#backAni").click(backAni)
+            $("#sliceAni").click(sliceAni);
+            $("#backAni").click(backAni);
 
     //animate和transform不兼容
 
             function sliceAni(){
-
-                $("#gallery li div").each(function(index) {
-
-                    $(this) .css("transition","transform 2s ease-in 2s")
-                            .css({"transform":"scale(0.95) "})
-                            .css('background-image', "url(images/" + index + ".jpg)")
-                            .css("background-size", "cover")
-                })
-
-
-                $("#gallery li").each(function(index){
-                    var r=Math.floor(index/COL);  //行数
-                    var c=index%COL;               //列数
-                    var tx=Math.ceil(c-COL/2)*30;
-                    var ty=Math.ceil(r-ROW/2)*20;
-                    var z=Math.random()*40-20
-
-                    $(this).css({"transform":"rotate("+z+"deg) translate("+tx+"%,"+ty+"%)"})
-
-                })
-
-            }
-
-
+            	setTimeout(function(){
+	            	$("#gallery li div").each(function(index) {
+	                     $(this).css("transition","transform 2s ease-in 2s")
+	                            .css({"transform":"scale(0.95) "})
+	                            .css('background-image', "url(images/" + index + ".jpg)")
+	                            .css("background-size", "cover")
+	                });
+	                $("#gallery li").each(function(index){
+	                    var r=Math.floor(index/COL);  //行数
+	                    var c=index%COL;               //列数
+	                    var tx=Math.ceil(c-COL/2)*30;
+	                    var ty=Math.ceil(r-ROW/2)*20;
+	                    var z=Math.random()*40-20
+	                    $(this).css({"transform":"rotate("+z+"deg) translate("+tx+"%,"+ty+"%)"})
+	                });	
+            	},0200)
+                
+            };
 
             function backAni(){
                 $("#gallery li").css({"transform":"rotate(0deg) translate(0%,0%)"})
@@ -75,11 +64,8 @@
                             //把延迟去掉   li和div动画就同步进行了
                         .css("transition","transform 2s ease-in")
             }
-
-
             var a=false;
             $("#gallery li div").each(function(index){
-
                 $(this).click(function(){
                     if(a){
                         $("#gallery li div")
@@ -89,20 +75,15 @@
                                 .css('background-image', "url(images/" + index + ".jpg)")
                                 //把延迟去掉
                                 .css("transition","transform 2s ease-in")
-                        backAni()
+                        backAni();
                         a=false;
                     }
-
                     else{
-                        sliceAni()
+                        sliceAni();
                         a=true
                     }
                 })
             })
-
-
-
-
         })
 
 
