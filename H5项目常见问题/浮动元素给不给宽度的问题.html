@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin:0;padding: 0;box-sizing: border-box;}
+			.clear::after{
+				display: block;clear: both;font-size: 0;line-height: 0;content: '';
+			}
+			section{
+				width:500px;
+			}
+			
+			section:nth-of-type(1){
+				background: khaki;
+			}
+			
+			/*section不兼容section:first-child + section*/
+			section:nth-of-type(2){
+				background: fuchsia;
+			}
+			
+			section:nth-of-type(1) div:nth-of-type(1){
+				width:200px;height: 200px;float: left;background: palevioletred;
+			}
+			
+			section:nth-of-type(1) div:nth-of-type(2){
+				float:left;background: peru;font-size: 40px;color: white;line-height: 100px;
+			}
+			
+			section:nth-of-type(2) div:nth-of-type(1){
+				width:200px;height: 200px;float: left;background: palevioletred;
+			}
+			
+			section:nth-of-type(2) div:nth-of-type(2){
+				float:left;background: peru;font-size: 20px;color: white;line-height: 40px;
+			}
+			
+			
+			
+		</style>
+	</head>
+	<body>
+		<!--对于稀疏的结构,即浮动元素的宽度是自适应于内容的,如果内容很少,那么没必须给浮动元素固定的宽度-->
+		<!--对于充满文字的结构,因为浮动元素的宽度是自适应于内容的,所以文字会把浮动元素撑得很开,最终就会把浮动元素挤下去-->
+		<section class="clear">
+			<div></div>
+			<div>首页</div>
+		</section>
+		<br><br>
+		<section class="clear">
+			<div></div>
+			<div>对于充满文字的结构,因为浮动元素的宽度是自适应于内容的,所以文字会把浮动元素撑得很开,最终就会把浮动元素挤下去</div>
+		</section>
+	</body>
+</html>

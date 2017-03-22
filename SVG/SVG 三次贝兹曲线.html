@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <svg width="300" height="300">
+        <!--<path d="M50,50 C75,80 125,20 150,50" style="stroke: red;fill: none;stroke-width: 2"></path>-->
+
+        <!--大写C的第一个参数有点复杂  第一个c点是相对开始点的 坐标是50+(-40),260
+        第二个点是相对结束点的 坐标是150+(240-100*2),260-->
+        <path d="M50,250 C-40,300 240,300 150,250" style="stroke: red;fill: none;stroke-width: 2"></path>
+
+
+        <!--c的参数都是相对开始点的-->
+        <path d="M50,250 c-80,50 180,50 100,0" style="stroke: red;fill: none;stroke-width: 2"></path>
+
+    </svg>
+</body>
+</html>

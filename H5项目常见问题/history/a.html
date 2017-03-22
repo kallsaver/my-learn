@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<a>b.html</a>
+	</body>
+	<script>
+		
+		var a = document.querySelector('a');
+		var str = 'kallsave'
+		console.log(a);
+		console.log(localStorage)
+		a.onclick = function(){
+			localStorage.setItem('user',str);
+			console.log(localStorage);
+			window.location.href = 'b.html';
+		}
+		
+		console.log(sessionStorage)
+		sessionStorage.setItem('name','public')
+		
+	</script>
+</html>

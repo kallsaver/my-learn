@@ -1,0 +1,2 @@
+git reset HEAD . 表示取消git add的提交
+ 

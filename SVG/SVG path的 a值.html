@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <svg width="500" height="500" style="background: red; opacity: 0.4">
+        <!--A值越大 弧度越平滑 A(rx),A(ry) A段参数后面的参数是2d图中绕x轴旋转的度数一般给0-->
+        <!--再后一段参数第一个参数0代表短弧 1代表长弧 正圆这个值才有意义-->
+        <!--第二个参数0代表逆时针画线 1代表顺时针画线-->
+        <path d="M200,200 A100,100 0 0,0 400,400 "
+              style="fill: none;stroke: blue;stroke-width: 10"></path>
+        <path d="M200,200 A150,100 0 1,0 400,400 "
+              style="fill: none;stroke: blue;stroke-width: 10"></path>
+    </svg>
+</body>
+</html>

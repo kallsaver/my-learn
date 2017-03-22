@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <svg width="500" height="500" style="border: 2px solid red">
+        <circle r="100" style="fill:red;fill-opacity: 1"></circle>
+        <circle r="100" style="fill:yellow;fill-opacity: 0.5"></circle>
+        <circle r="100" style="fill:blue;fill-opacity: 0.5"></circle>
+    </svg>
+</body>
+<script>
+    var circles=document.getElementsByTagName("circle");
+    circles[0].setAttribute("cx",200)
+    circles[0].setAttribute("cy",250+50/Math.sqrt(3));
+    circles[1].setAttribute("cx",250);
+    circles[1].setAttribute("cy",250-100/Math.sqrt(3));
+    circles[2].setAttribute("cx",300);
+    circles[2].setAttribute("cy",250+50/Math.sqrt(3));
+    circles[2].style.strokeWidth=10;
+    circles[2].style.stroke="peru";
+
+</script>
+</html>

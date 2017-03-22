@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+			.clear::after{display: block;clear: both;font-size: 0;line-height: 0;}
+			.container1{width:100%;height: 193px;background: red;padding-top:57px;font-weight: 700;
+				font-size: 40px;color: white;text-align: center;line-height: 100px;}
+			.container>div{float: left;}
+			.container1{width:100%;height: 250px;background: red;padding-top:57px;font-weight: 700;
+				font-size: 40px;color: white;text-align: center;line-height: 100px;
+				box-sizing: border-box;
+			}
+			.container2{width:100%;height: 250px;background: red;padding-top:57px;font-weight: 700;
+				font-size: 40px;color: white;text-align: center;line-height: 100px;
+				box-sizing: border-box;margin-top:50px;
+			}
+			.container3{width:100%;height: 250px;background: red;padding-top:57px;font-weight: 700;
+				font-size: 40px;color: white;text-align: center;line-height: 100px;
+				box-sizing: border-box;margin-top:50px;border:20px solid gold;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<div class="container1 .clear">
+				<div class="box">content-box</div>
+			</div>
+		</section>
+		<section>
+			<div class="container2 .clear">
+				<div class="box">border-box</div>
+			</div>
+		</section>
+		<section>
+			<div class="container3 .clear">
+				<div class="box">border-box改变的只是padding</div>
+			</div>
+		</section>
+		
+		
+	</body>
+</html>

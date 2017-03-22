@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			/*最复杂的一种方案:  响应式+控件保持高度
+			 rem的作用是使得某个控件的高度在不同的设备上的高度是一致的
+			 宽度用百分比,字体用px,
+			 * */
+			
+			/*不同设计稿的处理方案: rem单位
+			 淘宝的处理:宽度和高度用的都是rem单位,字体px;
+			 原则:文字流式,控件弹性,图片等比缩放
+			 * */
+			
+			
+			
+			*{margin: 0;padding: 0;}
+			li{list-style-type: none;}
+			
+			a{display:inline-block;text-decoration: none;}
+			
+			header{
+				background:khaki;
+			}
+			.clear{clear:both;*zoom:1;margin:0;padding: 0;font-size: 0;}
+			/* 由于行高如果比字体大小要小会导致偏差出现小数
+			 * 解决办法是行高调高,父元素的padding调小,这样得到的准确的UI*/
+			.logo{float: left;width:72px;font-size:20px;line-height: 60px;}
+			nav{float:right}
+			.container{padding:17px;}
+			nav li{float:left;}
+			nav li a{width:72px;font-size: 20px;line-height: 60px;}
+			.box{width:200px;height: 200px;background: red;}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div class="container">
+				<div class="logo"><a>来画</a></div>
+				<nav>
+					<li><a>关于</a></li>
+					<li><a>服务</a></li>
+					<li><a>产品</a></li>
+					<li><a>首页</a></li>
+				</nav>
+				<div class="clear"></div>
+			</div>
+		</header>
+		<div class="box"></div>
+	</body>
+</html>
