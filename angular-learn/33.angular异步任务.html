@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+			<div my-move one-attr="{{b}}">{{name}}</div>
+		</div>
+	</body>
+	<script src="js/angular.js"></script>
+	<script>
+		var model = angular.module('myApp',[]);
+		
+		model.controller('myCtrl',['$scope','$http',function($scope,$http){
+			var del = new Promise(function(resolve,reject){
+				$http.get('data.json').then(function(_data){
+					console.log(_data.data);
+					$scope.data = _data.data;
+					//resolve记得要写在异步事件里面,这样才能监控到异步事件结束
+					resolve();
+				});
+			});
+			$scope.a = del;
+			$scope.b = {
+				name : 'b'
+			}
+		}])
+		
+		.directive('myMove',[function(){
+			return {
+				restrict : 'A',
+				link : function($scope,element,attrs){
+					console.log(attrs);
+					//使用attrs拿数据是有缺陷的,可以拿到其他的简单对象,但是拿不到promise对象
+					console.log(attrs.oneAttr);
+					console.log($scope.a);
+					$scope.a.then(function(){
+						//你的代码从这里开始
+						console.log($scope.data[0].name);
+						
+					})
+				}
+			}
+		}])
+		
+		
+	</script>
+</html>

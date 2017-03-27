@@ -10,9 +10,11 @@
 		function runAsync(){
 			var p = new Promise(function(resolve,reject){
 				setTimeout(function(){
-					console.log('执行完成');
-					resolve()
+					console.log('异步任务');
+					//resolve要写在异步任务内部,这样then才能监听到异步任务结束时的信号
+					resolve();
 				},2000)
+				
 			})
 			return p ;
 		}

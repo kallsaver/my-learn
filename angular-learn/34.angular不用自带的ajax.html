@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+			<div my-move one-attr="{{b}}">{{data[0].name}}</div>
+		</div>
+	</body>
+	<script src="lib/ajax.js"></script>
+	<script src="js/angular.js"></script>
+	<script>
+		var model = angular.module('myApp',[]);
+		
+		model.controller('myCtrl',['$scope',function($scope){
+			console.log('controller执行');
+			$scope.data = [];
+			Ajax.getJSON('data.json',function(data){
+				//如果是使用angular自带的的$http.get(url),$scope.$apply是会报错的
+				//一定要使用脏检查把数据更新到view层,因为$watch监控的是view层的数据
+				$scope.$apply(function(){
+					$scope.data = data;
+					console.log($scope.data);
+				})
+			});
+			
+		}])
+		
+		.directive('myMove',[function(){
+			return {
+				restrict : 'A',
+				link : function($scope,element,attrs){
+					console.log('link执行');
+					//$watch监控的其实是view层的数据,而不是model层的数据
+					//所以model层的数据更新后,一定要使用$apply脏检查到view层,否则model层的数据更新对$watch是无效的
+					$scope.$watch('data',function(newValue,oldValue){
+						//$watch在初始化时是会执行一次的,避免初始化的影响,加上判断过滤掉
+						if(oldValue === newValue){return};
+						//你的代码从这里开始
+						console.log($scope.data[0].name);
+					})
+				}
+			}
+		}])
+		
+		
+	</script>
+</html>

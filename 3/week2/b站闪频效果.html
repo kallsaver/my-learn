@@ -42,10 +42,8 @@
 					images[index]={width:$img.width(),height:$img.height()}
 					//移入 图片的宽度等于li的宽度
 					$(this).hover(function(){
-						
-						//js的方法要用js的对象 (普通的DOM对象)     一个对象中的this是这个对象
 						$img.stop().animate({top:"0px",left:"0",width:$img.parent().width()+"px",height:$img.parent().height()+"px",opacity:1})
-						//$img.animate({top:"0px",left:"0",width:$this.width()+"px",height:$this.height()+"px",opacity:1})
+						$img.animate({top:"0px",left:"0",width:$this.width()+"px",height:$this.height()+"px",opacity:1})
 						console.log(index)
 					//移出 图片的宽度等于原始宽度	
 					},function(){
