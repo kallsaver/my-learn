@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//常用于表单验证  test本身就是全局的了
+		var reg=/\d+\.\d{1,2}$/
+		
+		console.log(reg.test('123.45'))		//true
+		console.log(reg.test('123*45'))		//false
+		console.log(reg.test('123.456'))	//false
+		console.log(reg.test('1.4'))		//true
+		
+		console.log(/^\d{1,}/.test('+123'))  //false
+		console.log(/[^\+\-]/.test('-123'))  //true
+		
+		
+	</script>
+</html>

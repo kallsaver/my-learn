@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script>
+		//判断一个字符串中出现次数最多的字符,并统计次数
+		var str = 'aaaabbbccddddaaaa';
+		
+		function findTheMost(str){
+			var obj = {};
+			Array.prototype.forEach.call(str,function(item){
+				if(item in obj){
+					obj[item]++
+				}else{
+					obj[item] = 1;
+				}
+			});
+			var result = { num : 0 , str : '' };
+			for (var key in obj){
+				if(obj[key] > result.num){
+					result.str = key;
+					result.num = obj[key];
+				}
+			}
+			return result;
+		}
+		
+		console.log(findTheMost(str));
+
+		
+		
+		
+	</script>
+</html>

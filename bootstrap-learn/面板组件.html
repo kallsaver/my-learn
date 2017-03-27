@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<style>
+		/*源码*/
+			.panel-primary {
+				border-color: #337ab7;
+			}
+			
+			.panel-primary> .panel-heading {
+				color: #fff;
+				background-color: #337ab7;
+				border-color: #337ab7;
+			}
+			/*+的应用*/
+			.panel-primary> .panel-heading+ .panel-collapse> .panel-body {
+				border-top-color: #337ab7;
+			}
+		</style>
+	</head>
+
+	<body>
+		<br>1.基本样式<br>
+		<div class="panel panel-primary">
+			<div class="panel-body">
+				这里是详细内容
+			</div>
+		</div>
+
+		<br>2.带标题的样式<br>
+		<div class="panel panel-primary">
+			<div class="page-header">
+				<h4 class="panel-title">面板标题</h4>
+			</div>
+			<div class="panel-body">
+				这里是详细内容
+			</div>
+		</div>
+
+		<br>3.表格式面板<br>
+		<div class="panel panel-primary">
+			<div class="page-header">
+				<h4 class="panel-title">面板标题</h4>
+			</div>
+			<div class="panel-body">
+				这里是详细内容
+			</div>
+			<table class="table">
+				<tr>
+					<th>1</th>
+					<th>2</th>
+					<th>3</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>2</td>
+					<td>3</td>
+				</tr>
+			</table>
+		</div>
+
+		<br>3.列表式面板<br>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				列表标题
+			</div>
+			<div class="panel-body">
+				<p>详细内容</p>
+			</div>
+			<ul class="list-group">
+				<li class="list-group-item">1.这里是第一个项目</li>
+				<li class="list-group-item">2.这里是第二个项目</li>
+				<li class="list-group-item">3.这里是第三个项目</li>
+			</ul>
+		</div>
+
+	</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head id='head'>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+		<script>
+			angular.module("myapp",[])
+			angular.module("myapp").controller("myCtrl",function($scope){
+				$scope.data=12
+			});
+			
+			//angular在编译后会把所有在ng-app指令中的DOM元素全部改造了
+			//所以在编译后是不能用document的方法找ng-app下的DOM元素的
+			//只能在编译之前
+			var head = document.getElementById('head');
+			//div.style.innerHTML = 'dd';
+			console.log(head)   //可以找到;
+			var div = document.getElementById('div');
+			console.log(div)    //null找不到
+			
+			
+		</script>
+	</head>
+	<!--view改变数据会影响module,module改变数据也会影响view-->
+	<body ng-app="myapp" ng-controller="myCtrl">
+		<input type="text" ng-model="data"  value="">
+		<br>
+		<div id='div'>{{data}}</div>
+		<br>
+		<input type="text" ng-model="data"  value="">
+	</body>
+	<script>
+		//document.getElementById('div').innerHTML = 20;
+	</script>
+</html>

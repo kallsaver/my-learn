@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var str="abcd"
+		
+		var a=str.repeat(3)
+		console.log(a)		//"abcdabcdabcd"
+		
+		//或者:
+		String.prototype.repeat1=function(number){
+			return new Array(number+1).join(this)
+		}
+		
+		var a1=str.repeat1(3)
+		console.log(a1)		//"abcdabcdabcd"
+		
+	</script>
+</html>

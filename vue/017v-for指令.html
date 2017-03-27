@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			ul{list-style: none;}
+			span{color:orange}
+			strong{
+				color :blue;font-weight: normal;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="item in list">
+					<span v-if="item.type">{{item.type}} | </span>
+					<strong>{{item.content}}</strong>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el : '#app',
+			data : {
+				list : [
+					{content : "永恒怀念胡耀邦的省部级老人走了 五常委哀悼"},
+					{content : "朴槿惠私宅开始修缮 私宅外布满媒体和警察"}, 
+					{content : "中使馆交涉德企辱华T恤：勿以自由之名侮辱他人"},
+					{	type : '科技',
+						content : "长征七号运抵发射场 天舟一号4月中下旬将升空"},
+					{content : "台湾“党产会”胜诉 国民党财产冻结将寻求救济"}, 
+					{content : "大马外长：将正式对话朝鲜 无意扣留金正男尸体"}, 
+					{content : "政协委员周涛：性教育课本“尺度”该由科学说了算"}, 
+					{content : "科学家推算日本人将在3766年8月16日灭绝"}
+				]
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>display方式循环banner</title>
+
+<style type="text/css">
+*{margin:0px;padding:0px;font-size:0px;}
+
+
+button{width:20px;height:20px;text-align:center;line-height:20px;font-size:12px;color:#fff;background-color:pink;margin-right:30px;border:none;cursor:pointer;}
+
+#pic{margin:200px auto;width:400px;height:260px;position:relative;border:5px solid red;}
+
+ul{position:absolute;list-style:none;width:1600px;}
+
+li{float:left;}
+
+/*.clear:after{content:"200B";display:block;font-size:0px;line-height:0px;clear:both;*zoom:1;}*/
+
+
+
+.ac{background-color:red;}
+
+
+#console{width:200px;margin:20px auto;}
+
+
+</style>
+</head>
+
+<body>
+<div id="pic">
+<ul class="clear">
+	
+	<li><img src="../desk/banner/01.jpg"></li>
+    <li><img src="../desk/banner/02.jpg"></li>
+    <li><img src="../desk/banner/03.jpg"></li>
+    <li><img src="../desk/banner/04.jpg"></li>
+</ul>    
+    <!--<div id="before">< </div>
+   <div id="after">></div>-->
+	
+</div>
+
+<div id="console">
+	<button>1</button>
+	<button>2</button>
+	<button>3</button>
+	<button>4</button>
+
+    
+</div>
+
+
+
+
+</body>
+</html>
+
+<script>
+//加载html,css后完成后再执行脚本
+
+window.onload =function(){
+var ul=document.getElementsByTagName("ul")[0];
+var pic=document.getElementById("pic");
+
+var li=document.getElementsByTagName("li");
+
+var w=400*li.length;
+
+//复制一套内容
+
+ul.innerHTML+=ul.innerHTML;
+
+//宽度变两倍
+
+ul.style.width=w*2+"px";
+
+
+//timer是个变量 把函数赋值
+var time;
+var n=0;
+
+	function move(){
+		
+	time=setInterval(function(){
+		n--;
+			console.log(n);
+		if(n<-w){
+			n=0;
+			}
+		ul.style.left=n+"px";
+		},3);
+	}
+	move();
+	//clearInterval(time);
+pic.onmouseover=function(){
+	//删掉
+	clearInterval(time);
+	
+	};
+
+pic.onmouseout=move()
+
+//把上面的move()去掉括号 可以得到正确的效果
+//或者在move（）里先清一遍定时器 即加上clearInterval(time);代码 
+//这里一开始是onmouseout和进入window就播放动画的两个定时器叠加
+
+//onmouseover后，清除了其中一个；（onmouseout早就把move的代码加载进去了）
+
+}
+
+
+
+</script>

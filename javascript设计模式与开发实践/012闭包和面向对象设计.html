@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var extent = function(){
+			var value = 0;
+			return {
+				speak : function(){
+					value ++ ;
+					console.log(value);
+				}
+			}
+		}
+		
+		var a = extent();
+		a.speak();	              //1
+		a.speak();	              //2
+		a.speak();	              //3
+		
+		//如果换成对象的写法
+		var extent1 = {
+			value : 0,
+			speak : function(){
+				this.value++;
+				console.log(this.value);
+			}
+		}
+		
+		extent1.speak();          //1
+		extent1.speak();          //2
+		extent1.speak();          //3
+		
+		//或者 :
+		var Extent = function(){
+			this.value = 0;
+		}
+		
+		Extent.prototype.speak = function(){
+			this.value++;
+			console.log(this.value);
+		}
+		
+		var extent2 = new Extent()
+		extent2.speak();           //1
+		extent2.speak();           //2
+		
+	</script>
+</html>

@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+
+<script src="">
+
+</script>
+<script>
+//事件1:box盒子可以拖拽
+
+//事件2:上边框可以向上拉,并且底部固定,高度变高  其它边同理
+
+//事件3:左上角可以向左上角拉  其他角同理 
+window.onload=function(){
+	var oBox=document.getElementsByClassName("box")[0];
+	var aspan=document.getElementsByTagName("span");
+	var screenH=document.documentElement.clientHeight;
+	var screenW=document.documentElement.clientWidth;
+	
+	
+	//mousedown记录偏移量   oBox的margin-left会影响oBox.offseLeft的值 用translateXY-50%会是oBox的左边框从oBox中间开始算
+	oBox.onmousedown=function(ev){
+		ev=ev||window.event;
+		console.log(this.offsetLeft)
+		var disX=ev.clientX-this.offsetLeft;
+		var disY=ev.clientY-this.offsetTop;
+		//onmousedown事件是瞬间事件,所以a的值是不会变化的;	
+		//var a=oBox.offsetLeft;
+		//console.log(a)	
+		
+	
+		//拖拽事件的移动事件在盒子的父元素上,如果是在本身移动,鼠标会跑出来
+		document.onmousemove=function(ev){
+			ev=ev||window.event;
+			oBox.style.left=ev.clientX-disX+"px";
+			oBox.style.top=ev.clientY-disY+"px";
+			//onmousemove事件是连续激发事件,b的值是时刻变化的;
+			//var b=oBox.offsetLeft;
+			//console.log(b)
+			
+			//这一块要写在后面 不然写在前面会被冲掉 等于没写			
+			if(oBox.offsetLeft<15){
+				oBox.style.left=15+"px";
+			
+			}
+			
+			if(oBox.offsetTop<15){
+				oBox.style.top=15+"px";
+			
+			}
+			
+			if(oBox.offsetLeft+oBox.offsetWidth+15>document.documentElement.clientWidth){
+				oBox.style.left=document.documentElement.clientWidth-oBox.offsetWidth-15+"px";
+			}
+			
+			if(oBox.offsetTop+oBox.offsetHeight+15>document.documentElement.clientHeight){
+				oBox.style.top=document.documentElement.clientHeight-oBox.offsetHeight-15+"px";
+			}
+		
+		}
+		
+		document.onmouseup=function(){
+			document.onmousemove=null;
+		}
+		
+		return false;
+	}
+	
+	
+	
+	for(i=0;i<aspan.length;i++){
+		drag(aspan[i]);
+	}
+	
+	  function drag(obj){
+		  obj.onmousedown=function(ev){
+			  ev=ev||event;
+			  //在边框上不可停止整体拖拽   onmousedown是瞬间事件 记录的变量值是不会改变的
+			  
+			  //只能把同等级的事件禁掉 
+			  oBox.onmousedown=null;
+			  var disX=ev.clientX-oBox.offsetLeft;
+			  var disY=ev.clientY-oBox.offsetTop;	
+			  var formerEvtop=ev.clientY;
+			  var formerEvleft=ev.clientX;
+			  var formerHeight=oBox.offsetHeight;
+			  var formerWidth=oBox.offsetWidth;
+			  var disBottomY=ev.clientY-oBox.offsetTop-oBox.offsetHeight;
+
+			  document.onmousemove=function(ev){
+				  ev=ev||event;
+				  
+				  	  
+				  if(obj.className=="top"||obj.className=="upperLeft"||obj.className=="upperRight"){
+				  	oBox.style.top=ev.clientY-disY+"px";
+				  	oBox.style.height=formerHeight+formerEvtop-ev.clientY+"px";
+				  //行程的取值范围    formerEvtop-0(ev.clientY)-disY-15;
+				  	if(oBox.offsetHeight>formerHeight+formerEvtop-disY-15){
+						oBox.style.height=formerHeight+formerEvtop-disY-15+"px";
+					}
+					
+				  }
+				  
+				  if(obj.className=="left"||obj.className=="upperLeft"||obj.className=="lowerLeft"){
+				  	oBox.style.left=ev.clientX-disX+"px";				 
+				  	oBox.style.width=formerWidth+formerEvleft-ev.clientX+"px";
+				 	if(oBox.offsetWidth>formerWidth+formerEvleft-disX-15){
+						oBox.style.width=formerWidth+formerEvleft-disX-15+"px";
+					}
+				  }
+				  
+				  if(obj.className=="bottom"||obj.className=="lowerLeft"||obj.className=="lowerRight"){
+				 	oBox.style.height=formerHeight-formerEvtop+ev.clientY+"px";
+					if(oBox.offsetHeight>screenH-oBox.offsetTop-15){
+						oBox.style.height=screenH-oBox.offsetTop-15+"px";
+					}
+				  }
+				  
+				  if(obj.className=="right"||obj.className=="lowerRight"||obj.className=="upperRight"){
+				 	oBox.style.width=formerWidth-formerEvleft+ev.clientX+"px";
+					if(oBox.offsetWidth>screenW-oBox.offsetLeft-15){
+						oBox.style.width=screenW-oBox.offsetLeft-15+"px";
+					}
+				  }
+				 
+				  
+									  
+				  if(oBox.offsetLeft<15){
+					  oBox.style.left=15+"px";
+				  
+				  }
+				  
+				  if(oBox.offsetTop<15){
+					  oBox.style.top=15+"px";
+				  
+				  }
+				  
+				  if(oBox.offsetLeft+oBox.offsetWidth+15>document.documentElement.clientWidth){
+					  oBox.style.left=document.documentElement.clientWidth-oBox.offsetWidth-15+"px";
+				  }
+				  
+				  if(oBox.offsetTop+oBox.offsetHeight+15>document.documentElement.clientHeight){
+					  oBox.style.top=document.documentElement.clientHeight-oBox.offsetHeight-15+"px";
+				  }
+		  
+		  		
+				
+				  
+			  }
+			  
+			  document.onmouseup=function(ev){
+				  document.onmousemove=null;
+			  }
+			  return false;
+		  }
+  
+	 }
+	
+
+}
+
+
+</script>
+
+<style type="text/css">
+*{margin:0;padding:0;font-size:0;}
+
+.box{width:230px;height:230px;position:absolute ;left:40%;top:40%;}
+/*图片的高宽都要100% 这样box拉伸的时候img才会自动填满*/
+.box>img{width:100%;height:100%}
+.box .top{width:100%;height:10px;position:absolute;top:-10px;background:rgba(79,159,224,0.8);z-index:1;}
+.box .left{width:10px;height:100%;position:absolute;left:-10px;background:rgba(79,159,224,0.8);z-index:1;}
+.box .bottom{width:100%;height:10px;position:absolute;bottom:-10px;background:rgba(79,159,224,0.8);z-index:1;}
+.box .right{width:10px;height:100%;position:absolute;right:-10px;background:rgba(79,159,224,0.8);z-index:1;}
+.box .upperLeft{width:25px;height:25px;position:absolute;left:-15px;top:-15px;background:rgba(92,126,147,1.00);   z-index:2;}
+.box .upperRight{width:25px;height:25px;position:absolute;right:-15px;top:-15px;background:rgba(92,126,147,1.00);   z-index:2;}
+.box .lowerLeft{width:25px;height:25px;position:absolute;left:-15px;bottom:-15px;background:rgba(92,126,147,1.00);   z-index:2;}
+.box .lowerRight{width:25px;height:25px;position:absolute;right:-15px;bottom:-15px;background:rgba(92,126,147,1.00);   z-index:2;}
+
+</style>
+
+</head>
+
+<body>
+
+    <div class="box">
+        <span class="top"></span>
+        <span class="bottom"></span>
+        <span class="left"></span>
+        <span class="right"></span>
+        <span class="upperLeft"></span>
+        <span class="upperRight"></span>
+        <span class="lowerLeft"></span>
+        <span class="lowerRight"></span>
+        <img src="tear.jpg">
+    </div>
+
+</body>
+</html>

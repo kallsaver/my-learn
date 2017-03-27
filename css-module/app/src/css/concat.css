@@ -1,0 +1,3 @@
+/*在html中可以用link也可以用@import,在css中只能用@import引入其他的css文件,可以是网络地址*/
+@import "header.css";
+@import "main.css";

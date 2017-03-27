@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+body{height:2000px;}
+*{margin:0;padding:0;}
+.box{position:absolute;right:0;width:50px;height:200px;background:red;}
+</style>
+<script src="tools.js"></script>
+<script>
+window.onload=function(){
+	var box=document.getElementsByClassName("box")[0];
+	var m=(document.documentElement.clientHeight-box.offsetHeight)/2
+	box.style.top=m+"px";
+	
+	window.onscroll=function(){
+		var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
+		
+		//滚动条+（屏幕高度--div高度）/2
+		var middle=scrollTop+(document.documentElement.clientHeight-box.offsetHeight)/2;
+		
+		tools.run(box,1000,{"top":middle})
+		
+	}
+
+}
+
+</script>
+
+
+</head>
+
+<body>
+<div class="box">
+
+
+
+</div>
+
+</body>
+</html>

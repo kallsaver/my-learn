@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function Student(name){
+			var count = 0;
+			
+			this.name  = name
+			
+			this.speak = function(){
+				count ++;
+				console.log(count)
+			}
+		}
+		
+		var a = new Student('aaa')
+		a.speak()   //1
+		a.speak()   //2
+		
+		var b = new Student()
+		b.speak()   //1
+		
+
+	</script>
+</html>

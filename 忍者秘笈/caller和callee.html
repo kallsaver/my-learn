@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//caller是指一个函数运行的环境(另一个函数)
+		//1.
+		/*var a = {
+			name : 'aaa',
+			showCaller : function(){
+				console.log(this.showCaller.caller)
+			}
+		}
+
+		a.showCaller()*/
+		
+		//2.
+		var n = 0
+		function A(){
+			if(arguments.callee.caller){
+				alert(arguments.callee.caller.toString())
+				//两个函数无限调用对方
+				//arguments.callee.caller()
+				
+				n++;
+				//子函数控制父函数执行的次数
+				if(n<5){
+					arguments.callee.caller()
+				}
+				
+			}
+			else{
+				alert("本函数外部没有函数体")
+			}
+		}
+		
+		function handleCaller(){
+			A()
+		}
+		
+		A()
+		handleCaller();
+		
+		
+		//3.
+		/*function B(){
+			var b = {
+				name : 'bbb',
+				showCaller : function(){
+					console.log(this.showCaller.caller.toString())
+				}
+			}
+			
+			b.showCaller()
+			
+		}
+		
+		B()*/
+		
+		
+		/*function fn(arg1,arg2){
+			console.log('实参的长度: ',arguments.length)
+			console.log('形参的长度: ',arguments.callee.length)
+			console.log(arguments.callee.name)
+			console.log(arguments.callee.prototype)   //通过constructor来观察fn的属性
+		}
+		
+		fn(1)*/
+		
+	</script>
+</html>

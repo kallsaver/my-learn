@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0}
+body{ height:3000px}
+.header{ background:red; height:50px;}
+.main{ width:960px; margin:20px auto 0}
+.main_l{ width:700px; float:left; background:#ccc;}
+.main_r{ width:240px; float:left; margin-left:20px;}
+
+.border{ border:1px solid #000}
+.cont{ min-height:600px}
+
+.main_l .cont{ padding:20px}
+
+.main_r_item{ margin-bottom:20px}
+.main_r_item h4{ height:40px; line-height:40px; text-indent:1em; border-bottom:1px solid #000}
+.main_r_item .cont{ padding:10px; min-height:200px}
+
+.banner_item{ background:green; height:300px}
+.banner_fixed{ position:fixed;top:0;margin:0; width:240px}
+
+.main_r_itemB{ background:#F3D9D9}
+
+</style>
+<script>
+window.onload=function(){
+	
+	var banner_item=document.getElementsByClassName('banner_item')[0];
+	var main_r_itemB=document.getElementsByClassName('main_r_itemB')[0];
+	
+	
+	window.onscroll=function(){
+		var scrollTop=document.body.scrollTop || document.documentElement.scrollTop;
+		console.log(scrollTop);
+		if(scrollTop>70){//判断滚动条高度
+			banner_item.className="main_r_item banner_item banner_fixed";
+			main_r_itemB.style.marginTop="320px";
+		}else{
+			banner_item.className="main_r_item banner_item";
+			main_r_itemB.style.marginTop="0";
+		}
+	}
+
+
+};
+
+
+
+
+
+</script>
+
+
+</head>
+
+<body>
+<div class="header"></div>
+<div class="main">
+	<div class="main_l">
+        	<div class="cont">
+            	adf sad sf f sadf sadf sadf sdf asdf sdf
+            </div>
+    
+    </div>
+    <div class="main_r">
+    	<div class="main_r_item banner_item">
+            	<div class="cont">
+                </div>
+        </div>
+        
+        <div class="main_r_item main_r_itemB">
+            	<div class="cont">
+                	sdfg  sdfgds fgdsfg dsfg sdf
+                </div>
+        </div>
+        
+        
+        <div class="main_r_item">
+        	<div class="border">
+            	<h4>标题</h4>
+            	<div class="cont">
+                	sdfgdrgdsf ds fgd gdsfgdfgdsfg
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+
+</div>
+
+</body>
+</html>

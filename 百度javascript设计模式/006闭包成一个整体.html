@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var Book = (function(){
+			var bookNum = 0;
+			function checkBook(name){
+				
+			}
+			
+			function book(newId,newName,newPrice){
+				//私有变量
+				var name,price;
+				function checkId(id){}
+				
+				//特权方法
+				this.getName = function(){
+					
+				}
+				
+				//公有属性
+				this.id = newId;
+				//公有方法
+				this.copy = function(){ console.log("copy")}
+				//book是个return闭包,bookNum是book的全局变量,也成为一个闭包
+				bookNum ++ 
+				console.log(bookNum)
+				if(bookNum > 99){
+					throw new Error("我们仅出售100本书")
+				}
+			}
+			
+			//这样book.prototype和构造函数book就封装在一个整体里面了
+			book.prototype = {
+				isJsBook : false,
+				display : function(){
+					console.log("yes")
+				}
+			}
+			
+			return book;
+			
+		})()
+		
+		
+		var a1 = new Book()
+		console.log(a1)      //book
+		var a2 = new Book()
+		//...
+		var arr = []
+		for(var i=0;i<100;i++){
+			arr[i] = new Book()
+		}
+	</script>
+</html>

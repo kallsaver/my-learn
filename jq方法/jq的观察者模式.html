@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-3.1.0.js"></script>
+	</head>
+	<body>
+	</body>
+	<script>
+		//http://www.cnblogs.com/haogj/p/4480772.html
+		//定义主题
+//		var subject = (function(){
+//			var def = $.Deferred();
+//			return def;
+//		})()
+//		
+//		//两个观察者
+//		var fn1 = function(content){
+//			console.log('fn1'+content)
+//		};
+//		
+//		var fn2 = function(content){
+//			console.log('fn2'+content)
+//		}
+//		
+//		//注册观察者
+//		$.when(subject)
+//		.done(fn1)
+//		.done(fn2)
+//		
+//		//发布内容
+//		subject.resolve("Alice");
+
+		//resolve最好不要在外部暴露:使用私有变量和$.Deferred().promise()
+		//定义主题
+		var subject = (function(){
+			var def = $.Deferred();
+			
+			var tasks = function(){
+				def.resolve('回答问题1');
+			}
+			
+			setTimeout(tasks,5000);
+			console.log(def === def.promise())  //false
+			return def.promise()
+		})();
+		
+		var fn1 = function(data){
+			console.log('fn1运行');
+			console.log('学生1'+data);
+		}
+		
+		var fn2 = function(data){
+			console.log("fn2运行");
+			console.log('学生2'+data)
+		}
+		
+		//注册观察者
+		$.when(subject)
+		.done(fn1)
+		.done(fn2)
+		
+		
+		
+		
+	</script>
+</html>

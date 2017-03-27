@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script>
+window.onload=function(){
+	//a,b,d,e形参可写可不写  和下面的1,2,3,4一一对应
+	
+	function sum(a,b,d,e){
+		var c=0;
+		for(var i=0;i<arguments.length;i++){
+			//可以看出循环了 实参总数+1次 最后一次arguments出现是个谜
+			alert(arguments[i])
+			c+=arguments[i];
+		}
+		return c;
+	}
+	
+	
+				//实参
+	var ss=sum(1,2,4,5)
+	alert(ss)
+}
+
+
+</script>
+
+</head>
+
+<body>
+</body>
+</html>

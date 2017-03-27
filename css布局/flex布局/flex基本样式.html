@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body {
+				font-family: '微软雅黑';
+				/*font-family: cursive, '微软雅黑';*/
+				padding: 0;
+				margin: 0;
+				font-size: 16px;
+			}
+			.box{display: flex;width:200px;height: 200px;float: left;
+			border-radius: 10px;background: #000;margin: 10px;overflow: hidden;}
+			.clearfix::after{clear: both;display: block;content: "------------------------------------------------";}
+		</style>
+	</head>
+
+	<body>
+		<!--默认flex-direction:row-->
+		<!--flex-direction:子元素排成一行,子元素的高度100%-->
+		<!--子元素不分块元素和行元素-->
+		<div class="box" style="flex-direction: row;">
+			<div style="flex: 1;background: peru;"></div>
+			<div style="flex: 1;background: fuchsia;"></div>
+			<span style="flex: 1;background: saddlebrown;"></span>
+		</div>
+		
+		<!--先分配固定宽度的子元素,再分配flex比例的-->
+		<div class="box" style="flex-direction: row;">
+			<span style="width:100px;background: gold;"></span>
+			<span style="flex: 2;background: peru;"></span>
+			<span style="flex: 1;background: fuchsia;"></span>
+		</div>
+		
+		<!--子元素宽度之和无法超过父元素的宽度-->
+		<!--如果超过,按比例分配宽度-->
+		<div class="box" style="flex-direction: row;">
+			<span style="width:100px;background: gold;"></span>
+			<span style="width: 100px;background: peru;"></span>
+			<span style="width: 50px;background: fuchsia;"></span>
+		</div>
+		
+		<div class="box" style="flex-direction: row;">
+			<span style="width:50px;background: gold;"></span>
+			<span style="width: 50px;background: peru;"></span>
+			<span style="width: 50px;background: fuchsia;"></span>
+		</div>
+		
+		<div class="box" style="flex-direction: row;">
+			<span style="width:100px;background: gold;margin-right: 10px;"></span>
+			<span style="width: 100px;background: peru;margin-right: 10px;"></span>
+			<span style="width: 50px;background: fuchsia;margin-right: 10px;"></span>
+		</div>
+		
+		<div class="box" style="flex-direction: row;">
+			<span style="flex: 1;background: gold;margin-right: 10px;"></span>
+			<span style="width: 50px;background: peru;margin-right: 50px;"></span>
+			<span style="flex:1;background: fuchsia;margin-right:10px"></span>
+		</div>
+		
+		<div class="box" style="flex-direction: row;flex-wrap: wrap;">
+			<span style="flex: 1;background: gold;margin-right: 10px;height: 50px;"></span>
+			<span style="width: 200px;background: peru;margin-right: 50px;height: 50px;"></span>
+			<span style="flex:1;background: fuchsia;margin-right:10px;height: 50px;"></span>
+		</div>
+		
+		<div class="box" style="flex-direction: row;flex-wrap: wrap;">
+			<span style="width: 200px;background: peru;margin-right: 50px;height: 50px;"></span>
+			<span style="flex: 1;background: gold;margin-right: 10px;height: 50px;"></span>
+			<span style="flex:1;background: fuchsia;margin-right:10px;height: 50px;"></span>
+		</div>
+		
+		<div class="box" style="flex-direction: row;flex-wrap: wrap;">
+			<span style="width: 200px;background: peru;height: 50px;"></span>
+			<span style="flex: 1;background: gold;height: 50px;"></span>
+			<span style="flex:1;background: fuchsia;height: 50px;"></span>
+		</div>
+		
+		<div class="clearfix"></div>
+		
+		<!--flex-direction:column,宽度100%-->
+		<!--不区分块元素和行元素-->
+		<div class="box" style="flex-direction: column;">
+			<div style="flex: 1;background: peru;"></div>
+			<div style="flex: 1;background: fuchsia;"></div>
+			<span style="flex: 1;background: gold;"></span>
+		</div>
+		
+		<!--先分配固定高度,再分配flex比例-->
+		<div class="box" style="flex-direction: column;">
+			<div style="height: 50px;background: peru;margin-bottom: 50px;"></div>
+			<div style="flex: 1;background: fuchsia;"></div>
+			<span style="flex: 1;background: gold;"></span>
+		</div>
+		
+		<!--子元素的高度之和不能超过父元素,如果超过,按比例分配-->
+		<div class="box" style="flex-direction: column;">
+			<div style="height: 100px;background: peru;"></div>
+			<div style="height: 100px;background: fuchsia;"></div>
+			<span style="height: 100px;background: gold;"></span>
+		</div>
+
+		<div class="clearfix"></div>
+		
+		<!--垂直居中-->
+		<div class="box" style="flex-direction: row;align-items: center;">
+			<div style="width:50px;height: 50px; background:gold;"></div>
+			<div style="width:50px;height: 50px; background:fuchsia;"></div>
+		</div>
+		
+		<div class="box" style="flex-direction: row;align-content: center;">
+			<div style="width:50px;height: 50px; background:gold;"></div>
+			<div style="width:50px;height: 50px; background:fuchsia;"></div>
+		</div>
+		
+		<div class="box" style="flex-direction: column;justify-content: center;">
+			<div style="width:50px;height: 50px;background: gold;"></div>
+		</div>
+		
+		
+	</body>
+
+</html>

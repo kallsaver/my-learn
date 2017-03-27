@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular16.js"></script>
+		<script>
+			//angular.module("myApp",[])
+			
+			angular.module("myApp",[],['$provide','$controllerProvider',function(a,b){
+				console.log(a)
+				console.log(b)
+			}])
+			
+			//隐式注入   压缩会出问题 　要用angular的压缩工具
+			/*.controller("myCtrl",function($scope){
+				
+			})*/
+			
+			 //factory要注入才运行,否则只是声明一个函数  写在controller后面也是可以的
+			/*.factory("CustomFactory",function($window){  
+				console.log($window)
+				return []
+			})*/
+			
+			//显式注入
+			.factory("CustomFactory",['$window',function(a){
+				console.log(a)
+				return []
+			}])
+			
+			
+			.controller("myCtrl",["$scope","$filter","CustomFactory",function(a,b,c){
+				//console.log(a)         //a就是$scope
+				//console.log(b("json")([1,2,3,4]))
+				console.log(c)
+			}])
+			
+			//非myApp下的controller  新版本用不了:
+			/*function otherController($scope){
+				$scope.name="other"
+			}*/
+			
+			
+			
+			
+		</script>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl"></div>
+		
+		<div></div>
+	</body>
+</html>

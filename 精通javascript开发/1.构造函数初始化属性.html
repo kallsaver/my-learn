@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//1.参数作为初始化对象时不同的属性值
+		/*function Accommodation(floors,rooms,entrance){
+			this.floors=floors||0;
+			this.rooms=rooms||0;
+			this.entrance=entrance||0;
+		}
+		
+		//相同的属性值可以用原型prototype:
+		Accommodation.prototype.speak=function(){
+			this.type="aaa"
+		}
+		
+		var a=new  Accommodation(4,5,6);
+		var b=new Accommodation(1,2,3)
+		
+		console.log(a)
+		console.log(b)*/
+		
+		//2.改造:用对象保存参数的数据
+		function Accommodation(defaults){
+			this.floors=defaults.floors;
+			this.rooms=defaults.rooms;
+			this.entrance=defaults.entrance;
+		}
+		
+		//speak被运行后,type会被加在a的私有层
+		Accommodation.prototype.speak=function(){
+			//speak存在Object层,a.speak()可以调用它,所以this也就是a了
+			this.speak="aaa";alert(1)
+			//console.log(this.type)
+			return this;    //链式调用
+		}
+		
+		Accommodation.prototype.loud=function(){
+			//speak存在Object层,a.speak()可以调用它,所以this也就是a了
+			this.louds="bbb"
+			//console.log(this.type)
+			alert(this.louds)
+			return this;
+		}
+		
+		var a=new Accommodation({floors:4,rooms:5,entrance:6})
+		console.log(a)
+		
+		a.speak().loud()
+		console.log(a.type)
+		console.log(a instanceof Accommodation.prototype.speak)
+		
+		//这里有个有趣的地方,speak被调用后
+		//在a的私有层有一个speak的属性,第二次调用speak就优先访问顶层的
+		//a.speak().loud()		//speak is not a funciont
+		
+		a.__proto__.speak().loud();
+		
+		
+		
+	</script>
+</html>

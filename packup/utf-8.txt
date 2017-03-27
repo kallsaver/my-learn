@@ -1,0 +1,31 @@
+1.新建一个空白目录  比如d盘下新建一个packup文件夹 //或者直接敲命令cd /d&&mkdir packup，把src拷贝进去
+2.cd packup  进入这个目录
+3.npm install -g grunt-cli  在全局安装grunt命令行 这样我们就可以在git上敲grunt的命令行了
+4.npm install grunt --save-dev  会生成node_modules文件夹,在这个文件夹中有grunt的功能附件,
+5.grunt -version  回复版本号说明上面两个步骤成功了
+6.在根目录下新建package.json,这个包不能写注释,否则会报错,它的内容如下:
+{
+  "name": "packup",			//项目名
+  "version": "0.1.0",
+  "devDependencies": {			//这个项目需要依赖的包
+    "grunt": "~0.4.0",			//在第4步已经下载了 
+    "grunt-contrib-uglify": "~0.1.2",	//js压缩功能包	可以写成"latest"最新的版本
+    "grunt-contrib-concat": "~0.1.1",	//js和css合并功能包 contrib是官方的意思
+    "grunt-css":   "latest",		//css压缩功能包(也可以在git上敲npm install grunt-cssmin)
+    "grunt-contrib-htmlmin": "latest"	//压缩html的功能包 这个不常用可以不要
+  }
+}
+
+它包含了该项目的一些元信息，如项目名称、描述、版本号，依赖包,为下一个指令准备等。
+7.npm install	根据在package.json的包名 在下载node_modules文件夹这些包和这些包依赖的包和常用的库(比如underscore) 
+8.在根目录新建文件Gruntfile.js	
+9.grunt 执行Gruntfile.js要运行的函数  如果出现"Use --force to continue."可以敲grunt --force强制执行
+然后打开dest文件夹看看吧
+
+10.以上是grunt的原理,还有更自动化的前端工具 不是很会用 yeoman脚手架工具和bower包管理工具和grunt工具或者gulp工具
+
+
+
+
+
+

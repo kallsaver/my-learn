@@ -1,0 +1,1 @@
+if(sdf){//  空对象null --- 未定义undefined --- false --- 空字符串"" ----  0  →假

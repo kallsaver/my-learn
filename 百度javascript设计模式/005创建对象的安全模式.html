@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var Book = function(title,time,type){
+			//new先给实例加原型链
+			if(this instanceof Book){
+				this.title = title;
+				this.time = time;
+				this.type = type;
+			}
+			else{
+				return new Book(title,time,type)
+			}
+		}
+		
+		var a = new Book()
+		console.log(a)
+		var b = Book()
+		console.log(b)
+		
+	</script>
+</html>

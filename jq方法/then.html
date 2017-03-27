@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-3.1.0.js"></script>
+	</head>
+	<body>
+	</body>
+	<script>
+		/*var def = $.Deferred();
+		console.log(def);
+		
+		function runAsync(){
+			var def = $.Deferred();
+			setTimeout(function(){
+				console.log("执行完成");
+				def.resolve('随便什么数据')
+			},5000);
+			
+			return def;
+		}
+		
+		runAsync().then(function(){
+			console.log(1)
+		})*/
+		
+		//等价于$.get('data/data.json').done(function(){}).fail(function(){})
+		/*$.get('data/data.json').then(
+			function(data){
+				console.log("获取ajax成功")
+				console.log(data)
+			},
+			function(){
+				console.log("获取ajax失败")
+			}
+		);*/
+		
+		//ES6的Promise
+		function runAsync(){
+			var p = new Promise(function(resolve,reject){
+				setTimeout(function(){
+					console.log('执行完成');
+					resolve('随便什么数据')
+				},5000)
+			})
+			
+			return p;
+		}
+		
+		runAsync()
+		
+		
+	</script>
+</html>

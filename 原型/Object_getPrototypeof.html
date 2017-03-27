@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//来个原生层的实现:
+		function student(){
+			this.type1="student";
+		}
+		
+		function human(){			//a就像是下层对象层String 
+			this.type2="a human";
+			(function(){
+				return {
+					
+				}
+			})()
+			
+		}
+		
+		student.prototype=new human();
+		
+		
+		var b=new student();
+		
+		
+		console.log(student.prototype.__proto__)	//
+		console.log(b)
+		
+		console.log(b.hasOwnProperty("type1"))		//true	能访问构造函数层
+		console.log(b.hasOwnProperty("type2"))		//false 不能访问对象层
+		console.log(b.hasOwnProperty("constructor"))
+		console.log(Object.getPrototypeOf(b))		//human对象层
+		console.log(Object.getPrototypeOf(Object.getPrototypeOf(b)))	//上层Object
+		console.log(Object.getPrototypeOf(Object.getPrototypeOf(Object.getPrototypeOf(b))))		//底层Object
+		//所以getPrototypeof是__proto__和prototype的统一   __proto__只能用于对象   prototype只能用于函数  而getPrototypeof两者都可以用
+		
+		var c={}
+		
+		console.log(Object.getPrototypeOf(c))		//底层Object 对象层
+		
+	</script>
+</html>

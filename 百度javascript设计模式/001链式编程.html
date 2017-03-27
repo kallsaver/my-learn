@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var CheckObject = function(){};
+		
+		//把原先的上层Object冲掉    这样做的好处是不影响全局的上层Object,
+		//而是创建了一个checkObject自己的上层Object
+		CheckObject.prototype = {
+			checkName : function(){
+				console.log("checkName")
+				 //这个this是实例化出来的a而不是创造出来的object
+				console.log(this === a)     
+				return this
+			},
+			checkEmail : function(){
+				console.log("Email")
+				return this
+			},
+			checkPassword : function(){
+				console.log("password")
+				return this
+			},
+		}
+		
+		var a = new CheckObject();
+		
+		a.checkName().checkEmail().checkPassword()
+		
+	</script>
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+table{border:1px solid red;border-collapse:collapse;margin:0 auto}
+td{width:80px;height:40px;line-height:40px;border:1px solid #000;text-align:center;}
+
+</style>
+</head>
+
+<body>
+<table>
+</table>
+</body>
+</html>
+<script>
+window.onload=function(){
+	var table=document.getElementsByTagName("table")[0];
+	arr=["孔明","吕布","孟德","周瑜","小乔","大乔","郭嘉"];
+	for(var i=0;i<5;i++){
+		var tr=document.createElement("tr");
+		for(var j=0;j<7;j++){
+			var td=document.createElement("td");
+			td.innerHTML=arr[j];
+			tr.appendChild(td);
+		}
+		table.appendChild(tr);
+		
+	}
+}
+
+</script>

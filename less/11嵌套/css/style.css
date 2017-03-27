@@ -1,0 +1,45 @@
+.module1 .box {
+  width: 500px;
+  height: 500px;
+  background: palegreen;
+}
+.module1 .box .middle1 {
+  width: 200px;
+  height: 200px;
+  background: peru;
+  float: left;
+}
+.module1 .box .middle1 .small {
+  width: 100px;
+  height: 100px;
+  background: fuchsia;
+  border: 5px solid #1B6D85;
+  border: 5px solid firebrick;
+}
+.module1 .box .middle1 .small .superSmall {
+  width: 50px;
+  height: 50px;
+  background: gold;
+}
+.module1 .box .middle2 {
+  width: 200px;
+  height: 200px;
+  background: peru;
+  float: right;
+}
+.module1 .box .middle2 .small {
+  width: 150px;
+  height: 150px;
+  background: fuchsia;
+}
+.module1 .box .middle2 .small .left {
+  width: 100px;
+  height: 100px;
+  background: red;
+  border: 5px solid white;
+}
+.module1 .box .middle2 .small .left .left {
+  width: 50px;
+  height: 50px;
+  background: royalblue;
+}

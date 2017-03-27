@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//1.验证电话号码,如果没有$,那么[0-9]{10}只要满足后面有10+个数字就true了
+		var reg = /^1[0-9]{10}$/;
+		
+		var phone1 = '13590044028';
+		var phone2 = '135900440288';
+		var phone3 = '23590044028';
+		
+		console.log(reg.test(phone1));
+		console.log(reg.test(phone2));
+		console.log(reg.test(phone3));
+		
+		//2.把user-get-name变成驼峰命名
+		var str = 'user-get-name';
+		
+		function parseHump(str){
+			var result = str.replace(/\-[a-z]/g,function(item){
+				item = item[1].toUpperCase();
+				console.log(item);
+				return item;
+			})
+			return result;
+		}
+		
+		var strParse = parseHump(str);
+		console.log(strParse);
+		
+		//  \s表示空白符
+//		String.prototype.capitalize0 = function(){
+//			return this.replace(/(\s)([a-z])/g,function(item,left,right,index,oldStr){
+//				console.log(item);     // ' a'
+//				console.log(left);     // ' '   括号左边
+//				console.log(right);    // 'a'   括号右边
+//				console.log(index);    // 1          索引值
+//				console.log(oldStr);   // 'i am a boy'
+//				//或者
+//				//return item.toUpperCase()
+//				return left+right.toUpperCase();
+//			})
+//		}
+//		
+//		var upper0 = 'i am a boy'.capitalize0();
+//		console.log(upper0);
+		
+		//3.句子开头首字母大写:
+//		String.prototype.capitalize1 = function(){
+//			//(^)表示开头符的意思,即以空白(不是空格)开头,
+//			//不信可以var upper1='qi am a boy'
+//			//repalce(/(^q)([a-z])g/)
+//			return this.replace(/(^)([a-z])/g,function(item,a,b,index){
+//				console.log(item);        // 'i'
+//				console.log(a);           // ''   括号左边
+//				console.log(b);           // 'i'  括号右边
+//				console.log(index);       // 0
+//				//或者
+//				return item.toUpperCase();
+//				return a+b.toUpperCase();
+//			})
+//		};
+//		
+//		var upper1 = 'i am a boy'.capitalize1();
+//		console.log(upper1);
+		
+		
+		//3.单词首字母大写:
+//		String.prototype.capitalize2 = function(){
+//			//以空白(不是空格)开头或者\s的匹配
+//			return this.replace(/(^|\s)([a-z])/g,function(item,a,b){
+//				console.log(item);
+//				console.log(a);
+//				console.log(b);
+//				return a+b.toUpperCase();
+//			})
+//		};
+//		
+//		var upper2 = 'i am a boy'.capitalize2();
+//		console.log(upper2);            //I Am A Boy
+		
+		
+		
+		//把#/in_theaters/1替换成 /in_theaters/1
+		//把#/in_theaters/100/1替换成 /in_theaters/100
+		//先看看匹配到了什么
+		var str1 = '#/in_theaters/1';
+		
+		var theaters1 = str1.replace(/\#(.+)\/\d+/,function(item){
+			//可以看到匹配成功了   '#/in_theaters/1'
+			console.log(item)         
+		});
+		
+		//但是+是贪婪的,所以上面这种方案是考虑欠佳的
+		var str2 = '#/in_theaters/100/1';
+		var theaters2 = str2.replace(/\#(.+)\/\d+/,function(item){
+			//可以看到匹配成功了   '#/in_theaters/100/1'
+			console.log(item)         
+		});
+		
+		//正确的匹配做法
+		var str3 = '#/in_theaters/100/1';
+		var theaters3 = str2.replace(/\#(.+?)\/\d+/,function(item){
+			//可以看到匹配成功了   '#/in_theaters/100'
+			console.log(item)         
+		});
+		
+		//替换使用$1代表括号里的内容
+		var str4 = '#/in_theaters/100/1';
+		var theaters4 = str2.replace(/\#(.+?)\/\d+/,"$1")      
+		console.log(theaters4)    //  '#/in_theaters/1'
+		
+		
+	</script>
+</html>

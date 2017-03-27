@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//search()方法用于检索字符串中指定的子字符串
+	//或检索与正则表达式相匹配的子字符串。
+	//它会返回第一个匹配的子字符串的起始位置，如果没有匹配的，则返回-1。
+		var str="Assume"		
+		var a=str.search("s")
+		console.log(a)		//1
+		
+		var b=str.search(/s/g)	
+		console.log(b)		//1
+		
+		var c=str.search(/a/i)
+		console.log(c)		//0
+	</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+	//基础语法:
+	/*var a=(function(){
+		Array.prototype.push.call(arguments,4)
+		return arguments
+	})(5,4,7)
+	
+	console.log(a)  //arguments是类数组
+	
+	a.push(9)		//抱错  必须用数组的原型方法 让push方法更泛型
+*/
+
+
+	//uncurrying
+	Function.prototype.uncurrying=function(){
+		var self=this;
+		//console.log(self)				//原生push方法  Array.prototype.push
+		return function(){
+			var obj=Array.prototype.shift.call(arguments); //拿出第一个元素
+			console.log(obj)
+			return self.apply(obj,arguments)
+		}
+	}
+	
+	var push=Array.prototype.push.uncurrying();	//
+	
+	(function(){
+		push(arguments,4)
+		console.log(arguments)
+	})(1,2,3)
+	
+	
+	
+	
+	
+
+
+</script>
+</html>

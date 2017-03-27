@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+button{width:100px;height:50px;margin-top:50px;margin-left:20px;background:#ccc;line-height:50px;font-size:20px;}
+
+</style>
+
+<script>
+
+window.onload=function(){
+	var button1=document.getElementsByTagName("button")[0];
+	var button2=document.getElementsByTagName("button")[1];
+	var a =0;
+	
+	button1.onclick=add;
+	button2.onclick=subtract;
+	
+	
+
+
+//第一种格式	
+/*	function share(ev){
+		ev=ev||event;
+		evsrc=ev.target||ev.srcElement;
+		if(evsrc.className=="button1"){
+			a++
+		}
+		
+		if(evsrc.className=="button2"){
+			a--
+		}
+		
+	}
+	
+	function add(ev){	
+		share(ev);
+		console.log("add"+a);	
+	}
+	
+	function subtract(ev){	
+		share(ev);
+		console.log("subtract"+a);
+	}*/
+	
+//第二种格式	
+/*	function share(){
+		
+		if(evsrc.className=="button1"){
+			a++
+		}
+		
+		if(evsrc.className=="button2"){
+			a--
+		}
+		
+	}
+	
+	function add(ev){
+		ev=ev||event;
+		evsrc=ev.target||ev.srcElement;	
+		share();
+		console.log("add"+a);	
+	}
+	
+	function subtract(ev){
+		ev=ev||event;
+		evsrc=ev.target||ev.srcElement;	
+		share();
+		console.log("subtract"+a);
+	}*/
+	
+	
+	setInterval(function(){
+		console.log(a)
+	},2000)
+	
+	function add(){	
+		a++;
+		console.log("add"+a);
+				
+	}
+	
+	function subtract(){	
+		a--;
+		console.log("subtract"+a);
+		
+	}
+	
+	
+	
+}
+</script>
+
+</head>
+
+<body>
+<button class="button1">+</button>
+<button class="button2">-</button>
+</body>
+</html>

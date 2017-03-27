@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script>
+window.onload=function(){
+	//函数的基本性质是1. 兄弟函数 是无法操作改变彼此的局部变量的  2.子函数是可以操控改变父函数的局部变量的 而父函数是无法操控子函数的局部变量
+
+
+	function big(){
+		var a=10;
+		
+		//d是一个全局变量  并且这里的d是一个函数  所以它就是一个闭包
+		d=function sub(){
+			a+=10;
+			alert(a)
+		}
+		
+		function small(){
+			var b=20;
+			a++;
+			alert(a)
+		}
+		small();
+		return small;
+	}
+		
+	//运行一次big的内容 然后把big的返回值给c  而big的返回值是一个函数 所以 c就变成了一个函数
+	//又因为small是big的一个子函数 c具有small的一切能力  所以c是可以操控改变big的局部变量的   这里的c就是一个闭包   
+		
+	var c=big();  //c=small  弹出11   
+	
+/*	function c(){
+		var b=20;
+		a++;
+		alert(a)
+	}*/
+	
+	c();//弹出12
+	d();//弹出22
+	
+	
+		
+}
+
+</script>
+
+</head>
+
+<body>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			ul,li,div{margin: 0;padding: 0;}
+			ul{list-style: none;}
+			li{background: peru;height: 80px;margin: 20px 0px;line-height: 80px;font-size: 30px;color: white;}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<!--DOM可以直接访问自己的属性-->
+			<li onclick="run()">run1</li>
+			<li onclick="run()">run2</li>
+			<li onclick="run()">run3</li>
+		</ul>
+	</body>
+	<script>
+	//other是负责放方法的
+		function fnData(){
+			this.groupList = [];
+			this.changeBackground = function(){
+			}
+		}	
+		
+		
+		
+		function other(){
+			//obj获得fnData中封装的方法
+			var obj = new fnData()
+		
+			for(var i=0,length=aLi.length;i<length;i++){
+				obj.groupList.push(aLi[i](obj))
+			}
+			console.log(obj)
+		}
+		
+		//other()
+	
+	
+		var aLi=document.getElementsByTagName('li');
+		for(var i=0,length=aLi.length;i<length;i++){
+			aLi[i].run = (function(i){		//自运行函数中i被引用了所以不会被销毁,如果不做处理会永远存在内存直到浏览器的关闭
+				var a = i;					//a顶替了i不会被销毁   
+				return function(){			//闭包
+					//var a = i             //写在闭包外面 a不会销毁
+					alert(a)
+					i = null;				//这步可以把i在第一次运行函数后销毁,第二次运行函数i就找不到了
+					console.log(a)
+					//data放置了li的所有数据
+					var data = {
+						quest : function(){
+							return a
+						},
+						background : 'peru',
+						color : 'white'
+					}
+					return data;
+				}
+			})(i)
+		}
+		
+		//
+		/*for(var i=0,length=aLi.length;i<length;i++){	
+			aLi[i].run()						//执行 i=null,i被逐个销毁
+		}
+		for(var i=0,length=aLi.length;i<length;i++){
+			aLi[i].run()						//找不到i了
+		}*/
+		
+		
+		//不用DOM元素绑定	
+		/*var arr = [
+			function run(obj){
+				var a=1;
+				//用一个对象把run内部数据闭包
+				var data = {
+					quest :function(){
+						return a
+					}
+				}
+				//统一在for中处理
+				//obj.groupList.push(data)
+				
+				//data包含了run中的所有数据
+				return data
+			},
+			
+			function run(obj){
+				var a=2;
+				var data = {
+					quest :function(){
+						return a
+					}
+				}
+				
+				//obj.groupList.push(data)
+				
+				//data包含了run中的所有数据
+				return data
+			},
+			
+			function run(obj){
+				var a=3;
+				
+				var data = {
+					quest :function(){
+						return a
+					}
+				}
+				
+				//obj.groupList.push(data)
+				
+				//data包含了run中的所有数据
+				return data
+			},
+		]*/
+		
+	</script>
+</html>

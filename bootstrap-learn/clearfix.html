@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		*{margin: 0;padding: 0;}
+			.clearfix:after{ clear: both; display: block;content: "";}
+			.clearfix1:after{ clear: both; display: block;content: "";}
+			.clearfix1:before{ clear: both; display: block;content: "";}
+		</style>
+	</head>
+	<body>
+		<!--浮动元素是脱离文档流的,层级会被文档流的层级高,正常来讲,写在下面的div会覆盖写在上面的div-->
+		<div style="margin: 10px auto;width: 600px;">
+			<div style="float: left;width: 50px;height: 30px;margin-right: 30px;background: red;"></div>
+			<div style="float: left;width: 50px;height: 30px;margin-right: 30px;background: red;"></div>
+			<div style="float: left;width: 50px;height: 30px;margin-right: 30px;background: red;"></div>
+			<div style="float: left;width: 50px;height: 30px;margin-right: 30px;background: red;"></div>
+		</div>
+		
+		<div style="background: fuchsia;width: 100px;height: 30px;margin-right: 5px;
+			<!--position: relative;z-index: 2;-->"></div>
+		
+		<div style="margin: 10px auto;width: 600px;" class="clearfix1">
+			<div style="float: left;width: 50px;height: 30px;margin-right: 30px;background: red;"></div>
+			<div style="float: left;width: 50px;height: 30px;margin-right: 30px;background: red;"></div>
+			<div style="float: left;width: 50px;height: 30px;margin-right: 30px;background: red;"></div>
+			<div style="float: left;width: 50px;height: 30px;margin-right: 30px;background: red;"></div>
+		</div>
+		
+		<div style="background: fuchsia;width: 100px;height: 30px;margin-right: 5px;
+			<!--position: relative;z-index: 2;-->"></div>
+			
+		<div style="margin: 10px auto;width: 600px;">
+			<div style="float: left;width: 50px;height: 30px;margin-right: 30px;background: red;"></div>
+			<div style="float: left;width: 50px;height: 30px;margin-right: 30px;background: red;"></div>
+			<div style="float: left;width: 50px;height: 30px;margin-right: 30px;background: red;"></div>
+			<div style="float: left;width: 50px;height: 30px;margin-right: 30px;background: red;"></div>
+		</div>
+		<div class="clearfix"></div>  <!--这个清楚浮动把margin也请了-->
+		
+		<div style="background: fuchsia;width: 100px;height: 30px;margin-right: 5px;"
+		>
+		</div>	
+			
+	</body>
+</html>

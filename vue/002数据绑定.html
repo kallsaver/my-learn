@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">{{message}}</div>
+		<input value="{{message}}" />
+	</body>
+	<script>
+		var data = {
+			message : 'learn vue',
+			obj : {
+				name : 'aaa'
+			}
+		}
+	
+		var app = new Vue({
+			el : '#app',
+			data : data
+		});
+		//同一个引用地址
+		console.log(data.obj === app.obj)    //true
+		app.obj.name = 'app';
+		app.obj.color = "red";
+		console.log(data.obj.name);          //app
+		console.log(data.obj.color);         //red
+		
+		//data.message = '更新';
+		//模型到视图的是单向数据绑定的?
+		document.getElementById('app').innerHTML = '更新数据';
+		console.log(data.message);
+		
+		var input = new Vue({
+			el : 'input',
+			data : {
+				message : 15
+			}
+		})
+		
+	</script>
+</html>

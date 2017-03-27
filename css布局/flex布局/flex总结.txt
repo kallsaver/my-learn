@@ -1,0 +1,2 @@
+flex-direction: row; 高度100%,宽度自适应
+flex-direction: column; 宽度100%,高度自适应

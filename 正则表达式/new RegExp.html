@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var a=new RegExp("\d")
+		console.log(a)						//火狐浏览器可以看到RegExp层
+	
+		console.log(new RegExp("\d","g").__proto__)		//上层Object 里面写有正则的方法
+		//有compile,exec,test,toString方法
+		//ignoreCase,global,flags,sticky,unicode,mulitiline,source属性
+		
+		
+		//symbol(字符串)用到的方法有match,replace,search,split
+		
+		//正则表达式限定符有6种,其中3种特殊符号*{0,},+{1,},?{0,1} 都是贪婪的
+		//正则表达式定位符有4种,^ ? \b \B
+		
+		//http://blog.csdn.net/weixin_36185028/article/details/53312109
+	</script>
+</html>

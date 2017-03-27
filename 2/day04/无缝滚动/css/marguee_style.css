@@ -1,0 +1,9 @@
+@charset "utf-8";
+/* CSS Document */
+* {margin:0; padding:0; list-style:none;}
+
+.slide {width:600px; height:260px; margin:10px auto; overflow:hidden; position:relative; border:2px solid red; z-index:10}
+.slide ul {position: relative; z-index:1; width:2000px}
+.slide ul li {float:left; width:400px; height:260px;}
+img{ width:400px; height:260px}
+

@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+header {
+  text-align: center;
+  font-size: 30px;
+  color: white;
+}
+header .box6 {
+  width: 300px;
+  height: 300px;
+  line-height: 300px;
+  background: peru;
+}
+header .box5 {
+  width: 250px;
+  height: 250px;
+  line-height: 250px;
+  background: peru;
+}
+header .box4 {
+  width: 200px;
+  height: 200px;
+  line-height: 200px;
+  background: peru;
+}
+header .box3 {
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
+  background: peru;
+}
+header .box2 {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  background: peru;
+}
+header .box1 {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  background: peru;
+}
+body h1 {
+  font-size: 16px;
+  background: peru;
+  margin-top: 10px;
+}
+body h2 {
+  font-size: 18px;
+  background: peru;
+  margin-top: 10px;
+}
+body h3 {
+  font-size: 20px;
+  background: peru;
+  margin-top: 10px;
+}
+body h4 {
+  font-size: 22px;
+  background: peru;
+  margin-top: 10px;
+}
+body h5 {
+  font-size: 24px;
+  background: peru;
+  margin-top: 10px;
+}
+body h6 {
+  font-size: 26px;
+  background: peru;
+  margin-top: 10px;
+}

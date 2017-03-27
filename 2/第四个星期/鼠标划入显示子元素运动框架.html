@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0}
+.wrap{ width:200px; margin:200px auto}
+ul{ list-style:none;}
+li a{ width:200px; height:40px;; display:block; background:#06AFF7; text-decoration:none; color:#fff; text-align:center; line-height:40px; font-size:16px}
+.ac a{ display:block; background:#ddd; font-size:0; line-height:0; height:0}
+</style>
+<script src="../../my_tool.js"></script>
+<script>
+window.onload = function(){
+	var oBox = document.getElementsByClassName('wrap')[0];
+	var oUl = oBox.getElementsByClassName('ul')[0];
+	 var aLi = oBox.getElementsByTagName('li');
+	 for(var i=0;i<aLi.length;i++){
+
+		aLi[i].onclick = function(){
+			
+			var obj = document.getElementsByClassName('ac');
+			for(var j=0;j<obj.length;j++){
+				var aA = obj[j].getElementsByTagName('a');
+				for(var m=0;m<aA.length;m++){
+					my_tool.move(aA[m],{'height':0,'fontSize':0,'lineHeight':0})
+				}
+			}
+			
+			var my_a = this.getElementsByTagName('a');
+			for(var k=0;k<my_a.length;k++){
+				my_tool.move(my_a[k],{'height':40,'fontSize':16,'lineHeight':40})
+			}
+			
+			
+						
+		}
+
+	}	
+	
+}
+</script>
+</head>
+
+<body>
+<div class="wrap">
+    <ul>
+        <li><a href="javascript:;">一级一级菜单菜单</a>
+            <ul class="ac">
+                <li><a href="javascript:;">我的前端之路</a></li>
+                <li><a href="javascript:;">前端浅谈</a></li>
+                <li><a href="javascript:;">前端作用</a></li>
+                <li><a href="javascript:;">前端趣味</a></li>
+            </ul>
+        </li>
+        <li><a href="javascript:;">一级一级菜单菜单</a>
+            <ul class="ac">
+                <li><a href="javascript:;">我的前端之路</a></li>
+                <li><a href="javascript:;">前端浅谈</a></li>
+                <li><a href="javascript:;">前端作用</a></li>
+                <li><a href="javascript:;">前端趣味</a></li>
+                <li><a href="javascript:;">前端趣味</a></li>
+                <li><a href="javascript:;">前端趣味</a></li>
+            </ul>
+        </li>
+        <li><a href="javascript:;">一级一级菜单菜单验</a>
+            <ul class="ac">
+                <li><a href="javascript:;">我的前端之路</a></li>
+                <li><a href="javascript:;">前端浅谈</a></li>
+            </ul>
+        </li>
+        <li><a href="javascript:;">一级一级菜单菜单计</a>
+            <ul class="ac">
+                <li><a href="javascript:;">我的前端之路</a></li>
+                <li><a href="javascript:;">前端浅谈</a></li>
+                <li><a href="javascript:;">前端作用</a></li>
+            </ul>
+        </li>
+        <li><a href="javascript:;">一级菜单经验/技巧</a>
+            <ul class="ac">
+                <li><a href="javascript:;">我的前端之路</a></li>
+                <li><a href="javascript:;">前端浅谈</a></li>
+                <li><a href="javascript:;">前端作用</a></li>
+                <li><a href="javascript:;">前端趣味</a></li>                
+                <li><a href="javascript:;">前端浅谈</a></li>
+                <li><a href="javascript:;">前端作用</a></li>
+                <li><a href="javascript:;">前端趣味</a></li>
+            </ul>
+        </li>
+        <li><a href="javascript:;">脚一级菜单本代码</a>
+            <ul class="ac">
+                <li><a href="javascript:;">我的前端之路</a></li>
+                <li><a href="javascript:;">前端浅谈</a></li>
+                <li><a href="javascript:;">前端作用</a></li>
+                <li><a href="javascript:;">前端趣味</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

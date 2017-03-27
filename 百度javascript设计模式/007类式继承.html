@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//类式继承的缺陷是操作父类层的数据会影响到其它的实例
+		//优点是构造函数中写的数据都会进入自己对应的层
+		
+		function Super(){
+			//这里的数据加载在Super层
+			this.superValue = true;
+			this.bookList = ['Javascript','php','Python']
+		}
+		
+		Super.prototype.getSuperValue = function(){
+			return this.superValue
+		}
+		
+		function Sub(){
+			this.subValue = false
+		}
+		
+		//new会把原先的所有原型层都冲掉
+		//类式继承的特征语句    所有Sub实例的Super父类都是同一个指针
+		Sub.prototype = new Super();
+		
+		Sub.prototype.getSubValue = function(){
+			return this.subValue
+		}
+		
+		var a = new Sub()
+		console.log(a)
+		console.log(a.getSubValue())     //false
+		console.log(a.getSuperValue())   //true
+		console.log(a instanceof Sub)	 //true
+		console.log(a instanceof Super)  //true
+		//Sub.prototype的意思是Sub的实例,而不是Sub.__proto__(下一层)
+		console.log(Sub.prototype instanceof Super)   //true
+		
+		a.bookList.push('Node')
+		
+		var b = new Sub()
+		console.log(b)
+		
+		console.log(a.__proto__ === b.__proto__)      //true   所有Sub实例的Super层都是同一个
+		
+	</script>
+</html>

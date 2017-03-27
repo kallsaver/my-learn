@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+		<script>
+			//$watch是监视这个值变化时,执行回调函数,功能比$apply多
+			//$apply是异步操作时,'同步'更新这个值,无法再做其他功能
+			angular.module("myapp",[])
+			angular.module("myapp").controller("myCtrl",function($scope){
+				//$scope.data=12
+				/*$scope.date = new Date()
+				
+				setInterval(function(){
+					//这里虽然变了,但是没有触发脏检查
+					$scope.date = new Date()
+					//$scope.$apply如果不给参数的话,会检查该$scope里的所有监听的属性
+					$scope.$apply()
+				},1000)*/
+				
+				setInterval(function(){
+					$scope.$apply(function(){
+						$scope.date = new Date()
+						//然后通过$digest去触发脏检查
+					})
+				},1000)
+			})
+			
+		</script>
+	</head>
+	<!--view改变数据会影响module,module改变数据也会影响view-->
+	<body ng-app="myapp" ng-controller="myCtrl">
+		<input type="text" ng-model="data"  value="">
+		<br>
+		<div ng-bind="data"></div>
+		<br>
+		<input type="text" ng-model="data"  value="">
+		<div id="a"></div>
+		<div>{{date}}</div>
+		
+	</body>
+	<script>
+	//要知道变量变了,方法有两种
+	//1.给变量设置set方法  知道变量发生了改变
+		var obj={
+			b : 300,
+			set : function(key,val){
+				obj[key] = val;
+				//querySelector只会找到第一个元素
+				document.querySelector("#a").innerHTML = val
+			}
+		}
+		
+		obj.set("b",400)
+		
+	//2.普通的脏检查
+	//将原对象复制一份快照,在某个时间,比较现在对象和快照的值,
+	//这个策略要保留两份变量,而且要遍历对象,比较每个属性,有一定的性能问题
+	
+	//angular的实现是使用脏检查
+	//angular的策略
+	//1.不会脏检查所有的对象,当对象被绑定到html中,这个对象添加为检查对象(watcher)
+	//2.不会脏检查所有的属性,同样当属性被绑定后,这个属性会被列为检查的属性
+	
+	//在angular程序初始化时,会将绑定的对象的属性添加为监听对象(watcher),
+	//也就是说一个对象绑定了N个属性,就会添加N个watcher
+	
+	
+	
+	
+	
+	
+	
+	</script>
+</html>

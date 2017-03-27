@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+.box1{ left:50px; position:relative; bottom:20px;line-height:40px; width:650px; background:pink;  }
+.box1::after{ content:''; display:block; width:50px; height:50px; background:red}
+
+
+</style>
+
+<script>
+
+//直接读取：height width  padding(t r b l)  margin(t r b l) opacity fontSize textIndent textAlign等
+
+//有设定值：left right top bottom borderWidth border-radius lineHeight
+
+//不能读取：background z-index color 其他文本格式的
+
+window.onload=function(){
+	var oDiv=document.getElementById('box');
+	
+	function getStyle(obj,styleName){
+		var value;
+		//obj.currentStyle ? value=obj.currentStyle[styleName]:value=getComputedStyle(obj,false)[styleName];
+		value = obj.currentStyle ?  currentStyle[styleName]  :  getComputedStyle(obj,false)[styleName];
+		if(styleName=="opacity"){
+			value=Math.round( parseFloat(value)*100);
+		}else{
+			value=parseInt(value);
+		}
+		return value;
+	};
+	
+	
+	alert(getStyle(oDiv,'left'))
+
+}
+
+
+
+</script>
+
+
+</head>
+
+<body>
+<div id="box" class="box1">
+	<span>sdfsdfsdfsdf</span>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Title</title>
+    <link href="lib/css/ionic.min.css" rel="stylesheet">
+
+    <script src="lib/js/ionic.bundle.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="views/tour/tour.js"></script>
+    <script src="views/reservation/reservation.js"></script>
+    <script src="views/restaurant/restaurant.js"></script>
+    <script src="views/weather/weather.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+<!--</head>-->
+<body ng-app="myapp">
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-back-button class="button-clear">
+            <i class="icon ion-android-arrow-back">后退</i>
+        </ion-nav-back-button>
+        <ion-nav-buttons side="right">进入</ion-nav-buttons>
+    </ion-nav-bar>
+    <!--实质上<ion-nav-view>包括了<ion-nav-bar></ion-nav-bar>-->
+    <ion-nav-view></ion-nav-view>
+
+</body>
+</html>

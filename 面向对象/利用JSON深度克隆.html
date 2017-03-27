@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//利用JSON深度克隆是有缺陷的   通过构造函数添加的属性无法被克隆
+		function student(){
+			this.type="a student"
+		}
+	
+		var person={
+        	name:"mike",
+        	age:"20",
+        	skill:{
+				fn:function(){
+            		alert(1)
+        		},
+				data:"010101"
+			},
+        	address:{
+            	cityList:[
+                	{city:"beijing",countyList:["ddd","aaa","bbb"]},
+               	    {city:"hangzhou",countyList:["fff","ggg","ooo"]},
+            	]
+        	},
+        	hobby:["reading","sleeping"]
+    	}
+		
+		person.__proto__=new student()//person的下一层才是student的实例  person这层的东西就不会冲掉
+		console.log(person)		//person有上层student层是自己的属性  底层student 上层Object和下层Object
+		
+		var a=JSON.stringify(person)
+		//console.log(typeof a)		//String
+		var b=JSON.parse(a)
+		console.log(b)				//两个Object层  缺少底层student的数据
+		console.log(person instanceof student)		//true
+		console.log(b instanceof student)			//true
+		alert(person.type)							//"a student"
+		alert(b.type)								//"undefined"
+	</script>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div data-id="{{id}}" title="{{title}}"  style="background:{{background}};
+			color:{{color}}; width: 200px;height: 200px;">
+			{{content.toUpperCase()}}
+			<br>
+			{{price | currency}}
+			<br>
+			{{size}}
+		</div>
+	</body>
+	<script src="js/vue.js"></script>
+	<script>
+		var data = {
+			id : 10,
+			background : 'green',
+			content : "哈哈哈abc",
+			color : 'white',
+			title : '鼠标划上去显示',
+			price : 28,
+			width : 200,
+			height : 100
+		}
+		
+		var app = new Vue({
+			el : 'div',
+			data : data,
+			//动态插值如果是函数返回值方式要在computed里面定义属性方法
+			//而且这个方法的参数就是Vue的实例,并且这个函数的this也是Vue的实例
+			computed : {
+				size : function(v){
+					//这个this指向app实例
+					console.log(this);
+					//return this.width * this.height;
+					//或者
+					return v.width * v.height;
+				}
+			}
+		});
+
+		
+		
+	</script>
+</html>

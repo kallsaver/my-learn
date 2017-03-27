@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function student(){
+			this.type="a student"
+			
+		}
+		
+		
+		var a=new student();
+		
+		var b=Object.create(a)
+		
+		student.prototype.speak=function(){
+			alert("Object.create创造出来的层不是构造器,所以不能被检索")
+		}
+		console.log(a)	//speak在上层Object;
+		console.log(b)	//speak在上层Object;
+		
+		
+	</script>
+</html>

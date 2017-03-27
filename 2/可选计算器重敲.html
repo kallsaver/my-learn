@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+*{margin:0;padding:0;}
+
+</style>
+<script>
+//事件1：前两个输入框的输入值不是数字，拒绝，并且把这个值清空
+
+//事件2：前两个输入框其中一个框的数值清空时，第三个输入框的值清空
+
+//事件3：可以实现加减乘除 
+
+
+window.onload=function(){
+	var sel=document.getElementsByTagName("select")[0];
+	var aInput=document.getElementsByTagName("input");
+	var button=document.getElementsByTagName("button")[0];
+/*	sel.onchange=function(){
+		alert(sel.value);
+	}    验证select标签的value值                 */
+		
+	for(var i=0;i<2;i++){
+		aInput[i].onkeyup=function(){
+			if(isNaN(this.value)){
+			alert("请重新输入数字");
+			this.value="";
+			}	
+		}
+		
+		aInput[i].onchange=function(){			
+				aInput[2].value="";
+		}	
+	}
+
+	button.onclick=function(){
+		//点击button才获取两个Input框的value值,并且把它转成number数据类型
+		var a=parseInt(aInput[0].value);	
+		var b=parseInt(aInput[1].value);
+		
+		
+		//select的value值是子元素option的value值
+		
+		var mode=parseInt(sel.value);
+		//switch是带一个参数的函数 变量填在case后面
+		//第三个input框的值
+		
+		//把switch当if语句用
+		switch(mode){
+		case 1:  aInput[2].value=a+b;
+				 break;
+				 
+		case 2:  aInput[2].value=a-b;
+				 break;
+				 	
+		case 3:  aInput[2].value=a*b;
+				 break;
+				 
+		case 4:  aInput[2].value=a/b;
+				 break;	
+			
+			
+		}
+	}
+	
+	
+	
+}
+
+
+</script>
+</head>
+
+<body>
+
+<input type="text" value="">
+
+<select id="sel">
+	<option value="1">+</option>
+	<option value="2">-</option>
+	<option value="3">×</option>
+	<option value="4">÷</option>
+</select>
+
+<input type="text" value=""><button type="button">=</button><input type="text" value="">
+
+</body>
+</html>

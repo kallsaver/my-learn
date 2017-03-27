@@ -1,0 +1,55 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+table{border-collapse:collapse; margin:20px}
+table, td,th{ border:1px solid #ccc;  padding:10px}
+
+</style>
+
+</head>
+
+<body>
+
+
+</body>
+</html>
+<script>
+
+var man2=[
+	{"name":"张三","age":18,"work":"老师","city":"北京"},
+	{"name":"李四","age":20,"work":"工人","city":"上海"},
+	{"name":"王五","age":13,"work":"学生","city":"广州"}
+];
+
+var table=document.createElement('table');
+var tr=document.createElement('tr');
+	
+	//循环插入表头
+	for(var key in man2[0]){
+		tr.innerHTML+='<th>'+key+'</th>';
+	};
+	table.appendChild(tr);
+	
+	//插入其他数据----------------------------
+	//插三行
+	for(var i=0; i<man2.length; i++){
+		//创建空tr
+		var tr2=document.createElement('tr');
+		//循环塞满tr
+		for(var key in man2[i] ){
+			tr2.innerHTML+='<td>'+man2[i][key]+'</td>';
+		};
+		//插入到表格
+		table.appendChild(tr2);
+	}
+	
+	//----------------------------------------
+	document.body.appendChild(table);
+
+
+
+
+</script>

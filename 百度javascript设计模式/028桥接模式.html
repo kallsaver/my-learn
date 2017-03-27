@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			span{display: inline-block;color: #333;}
+		</style>
+	</head>
+	<body>
+		<div style="background: khaki;">
+			<span>小明</span>
+			<span>等级 <strong>9</strong></span>
+			<span>消息 <strong>5</strong></span>
+		</div>
+	</body>
+	
+	<script>
+		//原代码:
+		/*var spanArr = document.getElementsByTagName('span');
+		
+		spanArr[0].onmouseover = function(){
+			this.style.color = 'red';
+			this.style.background = 'gold'
+		}
+		
+		spanArr[0].onmouseout = function(){
+			this.style.color = '#333';
+			this.style.background = ''
+		}
+		
+		spanArr[1].onmouseover = function(){
+			this.getElementsByTagName('strong')[0].style.color = 'red';
+			this.getElementsByTagName('strong')[0].style.background = 'gold';
+		}
+		
+		spanArr[1].onmouseout = function(){
+			this.getElementsByTagName('strong')[0].style.color = '#333';
+			this.getElementsByTagName('strong')[0].style.background = '';
+		}*/
+		
+		//桥接模式:
+		
+		function changeColor(dom,c,bg){
+			//写成dom.style.color = color;左边的color会被认为是传入的参数而不是style下的color
+			dom.style.color = c;
+			dom.style.background = bg;
+		}
+		
+		var spanArr = document.getElementsByTagName('span')
+		
+		spanArr[0].onmouseover = function(){
+			changeColor(this,'blue','gold')
+		}
+		
+		spanArr[0].onmouseout = function(){
+			changeColor(this,'#333','')
+		}
+		
+		
+		spanArr[1].onmouseover = function(){
+			changeColor(this.getElementsByTagName('strong')[0],'blue','gold')
+		}
+		
+		spanArr[1].onmouseout = function(){
+			changeColor(this.getElementsByTagName('strong')[0],'#333','')
+		}
+		
+		
+		
+		
+		
+		
+		//this.type的type和传入的type不是同一个东西
+		function Student(type){
+			this.type = type
+		}
+		var a = new Student('man')
+		console.log(a)
+		var b = {}
+		Student.call(b,'man')
+		console.log(b)
+	</script>
+</html>

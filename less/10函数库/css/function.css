@@ -1,0 +1,64 @@
+.box1 {
+  background: #ff6600;
+  width: 75.59055118px;
+  height: 26.66666667px;
+  background: red;
+  seaond: 1000ms;
+  angle: 57.29577951deg 0.9deg;
+}
+.box2 {
+  width: 100px;
+  height: 100px;
+  background: fuchsia;
+}
+.box3 {
+  width: 200px;
+  height: 200px;
+  background: forestgreen;
+}
+.box4 {
+  width: 150px;
+  height: 150px;
+  background: khaki;
+}
+.box5 {
+  width: 150px;
+  height: 150px;
+  background: khaki;
+}
+.box6 {
+  width: 150px;
+  height: 150px;
+  background: palevioletred;
+  border: 10px solid red;
+}
+.box7 {
+  width: 100px;
+  height: 10px;
+  background: #ff0000;
+  border: 10px solid red;
+}
+.box8 {
+  border: 10px solid red;
+}
+.x-blue {
+  case-2: #00008b;
+}
+.x-green {
+  default-color: #008000;
+}
+.x-foo {
+  case-1: I am 'foo';
+}
+.x-baz {
+  default-string: 'and' I am the default;
+}
+.seeCss1 {
+  width: 100;
+}
+.seeCss2 {
+  width: 100px;
+}
+.seeCss3 {
+  width: 100px;
+}

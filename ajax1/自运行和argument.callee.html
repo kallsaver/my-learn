@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//'use strict';	
+		//严格模式下不能使用callee
+		(function(){
+			var a = 1;
+			f = arguments.callee;
+			return function(){
+				return a;
+			}
+		})()
+		
+		var b = f
+		console.log(b)
+	</script>
+</html>

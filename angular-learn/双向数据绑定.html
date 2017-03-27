@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var a;
+		var bookList1 = [ 		 //系统给bookList1的栈地址是00000001
+			{name : 'Angular'},
+			{name : 'node'}
+		]
+		
+		a = bookList1;            //a的栈地址拿到了00000001
+		bookList1 = null			 //bookList1的栈地址丢了
+		
+		console.log(a)          //object
+		console.log(bookList1)   //undefined
+		
+		
+		var b;
+		var bookList2 = [ 		 //系统给bookList2的栈地址是00000002
+			{name : 'Angular'},
+			{name : 'node'}
+		]
+		
+		b = bookList2            //b的栈地址拿到了00000002
+		bookList2 = b			 //bookList的栈地址从00000002变为00000002,其实没变
+		
+		b = null
+		console.log(b)
+		console.log(bookList2)
+		
+		//那么如何实现b=null时,bookList2也为null?
+		
+		
+	</script>
+</html>

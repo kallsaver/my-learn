@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div style="width: 200px;height: 200px;background: red;"></div>
+	</body>
+	<script>
+		//函数调用
+		var obj = {
+			name : 'obj',
+			speak : function(){
+				console.log(this)    //obj
+			}
+		}
+		//obj就是speak方法的调用者了
+		//通常情况下 abc.xxx() 点语法前面的那个对象就是调用者
+		obj.speak();
+
+		
+		var other = {
+			name : 'other',
+			talk : function(a){
+				console.log(a)
+				console.log(this);   //other
+				console.log(this.name)
+			}
+		}
+		other.talk(1)    //other
+		//如果我想让obj调用other.talk方法,你会发现这里的this改为other了
+		//call的第一个参数是调用者,后面的参数才是talk函数的
+		other.talk.call(obj,1) //obj
+		
+		var div = document.getElementsByTagName('div')[0];
+		
+		var run = function() {
+			console.log(this)
+            return function() {
+            	//this是无法闭包传递的,每声明一个函数就默认创造一个this,这个this是window
+               console.log(this);
+            };
+        };
+        
+        var a = run.call(obj)();
+		//a(); //window
+		
+		
+		
+		
+		
+		
+		
+	</script>
+</html>

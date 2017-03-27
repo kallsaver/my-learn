@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//类太多,那么提供一个工厂方法,new的过程封装在函数里面
+		var Basketball = function(){
+			this.intro = '篮球盛行于美国';
+			this.member = 5;
+			this.ballsive = "big";
+		}
+		
+		
+		var Football = function(){
+			this.intro = '足球在世界范围内很流行'
+			this.member = 11;
+			this.ballsive = "big";
+		}
+
+		var Tennis = function(){
+			this.intro = '足球在世界范围内很流行';
+			this.member = 1;
+			this.ballsive = "small";
+		}
+		
+		//这三个类的实例的下一层都是同一个对象地址
+		Basketball.prototype = Football.prototype =Tennis.prototype = {
+			type : 'sport',
+			getMember : function(){
+				console.log(this.member)
+			},
+			getBallsive : function(){
+				console.log(this.ballsize)
+			}
+		}
+		
+		//运行工厂
+		
+		var SportsFactory = function(name){
+			var obj = new Object()
+			switch(name){
+				case "NBA" : 
+					return new Basketball();
+				case "wordCup" : 
+					return new Football();
+				case "FrenchOpen" :
+					return new Tennis();
+			}
+		}
+		
+		var a = SportsFactory("wordCup")
+		console.log(a)
+		console.log(a.intro)
+		
+		function Student(){
+			
+		}
+		
+		Student.prototype = a
+		console.log(a)
+		
+	</script>
+</html>

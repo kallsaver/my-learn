@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var b = [];
+
+		var _loop = function (j) {
+			//函数里面包裹着函数,这就创造了作用域,
+			//当console.log(j)的时候,先向_loop这个父函数寻找j,再向全局
+			//相当于在这个函数中var j = 实参,b[j]是全局变量,所以这里闭包了
+			//当然这个j也是小作用域中的j;相当于var j=0;return { name : j }
+ 			 b[j] = function () {
+   			 	console.log(j);
+ 			 };
+		};
+
+		for (var j = 0; j < 10; j++) {
+  			_loop(j);
+		}
+		b[6]();    //6
+		
+		//自运行
+		var a = [];
+		
+		for(var i = 0; i < 10; i++){
+			//自运行函数执行时是有作用域,但是执行之后,作用域无法保存(墙体{}消失)
+			//即自运行函数可以说是不能创造作用域的(执行完毕作用域消失无法形成闭包)
+			(function(){
+				//var i = 6;
+				a[i] = function(){
+					console.log(i)
+				}
+			})(i)
+		}
+		
+		a[6]()    //10
+
+		
+		//使用bind
+		var c = [];
+		
+		for(var k = 0; k < 10; k++){
+			(function(){
+				c[k] = function(k){
+					console.log(k)
+				}.bind(null,k)
+			})(k)
+		}
+		
+		c[6]()    //6
+		
+	</script>
+</html>

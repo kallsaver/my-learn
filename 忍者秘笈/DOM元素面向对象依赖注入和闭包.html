@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			ul,li,div{margin: 0;padding: 0;}
+			ul{list-style: none;}
+			li{background: peru;height: 80px;margin: 20px 0px;line-height: 80px;font-size: 30px;color: white;}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<!--DOM可以直接访问自己的属性-->
+			<li onclick="run()">run1</li>
+			<li onclick="run()">run2</li>
+			<li onclick="run()">run3</li>
+		</ul>
+	</body>
+	<script>
+	//other是负责放方法的
+
+		function fnData(){
+			this.groupList = [];
+			this.changeBackground = function(selectedLi){
+				this.groupList.forEach(function(item,index){
+					if(selectedLi === item){
+						item.style.background = "red"
+					}
+					else{
+						item.style.background = "peru"
+					}
+				})
+			}
+		}	
+		
+		var obj = new fnData()
+		
+		//console.log(obj.groupList)
+	
+	
+		var aLi=document.getElementsByTagName('li');
+		for(var i=0,length=aLi.length;i<length;i++){
+			
+			aLi[i].run = (function(i){		//自运行函数中i被引用了所以不会被销毁,如果不做处理会永远存在内存直到浏览器的关闭
+				//console.log(this)			//1.修正后的调用者是li而不是window
+				var a = i;					//a顶替了i不会被销毁   
+				obj.groupList.push(aLi[i])		//只会在开始时运行一次
+				return function(){		//闭包   
+					//var a = i             //写在闭包外面 a不会销毁
+					//alert(a)
+					i = null;				//这步可以把i在第一次运行函数后销毁,第二次运行函数i就找不到了
+					//console.log(a)
+					
+					obj.changeBackground(this)
+					
+					//data放置了li的所有数据,暂时不需要用到这种设计
+					var data = {
+						quest : function(){
+							return a
+						},
+						background : 'peru',
+						color : 'white'
+					}
+					
+					//console.log(this)		//2.修正后的调用者是li而不是window
+					
+					return data;
+				}.bind(this)          //同样修正调用者是li而不是window
+			}).bind(aLi[i])(i,obj)			//1.修正li而不是window了    这行可以写成call(aLi[i],i,obj)
+		}
+		
+		//
+		/*for(var i=0,length=aLi.length;i<length;i++){	
+			aLi[i].run()						//执行 i=null,i被逐个销毁
+		}
+		for(var i=0,length=aLi.length;i<length;i++){
+			aLi[i].run()						//找不到i了
+		}*/
+		
+		
+		
+		
+	</script>
+	<script>
+		console.log('---------------------------------------------------')
+		//关于this 对象中的方法的this是这个对象  这点很重要
+		var e={
+			name :"ggg",
+			f :function(){
+				console.log(this.name)
+			}
+			
+		}
+		e.f()
+		
+		//所以:  xxx.onclick=function(){}   onclick只是xxx的属性  函数里面的this是xxx
+		var e1={
+			name : "e1"
+		}
+		
+		e1.f1 = function(){
+			console.log(this.name)
+		}
+		
+		e1.f1()
+	</script>
+</html>

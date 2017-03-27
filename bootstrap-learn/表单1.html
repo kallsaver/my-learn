@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+	</head>
+	<body>
+		<!--form支持的input输入框的控件有text,password,datetime,datetime-local,data,month,time
+		week,checkbox,radio,number,email,url,search,tel和color-->
+		
+		1基本格式<!--基本格式-->
+		<form role="form">		<!--role="form"强调这个元素是表单让其更容易匹配读屏软件-->
+			<div class="form-group">	<!--form-group的div是用来保持间距的-->
+				<label for="input1">电子邮件</label><!--for的意思是这个点击label 对应id的input会得到焦点-->
+				<input type="email"  				
+					placeholder="请输入您的电子邮件" id="input1">
+			</div>
+			
+			<div class="form-group">	<!--form-group div是用来保持间距的-->
+				<label>电子邮件</label>	<!--form-control 100%宽度和4px圆角-->
+				<input type="email" class="form-control"  		
+					placeholder="请输入您的电子邮件">
+			</div>
+			
+			<div class="form-group">
+				<label>密码</label>
+				<input type="password" class="form-control"/>
+			</div>
+		</form>
+		
+		<br>
+		<br>
+		2内联表单<!--内联表单-->
+		<form role="form" class="form-inline">
+			<div class="form-group">	<!--form-group div是用来保持间距的-->
+				<label>电子邮件</label>
+				<input type="email"  		
+					placeholder="请输入您的电子邮件">
+			</div>
+			
+			<div class="form-group">	<!--form-group div是用来保持间距的-->
+				<label>电子邮件</label>
+				<input type="email" class="form-control"  		
+					placeholder="请输入您的电子邮件">
+			</div>
+			
+			<div class="form-group">
+				<label>密码</label>
+				<input type="password" class="form-control"/>
+			</div>
+		</form>
+		
+		<br>
+		<br>
+		3水平排列效果并不好<!--水平排列-->  <!--谷歌支持不好-->
+		<form role="form" class="form-horizontal">
+			<div class="form-group">	<!--form-group div是用来保持间距的-->
+				<label for="firstname" class="col-sm-2 control-label">名字</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="firstname"
+						placeholder="请输入名字">
+				</div>
+			</div>
+			<div class="form-group">	<!--form-group div是用来保持间距的-->
+				<label for="lastname" class="col-sm-2 control-label">姓</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="lastname"
+						placeholder="请输入姓">
+				</div>
+			</div>
+		</form>
+		
+		4复选框<!--复选框-->
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" />体育
+			</label>
+		</div>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" />音乐
+			</label>
+		</div>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" disabled=""/>打酱油	<!--禁止-->
+			</label>
+		</div>
+		
+		5内联复选框<!--内联单行显示复选框-->
+		<label class="  checkbox-inline">
+			<input type="checkbox" />体育
+		</label>
+		<label class=" checkbox-inline">
+			<input type="checkbox" />音乐
+		</label>
+		
+		<br>
+		<br>
+		6不加checkbox-inline
+		<label>
+			<input type="checkbox" />体育
+		</label>
+		<label>
+			<input type="checkbox" />音乐
+		</label>
+		
+		<br>
+		<br>
+		7单选框
+		<div class="radio">
+			<label>
+				<input type="radio" name="option" value="option1" />选项1
+			</label>
+		</div>
+		<div class="radio">
+			<label>
+				<input type="radio" name="option" value="option2" />选项2
+			</label>
+		</div>
+		<div class="radio">
+			<label>
+				<input type="radio" name="option" value="option3" />选项3
+			</label>
+		</div>
+		
+		
+		<br>
+		<br>
+		8内联单选框
+		<div class="radio">
+			<label class="checkbox-inline">
+				<input type="radio" name="option" value="option1" />选项1
+			</label> 
+			<label class="checkbox-inline">
+				<input type="radio" name="option" value="option2" />选项2
+			</label>
+			<label class="checkbox-inline">
+				<input type="radio" name="option" value="option3" />选项3
+			</label>
+		</div>
+		
+		
+		
+	</body>
+</html>

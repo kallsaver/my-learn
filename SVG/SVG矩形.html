@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+    <style>
+        *{margin:0;padding:0}
+        svg{width:600px;height: 600px;}
+/*        svg rect{width: 200px;height: 200px;stroke:#006600;  fill:#00cc00;}*/
+        svg .no{x:10px;y:10px;width: 200px;height: 200px;stroke:#006600;stroke-width: 10px; fill:none;}
+        svg .dash{width: 200px;height: 200px;stroke:#006600;stroke-width: 10px;
+            fill:none;stroke-dasharray: 10 5}
+    </style>
+</head>
+
+<body>
+    <svg>
+        <!--没写单位 默认是px-->
+        <!--描边里面一半外面一半-->
+        <!--<rect x="10" y="10" rx="20"  ></rect>-->
+        <!--<rect x="10" y="10" rx="20" ry="50" ></rect>
+        <rect x="10" y="10" rx="50%"  ></rect>-->
+        <rect class="no"></rect>
+        <rect class="dash" x="220" y="220"></rect>
+
+    </svg>
+</body>
+</html>

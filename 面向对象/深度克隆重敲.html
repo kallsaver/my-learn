@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+	//1.直接拿指针
+	/*var a={name:"mike",
+		skill:function(){
+			alert(1)
+		}
+	}
+	var b=a;		//b拿到a的所有栈地址指针  
+	console.log(b);
+	b.name="John";  // b访问name的栈地址所在的堆地址  并修改 
+	alert(a.name) //john
+	
+	b.skill=function(){  //b访问skill的栈地址所在的堆地址  并修改
+		alert(2)
+	}
+	
+	a.skill()  //alert(2)*/
+	
+	//2.key in obj拿值 =重新开辟新的堆地址
+	
+	/*var a={name:"mike",
+		skill:function(){
+			alert(1)
+		}
+	}
+	var b={};
+	
+	for(var key in a){
+		b[key]=a[key];
+	}
+	
+	b.skill=function(){
+		alert(2)
+	}
+	
+	a.skill();
+	*/
+	
+	
+
+</script>
+<script>
+	/*var a={0:4,1:7}  //这种格式也是可以的
+	alert(a[0]);
+	a.push(0)     //a.push is not a function
+	console.log(a)*/
+
+	//所谓的深度克隆其实就是要考虑到字面量对象的多维情况 如果只是一维的key in obj  
+	//后面的二维三维...会直接拿到指针,而不是重新开辟了一块堆地址 
+	//所以要判断key是不是对象或者数组 如果是要递归key in obj
+	//如果是String,number,null,undefined 说明维度已经走到尽头后 不需要递归
+	//数组和对象要分开判断 否则数组会改造成{0:4,1:7}这种格式 会失去数组原型的方法  
+    var person={
+        name:"mike",
+        age:"20",
+        skill:{
+			fn:function(){
+            	alert(1)
+        		},
+			data:"010101"
+		},
+        address:{
+            cityList:[
+                {city:"beijing",countyList:["ddd","aaa","bbb"]},
+                {city:"hangzhou",countyList:["fff","ggg","ooo"]},
+            ]
+        },
+        hobby:["reading","sleeping"]
+    }
+
+    //判断类型的函数   toString和slice都是好函数  不改变原有对象的值
+    function isClass(o){
+        if (o===null){
+            return "null";
+        }
+        if(o===undefined){
+            return "undefined";
+        }
+        return Object.prototype.toString.call(o).slice(8,-1)
+    }
+
+
+
+    function deepClone(obj){
+        var result;				//每一维度有一个rensult
+		//对第一次传obj做判断
+        if(isClass(obj)==="Array"){
+            result=[];
+        }
+        else if(isClass(obj)==="Object"){
+            result={};
+        } 
+		else{return obj}
+
+        for(var key in obj){
+            //如果obj[key]是个数组或者对象  不递归只能拿到指针  无法拿到具体的堆地址的值
+            //判断obj[key]的类型  如果是,递归拿值(值储存在堆地址中)
+            var copy=obj[key];
+            var oClass=isClass(copy);
+            if(oClass==="Object"){
+               result[key]=arguments.callee(copy);  //拿到的是deepClone函数的指针
+            }
+            else if(oClass==="Array"){
+                result[key]=arguments.callee(copy);
+            }
+            //如果obj[key]不是对象或者数组  直接拿值
+            else{result[key]=copy;}
+        }
+
+        return result;
+    }
+
+    var person1=deepClone(person)
+
+    console.log(person1)
+
+    person1.address.cityList[0].countyList[1]="mmm";
+    alert(person.address.cityList[0].countyList[1]);
+	
+	person1.skill.fn=function(){
+		alert(2)
+	}
+	
+	person.skill.fn()
+
+</script>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var arr=[54,8,78]
+		console.log(arr)  //有三层  一层上层Array  一层底层Array  一层底层Object
+		
+		Array.prototype.speak=function(){		//Array是指new出来数组层   这里是给底层Array添加方法
+			alert(1)							//非原生的方法颜色是深色的
+		}
+		
+		console.log(arr)
+		
+		
+		
+		
+	</script>
+</html>

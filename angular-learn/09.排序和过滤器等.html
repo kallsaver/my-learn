@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+		<script>
+			angular.module("myApp",[])
+			
+			angular.module("myApp").factory("shop",function(){
+				return {
+					message1 : "ABCDEF",
+					message2 : "dfklfg",
+					city : [
+						{
+							name : "上海",
+							py : "shanghai",
+							index : "2"
+						},
+						{
+							name : "北京",
+							py : "beijing",
+							index : "1"
+							
+						},
+						{
+							name : "深圳",
+							py : "shenzhen",
+							index : "3",
+							now : "yes"
+						}
+					]
+					
+				}
+			})
+			
+			angular.module("myApp").controller("myCtrl",function($scope,shop,$filter){
+				$scope.data=shop;
+				$scope.date = new Date();
+				$scope.price = 3000
+				
+				//在控制器中使用过滤器(格式)  2个参数
+				var number = $filter("number")(3000)
+				console.log(number)
+				
+				var jsonString = $filter("json")($scope.data)
+				console.log(jsonString)
+				console.log(typeof jsonString)
+				console.log($scope.data);
+				
+				//这个是个filter函数的回调函数(参数)  filter本身具有迭代的功能 obj是数组中每个元素
+				//这个filter的回调函数的参数在angular中已经预设好了
+				$scope.checkName = function(obj,index,oldArr){
+					console.log(arguments)
+					if(obj.py.indexOf("h") === -1)
+						return false
+					return true;
+				}
+			})
+			
+			
+			
+		</script>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+			<p>{{price | number}}</p>
+			<p>{{[1,2,3,4,5,6,7] | limitTo : 5}}</p>
+			<p>{{[1,2,3,4,5,6,7] | limitTo : -5}}</p>
+			<p>{{data.message1 | lowercase}}</p>
+			<p>{{data.message2 | uppercase}}</p>
+			<!--遍历所有的属性的value,对key不起作用-->
+			<p>{{data.city | filter :"上海"}}</p>
+			<p>{{data.city | filter :"now"}}</p>
+			<!--只遍历py属性-->  <!--是基于indexOf的语法,不能精准的查找-->
+			<p>{{data.city | filter :{py : "g"} }}</p>
+			<!--orderBy排序 根据属性key来排序-->
+			<p>{{data.city | orderBy :"index" }}</p>
+			<p>{{data.city | orderBy :"-index" }}</p>
+			<p>{{data.city | filter : checkName}}</p>
+			
+			
+			<p>{{data.mmmmm || 0}}</p>
+			<p>{{date || 0}}</p>
+			
+		</div>
+		
+	</body>
+</html>

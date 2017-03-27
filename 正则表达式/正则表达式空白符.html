@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//字符串中\r\n是不可见字符，如果让它可见，应该是这样的
+/*	\r\n
+	\r\n
+	1f2dsa1f3dsa\r\n
+	\r\n
+	456\r\n
+	\r\n
+	fdsaf1ds2af1dsa1fds2a3f123sda1fdsa\r\n
+	\r\n*/
+	
+		//  \s匹配任何空白字符,包括空格符,制表符\t,行首符\r,回车符\n,换页符\v
+		// 	\S匹配非空白字符	等价于 [^ \f\n\r\t\v]  
+		var str="df   fd	75"			//3个空格1个tab
+		
+		var a1=str.replace(/\s/g,function(item){
+			return "";
+		})		
+		console.log(a1)					//把空白删掉
+		
+		// .不包括回车符\n 行首符\r   但是包括其他的空白符
+		var a2=str.replace(/./g,function(item){
+			return "a";
+		})		
+		console.log(a2)					//10个a		
+		
+		var a3=str.replace(/[^]/g,function(item){
+			return "a";
+		})		
+		console.log(a3)					//10个a	
+		
+		
+	</script>
+</html>

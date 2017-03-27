@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script src="js/angular.min.js"></script>
+<script>
+	var myapp=angular.module("myapp",[]);
+	myapp.controller("myCtrl",function($scope){
+		$scope.user={}
+	})
+
+</script>
+
+</head>
+
+<body ng-app="myapp" ng-controller="myCtrl">
+<div>
+	<!--语法:formName.inputFieldName.property-->
+	<!--pristine未受污染的-->
+	<p>registerForm.pname.$pristine:    {{registerForm.pname.$pristine}}</p>
+	<p>registerForm.pname.$dirty:    {{registerForm.pname.$dirty}}</p>
+    <br><br>
+    <!--$valid是用来判断表单的内容是否合法-->
+    <p>registerForm.pname.$valid:    {{registerForm.pname.$valid}}</p>
+    
+    
+
+
+</div>
+
+<div>
+	<form name="registerForm">
+    <!--input类型可以是number url email text等-->
+    
+    	<input type="text" placeholder="name" name="pname"
+        	ng-model="user.username" required>
+    	
+        <span ng-show="registerForm.pname.$error.required&&registerForm.pname.$dirty">
+        	用户名不能为空
+        </span><br><br>
+        
+        <input type="email" placeholder="Email" name="email"
+        ng-model="user.email" required>
+        <!--满足条件：不是刚加载时 脏了之后才显示  email指的是name的email-->
+        <span ng-show="registerForm.email.$dirty">
+        	<!--如果违反的required(空)规则，显示下面的提示-->
+        	<span ng-show="registerForm.email.$error.required">邮箱不能为空</span>
+            <!--$error保存着没有通过验证器名称和对应的信息  最后的email是指type中的email-->
+            <span ng-show="registerForm.email.$error.email">邮箱格式错误</span>
+        </span>
+        
+    </form>
+    
+   
+</div>
+</body>
+</html>

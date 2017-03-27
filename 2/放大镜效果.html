@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+*{margin:0px;padding:0px;font-size:0px;}
+/*.box的width和height的比例一定要和源图片的width和height一样*/
+.box{width:300px;height:150px;position:relative;top:100px;left:50px;}
+
+.box>img{width:100%;}
+
+.box>span{width:100px;height:50px;position:absolute;background:rgba(222,229,94,1.00); opacity:0.6;z-index:2;position:absolute;top:0px;left:0px;display:none;cursor:move;}
+
+
+/*big和span的比例是.box和源图片的比例   这样才能实现放大倍数一样*/
+.big{width:600px;height:300px;position:absolute;top:100px;left:500px;overflow:hidden;display:none;}
+
+.big>img{position:absolute;width:1800px;}
+</style>
+
+<script>
+window.onload=function(){
+	var box=document.getElementsByClassName("box")[0];
+	var span=document.getElementsByTagName("span")[0];
+	var big=document.getElementsByClassName("big")[0];
+	var img=big.getElementsByTagName("img")[0];
+	
+
+
+	
+	
+	//在span的父元素box上拖拽  //鼠标一进去,span自动在鼠标居中的位置
+	box.onmousemove=function(ev){
+		ev=ev||window.event;
+		span.style.display="block";	
+		big.style.display="block";
+		span.style.left=ev.clientX-box.offsetLeft-0.5*span.offsetWidth+"px";
+		span.style.top=ev.clientY-box.offsetTop-0.5*span.offsetHeight+"px";
+		
+		if(ev.clientX-box.offsetLeft-0.5*span.offsetWidth<0){
+			span.style.left=0+"px";
+		}
+		
+		if(ev.clientY-box.offsetTop-0.5*span.offsetHeight<0){
+			span.style.top=0+"px";
+		}
+		
+		if(ev.clientX-box.offsetLeft-0.5*span.offsetWidth>box.offsetWidth-span.offsetWidth){
+			span.style.left=box.offsetWidth-span.offsetWidth+"px";	
+		}
+		
+		if(ev.clientY-box.offsetTop-0.5*span.offsetHeight>box.offsetHeight-span.offsetHeight)		{
+			span.style.top=box.offsetHeight-span.offsetHeight+"px";
+		}
+		
+		//比率等于left(运动量x)/总行程
+		var ratel=(span.offsetLeft)/(box.offsetWidth-span.offsetWidth);
+		var ratet=(span.offsetTop)/(box.offsetHeight-span.offsetHeight);
+		img.style.top=(-ratet*(img.offsetHeight-big.offsetHeight))+"px";		
+		img.style.left=(-ratel*(img.offsetWidth-big.offsetWidth))+"px";
+		
+		//console.log(ratel);
+		//console.log(ratet);
+	}
+	
+	
+	
+	
+	box.onmouseout=function(){
+		span.style.display="none";
+		big.style.display="none";
+		
+	}
+	
+	
+	
+}
+
+
+</script>
+
+</head>
+
+<body>
+<div class="box"><img src="1800width.jpg">
+<span></span>
+</div>
+
+
+<div class="big"><img src="1800width.jpg"></div>
+
+
+</body>
+</html>

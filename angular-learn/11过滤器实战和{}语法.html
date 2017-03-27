@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<script src="js/angular.js"></script>
+		<script>
+			angular.module("product", [])
+
+			.service("productData", function() {
+				return [{
+					id: 4,
+					name: "iphone",
+					price: 5400,
+					sales : 1000,
+					class : "text-left"
+				}, {
+					id: 2,
+					name: "ipad",
+					price: 3420,
+					sales : 450,
+					class : "text-left"
+				}, {
+					id: 1,
+					name: "imac",
+					price: 14500,
+					sales :30,
+					class : "text-left"
+				}, {
+					id: 4,
+					name: "ipad air",
+					price: 2340,
+					sales : 110,
+					class : "text-left"
+				}, {
+					id: 5,
+					name: "ipad mini",
+					price: 2200,
+					sales : 300,
+					class : "text-left"
+				}, ]
+			})
+
+			.controller("productCtrl", function($scope, productData) {
+				$scope.productData = productData;
+				$scope.order = ""			//默认降序
+				$scope.orderType = "price"		//默认依照id排序
+				$scope.changeOrder = function(type){
+					$scope.orderType = type;
+					if($scope.order === "-"){
+						$scope.order = ""
+					}else{
+						$scope.order = "-"
+					}
+				}
+			})
+		</script>
+	</head>
+
+	<body ng-app="product">
+	<div ng-controller="productCtrl" class="container">
+		<nav class="navbar navbar-default" role="navigation">
+  			<div class="container-fluid">
+    			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      				<form class="navbar-form navbar-left" role="search">
+       		 			<div class="form-group">
+          					<input type="text" class="form-control" placeholder="Search"
+          					 ng-model="search"	>
+        				</div>
+      				</form>
+    			</div>
+  			</div>
+		</nav>		
+
+		
+			<table class="table text-center table-striped">
+				<thead>
+					<tr>
+						<!--{ : }的语法是如果:后面判断为真,那么{}为真,dropup生效-->
+						<th class="text-center" >     
+							产品编号
+						</th>
+						<th class="text-center">
+							产品名称
+						</th>
+						<th ng-class="{dropup :order === '' }" ng-click="changeOrder('price')"
+							class="bg-success text-center">
+							产品价钱
+							<span class="caret"></span>			<!--bootstrap默认是dropdown-->
+						</th>
+						<th ng-class="{dropup :order === '' }" ng-click="changeOrder('sales')" 
+							class="bg-primary text-center" >
+							产品销量
+							<span class="caret"></span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--search是ng-model中的$scope.search,它是个字符串-->
+					<!--对productData的所有属性找-->
+					<!--filter : search-->
+					<!--只针对productData的id属性找-->
+					<!--filter : {id : search}-->
+					
+					<!--还有一种方法比较逆向思维 ng-model="search.id",filter : search-->
+					<tr ng-repeat="product in productData | filter :  {name : search} |orderBy:order+orderType">
+						<td class="{{product.class}}">{{product.id}}</td>
+						<td>{{product.name}}</td>
+						<td>{{product.price | currency : "¥"}}</td>
+						<td>{{product.sales}}</td>
+					</tr>
+				</tbody>
+			</table>
+	</div>
+	</body>
+	<script>
+		if(null){
+			alert(1)
+		}
+		
+		if(""){
+			alert(2)
+		}
+		
+
+		
+	</script>
+
+
+</html>

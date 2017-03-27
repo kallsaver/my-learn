@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+*{margin:0;padding:0;}
+input{}
+
+</style>
+<script>
+window.onload=function(){
+	var aInput=document.getElementsByTagName("input");
+	var button=document.getElementsByTagName("button")[0];
+	
+	for(var j=0;j<2;j++){
+	  aInput[j].onkeyup=function(){
+		  if(isNaN(this.value)){
+			  alert("请输入数字!");
+			  this.value="";
+		  }	
+	  }
+	}
+	
+	button.onclick=function(){
+		var a=aInput[0].value;	
+		
+		var b=aInput[1].value;
+		var c;
+		
+		//value是个文本，是string数据类型，要减0进行隐形转换成number类型
+		c=a-0+(b-0);
+		
+		//c放进入value值中 又被转成string	
+		aInput[2].value=c;
+		
+		
+		alert(typeof aInput[2].value);	
+	
+	
+	}	
+	
+}
+
+</script>
+</head>
+
+<body>
+
+<input type="text" value="">+<input type="text" value=""><button type="button">=</button><input type="text" value="">
+
+</body>
+</html>

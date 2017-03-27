@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+//Fruit是个预加载的全局的函数 所谓的工厂模式 根据参数不同构造不同的对象的方法(返回值是生成的对象) 相当于myapp
+//这里的Fruit的参数是一个字符串"banana"  传到函数里面后 变成一个全局的函数	window.banana
+//真实应用中 factory方法封装了套路内容  factory的第二个回调函数才是业务
+	 
+	function myapp() {} 
+	//window.myapp.factory
+	myapp.factory = function(type,fn) {
+		var a1={}
+		//fn&&fn(a1)
+		if(fn){
+			var c=fn(a1)   
+			//把字符串"banana"改造成全局自运行函数banana
+			window[type]=(function(){
+				return c	
+			})()
+		}	 
+	} 
+ 	
+	myapp.factory("banana",function(a){
+		//data是从服务器拿回来的数据
+		var data={"price":100}
+		a=data
+		//把a返回到主函数体中  把a改造成全局对象   详细来说是把a返回到主函数体中 同时把字符串"banana"改造成全局自运行函数banana,
+		//然后马上return出去
+		return a
+	})
+	//-------------------------------------
+	//全局自运行函数banana注到其他函数的回调函数中
+	function other(fn){
+		//这里的banana是实参 
+		fn&&fn(banana)
+	}
+			//这里的banana是形参
+	other(function(banana){
+		var b=banana
+		console.log(b)
+	})
+	//数据流data:factory回调函数体->factory主函数体->other主函数体->other回调函数体
+</script>
+</html>

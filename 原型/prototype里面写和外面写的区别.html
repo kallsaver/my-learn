@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var Children = function(){
+			console.log(1)
+		}
+		Children.prototype = {
+			name : 'kk'
+		}
+		
+		var children1 = new Children();
+		var children2 = new Children();
+		console.log(children1.__proto__ === children2.__proto__ )   //true
+		
+		var Duck = function(){
+			//每new一次  Duck.prototype就重新获得一个新的对象
+			//导致和上一次new的出来的实例的下一层原型不是同一个东西(引用地址)
+			Duck.prototype = {
+				name : 'aa'
+			}
+		}
+		var duck1 = new Duck();
+		var duck2 = new Duck();
+		console.log(duck1.__proto__  === duck2.__proto__);          //false
+		
+		
+		
+	</script>
+</html>

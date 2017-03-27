@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+	var report=(function(){		//自运行函数马上运行  report拿到匿名函数的指针 同时imgs被封在闭包内部
+		var imgs=[];			//自运行函数运行完  imgs无法被内存销毁回收
+		
+		return function(src){
+			var img=new Image();	//原本img会在匿名函数结束的时候被销毁  但是imgs数组拿到img的引用 
+			imgs.push(img);			//所以imgs的生命周期取决于img 
+			img.src=src;            //一旦img的生命周期结束或者img删除了imgs  ,imgs就被内存回收了
+		}
+		
+	})()
+	
+	report("http://.....")
+
+
+</script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件_01</title>
+    <style>
+        #box{
+            width:300px;
+            height:300px;
+            background-color: #1b6d85;
+        }
+    </style>
+    <script src="js/jquery-3.1.0.min.js"></script>
+    <script>
+        $(function(){
+            // 为#box绑定多个事件处理
+            // 事件处理函数可以接收一个参数，是封装好的事件对象
+            $("#box").on("mouseover mouseout",function(event){
+//                console.log("aaaaaaaaaaaa");
+                alert(event.type);
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="box"></div>
+</body>
+</html>

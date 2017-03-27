@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		//js有两种依赖注入的方法
+		//1.将a传入b里面去
+		//2.a是全局变量
+		
+		var A= function(){
+			this.getName = function(){
+				return "aaa"
+			}
+		}
+		
+		var a=new A;
+		
+		//B函数中想利用getName的方法
+		var B = function(obj){
+			this.a=obj;
+			//依赖
+			document.write(obj.getName())
+		}
+		
+		//注入
+		var b = new B(a)
+		console.log(b)
+		
+	</script>
+</html>

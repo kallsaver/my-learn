@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			.father{
+				/*不能再这里写padding:0px 5%;但是可以写padding:0px 5vw*/
+				height: 100px;font-size: 0;
+			}
+			.father div{float: left;}
+			.father div:first-child{
+				background: red;width:30%;height: 100%;margin-left:5%;
+			}
+			.father div:first-child + div{
+				background: gold;width:30%;height: 100%;
+			}
+			.father div:first-child + div + div{
+				background: fuchsia;width:30%;height: 100%;margin-right:5%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="father">
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</body>
+</html>

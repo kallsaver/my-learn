@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+*{ margin:0; padding:0}
+.myNameList{width:200px; height:200px; background:red}
+p{ width:200px; height:100px; background:green}
+</style>
+
+</head>
+
+<body>
+
+
+<div id="box" class="myNameList"></div>
+<p id="txt"></p>
+
+</body>
+<!--html加载完以后-->
+<script>
+	//获取对象
+	//从docuemnt里面，通过getElementById的方法，找到了一个叫做（box）元素
+	
+	document.getElementById('box').onclick=abc;//绑定事件
+	document.getElementById('txt').onclick=abc;//绑定事件
+	
+	//函数 完成一个工作或者任务的js语句集合
+	
+	//声明函数function保留字
+	
+	/*function 函数名(){
+		1接到任务；
+		2下楼；
+		3找超市；
+		4掏钱；
+		5买回来；
+	}*/
+	
+	function abc(){//声明函数
+		alert(this.id);//this指向调用的对象
+		alert('hello world!');
+	}
+	
+	
+	
+	
+
+
+</script>
+
+</html>
+

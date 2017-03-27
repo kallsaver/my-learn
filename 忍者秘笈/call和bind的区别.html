@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+		</style>
+	</head>
+	<body>
+		<div class="box" style="width:200px;height: 200px;background: forestgreen;margin: 20px auto;"></div>
+	</body>
+	<script>
+		var a={
+			name:"aaa"
+		}
+		
+		var b={
+			name:"bbb"
+		}
+		var box=document.getElementsByClassName("box")[0];
+		box.onclick=function(){
+			console.log(this.name)
+		}.call(a)			//call会马上执行  因为匿名函数的调用者不再是box了,onclick是box的属性
+		
+		
+		box.onclick=function(){
+			console.log(this.name)
+		}.bind(b)			//bind要点击才执行
+							//事实上,函数执行时,this会作为一个隐形的参数传入函数体中
+							//bind函数的作用是指把传入的this参数改为bind的参数
+							
+							
+		var obj={
+			x:81
+		}
+		var foo={
+			getX:function(){
+				return this.x
+			}
+		}
+		
+		console.log(foo.getX.bind(obj)())	//bind要加()才执行
+		console.log(foo.getX.call(obj))
+		console.log(foo.getX.apply(obj))
+	</script>
+</html>

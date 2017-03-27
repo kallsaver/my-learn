@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin:0;padding:0;font-size: 0;}
+			.box1{width:690px;height: 782px;
+			background:url(83146ca0gw1evpk9cxj4xj20oi0rs134.jpg) ;background-size: 230px,10px;}
+			
+			.box2{width:690px;height: 782px;
+			background:url(83146ca0gw1evpk9cxj4xj20oi0rs134.jpg) ;background-size: 230px,10px;
+			background-repeat: no-repeat;background-position: 200px;}
+			
+			.box3{width:200px;height: 230px;
+			background:url(83146ca0gw1evpk9cxj4xj20oi0rs134.jpg) ;background-size: 230px,10px;
+			}
+		</style>
+	</head>
+	<body>
+		<!--可以看出图片原本的尺寸是对background-size有影响的,只有小的宽度决定background-size的切割效果,
+		大的高度无论给什么值,都没影响,实际上是230px,230*782/690px-->
+		<!--<div class="box1"></div>-->
+		
+		<!--background-position决定背景图在div的什么位置-->
+		<!--<div class="box2"></div>-->
+		
+		<!--通过div的尺寸对背景图切割,切割的起点只能是左上角-->
+		<div class="box3"></div>
+	</body>
+</html>

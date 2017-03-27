@@ -1,0 +1,19 @@
+1.shift+右键  可以在一个文件夹中打开cmd命令窗口或者使用git工具新建一个项目文件 cd进项目文件中
+2.npm install -g yo,npm install -g bower,npm install -g grunt 全局安装这三个自动化工具
+3.npm install -g grunt-cli  全局安装grunt命令行
+4.npm install -g generator-angular  全局安装angular的脚手架(为后面的yo命令支持),不然要yo自己找
+5.yo angular 项目名(一定要写不然会生成不了bower_components文件)  搭建项目的脚手架  会出现Gruntfile.js,bower.json,bower.json文件
+和app,test,bower_components(lib),node_modules文件夹  大概200M左右要等一段时间等bower_components下载完
+6.bower install 在项目中安装bower工具,管理包的依赖
+(7.npm install grunt --save-dev  下载grunt语法包在本项目,同时package.json会添加内容
+8.npm install 下载包)
+9.grunt serve 打开浏览器,这样就可以在开发中在编辑器保存实时更新浏览器的内容了
+
+
+
+yeoman:
+1.npm install -g yo,npm install -g bower,npm install -g grunt,npm install -g gulp 全局安装这三个自动化工具
+2.npm install -g generator-bootstrap会在全局可以使用 yo bootstrap
+3.同理yo webapp 是yo自带的工厂模板,带有:chai,jQuery,Modernizr,Bootstrap,mocha等
+4.如果我想要在工程(生成环境)中引入underscore : bower install --save underscore ; 
+5.webapp用的是gulp不是grunt,gulp serve打开浏览器

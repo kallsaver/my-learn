@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+/*		//定义一个 log方法,让它可以代理 console.log方法,常见的解决方法是：
+		function log(msg)　{
+  			console.log(msg);
+
+		}
+		log(1);    //1
+		log(1,2);    //1*/
+		
+		
+/*		//当传入参数的个数是不确定的时候,上面的方法就失效了，
+		//这个时候就可以考虑使用 apply或者 call,注意这里传入多少个参数是不确定的,
+		//所以使用apply是最好的
+		function log(){
+  			console.log.apply(console, arguments);
+		};
+		log(1);    //1
+		log(1,2);    //1 2*/
+		
+		
+		//接下来的要求是log消息带app..
+		function log(){
+			var args=Array.prototype.slice.call(arguments);
+			//apply相当于把数组降维成call,再执行前面的函数
+			args.unshift("app")
+			console.log.apply(console,args)
+		}
+		log(5,7,9)
+		
+	</script>
+</html>

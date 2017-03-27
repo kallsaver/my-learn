@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="SVGyuan.css" rel="stylesheet">
+</head>
+<body>
+<svg>
+    <circle cx="250" cy="250"
+            r="100"
+    ></circle>
+
+    <!-- rect是单标签-->
+    <rect x="130" y="10" height="50" width="50"
+          rx="10" ry="15"
+          style="stroke:#006600; fill: #00cc00"/>
+</svg>
+<svg>
+    <circle cx="250" cy="250"
+            r="100"
+            style="stroke:#006600; fill: #00cc00"></circle>
+</svg>
+</body>
+<script>
+    //style里面的属性可以写在样式表中  但是svg的子元素特有的属性只能写在行内
+    /*此外，不同于HTML元素对象可以直接对一些属性赋值，
+     SVG元素对象都需要通过调用setAttribute()方法来设定属性值。
+     因为大部分属性都是SVGAnimatedLength类型，
+     即使要通过属性赋值也要写成类似c.r.baseVal.value = 7，多层访问其下属性。*/
+    var circles=document.getElementsByTagName("circle");
+    //circles[0].style.fill="peru";
+    circles[0].setAttribute('cy', 300);
+    circles[0].setAttribute('r', 50);
+
+
+
+</script>
+</html>

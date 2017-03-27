@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+	</head>
+	<body>
+	</body>
+	<script>
+		function Student(){
+			this.type = "a student"
+			this.name = 'aaa'
+			Student.prototype.speak = function(){
+				alert("speak")
+			}
+		}
+		
+		var a = new Student()
+		
+		var b = angular.copy(a)
+		
+		console.log(a)
+		
+		console.log(b)
+		
+		console.log(a === b)   //flase
+		
+		
+		
+	</script>
+</html>

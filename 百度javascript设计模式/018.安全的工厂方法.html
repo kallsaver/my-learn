@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="container"></div>
+	</body>
+	<script>
+		var Factory = function(type,content){
+			if(this instanceof Factory){
+				var s = new this[type](content)
+				return s;
+			}
+			else{
+				return new Factory(type,content)
+			}
+		}
+		
+		Factory.prototype = {
+			Java : function(){
+				this.type = 'java'
+			},
+			Javascript : function(){
+				this.type = 'javascript'
+			},
+			UI : function(content){
+				this.content = content;
+				(function(content){
+					var div = document.createElement('div');
+					div.innerHTML = content;
+					div.style.border = '1px solid red';
+					div.style.width = 200+'px';
+					div.style.height = 200+'px'
+					document.getElementById('container').appendChild(div)
+				})(content)
+			},
+			php : function(){
+				console.log('php')
+			}
+			
+		}
+		
+		//Factory其实只是作为一个功能函数用,但是不同的是这个功能函数的的上层Object是有数据的(构造函数)
+		//这里Factory类似火箭,燃料桶任务完成后自动脱离,真正的(卫星)构造函数上线
+		var a = new Factory('Java','nothing')
+		console.log(a)
+		
+		var ui = new Factory('UI','someting')
+		
+		
+		var data =[
+			{type : 'Javascript', content : 'Javascript'},
+			{type : 'Java' , content : 'Java'},
+			{type : 'UI' ,content : 'UI设计'},
+			{type : 'UI' ,content : 'UI设计'},
+		]
+		
+		for(var i=0,len=data.length;i<len;i++){
+			Factory(data[i]['type'],data[i]['content'])
+		}
+		
+		
+		//构造函数中再工厂一个构造函数
+		function A(){
+			this.A = 'A'
+		}
+		
+		
+		function Student(){
+			//new Student 先给实例类,然后再运行方法
+			//虽然b一开始是Student的一个实例了,并且有Student属性值
+			//但是后面的return s把b原先的Student实例的地址取代了,
+			//相当于b=new Student();c=new A();b=c
+			this.Student = 'Student'
+			var s = new A();
+			return s
+		}
+		
+		Student.prototype = {
+			name : 'man'
+		}
+		
+		var b = new Student()
+		
+		console.log(b)
+		
+		
+		
+		
+	</script>
+</html>

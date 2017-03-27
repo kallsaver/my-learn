@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <svg width="800" height="800" style="background: red;opacity: 0.4">
+        <circle id="my-circle" r="30" cx="50" cy="50" fill="orange" />
+       <!-- http://www.htmleaf.com/ziliaoku/qianduanjiaocheng/201506222088.html-->
+        <animate
+                xlink:href="#my-circle";
+                attributeName="cx";
+                restart="never"
+                from="50";
+                to="450";
+                dur="1s" ;
+                begin="click+1s"
+                fill="freeze" />  <!--freeze：动画效果被冻结在最后一个值。--><!--remove：动画效果会在活动周期结束之后被移除。-->
+
+    </svg>
+</body>
+</html>

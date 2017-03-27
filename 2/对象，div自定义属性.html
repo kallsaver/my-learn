@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+
+ul{ list-style:none}
+li{ width:200px; height:50px; background:red; margin-bottom:30px;}
+</style>
+</head>
+
+<body>
+<ul>
+	<li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+</ul>
+
+
+<ul>
+	<li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+</body>
+</html>
+<script>
+	var arr=[232,44,34,345,34234,23,100];
+	var aUl=document.getElementsByTagName("ul")[0];
+	
+	var aLi=aUl.getElementsByTagName('li');
+	alert(aLi.length);
+	//alert(aLi);//对象集合 不是数组
+	
+	aLi[2].onclick=function(){
+		this.style.background="green";
+	}
+	
+	//把数组的东西对应地放进每个li里面
+	for(var i=0;i<aLi.length;i++){
+		aLi[i].index=i;							
+		aLi[i].onclick=function(){
+						this.className="ac";
+			 			this.innerHTML=arr[this.index]
+	
+						}	
+	}
+
+     //循环无时无刻在后台进行，并且计算机的处理速度无限快，而点击事件是点击才开始运行
+	//自定义属性 可以用语法进行设置，但是在标签上看不到，只保留在内存的对象上
+</script>

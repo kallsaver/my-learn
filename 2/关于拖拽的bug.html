@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script>
+//事件1:box盒子可以拖拽
+
+//事件2:上边框可以向上拉,并且底部固定,高度变高  其它边同理
+
+//事件3:左上角可以向左上角拉 
+window.onload=function(){
+	var oBox=document.getElementsByClassName("box")[0];
+	var oTop=document.getElementsByClassName("top")[0];
+	var oLeft=document.getElementsByClassName("left")[0];
+	var oBottom=document.getElementsByClassName("bottom")[0];
+	var oRight=document.getElementsByClassName("right")[0];
+	var oUpperLeft=document.getElementsByClassName("upperLeft")[0];
+	var oUpperRight=document.getElementsByClassName("upperRight")[0];
+	var oLowerLeft=document.getElementsByClassName("lowerLeft")[0];
+	var oLowerRight=document.getElementsByClassName("lowerRight")[0];
+	
+	//mousedown记录偏移量
+	oBox.onmousedown=function(ev){
+		ev=ev||window.event;
+		var disX=ev.clientX-this.offsetLeft;
+		var disY=ev.clientY-this.offsetTop;			
+	}
+		//拖拽事件的移动事件在盒子的父元素上,如果是在本身移动,鼠标会跑出来
+		document.onmousemove=function(ev){
+			ev=ev||window.event;
+			oBox.style.left=ev.clientX-disX+"px";
+			oBox.style.top=ev.clientY-disY+"px";
+			
+		
+		}
+}
+
+
+</script>
+
+<style type="text/css">
+*{margin:0;padding:0;font-size:0;}
+.box{width:230px;height:230px;position:absolute;left:50%;top:50%;margin-left:-115px;margin-top:-115px;}
+.box>img{width:100%;}
+.box .top{width:230px;height:10px;position:absolute;top:-10px;background:rgba(79,159,224,0.8);z-index:1;}
+.box .left{width:10px;height:230px;position:absolute;left:-10px;background:rgba(79,159,224,0.8);z-index:1;}
+.box .bottom{width:230px;height:10px;position:absolute;bottom:-10px;background:rgba(79,159,224,0.8);z-index:1;}
+.box .right{width:10px;height:230px;position:absolute;right:-10px;background:rgba(79,159,224,0.8);z-index:1;}
+.box .upperLeft{width:25px;height:25px;position:absolute;left:-15px;top:-15px;background:rgba(92,126,147,1.00);   z-index:2;}
+.box .upperRight{width:25px;height:25px;position:absolute;right:-15px;top:-15px;background:rgba(92,126,147,1.00);   z-index:2;}
+.box .lowerLeft{width:25px;height:25px;position:absolute;left:-15px;bottom:-15px;background:rgba(92,126,147,1.00);   z-index:2;}
+.box .lowerRight{width:25px;height:25px;position:absolute;right:-15px;bottom:-15px;background:rgba(92,126,147,1.00);   z-index:2;}
+
+</style>
+
+</head>
+
+<body>
+<div class="box">
+	<span class="top"></span>
+	<span class="bottom"></span>
+	<span class="left"></span>
+	<span class="right"></span>
+	<span class="upperLeft"></span>
+	<span class="upperRight"></span>
+	<span class="lowerLeft"></span>
+	<span class="lowerRight"></span>
+    <img src="tear.jpg">
+</div>
+</body>
+</html>

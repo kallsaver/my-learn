@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body {
+				font-family: '微软雅黑';
+				/*font-family: cursive, '微软雅黑';*/
+				padding: 20px;
+				margin: 0;
+				font-size: 16px;
+			}
+			.box{display: flex;width:200px;height: 200px;float: left;padding: 10px;
+			border-radius: 10px;background: #000;margin: 10px;overflow: hidden;}
+			.box div{border-radius: 10px;}
+			.clearfix::after{clear: both;display: block;content: "-----------------------------------------------------------";}
+			.txt1::after{clear: both;display: block;content: "----------------align-items-----------------------------------";}
+			.txt2::after{clear: both;display: block;content: "----------------align-content----------------------------";}
+			.txt3::after{clear: both;display: block;content: "----------------justify-content------------------------------";}
+			.txt4::after{clear: both;display: block;content: "----------------综合---------------------------------------";}
+			
+		</style>
+	</head>
+	<body>
+		<div class="box" style="flex-direction: column;justify-content:space-between ;align-items: center;">
+			<div style="width:50px;height: 50px;background: #fff;"></div>
+			<div style="width:50px;height: 50px;background: #fff;"></div>
+		</div>
+		
+		<div class="box" style="flex-direction: column;justify-content:space-between ;align-items: flex-end;">
+			<div style="width:50px;height: 50px;background: #fff;"></div>
+			<div style="width:50px;height: 50px;background: #fff;"></div>
+		</div>
+		
+		<div class="box" style="flex-direction: row;">
+			<div style="width:50px;height: 50px;background: #fff;"></div>
+			<div style="width:50px;height: 50px;background: #fff;align-self: center"></div>
+		</div>
+		
+		<div class="clearfix"></div>
+		
+		<div class="box" style="flex-direction: row;justify-content: space-between;">
+			<div style="width:50px;height: 50px;background: #fff;"></div>
+			<div style="width:50px;height: 50px;background: #fff;align-self: flex-end"></div>
+		</div>
+		
+		<div class="box" style="flex-direction: row;justify-content: space-between;">
+			<div style="width:50px;height: 50px;background: #fff;"></div>
+			<div style="width:50px;height: 50px;background: #fff;align-self: center"></div>
+			<div style="width:50px;height: 50px;background: #fff;align-self: flex-end"></div>
+		</div>
+		
+		<!--从后方开始排,所以用reverse-->
+		<div class="box" style="flex-direction: row-reverse;flex-wrap: wrap; justify-content: space-between;">
+			<div style="width:60px;height: 60px;background: #fff;"></div>
+			<div style="width:60px;height: 60px;background: #fff;"></div>
+			<div style="width:60px;height: 60px;background: #fff;"></div>
+			<div style="width:60px;height: 60px;background: #fff;align-self: flex-end;"></div>
+		</div>
+		
+		<div class="clearfix"></div>
+		
+		<!--box的子元素的宽度100%,所以column-->
+		<div class="box" style="flex-direction: column;flex-wrap: wrap;justify-content: space-between;">
+			<!--子元素排成一行-->
+			<div style="display: flex;flex-direction: row;justify-content: space-between;">
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+			</div>
+			<div style="display: flex;flex-direction: row;justify-content: space-between;">
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+			</div>
+		</div>
+		
+		<!--box的子元素的宽度100%,所以column-->
+		<div class="box" style="flex-direction: column;justify-content: space-between;">
+			<!--子元素排成一行-->
+			<div style="display: flex;flex-direction: row;justify-content: space-between;">
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+			</div>
+			<div style="display: flex;flex-direction: row;justify-content: space-between">
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+			</div>
+		</div>
+		
+		<div class="box" style="flex-direction: column;justify-content: space-between;">
+			<!--子元素排成一行-->
+			<div style="display: flex;flex-direction: row;justify-content: space-between;">
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+			</div>
+			<div style="display: flex;flex-direction: row;justify-content: space-between">
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+			</div>
+		</div>
+		
+		<div class="clearfix"></div>
+		
+		<!--box的子元素高度100%,所以row-->
+		<div class="box" style="flex-direction: row;justify-content: space-between;">
+			<!--子元素排成一列-->
+			<div style="display: flex;flex-direction: column;justify-content: space-between;">
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+			</div>
+			<div style="display: flex;flex-direction: column;justify-content: space-between">
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+				<div style="width: 50px;height: 50px;background: #fff;"></div>
+			</div>
+		</div>
+		
+		<div class="clearfix"></div>
+		
+		
+		<!--圣杯布局-->
+		<div style="display: flex;height: 200px;margin-top: 50px;">
+			<div style="flex: 0 0 200px;background: gold;"></div>
+			<div style="flex: 1;background: fuchsia;"></div>
+			<div style="flex: 0 0 200px;background: gold;"></div>
+		</div>
+		
+	</body>
+</html>

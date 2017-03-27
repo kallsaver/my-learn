@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//substring方法和slice方法有点像    
+	//但是substring方法前面的值可以比后面的值大  
+	//substring不支持负数   如果有负数  等同于0
+		var str="0123456789";
+		
+		var a1=str.substring(4,6)	
+		console.log(a1)				//45
+		
+		var a2=str.substring(6,4)
+		console.log(a2)				//45
+		
+		var a3=str.substring(4);
+		console.log(a3)				//456789
+		
+		var a4=str.substring(-1)	//相当于str.substring(0)
+		console.log(a4)				//0123456789
+		
+		var a5=str.substring(-3,-1)	//相当于str.substring(0,0)
+		console.log(a5)				//空
+			
+			
+	</script>
+</html>

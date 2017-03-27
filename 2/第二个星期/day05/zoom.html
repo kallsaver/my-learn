@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0}
+#box{ width:280px; height:200px; position:relative; top:100px; left:50px}
+#box img{ width:100%;}
+span{ position:absolute; top:0; left:0; width:120px; height:90px; background:#F0898A; opacity:0.6; cursor:move; display:none  }
+#b_box{ width:360px; height:270px; overflow:hidden; position:absolute;top:100px; left:400px; display:none }
+#bigImg{ position:absolute}
+</style>
+</head>
+
+<body>
+<div id="box">
+	<img src="01.jpg">
+    <span></span>
+</div>
+
+<div id="b_box">
+	<img id="bigImg" src="01.jpg">
+</div>
+
+</body>
+</html>
+<script>
+	var oBox1=document.getElementById('box');
+	var oSpan=document.getElementsByTagName('span')[0];
+	var bigImg=document.getElementById('bigImg');
+	var b_box=document.getElementById('b_box');
+	
+	oBox1.onmousemove=function(ev){
+		//显示放大
+		oSpan.style.display=b_box.style.display='block';
+		
+		ev=ev||event;
+		var l=ev.clientX-oBox1.offsetLeft-oSpan.offsetWidth/2;
+		var t=ev.clientY-oBox1.offsetTop-oSpan.offsetHeight/2;
+		
+		if(l<0){
+			l=0;
+		};
+		if(l>oBox1.offsetWidth-oSpan.offsetWidth){
+			l=oBox1.offsetWidth-oSpan.offsetWidth
+		};
+		
+		if(t<0){
+			t=0;
+		};
+		if(t>oBox1.offsetHeight-oSpan.offsetHeight){
+			t=oBox1.offsetHeight-oSpan.offsetHeight
+		};
+		oSpan.style.top=t+'px';
+		oSpan.style.left=l+'px';
+		
+		//计算比例-----------------------------------------
+		var t_rate=t/(oBox1.offsetHeight-oSpan.offsetHeight);
+		var l_rate=l/(oBox1.offsetWidth-oSpan.offsetWidth);
+		
+		//移动大图片
+		bigImg.style.top=-(bigImg.offsetHeight-b_box.offsetHeight)*t_rate +'px';
+		bigImg.style.left=-(bigImg.offsetWidth-b_box.offsetWidth)*l_rate +'px';
+		
+	};
+	//隐藏放大
+	oBox1.onmouseout=function(){
+		oSpan.style.display=b_box.style.display='none';
+	}
+	
+	
+	
+
+
+</script>

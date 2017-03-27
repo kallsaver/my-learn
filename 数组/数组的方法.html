@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+//1. 数组的unshift()和shift()	
+/*	var arr=[1,2,3,4,5,6,7,8,9]
+	
+	//数组第一位添加0
+	arr.unshift(0)
+	 
+	//删除数组第一位  不带参数
+	arr.shift()	
+	console.log(arr)*/
+
+//2.合并几个数组concat()	
+/*	var arr1=[1,2,3,4,5,6,7]	
+	var arr2=[8,9,10,11,12,13,14]	
+	var arr3=[15,16,17,18,19,20,21]	
+	var arr4=arr1.concat(arr1,arr2,arr3)	
+	console.log(arr4)
+*/
+
+//3. forEach() 迭代数组所有元素  没有返回值  回调函数里面可以引入一个全局的数组push想要的值
+//4. filter() 迭代数组所有元素 有返回值  回调函数中对每个元素判断时 true会返回这个元素到新的数组里面	
+/*	var arr1=[1,2,3,4,5,6,7]
+	var arr2=[]
+	var arr3=[]
+	arr1.forEach(isEvenTurn)
+	console.log(arr2)
+	
+	arr3=arr1.filter(isEven)
+	console.log(arr3)
+	filter没有改变原数组的元素
+	console.log(arr1)
+	function gos(n){
+		console.log(n)
+	}
+	
+	function isEvenTurn(n){
+		console.log(n)
+		return n%2?false:arr2.push(n)
+	}
+	
+	function isEven(n){
+		return n%2==0?true:false
+	}*/
+
+//reverse()	返回一个新数组 改变原数组 这不是一个好函数
+	/*var arr1=[0,1,2,3,4,5,6,7,8,9]
+	var arr2=[5,4,8,9,3,6,1,7,2,0]
+	var arr3=arr1.reverse()
+	console.log(arr1,arr3)*/
+	
+	
+	var arr1=[0,1,2,3,4,5,6,7,8,9,10,11,12,13]
+	var arr2=[5,4,8,9,3,6,1,7,2,0]	
+	//sort() 没有回调函数时 按照字符串的值大小排列  返回一个新数组 改变原数组 这不是一个好函数
+	var arr4=arr1.sort()
+	//console.log(arr1,arr4)
+	
+	/*var arr5=arr1.sort(compare)	
+	console.log(arr5)
+	
+	function compare(a,b){
+		return a-b
+	}*/
+	
+	//回调函数compare函数的完整版:
+/*	function compare1(a,b){
+		if(a-b>0){
+			return 1
+		}		
+		if(a-b<0){
+			return -1
+		}		
+		return 0
+	}
+	
+	var arr6=arr1.sort(compare1)
+	console.log(arr6)*/
+	
+	
+</script>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script>
+window.onload=function(){
+	var text="操作|字符串|的方法的方法";
+	var arr=["1","2","3","4","5"]
+	alert(typeof(arr));
+	//slice substr split indexOf 都是一个函数 并且有返回值	
+	console.log("text.length  "+text.length);
+	
+	//编号为3的索引到编号为7的索引    slice 切片  返回值是字符串
+	console.log("text.slice(3,7)  "+text.slice(3,7));
+	
+	//编号为1的索引后面的5个字       substraction 减法   返回值是字符串
+ 	console.log("text.substr(1,5)  "+text.substr(1,5));
+	
+	//从有|的地方分割               split 溢出	 返回值是数组
+	console.log("text.split('|')  "+text.split('|'));
+	
+	//alert(typeof(text.split("|")));
+	
+	//alert(typeof(text.indexOf("呵呵呵")));
+	
+	//从左边开始查找"字符串"的索引值           返回值是数字
+	console.log('text.indexOf("方法")  '+text.indexOf("方法"));
+	
+	
+	//查找"呵呵呵"的索引值  如果没有 返回值为-1     
+	console.log('text.indexOf("呵呵呵")  '+text.indexOf("呵呵呵"))
+	
+	//text.indexOf("呵呵呵")返回值的数据类型是number
+	console.log('text.indexOf("呵呵呵")  '+(text.indexOf("呵呵呵")+1))
+	
+	//从最后开始查找"方法"
+	console.log('text.lastIndexOf("方法")  '+text.lastIndexOf("方法"))
+	
+	//
+	
+}
+
+
+</script>
+
+
+</head>
+
+<body>
+</body>
+</html>

@@ -1,0 +1,47 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0;padding:0}
+a{ text-decoration:none; width:20px; text-align:center; line-height:20px; height:20px; position:absolute; top:10px; right:8px; color:#fff;}
+.openBtn{ width:100px; height:40px; border:1px solid #ccc; border-radius:5px; display:block; margin:100px auto}
+</style>
+<link href="widget.css" rel="stylesheet" type="text/css">
+<script src="hxsd_tools.js"></script>
+<script src="hxsd_widget.js"></script>
+<script>
+window.onload=function(){
+	
+	var open_popBox_btn=document.getElementById('open_popBox_btn');
+	
+	open_popBox_btn.onclick=function(){
+		loginBox();
+		this.blur();
+	};
+	
+	
+	
+
+	
+
+}
+</script>
+</head>
+
+<body>
+<button class="openBtn" type="button" id="open_popBox_btn">请登录</button>
+
+<!--<div class="modal"></div>
+
+<div class="popBox">
+	<h4>用户登录</h4>
+    <a id="closeBtn" href="javascript:;">×</a>
+    <p><label>用户名：<input type="text"></label></p>
+    <p><label>密　码：<input type="password"></label></p>
+    <p><button class="logonBtn" type="button">登录</button></p>
+</div>-->
+
+</body>
+</html>

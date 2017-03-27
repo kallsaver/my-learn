@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	
+	//正则两种常见的模式   match模式(默认) 和test模式()
+	//match方法常和g一起用   而test方法常和定位符^,$一起用
+	//match是字符串的方法 , test是正则对象的方法
+		var str="function add(fn){fn&&fn()}"
+		
+		var r1=/fn/g;
+		var a1=str.match(r1)	//match返回的是一个数组
+		console.log(a1)
+		
+		//把fn改成**  add改成***	
+		//传进来的是一个数组,match是每一个元素,replace有迭代它的方法
+		//item传进来的是一个基本数据类型(回调函数怎么改item的值都不能影响到引用地址的值),
+		//可想而知这个回调函数是要return才能有效果的 或者直接拿值  
+		var a2=str.replace(/fn|add/g,function(item){
+			/*var s=""
+			//return "*"*item.length	//NaN是number类型  //说明number和string相乘相比较  string是要转number的
+			for(var i=0;i<item.length;i++){
+				s+="*"
+			}
+			return s;*/
+			//优雅的写法:
+			//return new Array(item.length+1).join("*")	
+			//或者
+			return "*".repeat(item.length)
+		})	
+		console.log(a2)
+		
+		//alert(new String("*",4))
+		
+		
+		
+	
+	</script>
+</html>

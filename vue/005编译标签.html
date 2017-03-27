@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div data-id="{{id}}" title="{{title}}"  style="background:{{background}};
+			color:{{color}}; width: 200px;height: 200px;">
+			{{{content}}}
+			
+		</div>
+	</body>
+	<script src="js/vue.js"></script>
+	<script>
+		var data = {
+			id : 10,
+			background : 'green',
+			content : "内容<p>1111</p>",
+			color : 'white',
+			title : '鼠标划上去显示',
+		}
+		
+		var app = new Vue({
+			el : 'div',
+			data : data,
+		});
+		
+		
+		//单次插值可以用在{{{}}}编译html标签语法中
+		
+		
+	</script>
+</html>

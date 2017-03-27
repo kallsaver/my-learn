@@ -1,0 +1,58 @@
+//reference表示common.less中定义的类不会输出到style.css中,但是可以在sytle.less中使用它定义的类和变量
+//这样做既可以减少style.css中多余的输出代码,又可以做到commom.less代码的复用
+//这样做,全局的commom.less只在开发阶段使用,在运行阶段是不引入的,就是说html不引入link href = "common.css";
+//只引入各个模块合并之后的css
+//没有全局css类,只有全局less类
+@import (reference)'common.less';
+//在全局有这个类名,我不希望合并所有css文件时输出这个模块的border,因为这样做会冲掉全局的类
+//但是我想在这个模块使用这个模块定义的border而不是全局的
+.border(){
+    border : 5px solid firebrick;
+}
+.module1{
+    .box{
+        width:500px;height: 500px;
+        background: palegreen;
+        .middle1{
+            width: 200px;height: 200px;
+            background: peru;float: left;
+            //虽然全局有.small类,但是它只能在本less文件中作为样式类使用,
+            //即只有全局less类,没有全局css类,这样做可以大大提升命名空间
+            //即使引入全局的css类,全局的small的样式是设置oulline的,也可以
+            .small{
+                width:100px;height: 100px;
+                background: fuchsia;
+                //会有两次输出,但是模块中的会冲掉全局的
+                .border;
+                //这里很6;这样就不会在small中加superSmall的样式,而是表示superSmall是个DOM元素
+                .superSmall{
+                    //而这个superSmall是个样式名不是DOM元素
+                    .superSmall;
+                }
+            }
+        }
+        .middle2{
+            width: 200px;height: 200px;
+            background: peru;float: right;
+            .small{
+                width:150px;height: 150px;
+                background: fuchsia;
+                .left{
+                    width:100px;height: 100px;
+                    background: red;
+                    border : 5px solid white;
+                   
+                    //如果有一种方法,可以检测这个类的父级是否有同名,如果有,无效父级的类样式,那就完美了
+                    .left{
+                        width:50px;height: 50px;
+                        background: royalblue;
+                    }
+                }
+            }
+        }
+    }    
+}
+
+.left(@w:100px;@height:100px;@background:red){
+    
+}

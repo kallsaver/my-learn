@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      div{line-height: 200px;font-size: 40px;text-align: center;}
+    </style>
+    <script src="../lib/jquery-3.1.0.js">
+
+    </script>
+  </head>
+
+  <body>
+      <div id="arrow" style="width:200px;height:200px;background:peru">arrow</div>
+      <div id="generalJs" style="width:200px;height:200px;background:gold">generalJs</div>
+      <div id="generalJq" style="width:200px;height:200px;background:teal">generalJq</div>
+  </body>
+  <script type="text/javascript">
+    //'use strict';
+    var run = id => {return id};
+    var run1 = id => id;          //最简单的一种情况
+    var run2 = (id1,id2) => id1+id2;
+    var run3 = (id1,id2) => {console.log(id1,id2)}
+
+    console.log(run(1));
+    console.log(run1(1));
+    console.log(run2(1,1));
+    run3(4,5);
+
+    //数组的map方法会返回一个新的数组,有两个参数,一个是item,一个是index
+    var newArr1 = [1,2,3].map(function(item,index){
+      return item * item;
+    })
+    console.log(newArr1);
+
+    //箭头函数可以简洁回调函数:
+    var newArr2 = [1,2,3].map((item,index)=>item*item);
+    console.log(newArr2);
+
+    var numbers = (...nums) => nums;  //nums是个数组了
+    var list = numbers(1,2,3,4,5);
+    console.log(list);
+
+
+    //箭头函数只是一种简略写法,不能代替所有的js函数
+    //不能用作构造函数,使用new会有错误
+    //不能使用arguments对象,用Rest参数替代
+    //不能作为Generator函数使用,即不可以使用yield命令
+    //箭头函数的this和普通函数的this不同
+    //普通匿名函数的this是默认为是window;
+    //而匿名的箭头函数的this是声明时所在作用域的this,引用声明环境的this
+    //箭头函数是没有this的
+    //例子1:
+    function foo(){
+
+      setTimeout(()=>{
+        console.log('id',this.id)
+      },1000)
+
+    }
+
+    var id = 21;
+    var name = 'window';
+    foo();                //21
+    foo.call({id:42});    //42
+    //例子2: 在非严格模式下,因为严格模式下匿名函数的默认的this是undefined
+    var obj={
+      name : 'obj',
+      //getId这个函数的this是obj
+      getName : function(fn){
+          console.log(this.name)  //obj
+          fn&&fn();
+      }
+    }
+
+    obj.getName(function(){
+      console.log(this.name)       //window
+    })
+
+    //箭头函数作为实参,这个箭头函数是在全局声明的,然后在传给fn
+    obj.getName(()=>{
+      console.log(this.name)       //window
+    })
+
+    //例子3:箭头函数在内部声明的this是作用域中的this,
+    //或者说箭头函数是没有自己的this的,所以不能作为构造函数
+    //再次说明匿名的回调函数和主函数是兄弟函数的关系
+    var hander = {
+      name : 'hander',
+      arrow : function(){
+        $('#arrow').on('click',()=>{
+          console.log(this.name)     //hander
+          setTimeout(function(){
+            console.log(this.name);  //window
+          },1000)
+
+        })
+      },
+      generalJq : function(){
+        //jq中的监听函数的回调函数的this是绑定DOM元素的
+        $('#generalJq').on('click',function(){
+          console.log($(this).text());
+        })
+      },
+      generalJs : function(){
+        document.getElementById('generalJs').onclick = function(){
+          console.log(this.innerHTML)
+        }
+      }
+
+
+    }
+
+    hander.arrow();
+    hander.generalJq();
+    hander.generalJs();
+
+    //箭头函数没有自己的this,所以当然不能用call(),apply(),bind()这些修正this的方法
+    (function(){
+      //箭头自运行函数
+      (()=>{console.log(this.x)})()      //'outer'
+    }).call({x:'outer'});
+
+    (function(){
+      (()=>{console.log(this.x)}).bind({x:'inner'})()    //'outer'
+    }).call({x:'outer'});
+
+    (function(){
+      (()=>{console.log(this.x)}).call({x:'inner'})    //'outer'
+    }).call({x:'outer'});
+
+
+    //当箭头函数返回一个对象时,由于{}表示块,所以要在外围加上();
+    let returnObj = () => ({name:'obj'});
+
+    console.log(returnObj());
+
+
+
+    //嵌套的箭头函数
+    //ES的多重嵌套函数
+    function insert(value) {
+      return {into: function (array) {
+          return {after: function (afterValue) {
+            //+1在afterValue的索引的后面插入,不+1会在afterValue前面插入
+            array.splice(array.indexOf(afterValue) + 1, 0, value);
+            return array;
+          }};
+        }};
+      }
+
+    console.log(insert(2).into([1,3]).after(1));     //[1,2,3]
+
+    //箭头函数改写:
+    let insert1 = (value) => ({into:(array)=>({after:(afterValue)=>{
+      array.splice(array.indexOf(afterValue) + 1, 0, value);
+      return array;
+    }})});
+
+    console.log(insert1(2).into([1,3]).after(1));     //[1,2,3]
+
+
+
+
+
+  </script>
+</html>

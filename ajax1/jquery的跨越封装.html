@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box" style="width:200px;height: 200px;background: darkgoldenrod;"></div>
+	</body>
+	<script src="jquery-3.1.0.js"></script>
+	<script>
+		//谷歌浏览器调试:http://www.cnblogs.com/zourong/p/5020526.html
+		//方法1:
+		$.ajax({
+			type:"get",
+			url:"http://api.douban.com/v2/movie/in_theaters",
+			async:true,
+			dataType : "jsonp",
+			success : function(data){
+				console.log(data)
+			}
+		});
+		
+		//方法2:
+		/*$.ajax({
+  			type:"GET",
+  			url:"http://www.shan520.cn/AmidShipApi/select_dr_data.php",
+  			dataType:"jsonp",
+  			jsonp:"callback",	
+  			jsonpCallback:"jsonpCallback",
+  			//当然在success函数也会响应
+  			success : function(data){
+  				console.log(data)
+  			}
+		});*/
+		
+		//这种响应方法因为是异步的,所以很难处理数据
+//		function jsonpCallback(data){
+//   			console.log(data);
+//		}
+		
+		
+		var div = document.getElementById('box');
+		
+		div.addEventListener('click',function(){
+			alert(1)
+		},false)
+		
+	</script>
+</html>

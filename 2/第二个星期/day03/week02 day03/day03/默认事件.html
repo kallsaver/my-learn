@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<a href="http://www.sina.com">新浪</a>
+<form action="http://www.baidu.com" method="get">
+	<label>电话：</label><input type="text" name="phoneNum" ><input type="submit" value="提交">
+</form>
+
+</body>
+</html>
+<script>
+	var aLink=document.getElementsByTagName('a')[0];
+	var oInput=document.getElementsByName('phoneNum')[0];
+	var oForm=document.getElementsByTagName('form')[0];
+	
+	aLink.onclick=function(ev){//事件对象   绑定在事件上的匿名函数，只可有一个参数，并且这个参数是事件对象
+		alert(33333);
+		//通过事件对象，阻止默认事件----------------------------
+		var oEv=ev || window.event;//ie8以下兼容
+		//alert(oEv.target.tagName)
+		if(window.event){//iE
+			oEv.returnValue=false;
+			return false;
+		}else{
+			oEv.preventDefault();//w3c
+		}
+		
+		
+		//通过return false 阻止默认事件----------------------
+		//return false;
+		
+	};
+	
+	oInput.onkeyup=function(){
+		if(isNaN(this.value)){
+			alert('请输入数字！');
+			this.value='';
+		}
+	};
+	
+	oForm.onsubmit=function(){
+		if(oInput.value=='' || isNaN(this.value)){
+			alert('请输入数字！');
+			return false;//事件绑定的函数，return false阻止默认事件
+			
+		}
+	}
+	
+	
+
+</script>

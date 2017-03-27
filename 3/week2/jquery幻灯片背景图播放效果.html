@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>闪屏制作_动画背景图像</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">      
+        <style>
+            body {
+                background-color: #333;
+            }
+            .background {
+                background: url("images/splash01.jpg");
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+            .text-frame {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+            .text-inner {
+                width: 600px;
+                margin: 15% auto auto auto;
+                background-color: rgba(0, 0, 0, 0.78);
+                padding: 20px;
+                color: #E1E1E1;
+                border-radius: 5px;
+            }
+            .text-inner h1 {
+                margin: 0;
+                padding: 0;
+            }
+            .text-inner p {
+                font-size: 22px;
+                line-height: 30px;
+                margin: 5px 0 5px 0;
+                color: #CCC;
+            }
+        </style>
+        <script src="jQuery_lib/jquery-3.1.0.min.js"></script>
+        <script>
+			//jquery不支持操作背景图动画  
+         	$(function(){
+				var bgimg=["images/splash01.jpg","images/splash02.jpg","images/splash01.jpg","images/splash03.jpg"]
+				
+				//animate(param,speed,easing,fn)  easing不写默认填"swing"  speed 0.4  
+				$(".background").animate({"opacity":0},2000,function(){
+					$(this).css("background",'url("images/splash02.jpg")')
+					.animate({"opacity":1},2000)
+				})
+			})   
+        </script>
+    </head>
+    <body>
+        <div class="background"></div>
+        <div class="text-frame">
+            <div class="text-inner">
+                <h1>背景图像动画</h1>
+                <p>使用jQuery动画动态改变背景图像.</p>
+            </div>
+        </div>
+    </body>
+</html>

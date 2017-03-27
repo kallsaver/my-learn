@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+	function student(n,i){
+		this.type1="a student"
+		this.name=n;
+		this.iq=i;
+		alert("我是一个学生");
+	}
+
+
+	function hxsdStudent(n,i){
+		alert("我是一个火星时代的学生")
+		//hxsdStudent原型和call方法   把底层的name和iq提到实例层    //继承和运行函数是两码事    这里是运行一个函数
+		student.call(this,n,i)
+		this.type2="a hxsd student";
+		
+		
+	}
+	
+	console.log(hxsdStudent.prototype)    //Object   函数的原型初始都是Object 只有函数才有原型
+	
+	//hxsdStudent的原型原来是Object 现在是student这个函数了  而student这个函数的prototype是Object
+	//并且继承这个原型的所有东西(即函数体增加原型所有内容)  有层级关系   new会把student里的内容运行一遍(加不加括号都运行)
+	hxsdStudent.prototype=new student();      
+	
+	console.log(1,hxsdStudent.prototype) 		//student 
+	console.log(2,hxsdStudent.__proto__)	//所有构造器/函数的__proto__都指向Function.prototype，它是一个空函数（Empty function）
+	console.log(student.prototype)			//Object  或者console.log(hxsdStudent.prototype.prototype)
+	console.log(typeof(hxsdStudent),"=============",hxsdStudent)  //function,Function
+	console.log("--------------------------------")
+	//console.log("+++++++++++++++++++++++++++++++++++++++")
+	/*var lk={
+		type3:"a man"
+	}
+	console.log(lk)     //一个上层Object有type3属性  一个底层Object
+	
+	lk=new hxsdStudent("likang",250);
+	
+	console.log(lk);	//上层Object的type3属性没了  多了constructor:function student(n,i)*/
+	console.log("###########################################################")
+	//或者这样:
+	var a={
+		type3:"a man"
+	}
+	
+	lk=Object.create(a)
+	console.log(lk);
+	lk=new hxsdStudent("likang",250);
+	console.log(lk);	//上层Object的type3属性没了  
+	//多了constructor:function student(n,i)*/ 想让Object层有type3属性  在上层的
+	
+	
+	console.log()
+	console.log("#######################################################")
+	
+	console.log("------------------------------------------------")
+	console.log(lk.__proto__)  //从最顶层开始往下找  hxsdstudent往下找就是student
+	console.log(lk.__proto__.__proto__)	//
+	
+	//prototype的作用是构造函数在基本层Object层上方添加"类"  //__proto__是找数据时从最顶层开始往下找
+	//prototype函数才能使用    __proto__普通对象就可以使用  所有函数的__proto__是空函数
+	//函数无法像对象那样无限加类  函数只有三层  上层Function 底层Function 底层Object 所以所有的函数__proto__都是底层Function
+	//总结:查找一个函数经历了什么   用prototype一级一级点语法找下去   查找一个对象经历了什么  用__proto__一级一级找下去
+	console.log(lk instanceof hxsdStudent)		//true
+	console.log(lk instanceof student)			//true
+
+	
+	/*var arr=[1,2,5];
+	
+	var d=Array.prototype.push.call(arr,7);
+	
+	console.log(d)*/
+
+</script>
+</html>

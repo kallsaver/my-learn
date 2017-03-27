@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<body>
+		<div id='div'></div>
+	</body>
+	<script>
+		//document.getElementById方法内部的实现需要用到this,而这个this是document
+		//但是当getId引用document.getElementByid后,在调用getId,此时的this是window
+		//所以要绑定或者修正getId的this
+		var getId = document.getElementById.bind(document)	
+		var d = getId('div')
+	
+		var getId = document.getElementById.bind(document)	
+		var d = getId('div')
+		console.log(d)
+	</script>
+</html>

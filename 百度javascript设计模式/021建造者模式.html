@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var Human = function(param){
+			this.skill = param && param.skill || '保密';
+			this.hobby = param && param.hobby || '保密';
+		}
+		
+		Human.prototype = {
+			getSkill : function(){
+				return this.skill
+			},
+			getHobby : function(){
+				return this.hobby
+			}
+		}
+		
+		var Named = function(name){
+			var that = this;
+			(function(){
+				that.wholeName = name;
+				//是字符串就可以
+				if(name.indexOf(' ')>-1){
+					that.FirstName = name.slice(0,name.indexOf(' '))
+					that.secondName = name.slice(name.indexOf(' '))
+				}
+			})(name,that)
+		}
+		
+		
+		
+		
+		var str = 'ddd'
+		console.log(str.indexOf(''))
+		
+	</script>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0px;padding:0px;}
+ul{list-style:none;}
+li{width:300px;height:40px;margin-bottom:30px;background:green;text-align:center;line-height:40px;}
+button{background:#ccc;width:50px;height:40px;line-height:40px;margin-bottom:10px;}
+</style>
+<script>
+window.onload=function(){
+	var ul=document.getElementsByTagName("ul")[0];
+	var button=document.getElementsByTagName("button")[0];
+	
+	ul.onclick=function(ev){
+		ev=ev||event;
+		//事件源  w3c:鼠标的目标   IE:鼠标的源元素
+		var evsrc=ev.target||ev.srcElement;
+		//如果事件源是自己 那么这个函数结束
+		if(evsrc==this){
+			return;
+		}
+		if(evsrc.className=="blue"){
+			evsrc.style.background="blue";
+		}
+	}	
+	
+	button.onclick=function(){
+		for(var i=0;i<10;i++){
+			
+			var li=document.createElement("li");
+			li.innerHTML="新标签"+(i+1);
+			if(i==4){
+				li.className="blue";
+			}
+			ul.appendChild(li);
+						
+		}
+		
+	}
+	
+}
+</script>
+</head>
+
+<body>
+<button>添加li</button>
+<ul>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+<li>4</li>
+<li>5</li>
+<li>6</li>
+<li>7</li>
+<li>8</li>
+<li>9</li>
+</ul>
+</body>
+</html>

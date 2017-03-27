@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function A(){
+			this.type = 'A'
+		}
+		
+		function B(){
+			this.type = 'B'
+		}
+		
+		function C(){
+			this.type = 'C'
+		}
+		B.prototype = new A()
+		C.prototype = new B()
+		
+		var a = new C()
+		console.log(a)     //a除了顶层,其他添加层都是A类的名字
+		
+		function D(){
+			this.type = 'D'
+		}
+		
+		D.prototype = a   //把a作为其他实例的下一层后,a的顶层也改名为A类的名字了
+		console.log(a)
+		
+		
+		//改名规则:
+		//只有作为最顶层的对象才不受constructor的影响,
+		//其他层如果没有设置constructor属性,所以除了顶层对象,其它的添加层都会变成下层的类
+		//避免自动改名问题:设置constructor
+		//constructor
+		function A2(){
+			this.type = 'A2';
+			A2.prototype.constructor = A2
+		}
+		
+		function B2(){
+			this.type = 'B2';
+			B2.prototype.constructor = B2
+		}
+		
+		function C2(){
+			this.type = 'C2';
+			C2.prototype.constructor = C2
+		}
+		B2.prototype = new A2()
+		C2.prototype = new B2()
+		
+		var a2 = new C2()
+		console.log(a2)     
+		
+		function D2(){
+			this.type = 'D2'
+		}
+		
+		D2.prototype = a2   
+		console.log(a2)
+		
+		
+	</script>
+</html>

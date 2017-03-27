@@ -1,0 +1,177 @@
+@charset "utf-8";
+/* CSS Document */
+.header{}
+
+.header_top{height:100px;}
+
+.header_top .logo{float:left;margin-top:20px;}
+
+.header_top .sousuo{float:left;margin-left:92px;text-align:center;margin-top:25px;}
+
+.header_top form .text{border:2px solid #b61d1d;width:450px;height:32px;line-height:32px;color:#666;float:left;padding-left:4px;font-family:"宋体";font-size:16px;}
+
+.header_top form .submit{width:82px;height:36px;background-color:#b61d1d;line-height:36px;color:#fff;float:left;cursor:pointer;font-family:"宋体";font-size:16px;}
+
+.header_top .sousuo a{color:#666;font-family:"宋体";font-size:12px;margin:8px 12px 0px 0px;overflow:hidden;float:left;}
+
+/*记得给a标签设置浮动，否则有margin */
+
+.header_top .sousuo a:hover{color:#c81623;}
+
+.header_top .buy{float:right;margin-right:65px;margin-top:25px;border:1px solid #dfdfdf;  background-color:#f9f9f9;  width:96px;height:34px;line-height:34px;font-family:"微软雅黑","宋体";font-size:13px;color:#666;background-image:url(../images/jd2015img.png);background-repeat:no-repeat;background-position:18px -49px;padding-left:43px;position:relative;}
+
+.header_top .number{position:absolute;height:14px;border-radius:7px 5px 5px 0px;color:#fff;background-color:#c81623;top:-4px;left:104px;font-size:13px;line-height:14px;text-align:center;font-family:"宋体";padding:0px 5px;}
+
+.header_top .buy i{font-family:consolas;margin-left:16px;color:#999;font-size:12px;}
+
+.header_bot{margin-top:10px;border-bottom:2px solid #b1191a; }
+
+.header_bot .qubu{float:left;color:#fff;padding-left:10px;width:200px;height:44px;font-family:"微软雅黑";font-size:15px;background-color:#b1191a;line-height:44px;}
+
+.header_bot li{float:left;}
+
+.header_bot li a{margin:0px 20px;font-family:"微软雅黑";font-size:16px;line-height:44px;color:#333;}
+
+.header_bot li a:hover{color:#c81623;}
+
+.wangju{height:597px;background-color:#f2f2f2;}
+
+.wangju_top ul li{float:left;height:45px;font-family:consolas;font-size:16px;color:#666;line-height:45px;}
+
+.wangju_top ul li a{color:#666;font-family:"微软雅黑";font-size:12px;margin:0 13px;line-height:45px;}
+
+.wangju_top ul .title a{font-size:18px;font-weight:bolder;}
+
+.wangju .wangju_main{height:551px;background-color:#fff;}
+
+.wangju .wangju_main .left{float:left;width:378px;height:516px;padding-top:35px;text-align:center;}
+
+.wangju .wangju_main .left .bigpic{margin-bottom:36px;}
+
+.wangju .wangju_main .left .piclist{position:relative;}
+.wangju .wangju_main .left .piclist:before{content:"<";position:absolute;top:50%;transform:translateY(-50%);left:14px;font-size:26px;color:#ddd;font-weight:bolder;font-family:consolas;}
+
+.wangju .wangju_main .left .piclist:after{content:">";position:absolute;top:50%;transform:translateY(-50%);right:14px;font-size:26px;color:#ddd;font-weight:bolder;font-family:consolas;}
+
+.wangju .wangju_main .left .piclist:before{content:"<";position:absolute;top:50%;transform:translateY(-50%);left:14px;font-size:20px;color:#ddd;}
+
+.wangju .wangju_main .left .piclist ul{display:inline-block;}
+.wangju .wangju_main .left .piclist li{float:left;}
+.wangju .wangju_main .left .piclist ul li a{margin-right:8px;}
+.wangju .wangju_main .left .piclist ul li .first{border:2px solid #e4393c;}
+
+.wangju .wangju_main .left .text{}
+.wangju .wangju_main .left .text .text_left{float:left;margin-left:34px;line-height:66px;font-family:"微软雅黑";color:#666;font-size:12px;}
+.wangju .wangju_main .left .text .text_right{float:right;margin-right:30px;}
+
+.wangju .wangju_main .left .text .text_right div{float:left;margin:0 11px;height:38px;padding-top:28px;}
+.wangju .wangju_main .left .text .text_right a{font-family:"微软雅黑";color:#666;font-size:12px;padding-left:16px;background-image:url(../images/ico.png);background-repeat:no-repeat;line-height:14px;}
+.wangju .wangju_main .left .text .text_right .share{background-position:0px -199px;}
+.wangju .wangju_main .left .text .text_right .consider{background-position:-40px -199px;}
+
+.wangju .wangju_main .center{float:left;width:588px;height:551px;}
+
+.wangju .wangju_main .center h3{margin-top:14px;margin-bottom:11px; font-family:"微软雅黑";color:#666;font-size:16px;width:498px;line-height:24px;}
+
+.wangju .wangju_main .center .price{background-color:#f7f7f7;height:51px;}
+
+.wangju .wangju_main .center .price .price_left{float:left;width:250px;height:51px;padding-left:12px;}
+
+.wangju .wangju_main .center .price .price_left span{line-height:51px;}
+
+.wangju .wangju_main .center .price .price_left .one{letter-spacing:7px;font-family:"微软雅黑";color:#666;font-size:12px;}
+
+.wangju .wangju_main .center .price .price_left .two{font-family:"微软雅黑";color:#e4393c;font-size:20px;padding:0px 4px 0px 8px;font-weight:bolder;}
+
+.wangju .wangju_main .center .price .price_left .three{font-family:"微软雅黑";color:#666;font-size:12px;}
+
+.wangju .wangju_main .center .price .price_right{float:right;width:68px;height:34px;border-left:1px solid #e6e6e6;margin-right:5px;margin-top:10px;text-align:center;}
+
+.wangju .wangju_main .center .price .price_right a{line-height:16px;font-family:"宋体";color:#999;font-size:14px;}
+
+.wangju .wangju_main .center .price .price_right span{line-height:18px;font-family:"微软雅黑";color:#005ea7;font-size:14px;}
+
+.wangju .wangju_main .center .addr{margin:16px 0px 0px 12px;height:25px;}
+
+.wangju .wangju_main .center .addr span{line-height:25px;font-size:12px;font-family:"宋体";color:#666;float:left;}
+
+.wangju .wangju_main .center .addr .one{} 
+.wangju .wangju_main .center .addr .two{line-height:23px;border:1px solid #cecbce;width:116px;padding-left:4px;position:relative;}
+
+.wangju .wangju_main .center .addr .two:after{content:"";position:absolute;width:9px;height:6px;right:4px;top:50%;transform:translateY(-50%);background-image:url(../images/sanjiao_06.jpg);background-repeat:no-repeat;background-position:0px 0px;}
+.wangju .wangju_main .center .addr .three{padding:0px 8px 0px 6px;font-size:14px;font-weight:bolder;}
+.wangju .wangju_main .center .addr .four{}
+.wangju .wangju_main .center .addr .five{margin:9px 7px 0px 7px;width:1px;height:11px;background-color:#9b669b;}
+.wangju .wangju_main .center .addr .six{}
+
+.wangju .wangju_main .right{float:left;width:244px;height:551px;}
+
+.wangju .wangju_main .center .service{padding:11px 0px 8px 12px;height:23px;border-bottom:1px dotted #ddd;}
+
+.wangju .wangju_main .center .service span{line-height:23px;font-size:12px;font-family:"宋体";color:#666;float:left;}
+
+.wangju .wangju_main .center .color_choice{height:70px;padding-top:13px;padding-left:12px;}
+
+.wangju .wangju_main .center .color_choice .zuo{line-height:42px;font-size:12px;font-family:"宋体";color:#666;float:left;}
+
+.wangju .wangju_main .center .color_choice .you{float:left;width:450px;}
+
+.wangju .wangju_main .center .color_choice .you a{margin-left:8px;height:29px;float:left;border:1px solid #ddd;margin-top:4px;padding-left:30px;font-size:12px;font-family:"宋体";color:#666;line-height:29px;padding-right:5px;}
+
+.wangju .wangju_main .center .renew{height:30px;margin-top:12px;}
+.wangju .wangju_main .center .renew .zuo{line-height:30px;font-size:12px;font-family:"宋体";color:#666;float:left;}
+
+.wangju .wangju_main .center .renew .you{float:left;}
+
+.wangju .wangju_main .center .renew .you a{height:28px;border:1px solid #ddd;color:#666;margin-left:8px;line-height:28px;padding:0px 25px 0px 26px;position:relative;}
+.wangju .wangju_main .center .renew .you a:after{content:"";position:absolute;width:9px;height:6px;right:7px;top:50%;transform:translateY(-50%);background-image:url(../images/sanjiao_06.jpg);background-repeat:no-repeat;background-position:0px 0px;}
+.wangju .wangju_main .center .renew .you a .one{height:28px;padding-right:5px;font-size:12px;font-family:"宋体";}
+
+.wangju .wangju_main .center .renew .you a .two{font-size:12px;font-family:arial;}
+
+.wangju .wangju_main .center .renew .wenhao{width:16px;height:16px;margin:6px 0px 0px 8px;background:url(../images/wenhao_10.jpg) no-repeat top left;float:left;}
+
+.wangju .wangju_main .center .instalments{height:28px;padding-top:14px;}
+.wangju .wangju_main .center .instalments .zuo{line-height:28px;font-size:12px;font-family:"宋体";color:#666;float:left;}
+
+.wangju .wangju_main .center .instalments .you{float:left;width:450px;}
+
+.wangju .wangju_main .center .instalments .you a{margin-left:8px;height:26px;float:left;border:1px solid #ddd;padding-left:6px;font-size:12px;font-family:arial;color:#666;line-height:26px;padding-right:7px;}
+
+.wangju .wangju_main .center .instalments .hui{width:17px;height:17px;margin:5px 2px 0px 8px;background:url(../images/hui_11.jpg) no-repeat top left;float:left;}
+
+.wangju .wangju_main .center .instalments .wenhao{width:16px;height:16px;background:url(../images/wenhao_10.jpg) no-repeat top left;float:left;margin-top:5px;}
+
+.wangju .wangju_main .center .buy{margin:25px 0px 0px 10px;height:36px;}
+
+.wangju .wangju_main .center .buy .number{float:left;width:33px;height:34px;text-align:center;line-height:34px;border:1px solid #ccc;font-size:12px;}
+.wangju .wangju_main .center .buy .opt{width:15px;height:34px;background-color:#f1f1f1;float:left;border:1px solid #ccc;border-left:none; text-align:center;}
+.wangju .wangju_main .center .buy .opt .add{width:15px;height:17px;border-bottom:1px solid #ccc;font-size:12px;color:#666;font-size:12px;}
+.wangju .wangju_main .center .buy .opt .reduce{width:15px;height:16px;font-size:12px;color:#ccc;}
+.wangju .wangju_main .center .buy .cart{width:99px;height:36px;border-radius:2px;color:#fff;background-color:#e54447;font-size:16px;font-family:"宋体";font-weight:bolder;padding-left:36px;line-height:36px;margin-left:10px;float:left;}
+.wangju .wangju_main .center .buy .oneclick{width:62px;height:36px;background-color:#84c360;font-size:16px;font-family:"宋体";font-weight:bolder;margin-left:10px;border-radius:2px;color:#fff;padding-left:11px;float:left;line-height:36px;}
+.wangju .wangju_main .center .tip{height:18px;margin:22px 0px 27px 12px;font-size:12px;font-family:"宋体";color:#666;line-height:18px;}
+.wangju .wangju_main .center .tip .title{float:left;width:60px;}
+.wangju .wangju_main .center .tip .tip_list{float:left;height:18px;padding-right:16px;}
+.wangju .wangju_main .center .tip .tip_list li{float:left;font-size:12px;font-family:"宋体";color:#666;line-height:18px;margin-left:18px;margin-right:16px;}
+.wangju .wangju_main .center .other_info{width:160px;height:26px;border:1px solid #dedfde;margin-left:10px;font-family:"宋体";font-size:12px;color:#666;}
+.wangju .wangju_main .center .other_info a{line-height:26px;margin-left:10px;color:#005aa0;
+font-family:"宋体";font-size:12px;}
+.wangju .wangju_main .center .other_info span{font-family:"宋体";font-size:12px;color:e4393c;font-family:"宋体";font-size:12px;line-height:26px;margin-left:12px;}
+.wangju .wangju_main .right{width:244px;height:551px;background-color:#ccc;}
+.wangju .select{height:264px;border-bottom:1px solid #ddd;border-top:2px solid #999;margin-top:10px;}
+.wangju .select .title{background-color:#f7f7f7;height:29px;border-bottom:1px solid #ddd;border-right:1px solid #ddd;}
+.wangju .select .title  li {float:left;border-top:2px solid #999;margin-top:-2px;}
+.wangju .select .title  li .far_left{border-left:1px solid #ddd;}
+.wangju .select .title  li a{padding:0px 13px 0px 11px;font-family:"宋体";font-size:16px;line-height:29px;font-weight:bolder;color:#666;height:29px;border-left:1px solid #f7f7f7;border-right:1px solid #f7f7f7;}
+.wangju .select .title  li:hover{border-top-color:#e4393c;margin-top:-6px;}
+.wangju .select .title  li:hover a{z-index:2;line-height:37px;border-top-color:#e4393c;border-left:1px solid #ddd;border-right:1px solid #ddd;background-color:#fff;height:34px;}
+
+.wangju .select .pic_list{height:210px;margin-top:24px;}
+
+.wangju .select .pic_list ul li{float:left;width:135px;height:210px;margin-right:66px;text-align:center;}
+.wangju .select .pic_list .far_left{margin-left:29px;}
+
+.wangju .select .pic_list .far_right{margin-right:0px;}
+.wangju .select .pic_list ul li p{line-height:18px;margin-top:4px;font-family:"微软雅黑";font-size:12px;color:#666;}
+.wangju .select .pic_list ul li .money{margin-top:0px;color:#e4393c;font-family:arial;}

@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+*{margin:0;padding:0;font-size:0px;}
+
+body{height:3000px;}
+
+.inner{width:960px;margin:0 auto;height:600px;}
+
+.border{border:1px solid #000;}
+
+.left{float:left;}
+
+.right{float:left;}
+
+.content{}
+
+.item{min-height:200px;margin-bottom:30px;}
+
+.red{background:red;}
+
+.green{background:green;}
+
+.ccc{background:#ccc;}
+
+.fixed{position:fixed;width:240px;top:0px;}
+
+/*----------------------------------*/
+
+.header{height:50px;background:red;}
+
+.main{margin-top:20px;}
+
+.main .inner .left{width:700px;}
+
+.main .inner .right{width:240px;margin-left:20px;}
+
+.main .inner .left .content{height:700px;background:#ccc;font-size:16px;color:black;}
+.main .inner .right .content{height:700px;}
+
+.main .inner .right .content .item{}
+
+.main .inner .right .content .content{margin-bottom:20px;height:200px;}
+</style>
+
+<script>
+window.onload=function(){
+	var oFixed=document.getElementsByClassName("item green")[0];
+
+	var oCcc=document.getElementsByClassName("item ccc")[0];
+	window.onscroll=function(){
+		//分别是火狐和IE的系统变量
+		var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
+		console.log(scrollTop)
+		if(scrollTop>=70){
+			oFixed.className="item green fixed"	
+		}
+		
+		if(scrollTop<70){
+			oFixed.className="item green"	
+		}
+	}
+}
+
+
+</script>
+
+</head>
+
+<body>
+<div class="header"></div>
+<div class="main">
+	<div class="inner">
+         <div class="left">
+         	<div class="border">
+            	<div class="content">滚动条</div>
+            </div>
+         </div>
+         <div class="right">
+            
+            	<div class="content">
+                    <div class="content">
+                		<div class="item green"></div>
+                       
+                    </div>
+                    <div class="content">
+                    	<div class="item ccc"></div>
+                    </div>	
+                    <div class="content">
+                    	<div class="item ccc"></div>
+                    </div>
+                </div>
+            
+         </div> 	
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//字边界是定位符   所以它是不打印的
+		var str="f  dkj 5d df"
+		var a1=str.match(/\b[a-z]/g)		//\b匹配一个字边界,后面要连着小写字母(单个)
+		console.log(a1)						//[f,d,d]
+		
+		var a2=str.match(/\B[a-z]/g)		//\B匹配非字边界,后面要连着小写字母(单个)
+		console.log(a2)						//[k,j,d,f]	
+	</script>
+</html>

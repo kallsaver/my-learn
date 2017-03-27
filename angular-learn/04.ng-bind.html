@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+		<script>
+			angular.module("myapp",[])
+			angular.module("myapp").controller("myCtrl",function($scope){
+				//$scope.data=12
+			})
+			
+		</script>
+	</head>
+	<!--view改变数据会影响module,module改变数据也会影响view-->
+	<body ng-app="myapp" ng-controller="myCtrl">
+		<input type="text" ng-model="data"  value="">
+		<br>
+		<div ng-bind="data"></div>
+		<br>
+		<input type="text" ng-model="data"  value="">
+		
+	</body>
+</html>
+ 

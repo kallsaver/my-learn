@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<style>
+*{margin:0;padding:0;}
+
+select{width:80px;height:40px;}
+button{width:100px;height:40px;line-height:40px;font-size:14px;}
+</style>
+<script>
+window.onload=function(){
+	var aSelect=document.getElementsByTagName("select");
+	var button=document.getElementsByTagName("button")[0];
+	
+	//years最终会是select[0]的最后一个option的对象
+	
+	for(var i=0;i<2;i++){
+	var years=document.createElement("option");
+	years.innerHTML=2016+i;	
+	years.value=2016+i
+	aSelect[0].appendChild(years);
+	}
+	
+	for(var i=1;i<=12;i++){
+	var months=document.createElement("option");
+	months.innerHTML=i;
+	months.value=(i<10?'0'+i:i);
+	aSelect[1].appendChild(months);
+	}
+	
+	for(var i=1;i<=31;i++){
+	var dates=document.createElement("option");
+	dates.innerHTML=i;
+	dates.value=(i<10?'0'+i:i);
+	aSelect[2].appendChild(dates);
+	}
+	
+	button.onclick=function(){
+		var year=(aSelect[0].value);
+		
+		//setDate 月份的参数的值是0~11		
+		var month=parseInt(aSelect[1].value)-1;	
+		var date=parseInt(aSelect[2].value);
+		
+		//persent是时间变量  四维空间  操作时间   时间实例化 
+		var four=new Date();
+		
+		//得到距离1970年的毫秒数
+		var persent_time=four.getTime();
+		
+		//year下面可以设月 日  操作四维 时间是拨到的是full 比如说现在是2016年7号49秒 那么拨到的事件2017年7号49秒
+		four.setFullYear(year,month,date);
+		
+		
+		
+		
+		
+		//得到的天数一定是个整数
+		//alert(diff_days)
+		
+		//var diff_days=(future_time-persent_time)/86400000;
+		
+		
+		/*----------------------------------------------------------------*/
+		
+		
+		//拨到的时间不再是当前的49秒了  所以这时候得到的天数是个小数
+		four.setHours(0,0,0);
+				
+		var future_time=four.getTime();
+		
+		//相差的秒数
+		var t=(future_time-persent_time)/1000;
+		
+		
+		
+		//过滤取余  取剩下的小时 就把天数过滤掉  天数是整数 所以去整
+		var days=parseInt(t/86400)
+		
+		//%之后是秒
+		var hours=parseInt((t%86400)/3600);
+		
+		var a=t%86400;
+		
+		var minutes= parseInt((a%3600)/60);
+		
+		a=a%3600;
+		
+		var seconds=a%60;
+		alert("距离"+year+"年"+(month+1)+"月"+date+"日还有"+days+"天"+hours+"小时"+minutes+"分钟"+seconds+"秒");
+			
+	}
+
+}
+
+
+</script>
+
+<body>
+<select></select><label>年</label>
+
+
+<select></select><label>月</label>
+<select></select><label>日</label>
+<button>相差天数</button>
+</body>
+</html>

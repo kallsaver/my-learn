@@ -1,0 +1,17 @@
+//模块化开发,bootstrap结合
+1.模块中所有的less的类(都要加括号)不会在css文件中输出类(不会污染其他less文件),但是却可以在less的嵌套结构中生效,在本less中可以复用
+
+2.可以建一个全局common的less,在模块的less通过@import引入全局的less;使用@import (reference)'common.less';
+这样在这个模块的less文件可以使用commom定义的类,但是却不会在这个模块的less输出的css文件中输出common定义的类
+
+3.common.less的类生成的common.css不引入html,各模块合并的less才引入
+
+4.less在模块中通过加括号的类复用本模块的代码,不输出类到css
+
+5.@import (less,reference)'index.css';使用这句代码可以把bootstrap的css类用到模块或者全局less中
+
+6.一句话:less模块化开发不存在全局的css类,只有各模块互相引用的less类,引用类只能用在less中却不能输出在css输出类
+
+7.引用多个模块的less类就会有命名冲突,这时候就需要有一个最高优先级的less类(如bootstrap),称为全局less类,总是放在引用的最后保证优先级
+
+8.使用less可以过滤没有用到的bootstrap的类(优化)

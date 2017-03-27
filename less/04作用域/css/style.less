@@ -1,0 +1,27 @@
+@color : peru;
+
+.box0{#bgcolor>.a;width: 200px;height: 200px;line-height: 200px;}
+
+//js变量的提升和作用域一样在less中适用
+#bgcolor(){
+    background:peru;
+    .a(){
+        text-align: center;
+        //@color : red;
+        color : #fff;
+        font-size: 30px;
+        text-align: center;
+        background: @color;
+        //&就是this,指实例化出来的对象
+        &:hover{
+            background: gold;
+        };
+        .b(){
+            background: khaki;
+            width: 100px;height: 100px;line-height: 100px;font-weight: bolder;
+        };
+        @color : teal;
+    } 
+}
+
+.box1{#bgcolor>.a;width: 200px;height: 200px;line-height: 200px;}

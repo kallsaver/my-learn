@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function student(){
+			this.type="a student";
+			this.iq="200";
+			//student.prototype是上层Object
+		}
+		
+		var a={}
+		
+		student.call(a)	//没有student  属性数据加载在上层Object
+		
+		console.log(a)
+		
+		var b=new student();	
+		console.log(b)			//有一个student层  上面是student的属性数据   有上层Object和底层Object
+		
+	</script>
+</html>

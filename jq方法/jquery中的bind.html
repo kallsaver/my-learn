@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		*{margin:0;padding: 0;}
+			ul{list-style: none;margin:20px auto;width: 200px;}
+			li{width:200px;height: 40px;margin-bottom: 20px;
+			border: 1px solid saddlebrown;}
+			.gold{background: gold !important;}
+		</style>
+		<script src="js/jquery-3.1.0.js"></script>
+	</head>
+	<body>
+		<div style="width:200px;height: 200px;background: forestgreen;margin: 20px auto;"></div>
+		<ul>
+			<li class="box1"></li>
+			<li class="box1"></li>
+			<li class="box2"></li>
+			<li class="box2"></li>
+		</ul>
+		<span style="display: block;width:200px;height: 100px;margin: 20px auto;
+			background:teal;"></span>
+	</body>
+	<script>
+		//bind替代on
+		$("div").bind("click",function(){
+			$(this).toggleClass("gold")
+		})
+	
+		//bind在jq中是绑定多个事件的函数  第一个参数是事件的字符串 用空格隔开
+		$(".box1").bind("mouseenter mouseleave",function(){
+			$(this).toggleClass("gold");
+		})
+		
+		//
+		$(".box2").bind({
+			mouseenter:function(){
+				$(this).css("background","red")
+			},
+			mouseleave:function(){
+				$(this).css("background","fuchsia")
+			},
+			click:function(){
+				$(this).css("background","gold")
+			}
+		})
+		
+		//bind可以在事件处理之前传递一些附加的数据
+		function handler(event){
+			alert(event.data.foo)
+		}
+		
+		//event.data是jq特有的,当前执行的处理器被绑定时,包含可选的数据传递给jQuery.fn.bind
+		
+		$("span").bind("click",{foo:"bar"},handler)
+	
+	
+	</script>
+</html>

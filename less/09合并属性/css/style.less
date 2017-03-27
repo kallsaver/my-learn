@@ -1,0 +1,24 @@
+//1. +_ 合并的属性以空格分隔
+.mixin(){
+    box-shadow+_: 0px 2px;
+}
+
+.box1{
+    width: 200px;
+    height: 200px;
+    .mixin;
+    box-shadow+_: 10px 0px rgba(0,0,255,0.8);
+}
+
+//2. +合并的属性以','分隔
+.mixin1(){
+    background+: url(../images/01.jpg) no-repeat;
+}
+.box2{
+    margin-top:20px;
+    width: 300px;
+    height: 300px;
+    .mixin1;
+    background+_ : center;
+    background+: red;
+}

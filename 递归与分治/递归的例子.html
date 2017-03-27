@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//实现的功能是反转数组中的元素
+	/*	var func = function(x,indx,str){ 
+  			return indx == 0 ? str : func(x,--indx,(str +=" " + x[indx]));; 
+  		} */
+  		
+  		
+  		var func=function(arr,index,str){		//在参数中var 和在函数里面var是不一样的  在参数中var只执行一遍   递归不会var第二遍
+  			if(index==0){
+  				return str;
+  	
+  			}
+  			else{
+  				return arguments.callee(arr,--index,(str+=""+arr[index]))	//执行函数只是个幌子  真正的语句在参数中执行了
+  			}
+  			 			
+  		}
+  		
+  		//或者我希望返回的是一个新数组:
+  		var getReverse=function(){
+  			if(index==0){return str}
+  		}
+  		
+  		
+  		
+		var arr = new Array("apple","banna","orange","apple2","apple3"); 
+		var arr1 = arr.slice(0) 
+		var arr3 = func(arr1,arr1.length,""); 
+		var arr2 = arr.slice(0).reverse(); 
+		console.log(arr2); 
+		console.log(arr); 
+		console.log(arr3);
+		
+	</script>
+</html>

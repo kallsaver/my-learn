@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		*{margin:0;padding: 0;}
+			.highlight {
+				color: yellow;
+			}
+		</style>
+	</head>
+	<script src="angular.js"></script>
+	<script src="app.js"></script>
+	<body ng-app="myapp" ng-controller="myCtrl">
+		<div style="height: 50px;background: red;">
+		
+		</div>
+		<div style="height: 50px;background: aqua;"
+		ng-click="run(2)"></div>
+		<!--onwordclick在templateUrl作用域定义   wordclickhandle在myCtrl作用域定义  通过onwordclick:"="把引用值传给 wordclickhandle -->
+		<word text="{{name}}" onwordclick="wordclickhandle"></word>	<!--<word>还是用myCtrl的数据  但是templateUrl用的是另外的一个作用域-->
+		<word name1="name" onwordclick="wordclickhandle">This a word </word>
+		<word text="The top open source framework for building amazing mobile apps." 
+			onwordclick="wordclickhandle">last</word>
+	</body>
+	
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function Book(){
+			//Book.prototype的意思是Book构造函数new出来的实例的__proto__(下一层)
+			//在构造函数里面改变它的实例的__proto__的指针是无效的,必须要在构造函数外面写
+			//在构造函数里面改变它的实例的__protp__的属性是有效的,前提是不能有改变指针的语句,否则会受影响变无效
+			Book.prototype = {
+				isChinese : true,
+			}
+			console.log(222222)
+			//
+			Book.prototype.isJsBook = false;
+		}
+		
+		//私有作用域链,没有污染全局的上层Object
+		//不能写在Book函数内部
+		Book.prototype = {
+			isChinese : true,
+			k : console.log(11111)
+		}
+		
+		
+		var a = new Book()
+		
+		console.log(a)
+		console.log(a.isChinese)
+		console.log(a.isJsBook)
+		
+		function Student(){
+			//不能写在里面,否则无效
+			//Student.prototype = new Book()
+			this.type = "a student"
+		}
+		
+		Student.prototype = new Book()
+		
+		var b = new Student()
+		
+		console.log(b)
+		
+	</script>
+</html>

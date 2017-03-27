@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<style>
+			*{margin: 0;padding: 0;}
+		</style>
+	</head>
+	<body>
+		<!--基本样式-->
+		<table class="table text-center">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>年龄</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+					<td>50</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+					<td>50</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		
+		<br><!--斑马样式-->     <!--text-center在table上设置对th无效-->
+		<table class="table table-striped text-center">
+			<thead>
+				<tr>
+					<th class="text-center">编号</th>
+					<th class="text-center">姓名</th>
+					<th class="text-center">性别</th>
+					<th class="text-center">年龄</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+					<td>50</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+					<td>50</td>
+				<tr>
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+					<td>50</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<br><!--有竖边框的表格-->
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>年龄</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+					<td>50</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+					<td>50</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<br><!--悬停鼠标  背景颜色变化-->
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>年龄</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+					<td>50</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+					<td>50</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<br><!--单独设置每一行的背景颜色-->
+		<table class="table">
+			<thead>
+				<tr class="active">		<!--hover悬停的颜色-->
+					<th>编号</th>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>年龄</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="danger">		<!--info,warning,success-->
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+					<td>50</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+					<td>50</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<br><!--隐藏某一行-->
+		<table class="table">
+			<thead>
+				<tr class="active">		<!--hover悬停的颜色-->
+					<th>编号</th>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>年龄</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="sr-only">		<!--info,warning,success-->
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+					<td>50</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>李四</td>
+					<td>男</td>
+					<td>40</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<br>
+		<table class="table">
+			<thead>
+				<tr class="active">		<!--hover悬停的颜色-->
+					<th>编号</th>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>年龄</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="bg-success">		<!--用bg也行-->
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+					<td>50</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>李四</td>
+					<td>男</td>
+					<td>40</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</body>
+</html>

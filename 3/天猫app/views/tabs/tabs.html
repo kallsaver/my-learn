@@ -1,0 +1,17 @@
+<!--选项卡    tabs-striped带跳动白框  tabs-icon-top把图标顶上去 title文字出现 -->
+<!--选项卡有两部分  选项卡按钮(跳状态)和内嵌的视图(跳模板)-->
+<!--选项卡不能写<ion-content>-->
+<ion-tabs class="tabs-assertive tabs-striped tabs-icon-top">
+    <ion-tab title="商品" icon-on="icon ion-ios-filing"
+             icon-off="icon ion-ios-filing-outline" ui-sref="tabs.products" >
+        <ion-nav-view name="tabs-products"></ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="购物车" icon-on="icon ion-ios-filing"
+             icon-off="icon ion-ios-filing-outline" ui-sref="tabs.cart" >
+        <ion-nav-view name="tabs-cart"></ion-nav-view>
+    </ion-tab>
+
+
+
+</ion-tabs>

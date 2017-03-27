@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script src="day4/jQuery_lib/jquery-3.1.0.min.js"></script>
+<style>
+	ul{list-style:none;width:600px;background:peru;margin:100px auto;}
+	li{margin-bottom:50px;width:500px;height:50px;background:red;color:#fff;text-align:center;line-height:50px;font-size:20px;position:relative}
+	li>span{width:100px;height:30px;position:absolute;top:5px;right:5px;background:#2A6494;display:block;line-height:30px;}
+	li>div{position:absolute;width:100px;height:30px;top:5px;left:5px;background:#C1B562;line-height:30px;}
+	#money{width:100px;height:40px;position:absolute;right:100px;top:50px;
+	background:#B32B66;text-align:center;color:#fff;line-height:40px;}
+	#goodsNumber{position: absolute;width:30px;padding: 0px 5px 0px 5px;text-align: center;
+	background: red;color: #fff;line-height: 30px;font-size: 16px;height: 30px;top:40px;right: 95px;}
+	
+	#clearAll{width:100px;height:40px;position:absolute;right:100px;top:150px;
+	background:#B32B66;text-align:center;color:#fff;line-height:40px;padding: 5px;}
+</style>
+</head>
+
+<body>
+<ul id="car"></ul>
+<div id="money"></div>
+<div id="goodsNumber"></div>
+<div id="clearAll">删除所有商品</div>
+<div id="detail" style="width:400px;height:500px;margin:0 auto;background:peru;position:absolute;top:100px;">
+<h4>详情页</h4>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+</div>
+
+
+</body>
+<script>
+
+
+
+		var products=[
+            {name:"商品01",category:"商品类别01",price:100,desc:"2016流行新款",imgsrc:"images/TB1_50x50.jpg"},
+            {name:"商品02",category:"商品类别01",price:120,desc:"2016流行新款",imgsrc:"images/TB2_50x50.jpg"},
+            {name:"商品03",category:"商品类别01",price:80,desc:"2016流行新款",imgsrc:"images/TB3_50x50.jpg"},
+            {name:"商品04",category:"商品类别01",price:85,desc:"2016流行新款",imgsrc:"images/TB4_50x50.jpg"},
+            {name:"商品05",category:"商品类别01",price:820,desc:"2016流行新款",imgsrc:"images/TB1_50x50.jpg"},
+            {name:"商品06",category:"商品类别02",price:180,desc:"2016流行新款",imgsrc:"images/TB2_50x50.jpg"}
+        
+        ]
+		
+		//全局变量无孔不入
+		var cart=[];
+		//
+		var mathtool={
+			//cart:[],
+			add:function(product){
+				//先判断cart中是否有这件商品  如果有 count++
+				for(var i=0;i<cart.length;i++){
+					if(cart[i].item.name===product.item.name){
+						product.count++ //或者cart[i].count++ 引用同一个对象(浅克隆)
+						return;   //return出for循环
+					}
+				}
+				//执行到这步 说明购物车中没有重复商品
+				cart.push(product)	
+				console.log(cart)
+								
+			},
+			
+			reduct:function(product){
+				
+				
+			},
+			
+			totalNumber:function(){
+				var total=0;
+				for(var i=0;i<cart.length;i++){
+					total+=cart[i].count
+				}
+				return total;
+			},
+			
+			totalMoney:function(){
+				var total=0;
+				for(var i=0;i<cart.length;i++){
+					total+=cart[i].item.price*cart[i].count;
+				}
+				return total;
+			},
+			
+			clear:function(){			
+				//如果只写cart.length=0;对象中count=1没有恢复  这样写不对
+				$("li").each(function(index){
+					//这里也可以给data设几个属性
+					//这里count更好的处理方法是把count放在工具包中定义
+					//这样count不是DOM数据,也不封在原始对象中  生命周期更好处理
+					$(this).data("product",{item:products[index],count:1});
+					//console.log($(this).data("product"))
+				})
+				cart.length=0;
+			}
+				
+		}
+
+		//生成li并绑定li下div点击add函数
+		//jquery中的data专门给元素存放数据  前面的参数是key,后面是value   购物车value通常是个对象
+		for(var i=0;i<products.length;i++){
+			$("<li></li>")
+			.text(products[i].name)		
+			.appendTo("#car")
+			.append("<div>add</div><span>reduce</span>")
+			//DOM元素存入对应的商品  data的key值不是字符串,可以是对象   //数据存在li中
+			.data("product",{item:products[i],count:1})
+			.find("div")
+			.click(function(){
+				mathtool.add($(this).parent().data("product"))	
+				//console.log(mathtool.car)
+				$("#goodsNumber").text(mathtool.totalNumber());
+				$("#money").text(mathtool.totalMoney());
+				//----------------------------------------------------------------------详情页
+				$("#detail p").eq(0).text($(this).parent().data("product").item.name)
+				$("#detail p").eq(1).text($(this).parent().data("product").item.category)
+				$("#detail p").eq(2).text($(this).parent().data("product").item.price)
+				$("#detail p").eq(3).text($(this).parent().data("product").item.desc)
+				$("#detail p").eq(4).text($(this).parent().data("product").item.imgsrc)
+			})
+		}
+		
+		$("#clearAll").on("click",function(){
+			mathtool.clear();
+			$("#goodsNumber").text(mathtool.totalNumber());
+			$("#money").text(mathtool.totalMoney());
+		})
+		
+		$("span").on("click",function(){
+			alert("应该由结账页面来负责")
+		})
+		
+
+</script>
+</html>

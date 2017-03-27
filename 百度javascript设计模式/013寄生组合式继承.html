@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//由此可见,构造函数得到一个新对象,可以是new出来一个实例,
+		//也可以是fn.prototype,每个不同的构造函数的prototype是不同的地址
+		//寄生组合式继承利用了js类的自动命名的规则,把过渡类F的prototype换成父类Super的prototype,修正Super层的constructor为Sub
+	
+		var obj = {}
+		function inheritObject(o){
+				/*function F(){
+					this.type = 'F'
+				};
+			
+				F.prototype = o;
+			
+				return new F()*/
+				
+				obj.F = function(){
+					//过渡类最好不要写数据
+					this.type = 'F'
+				}
+				
+				//这个语句太强了
+				//即obj.F.prototype = supers.prototype,所以F的上层Object被换成Super的上层Object
+				obj.F.prototype = o;
+				//F的上层Object换成Super的上层Object的结果就是constructor是Super
+				console.log(new obj.F())
+				return new obj.F()
+				
+		}
+	
+		//inheritPrototype函数传进去的是两个类函数(外部自定义),并且可以把函数内部的过滤类的名字移除
+		function inheritPrototype(sub,supers){
+			//console.log(supers.prototype)    //Super的实例的下一层,即上层Object对象
+			var p = inheritObject(supers.prototype)
+			console.log(p)          //F类实例,实质上是Super类实例
+			//设置F层的constructor为Sub函数
+			p.constructor = sub;	
+			//p不再作为顶层了,所以类名会根据constructor从F修正为Sub 
+			//所有的Sub实例的下一层都是p
+			sub.prototype = p;
+			console.log(p)          //F类变成Super类了,原因是obj.F.prototype = supers.prototype,constructor是Super
+			
+		}
+		
+		//这种方法Super的数据是进不了Super层的,会进入Sub层,进入Super层的数据在F过渡类中写(最好不要),和在外围用prototype设置属性
+		function Super(name){
+			this.supers = "Super";
+			this.name = name;
+			this.colors = ['red','blue','green'];
+		}
+		
+		function Sub(name,time){
+			this.sub = "Sub"
+			Super.call(this,name);
+			this.time = time
+		}
+		
+		inheritPrototype(Sub,Super);
+		
+		Sub.prototype.getTime = function(){
+			console.log(this.time)
+		}
+		
+		//Super实例的下一层加getName方法
+		Super.prototype.getName = function(){
+			console.log(this.name)
+		}
+		
+		var a = new Sub('js book','2017')
+		var b = new Sub('php book','2017')
+		
+		console.log(a)
+		
+		console.log(a instanceof obj.F)     //true  
+		console.log(a instanceof Super)     //true
+		console.log(obj.F === Super)        //false
+		console.log(obj.F.prototype === Super.prototype)   //true
+		//inheritPrototype函数只运行一次,Super层都是同一个对象
+		console.log(a.__proto__ === b.__proto__)           //true
+		
+		//这个函数运行第二次
+		inheritPrototype(Sub,Super);
+		var c = new Sub('c book','2015')
+		//函数运行第二次后新var了obj.F(),所以函数运行第一次后的Sub实例的下一层和函数再次运行后,Sub的实例的下一层不是同一个对象
+		console.log(a.__proto__ === c.__proto__)          //false
+		
+	</script>
+</html>

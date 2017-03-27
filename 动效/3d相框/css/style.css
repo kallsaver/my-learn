@@ -1,0 +1,56 @@
+html{font-size: 20px;}
+*{margin:0;padding:0;box-sizing: border-box}
+a{display: block;text-decoration: none;}
+.project{width:20rem;height: 20rem;margin:10rem auto;transform-style: preserve-3d;perspective: 1000px;}
+.project .project_card{height: 100%;transform-style: preserve-3d;perspective: 1000px;
+  box-shadow: 0 10px 30px transparent;position: relative;transition: box-shadow .3s ease-in;pointer-events: none;}
+.project_img{height: 100%}
+.project_img img{width:100%;height: 100%;}
+/*
+.project_shine{position: absolute;top:0;left: 0;right: 0;bottom: 0;z-index: 9;background: red}
+*/
+/*也可以伪元素当膜使用  hover把透明度变1 渐变默认是从上到下变暗 配合父级元素盒子阴影有立体感*/
+
+/*flex-direction: column;justify-content: center; 子元素width:100%;height自适应  .project_title和.project_category所在的单轴垂直居中*/
+.project_detail{position: absolute;display: flex;justify-content: center;
+  left: 1.5rem;right:1.5rem;top:1.5rem;bottom: 1.5rem;
+  flex-direction: column;text-align: center;
+  border: 0rem solid #00BCD4;  transition: border .4s ease;
+  transform: translateZ(1.5rem);
+  /*超级好用 改善平稳性 使得detail这个元素无法成为事件捕获对象*/
+  pointer-events: none;
+}
+
+.project_title {margin: 0 0 0.5rem;font-size: 1.8rem;font-weight: 700;
+  transition: .4s ease;
+  opacity: 0;
+  -webkit-transform: translateY(2rem) scale(0);
+  -ms-transform: translateY(2rem) scale(0);
+  transform: translateY(2rem) scale(0);
+  will-change: transform; }
+
+.project_title a {color: white;}
+
+.project_category {opacity: 0; transition: .4s ease; transition-delay: .1s;
+  -webkit-transform: translateY(2rem) scale(0);
+  -ms-transform: translateY(2rem) scale(0);
+  transform: translateY(2rem) scale(0);
+  will-change: transform; }
+
+.project_category a {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.3em; }
+
+.project:hover .project_card{box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);}
+
+.project:hover .project_detail {
+  border-width: 0.5rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.4); }
+
+.project:hover .project_title, .project:hover .project_category {
+  -webkit-transform: translateY(0rem) scale(1);
+  -ms-transform: translateY(0rem) scale(1);
+  transform: translateY(0rem) scale(1);
+  opacity: 1; }
+
+

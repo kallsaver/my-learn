@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var Plane = function(){
+			this.blood = 100;
+			this.attackLevel = 1;
+			this.defenseLevel = 1;
+		}
+		
+		var plane = new Plane();
+		
+		var clonePlane = Object.create(plane)
+		
+		//浅度克隆
+		//在不支持Object.create方法的浏览器中,可以使用
+		Object.create = function(obj){
+			var F = function(){
+				F.prototype.constructor = obj.constructor
+			}
+			F.prototype = obj;
+			return new F()
+		}
+		
+		console.log(plane)
+		console.log(clonePlane)
+		
+		
+	</script>
+</html>

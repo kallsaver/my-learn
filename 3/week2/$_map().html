@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$.map()方法</title>
+    <script src="jQuery_lib/jquery-3.1.0.min.js"></script>
+    <script>
+     
+    //map由于没有index参数(处理数组的时候)   没有key参数(处理对象的时候)
+    //所以map返回的是一个新数组  无论第一个参数是数组或者对象 
+    //所以它只能统一处理  each是做判断用 回调函数有两个参数   
+    //map回调函数只有一个参数并且要return处理后的item  有点像angular中自定义过滤器
+    //$.map第一个参数是数组时
+        /*
+         $.map()：对一个数组进行转换，jQuery提供了$.map()函数：
+         • 将数组中的每个元素进行转换以返回一个转换后的新数组。
+         */
+        var nameArr = ["zhangSan","lisi","wangLaowu"];
+
+        // 将数组中的每个元素都转换成大写，以方便一下步的处理(如比较、排序)
+        // 回调函数参数item：是原始数组传过来的每一个元素
+        var upperArr = $.map(nameArr,function(item){
+            return item.toUpperCase();
+        });
+		console.log(nameArr)		//不改变原数组
+		console.log(upperArr)		//返回的新数组
+        console.log(upperArr.join());
+		
+		
+	//$.map第一个参数是数组时-
+		var oneObj={one:1,two:"tw",three:3,four:{name:"aaa"},"1":5}
+		
+		var newObj=$.map(oneObj,function(item){
+			return item+"ss";
+		})
+		
+		console.log(oneObj)
+		console.log(newObj)		//Array    对象向数组转化的好方法  但是排序目测要看key值的编码表
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    </script>
+</head>
+<body>
+
+</body>
+</html>

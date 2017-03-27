@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="sportsStore">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="lib/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="lib/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="lib/angular.js"></script>          
+    <script src="lib/angular-route.min.js"></script>
+    <script src="js/filters/customFilter.js"></script>
+    <script src="js/controllers/myCart.js"></script>
+    <!-- 次模块和路由模块要写在主模块的前面-->
+    <script>
+    //创建主木块 ,添加对路由模块和自定义过滤器模块的依赖   marsFilter是写过滤器的次模板  mycart是写购物车的次模板
+        var myapp=angular.module("sportsStore",["marsFilter","ngRoute","myCart"]);
+        // 配置路由
+        myapp.config(function($routeProvider){
+        	$routeProvider.when("/",{
+        		templateUrl:"views/productList.html",
+        		controller:"productListCtrl"
+        	})
+        	//如果这里不写控制器 这部分页面不会生成 说明controller生成了页面   并且script写在html前面 
+        	.when("/checkoutSummary",{
+        		templateUrl:"views/checkoutSummary.html",
+        		controller:"checkoutCtrl"            
+        	})
+            .when("/thankYou",{
+            	templateUrl:"views/thankYou.html"
+            })
+            .when("/placeOrder",{
+            	templateUrl:"views/placeOrder.html",
+            	controller:"placeOrderCtrl"
+            })
+            
+            $routeProvider.otherwise({
+            	templateUrl:"views/error404.html"
+            })
+        });
+    </script>
+           <!-- 主控制器-->
+    <script type="text/javascript" src="js/controllers/sportsStore.js" ></script>
+    <script type="text/javascript" src="js/controllers/productList.js"></script>
+    <script type="text/javascript" src="js/controllers/checkout.js"></script>
+    <script type="text/javascript" src="js/controllers/placeOrder.js"></script>
+</head>
+<body ng-controller="sportsStoreCtrl">
+    <h1 ng-click="run()">火星时代运动商城</h1>
+    <div class="navbar navbar-inverse">
+        <a class="navbar-brand" href="#/">运动商城</a>
+        <div class="navbar-right" ng-controller="cartCtrl">
+            <div class="navbar-text">
+                <b>您的购物车</b>
+                {{totalNumber()}}个商品,{{totalMoney()|currency:"RMb ¥"}}
+                <a class="btn btn-default narbar-btn"
+                	href="#/checkoutSummary" >结账</a>
+            </div>
+        </div>
+    </div>
+  
+<!--在这里切换子页面-->
+<div ng-view></div>
+</body>
+</html>

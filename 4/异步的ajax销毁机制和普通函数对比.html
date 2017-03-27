@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="util.js"></script>
+	<script>
+		//普通的主函数:
+		function run0(){
+			var a=[]
+			
+			function zhu(fn){
+				var c=[
+  						{"title": "天猫商品01", "price":168.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB1_50x50.jpg"},
+  						{"title": "天猫商品02", "price":368.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB2_50x50.jpg"},
+  						{"title": "天猫商品03", "price":268.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB3_50x50.jpg"},
+  						{"title": "天猫商品04", "price":68.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB4_50x50.jpg"},
+  						{"title": "天猫商品05", "price":188.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB1_50x50.jpg"},
+  						{"title": "天猫商品06", "price":668.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB2_50x50.jpg"},
+  						{"title": "京西商品101", "price":668.00,"desc": "这是京西商城2016最流行秋装", "imgsrc": "images/TB3_50x50.jpg"}
+					]
+				fn&&fn(c);
+				//c=null;					//没用  要操作的是c的堆地址才能使得a拿到一个空数组
+				//c=[]						//没用  要操作的是c的堆地址才能使得a拿到一个空数组
+				c.splice(0,c.length)		//成功销毁堆地址
+				//c.length=0;				//成功销毁堆地址    把c的引用地址的堆地址全部销毁了  ajax用的就是类似这种机制
+			}								//但是ajax可以用二维拿引用值   c.length=0;二维也拿不到引用值了
+		
+			zhu(function(data){   		//传进来的是c的引用地址
+				a=data        			//a拿到c的引用地址了
+			})						
+			return a			
+		}
+		
+		var b0=run0();
+		console.log("b0",b0)			//成功拿到数据
+		
+		//普通的函数  二维取值
+		function run1(){
+			var a={product:[]}
+			
+			function zhu(fn){
+				var c=[
+  						{"title": "天猫商品01", "price":168.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB1_50x50.jpg"},
+  						{"title": "天猫商品02", "price":368.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB2_50x50.jpg"},
+  						{"title": "天猫商品03", "price":268.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB3_50x50.jpg"},
+  						{"title": "天猫商品04", "price":68.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB4_50x50.jpg"},
+  						{"title": "天猫商品05", "price":188.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB1_50x50.jpg"},
+  						{"title": "天猫商品06", "price":668.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB2_50x50.jpg"},
+  						{"title": "京西商品101", "price":668.00,"desc": "这是京西商城2016最流行秋装", "imgsrc": "images/TB3_50x50.jpg"}
+					]
+				fn&&fn(c);
+				//c=null;					//没用  要操作的是c的堆地址才能使得a拿到一个空数组
+				//c=[];						//没用  要操作的是c的堆地址才能使得a拿到一个空数组
+				c.splice(0,c.length)		//成功销毁    通过c的引用地址的堆地址全部销毁了
+				//c.length=0;				//成功销毁    通过c的引用地址的堆地址全部销毁了 
+			}
+		
+			zhu(function(data){   		//传进来的是c的引用地址
+				a.product=data        	//a.product拿到c的引用地址了  在fn(c)之后对c的堆地址操作是对a.product有影响的
+				//Array.prototype.push.apply(a.product,data)   //稳妥的办法应该是拿具体的克隆值  而不是拿引用值
+			})						
+			return a			
+		}
+		
+		var b1=run1();
+		console.log("b1",b1)			//成功拿到数据
+		
+		
+		
+		//ajax函数:   一维取值
+		function run2(){
+			var a=[];
+			
+			$.ajax("data.json",function(data){
+				console.log('success执行');
+				data=JSON.parse(data);
+				console.log(data);
+				a=data;
+			});
+			return a;
+		}
+		
+		var b2=run2();
+		console.log("b2",b2);				//ajax是异步的 所以这里的是[]
+		setTimeout(function(){				//消除异步的影响
+			console.log("setTimeout",b2)	//依然是[]		说明$.jaxa运行完主函数中的data.json的字面量数组被销毁
+		},3000)
+		
+		//ajax函数:    二维取值
+		function run3(){
+			var a={product:[]}		//这里不能var a=[]
+		
+			$.ajax("data.json",function(data){
+				data=JSON.parse(data)   
+				console.log(typeof data)	//异步的证明
+				a.product=data;         	//这里不能a=data; 
+			})								
+			//$.ajax的回调响应函数没执行,就已经return a了
+			return a						//应该把data封在a的二维中  
+											//有二维结构的对象类似DOM元素 但是DOM元素的数据生命周期是window
+											//二维结构对象的数据的生命周期取决于这个对象的生命周期		
+		}
+	
+		var b3=run3();
+		//浏览器console.log有"异步机制"
+		console.log("b3",b3)
+		
+		
+	</script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js" ></script>
+	</head>
+	<body>
+		<button class="btn btn-primary">toggle</button>
+		
+		<div class="collapse" id="content">
+			<div class="well">
+				bootstrap是twitter推出的用于前端开发的开源工具包
+			</div>
+		</div>
+		
+	</body>
+	<script>
+		$("button").on("click",function(){
+			$("#content").collapse("toggle")  //"show","hidden","toggle"
+		})
+		
+		/*$("#content").on("show.bs.collapse",function(){
+			alert("调用show方法时触发")
+		})*/
+		
+	    /*$("#content").on("shown.bs.collapse",function(){
+			alert("折叠完全后触发")
+		})*/
+		
+		/*$("#content").on("hide.bs.collapse",function(){
+			alert("在hide方法调用时触发")
+		})*/
+		
+		$("#content").on("hidden.bs.collapse",function(){
+			alert("在隐藏完全后触发")
+		})
+	</script>
+</html>

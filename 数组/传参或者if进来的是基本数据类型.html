@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//if判断如果是一个引用类型  那么判断的是它们的引用地址是否相同		所以if([]==[]){alert(1)} 是不会弹的
+	//if判断如果是一个基本数据类型 那么判断的是它们的值是否相等  并且是可以隐形转化类型再判断的
+		var arr=[1,2,3,4,5,6]
+		
+		function run(a){
+			a+=1;
+		}
+		
+		run(arr[2])	//传进来的是一个值
+		
+		console.log(arr)
+		
+		
+		
+	</script>
+</html>

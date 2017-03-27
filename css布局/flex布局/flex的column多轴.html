@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body {
+				font-family: '微软雅黑';
+				/*font-family: cursive, '微软雅黑';*/
+				padding: 0;
+				margin: 0;
+				font-size: 16px;
+			}
+			.box{display: flex;width:200px;height: 200px;float: left;
+			border-radius: 10px;background: #000;margin: 10px;overflow: hidden;}
+			.clearfix::after{clear: both;display: block;content: "-----------------------------------------------------------";}
+			.txt1::after{clear: both;display: block;content: "----------------align-items-----------------------------------";}
+			.txt2::after{clear: both;display: block;content: "----------------align-content----------------------------";}
+			.txt3::after{clear: both;display: block;content: "----------------justify-content------------------------------";}
+			.txt4::after{clear: both;display: block;content: "----------------综合---------------------------------------";}
+			
+		</style>
+	</head>
+	<body>
+		<!--flex-wrap:wrap换行 出现多轴-->
+		<!--每条column轴都是100%高度-->
+		<!--justify-content是管理每条轴上的元素在轴上的布局-->		  <!--上下等-->
+		<!--aligns-items是管理每条轴上的元素和元素之间的对齐方式-->  <!--轴线对齐,文字对齐等--> 
+		<!--align-items:center可以使得单轴垂直居中,多轴等同于align-content:space-around+align-items:center-->
+		<!--justify-content是管理多轴在父盒子的布局,即轴和轴之间的空隙--> 
+
+		<div class="txt1"></div>
+
+		<div class="box" style="flex-direction: column;flex-wrap: wrap;">  
+			<div style="width:50px;height: 50px;margin-bottom: 20px;background: gold;">1</div>
+			<div style="width:50px;height: 50px;margin-bottom: 20px;background: peru;">2</div>
+			<div style="width:50px;height: 50px;margin-bottom: 20px;background: darkgreen;">3</div>
+			<div style="width:50px;height: 50px;margin-bottom: 20px;background: fuchsia;">4</div>
+			<div style="width:50px;height: 50px;margin-bottom: 20px;background: blueviolet;">5</div>
+			<div style="width:50px;height: 50px;margin-bottom: 20px;background: darkgoldenrod;">6</div>
+		</div>
+		
+				
+		<div class="box" style="flex-direction: column;flex-wrap: wrap;">
+			<div style="width:50px;height: 50px;margin-bottom: 20px;background: gold;">1</div>
+			<div style="width:80px;height: 50px;margin-bottom: 20px;background: peru;">2</div>
+			<div style="width:50px;height: 50px;margin-bottom: 20px;background: darkgreen;">3</div>
+			<div style="width:100px;height: 50px;margin-bottom: 20px;background: fuchsia;">4</div>
+		</div>
+		
+		<div class="box" style="flex-direction: column;flex-wrap: wrap;align-items: center;">
+			<div style="width:50px;height: 50px;margin-bottom: 20px;background: gold;">1</div>
+			<div style="width:80px;height: 50px;margin-bottom: 20px;background: peru;">2</div>
+			<div style="width:50px;height: 50px;margin-bottom: 20px;background: darkgreen;">3</div>
+			<div style="width:100px;height: 50px;margin-bottom: 20px;background: fuchsia;">4</div>
+		</div>
+		
+		<div class="box" style="flex-direction: column;flex-wrap: wrap;align-content: space-around;">
+			<div style="width:50px;height: 50px;margin-bottom: 20px;background: gold;">1</div>
+			<div style="width:80px;height: 50px;margin-bottom: 20px;background: peru;">2</div>
+			<div style="width:50px;height: 50px;margin-bottom: 20px;background: darkgreen;">3</div>
+			<div style="width:100px;height: 50px;margin-bottom: 20px;background: fuchsia;">4</div>
+		</div>
+		
+		<div class="clearfix"></div>
+		
+		<div class="box" style="flex-direction: column;flex-wrap: wrap;justify-content: center;">
+			<div style="width:50px;height: 70px;background: gold;">1</div>
+			<div style="width:50px;height: 100px;background: peru;">2</div>
+			<div style="width:50px;height: 50px;margin-bottom: 20px;background: darkgreen;">3</div>
+			<div style="width:100px;height: 50px;margin-bottom: 20px;background: fuchsia;">4</div>
+		</div>
+		
+		<div class="txt4"></div>
+		
+		<div class="box" style="flex-direction: column;justify-content: center;align-items: center;">
+			<div style="width: 50px;height: 50px;background: gold;"></div>
+		</div>
+		
+		<div class="box" style="flex-direction: column;justify-content: center;align-items: center;">
+			<div style="width: 50px;height: 50px;background: gold;"></div>
+			<div style="width: 50px;height: 50px;background: gold;"></div>
+		</div>
+		
+	
+		
+	</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src='js/jquery-3.1.0.js'></script>
+	</head>
+	<body>
+	</body>
+	<script>
+		//jq中的深度拷贝 $.extend函数  jQuery.extend([deep], target, object1, [objectN])
+		//如果不指定target，则给jQuery命名空间本身进行扩展。
+		//这有助于插件作者为jQuery增加新方法。 
+		//如果第一个参数设置为true，则jQuery返回一个深层次的副本，递归地复制找到的任何对象。
+		//否则的话，副本会与原对象共享结构。 未定义的属性将不会被复制，然而从对象的原型继承的属性将会被复制。
+		var book1 = {
+			name : 'Javascript',
+			alike : ['css','html']
+		}
+		
+		var book2 = {
+			name : 'Node',
+			getAlike : function(){
+				console.log(this.alike)
+			}
+		}
+		
+		
+		
+		var anotherBook1 ={
+			color : 'blue'
+		}
+		
+		$.extend(true, anotherBook1, book1,book2);
+		
+		book1.alike.push('php')
+		
+		console.log(anotherBook1)
+		
+		anotherBook1.getAlike()
+	</script>
+	<script>
+jQuery.extend = jQuery.fn.extend = function() {
+	var options, name, src, copy, copyIsArray, clone,
+		target = arguments[ 0 ] || {},
+		i = 1,
+		length = arguments.length,
+		deep = false;
+
+	// Handle a deep copy situation
+	if ( typeof target === "boolean" ) {
+		deep = target;
+
+		// Skip the boolean and the target
+		target = arguments[ i ] || {};
+		i++;
+	}
+
+	// Handle case when target is a string or something (possible in deep copy)
+	if ( typeof target !== "object" && !jQuery.isFunction( target ) ) {
+		target = {};
+	}
+
+	// Extend jQuery itself if only one argument is passed
+	if ( i === length ) {
+		target = this;
+		i--;
+	}
+
+	for ( ; i < length; i++ ) {
+
+		// Only deal with non-null/undefined values
+		if ( ( options = arguments[ i ] ) != null ) {
+
+			// Extend the base object
+			for ( name in options ) {
+				src = target[ name ];
+				copy = options[ name ];
+
+				// Prevent never-ending loop
+				if ( target === copy ) {
+					continue;
+				}
+
+				// Recurse if we're merging plain objects or arrays
+				if ( deep && copy && ( jQuery.isPlainObject( copy ) ||
+					( copyIsArray = jQuery.isArray( copy ) ) ) ) {
+
+					if ( copyIsArray ) {
+						copyIsArray = false;
+						clone = src && jQuery.isArray( src ) ? src : [];
+
+					} else {
+						clone = src && jQuery.isPlainObject( src ) ? src : {};
+					}
+
+					// Never move original objects, clone them
+					target[ name ] = jQuery.extend( deep, clone, copy );
+
+				// Don't bring in undefined values
+				} else if ( copy !== undefined ) {
+					target[ name ] = copy;
+				}
+			}
+		}
+	}
+
+	// Return the modified object
+	return target;
+};
+		
+	</script>
+</html>

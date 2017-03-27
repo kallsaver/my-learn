@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		Function.prototype.bind = function(){
+			//this是一个函数
+			var self = this;
+			//闭包中的私有变量
+			//这个arguments[0]是bind函数的,不是func的arguments[0]
+			//所以context = arguments[0]是不行的,还要把它从arguments数组中删除;
+			context = [].shift.call(arguments);
+			console.log('context',context);
+			//深度克隆arguments数组,或者将一个伪数组转化为真数组
+			var args = [].slice.call(arguments);
+			//返回一个this(context)在闭包中(即绑定了,外界无法改变)的新函数
+			return function(){
+				//args是在bind(obj,1,2)预定的参数组成的数组[1,2]
+				//bind运行后,func得到是这个新函数的引用,arguments是[3,4];
+				//或者self.apply(context,args.concat([].slice.call(arguments)))
+				self.apply(context,[].concat.call(args,[].slice.call(arguments)));
+			}
+		}
+		
+		var obj = {
+			name : 'sven'
+		}
+		
+		var func = function(a,b,c,d){
+			console.log(this.name);
+			console.log([a,b,c,d]);
+		}.bind(obj,1,2);
+		
+		func(3,4);
+		
+		
+		
+		function run(){
+			var context = [].shift.call(arguments);
+			console.log(arguments)
+			console.log(arguments[0])
+			console.log(context)
+		}
+		
+		run(1,2)
+		run.call(obj,1,2)
+	</script>
+</html>

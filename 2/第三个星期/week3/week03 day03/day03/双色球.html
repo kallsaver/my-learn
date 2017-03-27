@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0px;padding:0px;font-size:0px;}
+.box{width:600px;height:400px;border:1px solid black;margin:200px auto;text-align:center;}
+ul{list-style:none;display:inline-block;margin-top:40px;}
+li{float:left;width:50px;height:50px;margin-right:10px;border:1px solid red;font-size:20px;line-height:50px;color:red;font-weight:bolder;}
+h3{font-size:24px;line-height:100px;color:red;}
+button{width:100px;height:50px;display:inline-block;margin-top:50px;font-size:16px;line-height:50px;}
+p{font-size:16px;word-break:break-all;padding:40px;}
+</style>
+<script>
+
+//点击button 有33个球 从1到33的号码 随机拿6个球到一个新的数组里面   
+
+//新的数组的元素放在li里面  放的过程相隔0.5s 
+
+//p显示剩下的球的号码
+
+//
+window.onload=function(){
+	var box=document.getElementsByClassName("box")[0];
+	var aLi=document.getElementsByTagName("li");
+	var btn=document.getElementsByTagName("button")[0];
+	var p=document.getElementsByTagName("p")[0];
+	
+	btn.onclick=function(){
+		var allbox=[];
+		var lucky=[];
+		
+		for(var i=1;i<34;i++){
+			if(i<10){i="0"+i}
+			allbox.push(i)
+		}
+		
+		for(var i=0;i<aLi.length;i++){
+			//index是要用于找数组的索引值 数组有33个元素 那么找到第0到32个索引就可以找到这33个元素
+			var index=parseInt(Math.random()*allbox.length);
+			
+			//splice有两个参数 第一个是数组中的索引值参数的元素 第二个是从这个索引值开始共几个 返回值是一个数组
+			
+			//splice相当于在一个数组中扔出一个小数组 
+			
+			//所以n的数据类型是一个数组 这里充当一个搬运盒子
+			var n=allbox.splice(index,1);
+			
+			//push  在数组的最后添加一个元素
+			lucky.push(n[0]);	
+		}
+		
+		var n=0;
+		var timer=null;
+		//定时器不清的话是无限循环的 
+		
+		timer=setInterval(function(){
+			aLi[n].innerHTML=lucky[n];
+			n++
+			if(n==6){
+				clearInterval(timer)
+			}
+		},200)
+		
+		p.innerHTML="还剩下"+allbox;
+	}
+	
+}
+
+</script>
+
+
+</head>
+
+<body>
+<div class="box">
+	<h3>双色球</h3>
+    <ul>
+    	<li>呵</li>
+    	<li>呵</li>
+    	<li>呵</li>
+    	<li>呵</li>
+    	<li>呵</li>
+    	<li>呵</li>
+    </ul>
+
+	<div><button>开始</button></div>
+    <p></p>
+</div>
+</body>
+</html>

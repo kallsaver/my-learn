@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<script>
+		
+			/*Angular指令编译三阶段:
+			1.标准浏览器API转化
+			将html转化成DOM,所以自定义的html标签必须符合html的格式
+			
+			2.Angular compile
+			搜索匹配directive,按照priority排序,并执行directive上的compile方法
+			compile函数对模板自身进行转换,仅仅在编译阶段运行一次
+			
+			3.Angular link
+			执行directive上的link方法,进行scope绑定和事件绑定*/
+			
+		</script>
+		
+		<script src="js/angular.js"></script>
+		<script>
+
+			var i=0
+			angular.module("myApp",[])
+			
+			.directive("customTags",function(){
+				return {
+					restrict : 'ECAM',
+					template : '<div>{{user.name}}<span>'+i+'</span></div>',
+					//replace:true会把自定义标签变为div,并且把原来的div注释掉  false会增加后面element的复杂度
+					//如果false,那么link函数中的element指的是directive标签写的div,
+					//如果true,那么link函数中的elemnt指的是template中最外面的元素
+					replace : true,
+					//angular的DOM元素渲染时期,父DOM的myCtrl数据还没进来,所以是compile没有scope和controller参数的
+					compile : function(element,attr,transclude){
+						i++;
+						//element是这个directive指令所在的元素(replace:false)或者tempalte的root element即最外围的元素
+						//console.log(attr['text'])	//attr方法可以获得这个元素的属性
+						//console.log(transclude)	//交互函数
+						//controller的数据还没进来    所以这时候加入的DOM元素可以使用controller的数据
+						element.append("<div>{{user.id}}</div>")
+						console.log(element.html())      
+						console.log("compile执行")
+						
+						//如果只return一个函数而不是对象,这个函数就是postLink函数, 写compile就不用写link了
+						//ng-repeat生成多少个元素,link就运行多少次,把数组中的对应元素的数据传入元素中
+						return{
+							
+							//表示在编译阶段之后,指令连接到子元素,独立的数据(user)没有进入对应的元素之前运行
+							pre : function preLink(scope,element,attr,controller){
+								console.log(element.html())
+								i++
+								console.log("customTags preLink")
+								//这个scope还是myCtrl的$scope, userList是user in userList
+								console.log('pre',scope.userList)
+								console.log(scope.data)
+								console.log(scope.$id)   //$id : 6
+							},
+							//表示所有的子元素指令连接绑定之后才运行
+							post : function postLink(scope,element,attr,controller,transclude){
+								i++
+								console.log("customTags all child directive postLink")
+								//user是user in userList的user  
+								console.log(element.html())
+								//程序会从DOM元素中的属性读取数据  user in userLink,独立之后user和userLink都没有在父级拿到值
+								//但是userLink在controller中重写了一次,user没有,所以undefined
+								console.log(scope.user)
+								console.log(scope.$id)  //$id : 6 说明和pre的scope是同一个引用
+								//依然可以拿到myCtrl中的数据
+								//console.log(scope.userList)
+								//scope是ng-repeat数组生成的单个的元素的数据
+								//element是这个directive指令所在的元素(replace:false)或者template最外的元素(replace:true)
+								/*element.on("click",function(){
+									scope.$apply(function(){
+										//user是user in userList的user  
+										scope.user.name = "click after"
+										//进行一次脏检查  不是内置事件触发的数据变动,需要手动加$apply触发$dirty
+									})
+								})*/
+								console.log('jqLite',angular.element(document.body))
+								//angular不支持jqLite的写法  ionic可以支持
+								//console.log('jqLite',jqLite(document))
+								//或者:
+								element.on("click",function(){
+									//find是找子元素 不能找自身
+									console.log(angular.element(this).find('div').text("click after"))
+								})
+							}
+						}
+					},
+					//原始数据放在templateUrl的带ng-tranclude属性的标签中,默认为false
+					transclude : true,
+					priority : 0 ,
+					scope :{
+								
+							},
+					controller : function($scope){
+						console.log("独立的controller")
+						$scope.userList = [
+						    {
+								id : 100,
+								name : "new1"
+							},
+							{
+								id : 200,
+								name : "new2"
+							},
+						]
+						/*$scope.user = {
+							 id : 'noId',
+							 name : 'errorWay'
+						}*/
+					},
+					//link不会执行了,这个link就是postLink
+					link : function(){
+						console.log("link function")
+					}
+				}
+			})
+			
+			.directive("customTags2",function(){
+				return {
+					restrict : 'ECAM',
+					replace : true,      //replace是针对E的  true会把自定义标签变为div
+					compile : function(){
+						console.log("compile2执行")
+						return{
+							//表示在编译阶段之后,指令连接到子元素之前运行
+							pre : function preLink(){
+								console.log("customTags2 preLink")
+							},
+							//表示所有的子元素指令连接绑定之后才运行 
+							post : function postLink(){
+								console.log("customTags2 all child directive postLink")
+							}
+						}
+					},
+					//一个DOM用多个个directive时,template,transclude只能写一个  否则会严重报错
+					//transclude : true,    //原始数据放在templateUrl的带ng-tranclude属性的标签中
+					priority : 0 ,
+				}
+			})
+			
+			.controller("myCtrl",function($scope){
+				console.log("myCtrl里面的内容运行")
+				$scope.name = 'aaa';
+				$scope.data = "新数据";
+				$scope.userList = [
+					{
+						id : 10,
+						name : "张三"
+					},
+					{
+						id : 20,
+						name : "李四"
+					},
+				]
+			})
+			
+		</script>
+	</head>
+	<body ng-app="myApp">
+		<!--priority是处理指令的优先级的 ng-repeat的优先级默认1000,大部分默认是0-->
+		
+		<div ng-controller="myCtrl">
+			<!--complie先根据ng-repeat生成2个实例,
+			然后进入preLink函数,myCtrl的数据进入scope,
+			然后进入postLisk函数,user进入独立的scope,2个兄弟函数
+			-->
+			<div custom-tags custom-tags2 ng-repeat="user in userList" text="txt"></div>
+		</div>
+
+	</body>
+	<script>
+		/*var a={
+			one : function pre(){
+				alert("pre")
+			},
+			two : function next(){
+				alert("next")
+			}
+		}*/
+		
+		//a.one()
+		
+	</script>
+	<script>
+		var a = angular.element(document.body)
+		var b = angular.element(document.body)
+		if(a==b){				//不弹,说明a和b分别是两个引用
+			alert(1)           
+		}
+		var c = a[0]
+		var d = b[0]
+		if (c==d){
+			alert(2)
+		}
+		
+		var str='{{aaa}}'
+		
+		var getContent1 = str.replace(/[{}]/g,"")
+		console.log('------------------------------')
+		console.log('getContent1',getContent1)
+		
+		var getContent2 = str.match(/^\{.*\}$/g)[0];
+		console.log('getContent2',getContent2)
+		var result = ''  //不声明会无法使用+=
+		for(var i=0,length=getContent2.length;i<length;i++){
+			//方法1:
+			if(i!==0&&i!==1&&i!==length-2&&i!==length-1) result+=getContent2[i]
+
+			//数组能借用字符串的方法,而字符串不能借用数组的方法
+		}
+
+		
+		console.log('result',result)
+			
+			
+		
+		
+		
+	</script>
+</html>

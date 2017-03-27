@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-3.1.0.js"></script>
+	</head>
+	<body>
+	</body>
+	<script>
+		//jquery提供了$.Deferred.promise()方法,
+		//它的作用是在原来deferred对象返回另一个deferred对象
+		//后者只开放与改变执行状态无关的方法(done,fail)
+		//屏蔽与改变执行状态有关的方法(resolve,reject)
+		
+		var def =$.Deferred();
+		console.log(def);
+		var wait = function(def){
+			var tasks = function(){
+				console.log("执行完毕");
+				def.resolve();
+			}
+			setTimeout(tasks,5000);
+			console.log("return执行")
+			//返回promise对象
+			//def的状态会影响def.promise的状态
+			return def.promise();
+		};
+		
+		var d = wait(def);
+		$.when(d)
+		.done(function(){
+			console.log("done函数执行")
+		})
+		.fail(function(){
+			console.log("fail函数执行")
+		})
+		//不会触发done,因为done不是它的done
+		def.reject()
+	</script>
+</html>

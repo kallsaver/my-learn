@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+	//javascript垃圾回收机制: 进入环境的变量会标记进入环境, 当函数执行完毕后,如果变量没有被外部引用(闭包),那么变量开辟出来的栈地址和堆地址都会被清空
+	//全局变量要浏览器关闭才会被回收
+
+	//IE7和IE8
+	//javascript计数垃圾回收机制   当环境结束时,一个变量的引用次数为0时,说明没有办法访问这个值了,因而就可以将其占用的内存空间回收
+	//但是存在严重的问题,循环引用会造成内存泄露
+	
+	function test(){
+		var a={}; //a的引用次数为0
+		var b=a;  //a的引用次数为1
+		var c=a;	//a的引用次数为2
+		var b={};   //a的引用次数为1
+		
+	}
+	
+	//内存泄露
+	function fn(){
+		var a={};		//a引用次数为0
+		var b={};		//b引用次数为0
+		a.pro=b;  		//a引用次数为2
+		b.pro=a;		//b引用次数为2
+	}
+	
+	
+	
+
+
+</script>
+</html>

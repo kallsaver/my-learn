@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  </body>
+  <script>
+
+    var arr = [0,1,2,3,4,5];
+    //在ES5中 要拿到一个数组的元素
+    // console.log(arr)
+    // for (var i = 0;i<arr.length;i++){
+    //   console.log(arr[i])
+    // }
+
+    //或者
+    // arr.forEach(function(value){
+    //   //但是使用break;return;continue是无效的
+    //   console.log(value)
+    // })
+
+    //当然你可以使用for in 但是这会是糟糕的选择
+    // for (var index in arr){
+    //   //比如数组中有name属性或者原型链中有可遍历的属性,那么也会枚举
+    //   //而且可能会随机顺序遍历数组
+    //   console.log(arr[index])
+    // }
+
+    //ES6
+
+    for(var value of arr){
+      //可以使用return,break,continue
+      console.log(value);
+    }
+
+    //而且for...of还支持类数组,字符串
+    for(var v of 'abcd'){
+      console.log(v)
+    }
+
+    //同样支持Set对象和Map对象
+
+    
+
+
+
+  </script>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<script src='js/angular.js'></script>
+		<script>
+			angular.module('myApp',[],function(){
+				
+			})
+			
+			.controller('myCtrl',['$scope',function($scope){
+				$scope.count = 0;
+				$scope.page = 1;
+				$scope.time = 0;
+				$scope.data = {
+					count : 0,
+					page : 1
+				}
+				
+				$scope.itemList = [
+					{a :1},
+					{a :2},
+					{a :3},
+					{a :4},
+				]
+				
+				setInterval(function(){
+					$scope.$apply(function(){
+						$scope.count++
+						$scope.page++
+					})
+				},1000)
+				
+				//当监控的数据是基本数据类型,值变化时,回调函数就会执行  
+				/*$scope.$watch('data.count ',function(oldValue,newValue,scope){
+						console.log("$watch的回调函数执行")
+						console.log(oldValue,newValue)
+						console.log(scope.data)
+				})*/
+				
+				//当监控的是一个引用数据类型,监控的是它的引用值,如果要监控他所有属性是否变化,加上true,回调函数才会执行
+				$scope.$watch('data ',function(oldValue,newValue,scope){
+						console.log("$watch的回调函数执行")
+						console.log(oldValue,newValue)
+						console.log(scope.data)
+				},true)
+				
+				//数组
+				/*$scope.$watch('itemList',function(oldValue,newValue,scope){
+						console.log("$watch的回调函数执行")
+						console.log(oldValue,newValue)
+						console.log(scope.itemList[0].a)
+				},true)*/
+				
+				//或者通过$watch第一个回调函数的返回值
+				/*$scope.$watch(function(){
+					return JSON.stringify($scope.itemList)
+				},function(oldValue,newValue,scope){
+					console.log('$watch的第二个回调函数执行')
+					console.log(oldValue,newValue)
+					console.log(scope.itemList[0].a)
+				})*/
+				
+				//$watch的性能开销挺大的,对于已经不需要监控的$watch,可以取消掉
+				//$watch函数的返回值就是一个名字叫deregisterWatch的函数,执行这个函数会取消$watch
+				var unbindWatch = $scope.$watch('itemList',function(){
+					$scope.time ++
+					console.log('$watch的回调执行第'+$scope.time+'次')
+					if($scope.time > 4){
+						//console.log(unbindWatch)
+						unbindWatch()
+					}
+				},true)
+				
+			}])
+			
+			
+		</script>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+			<p>{{count}}</p>
+			<p>{{page}}</p>
+			<div class="form-group container-fluid">
+				<label class="control-label col-sm-3">input</label>
+				<input class="form-control col-sm-9" ng-model='count'>
+				<input class="form-control col-sm-9" ng-model='data.count'>
+				<input class="form-control col-sm-9" ng-model='itemList[0].a'>
+			</div>
+		</div>
+	</body>
+</html>

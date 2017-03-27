@@ -1,0 +1,6 @@
+[
+  {"title":"小米","price":1999.00,"os":"android","birthday":"2016-10-19","quantity": 2},
+  {"title":"华为","price":3999.00,"os":"android","birthday":"2016-10-19","quantity": 1},
+  {"title":"三星Note7","price":999.00,"os":"android","birthday":"2016-10-19","quantity": 1},
+  {"title":"苹果","price":5999.00,"os":"ios","birthday":"2016-10-19","quantity": 1}
+]

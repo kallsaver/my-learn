@@ -1,0 +1,72 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0;padding:0;}
+div{ font-size:80px; text-align:center; line-height:200px;}
+.div1{width:200px;height:200px; background:#ccc; position:absolute;top:0;left:0; border:8px solid #000; border-top-color:red; border-right-color:green; border-bottom-color:blue; border-left-color:pink}
+
+.div2{width:200px;height:200px; position:absolute;top:300px;left:400px; background:#555; border:8px solid #000;border-top-color:blue; border-right-color:pink; border-bottom-color:red; border-left-color:green}
+</style>
+<script>
+window.onload=function()
+{
+	var oDiv1=document.getElementsByTagName('div')[0];
+	var oDiv2=document.getElementsByTagName('div')[1];
+	
+	
+	oDiv1.onmousedown=function(ev){
+		var oEv=ev||event;
+		var disX=oEv.clientX-oDiv1.offsetLeft;
+		var disY=oEv.clientY-oDiv1.offsetTop;
+		
+		
+		document.onmousemove=function(ev){
+			var oEv=ev||event;
+			oDiv1.style.top=oEv.clientY-disY+'px';
+			oDiv1.style.left=oEv.clientX-disX+'px';
+			
+			
+			//
+			//t r b l
+			var A_t=oDiv1.offsetTop; //A_red
+			var A_r=oDiv1.offsetLeft+oDiv1.offsetWidth; // A_green
+			var A_b=oDiv1.offsetTop+oDiv1.offsetHeight;// A_blue
+			var A_l=oDiv1.offsetLeft;// A_pink
+			
+			var B_t=oDiv2.offsetTop;// B_blue
+			var B_r=oDiv2.offsetLeft+oDiv2.offsetWidth; //B_pink
+			var B_b=oDiv2.offsetTop+oDiv2.offsetHeight; //B_red
+			var B_l=oDiv2.offsetLeft; //B_green
+			
+			
+			
+			if(A_t>B_b ||A_r<B_l ||A_b<B_t || A_l> B_r){
+				//没有碰上
+				oDiv2.style.background='#555';	
+			}else{
+				oDiv2.style.background='yellow';	
+			}
+						
+		};
+		
+		document.onmouseup=function(){
+			document.onmousemove=null;
+			
+		};
+		return false;
+			
+	};
+};
+</script>
+</head>
+
+<body>
+
+<div class="div1">A</div>
+
+<div class="div2">B</div>
+</body>
+</html>

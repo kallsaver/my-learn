@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//hasOwnProperty只能检测自己的层的数据
+		//来个原生层的实现:
+		function student(){
+			this.type1="student";
+		}
+		
+		function human(){			//a就像是下层对象层String 
+			this.type2="a human";
+			(function(){
+				return {
+					
+				}
+			})()
+			
+		}
+		
+		student.prototype=new human();
+		
+		
+		var b=new student();
+		
+		console.log(student.prototype)				//human
+		console.log(student.prototype.prototype)	//undefined
+		console.log(student.prototype.__proto__)	//上层Object
+		console.log(b)
+		
+		console.log(b.hasOwnProperty("type1"))		//true	只能访问自己的层
+		console.log(b.hasOwnProperty("type2"))		//false 
+		console.log(b.hasOwnProperty("constructor"))//false
+		console.log(Object.getPrototypeOf(b))		//human对象层
+		console.log(Object.getPrototypeOf(Object.getPrototypeOf(b)))	//上层Object
+		console.log(Object.getPrototypeOf(Object.getPrototypeOf(Object.getPrototypeOf(b))))		//底层Object
+		
+		var c={}
+		
+		console.log(Object.getPrototypeOf(c))		//底层Object 对象层
+		
+	</script>
+</html>

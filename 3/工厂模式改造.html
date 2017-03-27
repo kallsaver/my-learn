@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+<script>
+
+	function getArgs(func) {
+ 		// 先用正则匹配,取得符合参数模式的字符串.
+ 		// 第一个分组是这个: ([^)]*) 非右括号的任意字符
+ 		var args = func.toString().match(/function\s.*?\(([^)]*)\)/)[1];
+ 		// 用逗号来分隔参数(arguments string).
+ 		return args.split(",").map(function(arg) {
+  		// 去除注释(inline comments)以及空格
+  		return arg.replace(/\/\*.*\*\//, "").trim();
+ 		}).filter(function(arg) {
+  		// 确保没有 undefined.
+ 		return arg;
+ 		});
+	}
+
+//Fruit是个预加载的全局的函数 所谓的工厂模式 根据参数不同构造不同的对象的方法(返回值是生成的对象) 相当于myapp
+//这里的Fruit的参数是一个字符串"banana"  传到函数里面后 变成一个全局的函数	window.banana
+//真实应用中 factory方法封装了套路内容  factory的第二个回调函数才是业务
+	 
+	function myapp() {} 
+	//window.myapp.factory
+	myapp.factory = function(type,fn) {
+		var a1={}
+		//fn&&fn(a1)
+		if(fn){
+			var a1=fn(a1)   
+			//把字符串"banana"改造成全局自运行函数banana  
+			window[type]=(function(){
+				
+				return a1	
+			})()
+		}	 
+	} 
+ 	
+	
+	
+	
+	myapp.factory("banana",function(a){
+		//data是从服务器拿回来的数据
+		var data={"price":100}
+		a=data
+		return a
+	})
+	
+	/*var d=banana
+	console.log(d)*/
+	
+	//-------------------------------------
+	//全局自运行函数banana注到其他函数的回调函数中
+	function controller(fn){
+		//这里的banana是实参 
+		if(fn){
+			//获得fn的形参名
+			
+			var name=getArgs(fn)[0]
+				
+			if(typeof(window[name])!="undefined"){
+				name=window[name]
+				fn(name)
+			}
+			
+			//console.log(name)
+			
+			else{
+				return 
+			}
+			/*//克隆函数
+			var huan=fn.toString();
+			//console.log(huan)
+			huan=huan.match(/{[^)]*}/,"")[0]
+	
+			huan=huan.replace(/(})$/,"")
+	
+			huan=huan.replace(/({)/,"")
+			console.log(huan)
+			
+			var realplay=new Function('a',huan+';ba')
+			
+			console.log(realplay)
+*/
+		}
+		
+	}
+	 //这里有两段回调 一个参数是匿名回调函数
+	 //匿名回调函数的参数是个变量(这个变量的名字恰好与那个全局函数同名)
+			//这里的banana是形参 
+	controller(function(banana){
+		//banana初始是undefine 
+		var b=banana
+		console.log(b)
+	})
+	
+</script>
+</html>

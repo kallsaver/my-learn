@@ -1,0 +1,13 @@
+ <div class="panel panel-default">
+    <div class="panel-heading" role="tab" ng-click="changeOpen()">
+      <h4 class="panel-title">
+        <a href="#collapseOne">
+        	语言 : {{heading}}
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse" ng-class="{in : isOpen}">   <!--{}语法-->
+      <div class="panel-body" ng-transclude>
+      </div>
+    </div>
+  </div>

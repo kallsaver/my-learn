@@ -1,0 +1,35 @@
+*{margin: 0;padding: 0;}
+.loop(@number)when(@number > 0){
+    //@{}在less中变量已经编译出来了
+    //.loop类函数运行时就会产生.box1等等的实例在css中输出
+    .box@{number}{
+        //less中的变量可以在运算中使用
+        width: 50px*@number;
+        height: 50px*@number;
+        line-height: 50px*@number;
+        background: peru;
+    }
+    .loop(@number - 1)
+}
+
+header{
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    .loop(6)
+}
+
+.loop1(@number)when(@number < 7){
+    
+    h@{number}{
+        font-size: 2px*(@number+7);
+        background: peru;
+        margin-top:10px;
+    }
+    .loop1(@number + 1)
+}
+
+body{
+   .loop1(1) 
+}
+

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+
+
+
+</style>
+</head>
+
+<body>
+<input type="checkbox" id="checkAll" ><label>全选</label><br>
+
+<div><input type="checkbox"><input type="checkbox"><input type="checkbox"><input type="checkbox"></div>
+
+
+</body>
+</html>
+<script>
+
+var aDiv=document.getElementsByTagName("div")[0];
+
+var aInput=aDiv.getElementsByTagName("input");
+
+//当我选中全选框的时候，下面4个框也选中  当取消全选框的时候，下面的4个框也全选无
+
+checkAll.onclick=function(){
+				for(var i=0; i<aInput.length; i++){
+					if(this.checked==true){
+						aInput[i].checked=true;  /*注意这里是赋值不是等号*/
+						
+					}
+					else{
+						
+						aInput[i].checked=false;
+						
+					}
+				
+				
+				}
+
+
+
+}
+
+
+
+</script>

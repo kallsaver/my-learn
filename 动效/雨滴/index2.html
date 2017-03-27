@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <style>
+    	*{margin: 0;padding: 0;}
+    </style>
+    <script src="js/rain.js"></script>
+    <script>
+    function run() {
+                var image = document.getElementById('background');
+                image.onload = function() {
+                    var engine = new RainyDay({
+                	//这个this是背景图的指针  image是字面量对象的key
+                        image: this
+                    });
+                    
+                };
+                image.crossOrigin = 'anonymous';
+                image.src = 'img/U1Tqqdw.jpg';
+     }
+	
+    </script>
+</head>
+<!--body加载完成后再执行run-->
+<body onload="run()"> 
+	<img id="background" alt="background" src="" />
+</body>
+</html>

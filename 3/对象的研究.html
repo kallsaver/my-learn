@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+</html>
+<script>
+	var myapp={
+		factory:{
+			
+			
+			
+				datafactory:(function(){
+					data=1;
+					return {
+						quer: function () {
+            				return data;   // 返回数据
+        				}
+					}
+				})()	
+			
+		}
+		
+		
+	}
+	
+	function run(){
+		var b=myapp.factory.datafactory.quer()
+		
+		//利用data的值
+		alert(b)
+	}
+	
+	run()
+	
+
+
+</script>

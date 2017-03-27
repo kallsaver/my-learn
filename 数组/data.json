@@ -1,0 +1,9 @@
+[
+  {"title": "天猫商品01", "price":168.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB1_50x50.jpg"},
+  {"title": "天猫商品02", "price":368.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB2_50x50.jpg"},
+  {"title": "天猫商品03", "price":268.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB3_50x50.jpg"},
+  {"title": "天猫商品04", "price":68.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB4_50x50.jpg"},
+  {"title": "天猫商品05", "price":101.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB1_50x50.jpg"},
+  {"title": "天猫商品06", "price":668.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB2_50x50.jpg"},
+  {"title": "京西商品101", "price":668.00,"desc": "这是京西商城2016最流行秋装", "imgsrc": "images/TB3_50x50.jpg"}
+]

@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+div{height:40px;margin-bottom:10px;background:#947273;width:400px}
+
+</style>
+<script src="js/jquery-3.1.0.min.js"></script>
+</head>
+
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div class="box"></div>
+<div id="dd"></div>
+<div><span></span></div>
+<div></div>
+<div></div>
+
+</body>
+</html>
+<script>
+	//filter(),not()后面可以接函数 和each()一样 可以遍历所匹配的元素 而且带index
+	//has() 是找保留有特定后代的,过滤没有后代的匹配元素  不能接函数 没有index
+	
+	//filter()可以接各种选择器   :是选择器  ()是方法
+	//$("div").filter(".box,#dd,:first").css("background","red")
+	
+	// :not过滤选择器 .not()过滤方法  
+	//$("div:not('#dd')").css("background","red")
+	//$("div").not("#dd").css("background","red")
+	
+	
+	//:has过滤选择器 has()过滤方法
+	//$("div:has('span')").css("background","red")
+	//$("div").has("span").css("background","red")
+//-----------------以上是过滤选择器和过滤方法------返回值是选择出来的元素---------------------------	
+
+
+	//$("div").hasClass("box").css("background","red")是错误的写法  因为hasClass的返回值是布尔值
+	//hasClass()和$this联用  用于判断
+
+</script>

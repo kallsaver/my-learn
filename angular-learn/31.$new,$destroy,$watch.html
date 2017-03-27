@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+		<script>
+			angular.module('Demo',[])
+			
+			.run(['$rootScope',rootScope])
+			
+			//controller的名字(html),[注入的参数,最后一个参数是controller回调函数]
+			.controller('testCtrl',['$scope','$rootScope',testCtrl])
+			
+			function rootScope($rootScope){
+				var rootScope = $rootScope;    
+				console.log('$rootScope',rootScope)   //$id : 1   //根作用域
+				//创建一个新的作用域 
+				var _scope = rootScope.$new();
+				_scope.value = 'Hello Worlds';
+				_scope.$destroy()
+			}
+			
+			function testCtrl($scope,$rootScope){
+				this.text = {words : "Hello World" , id : 1}
+				$scope.$watch("ctrl.text",function(newValue,oldValue){
+					console.log(newValue,oldValue)
+				},true)
+				this.list = ['a','b','c','d'];
+				//$watchCollection如果没有true参数,是监听数组的每一项的引用值
+				$scope.$watchCollection("ctrl.list",function(newValue,oldValue){
+					console.log(newValue,oldValue)
+				},true)
+				$scope.text = "$scope.text"
+				//testCtrl as ctrl 前面的是构造函数,后面的是实例
+				console.log('$scope.ctrl',$scope.ctrl)
+				console.log('this',this)
+				//构造函数中new处理的实例是$scope的一个属性 ,$scope负责了DOM元素的作用域  controller是它的存放数据的地方
+				console.log($scope.ctrl === this)     //true
+				console.log('$scope',$scope)          //$id : 3
+				console.log('$rootScope',$rootScope)   //$id : 1
+				
+				var a = $scope.$new()
+				console.log('a',a)                     //$id : 4 
+				console.log('a.$parent',a.$parent)     //$id : 3 
+				a.$destroy()    //把a的作用域链隔断了  a.$parent = null  
+			}
+			
+			
+		</script>
+	</head>
+	<body ng-app="Demo">
+		<!--ctrl就是testCtrl中的实例-->
+		<div ng-controller="testCtrl as ctrl">
+			<input ng-model='ctrl.text.words'>
+			<input ng-model='text'>
+			<input ng-list=',' ng-model='ctrl.list'>
+			<a href='http://www.cnblogs.com/ys-ys/p/4976128.html'>参考文献</a>
+				
+		</div>
+	</body>
+</html>

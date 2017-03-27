@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//strObj.indexOf(substr,startIndex) 
+		var str="ABCDEF"
+		
+		//常用于判断一个字符串中是否有一个元素   有则返回这个元素的索引值 
+		//没有则返回-1
+		var a1=str.indexOf("D");
+		var a2=str.indexOf("z")
+		console.log(a1)			//3
+		console.log(a2)			//-1	
+		
+		//第二个参数是从第几个索引值开始查找
+		var a3=str.indexOf("EF",2)
+		console.log(a3)			//4
+		
+	</script>
+</html>

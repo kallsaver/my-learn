@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//1.封装:
+		//当通过继承对已有的类进行改变或特殊化时,父"类"的所有属性和方法对子类都是可用的,
+		//在子类中不需要额外的声明或者定义任何东西就能够使用父类的属性和方法,这种特性称为封装
+		
+		//2.多态:
+		//在构造一个新的子类来继承并扩展一个类时,你可能需要将某个方法替换成一个同名的新方法,
+		//新方法的功能和原方法类似,但对子类做了针对性的改变
+		
+		
+		function Accommodation(){					
+			this.isLocked=false;					//this是实例化出来的对象
+			this.isAlarmed=false;					//这个isLocked加在Accommodation层
+		}
+		
+		Accommodation.prototype.lock=function(){	//在Object层加lock方法
+			this.isLocked=true;						//a.lock() 这里的isLocked加在顶层
+		}
+		
+		Accommodation.prototype.unlock=function(){
+			this.isLocked=false;
+		}
+		
+		Accommodation.prototype.alarm=function(){
+			this.isAlarmed=true;
+			alert("Alarm activated")
+		}
+		
+		Accommodation.prototype.deactiveAlarm=function(){
+			this.isAlarmed=false;
+			alert("Alarm deactivated")
+		}
+		
+		function House(){}
+		
+		House.prototype=new Accommodation()
+		House.prototype.constructor=House
+		
+		House.prototype.lock=function(){
+			Accommodation.prototype.lock.call(this)  //House层的lock调用的是Object层的lock
+			alert(this.isLocked);							
+			this.alarm()
+		}
+		
+		var a=new House()
+		console.log(a)
+		a.lock()
+		
+		
+		//
+		
+		
+		
+		
+		
+		
+	</script>
+</html>

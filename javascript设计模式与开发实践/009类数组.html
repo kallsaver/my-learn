@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//arguments和document.getElementsByTagName('div')都是类数组,所以不能像数组有数组的方法
+		//但是可以借用slice方法把类数组转为真数组,或者类数组使用call,apply等借用数组的方法
+		(function(){
+			Array.prototype.push.call(arguments,3)
+			console.log(arguments)
+		})(1,2)
+		
+		//<Javascript设计模式与开发实践>第33页有v8引擎的源码
+		//Array.prototype.push实际上是一个属性复制的过程,顺便修改了这个对象的length属性.
+		//至于被修改的对象是什么,这一点不重要,由此推断,可以把'任意'对象传入Array.prototype.push
+		//需要满足两个条件:对象本身可以存取属性,对象的length属性可读写
+		
+		var a = {}
+		Array.prototype.push.call(a,'first');
+		console.log(a)
+		console.log(a.length);
+		console.log(a[0])
+		
+		//如果是IE,需要显式给对象a设置length属性
+		var b = {
+			name : 'b'
+		}
+		Array.prototype.push.call(b,'first','second','third');
+		console.log(b)
+		//将哈希表转为真数组  name属性被抛弃了
+		var c =Array.prototype.slice.call(b)
+		console.log(c)
+		//将哈希表的第一个属性去掉
+		Array.prototype.shift.call(b)
+		console.log(b)
+		//
+		Array.prototype.unshift.call(b,'first')
+		console.log(b)
+		
+		var d =Array.prototype.slice.call(b,1,2);
+		console.log(d)
+		
+		//这样数组的几乎所有方法对象都可以用
+	</script>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<script>
+			//Bootstrap将全局font-size设置为14px,ling-height为20px,color为#333 
+			
+		</script>
+		<style>
+			*{margin: 0;padding: 0;}
+		</style>
+	</head>
+	<body>
+		<p style="background:red;line-height: 40px;">Bootstrap框架</p>
+		
+		<!--标记文本-->
+		<p>Bootstrap<mark>框架</mark></p>
+		<p>Bootstrap<mark style="background: red;">框架</mark></p>
+		
+		<!--加线条文本-->     <!--行元素-->
+		<del>Bootstrap框架</del>		<!--下划线在中间-->
+		<s>Bootstrap框架</s>			<!--同上-->
+		<ins>Bootstrap</ins>		<!--下划线在下方-->
+		<u>Bootstrap</u>			<!--下划线在下方-->
+		
+		<!--强调的文本-->     <!--行元素-->
+		<small>Bootstrap</small>	<!--标准字的85%-->
+		<strong>Bootstrap</strong>  <!--加粗700-->
+		<em>Bootstrap</em>          <!---->
+		
+		<br>
+		<br>
+		<!--位置-->
+		<p class="text-left">bootstrap</p>
+		<p class="text-center">bootstrap</p>
+		<p class="text-right">bootstrap</p>
+		<p class="text-nowrap">bootstrap</p>	<!--不换行-->
+		
+		<br>
+		<br>
+		<!--大小写-->
+		<p class="text-lowercase">BOOTstrap</p>
+		<p class="text-uppercase">bootstrap</p>
+		<p class="text-capitalize">bootstrap</p>	<!--首字母大写-->
+		
+		<br>
+		<br>
+		<!--缩略语-->			<!--行元素-->
+		<!--initialism使得字体变小,abbr标签鼠标悬停时会出现title的文本-->
+		Bootstrap<abbr title="f">框架</abbr>
+		Bootstrap<abbr title="Bootstrap框架是一个css框架" class="initialism">Bootstrap</abbr>
+		
+		<br>
+		<br>
+		<address>
+			<strong>Twitter, Inc.</strong><br> 
+			795 Folsom Ave, Suite 600<br> 
+			San Francisco, CA 94107<br> 
+			<abbr title="Phone">P:</abbr> (123) 456-7890 
+		</address>
+		
+		<!--引用文本-->      <!--块元素-->
+		<blockquote>
+			Bootstrap框架
+		</blockquote>
+		<blockquote>
+			Bootstrap框架
+		</blockquote>
+		<blockquote class="blockquote-reverse">		<!--右边-->
+			Bootstrap框架
+		</blockquote>
+		
+		<br>
+		<br>
+		<!--列表-->   <!--默认样式-->
+		<ul class="list-unstyled"> 
+			<li>Bootstrap 框架</li> 
+			<li>Bootstrap 框架</li>
+			<li>Bootstrap 框架</li>
+			<li>Bootstrap 框架</li> 
+			<li>Bootstrap 框架</li> 
+		</ul>
+		
+		<br>
+		<br>
+		<!--列表-->   <!--响应式浮动-->
+		<ul class="list-inline">     
+			<li>Bootstrap 框架</li> 
+			<li>Bootstrap 框架</li>
+			<li>Bootstrap 框架</li>
+			<li>Bootstrap 框架</li> 
+			<li>Bootstrap 框架</li> 
+		</ul>
+		
+		<dl class="dl-horizontal">
+			<dt>Bootstrap</dt>
+			<dd>Bootstrap是个css框架</dd>
+			<dd>Bootstrap是个css框架</dd>
+		</dl>
+		
+		<br>
+		<br>
+		<code>&lt;section&gt;</code>
+		
+		press <kbd>ctrl + ,复制</kbd>
+		
+		<pre>&lt;p&gt;Please input...&lt;/p&gt;</pre>
+
+
+		
+		
+		
+	</body>
+	<script>
+		var small=document.getElementsByTagName("small")[0]
+		console.log(small)
+		var blockquote=document.getElementsByTagName("blockquote")[0]
+		console.log(blockquote)
+	</script>
+</html>

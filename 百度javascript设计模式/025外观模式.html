@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id='div' style="width:100px;height: 100px;background: red;"></div>
+	</body>
+	<script>
+	//常用于兼容,当统一功能借口哦方法不统一时,可以通过外观模式定义一个统一的接口方法
+	//这样就提供一个更简单的高级接口
+		function addEvent(dom,type,fn){
+			if(dom.addEventListener){
+				dom.addEventListener(type,fn,false);
+			}
+			else if(dom.attachEvent()){
+				dom.attachEvent('on'+type,fn)
+			}
+			else{
+				dom['on'+type] = fn
+			}
+		}
+		
+		var div = document.getElementById('div')
+		
+		addEvent(div,'click',function(){
+			alert(1)
+		})
+		
+	</script>
+</html>

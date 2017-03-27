@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="jquery-3.1.0.js"></script>
+	<script src="underscore.js"></script>
+	<script>
+	//json内容:
+/*	[
+  {"title": "天猫商品01", "price":168.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB1_50x50.jpg"},
+  {"title": "天猫商品02", "price":368.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB2_50x50.jpg"},
+  {"title": "天猫商品03", "price":268.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB3_50x50.jpg"},
+  {"title": "天猫商品04", "price":68.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB4_50x50.jpg"},
+  {"title": "天猫商品05", "price":188.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB1_50x50.jpg"},
+  {"title": "天猫商品06", "price":668.00,"desc": "这是2016最流行秋装", "imgsrc": "images/TB2_50x50.jpg"},
+  {"title": "京西商品101", "price":668.00,"desc": "这是京西商城2016最流行秋装", "imgsrc": "images/TB3_50x50.jpg"}
+	]*/
+	
+	
+	//如果有等于100的就返回全部数据  否则返回比200大的数据
+		
+		var arr=[];
+		$.ajax({
+			type:"get",
+			url:"data.json",
+			dataType: "json",
+			success: function(data){	
+					console.log(data)
+					var a=[];
+					var b=[];
+					a=_.filter(data,function(item){
+						if(_.isEqual(item.price,100)){	
+							b=data;
+						}
+						else{
+							return item.price>200
+						}						
+					})
+					if(b.length===0){
+						Array.prototype.push.apply(arr,a);	
+					}
+					else{
+						Array.prototype.push.apply(arr,b);
+					}   							 	 	
+  		}			
+		});	
+		
+		console.log(arr)	//ajax异步
+		arr.push(1)			//1才是第一个元素	
+	</script>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>float_test</title>
+<style>
+div{ font-size:60px; color:#fff; font-weight:bold; border-radius:3px}
+.wrap{ background:#ccc; font-size:20px}
+#abox{ width:300px; height:100px; background:rgba(255,0,0,.9)}
+#bbox{ width:420px; height:140px; background:#44a1f0}
+#cbox{ width:200px; height:180px; background:#75d4a4}
+button{ height:40px; border-radius:3px; background:none; border:1px solid #ccc; margin-top:30px; font-size:14px}
+.ac{ background:#999; color:#fff}
+p{ width:300px; border:1px solid #CCCCCC}
+img{ width:30px; height:30px; background:red}
+</style>
+
+
+</head>
+
+<body>
+<div class="wrap">
+	<a href="#">一起来玩玩float！！</a>
+	<div id="abox">A</div>
+</div>
+
+
+<div id="bbox">B</div>
+<div id="cbox">C</div>
+
+
+<div style="clear:both; margin-top:100px"></div>
+
+
+
+
+
+
+
+
+
+<button type="button" onClick="document.getElementById('abox').style.float='left';this.className='ac'">A float:left</button>
+<button type="button" onClick="document.getElementById('abox').style.clear='both';this.className='ac'">A clear:both</button>
+<button type="button" onClick="document.getElementById('bbox').style.clear='both';this.className='ac'">B clear:both</button>
+<button type="button" onClick="document.getElementById('bbox').style.float='right';this.className='ac'">B float:right</button>
+<button type="button" onClick="document.getElementById('cbox').style.float='left';this.className='ac'">C float:left</button>
+<button type="button" onClick="document.getElementById('cbox').style.float='right';this.className='ac'">C float:right</button>
+<button type="button" onClick="document.getElementById('cbox').style.clear='both';this.className='ac'">C clear:both</button>
+<hr>
+<P>
+为了加深一下印象，我们再来玩个小游戏为了加深一下印象，我们再来玩个小游戏为了加深一下印象，我们再<img id="img1">来玩个小游戏为了加深一下印象，我们再来玩个小游戏
+</P>
+<button type="button" onClick="document.getElementById('img1').style.float='left';this.className='ac'">img float</button>
+
+</body>
+</html>

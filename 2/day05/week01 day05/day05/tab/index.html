@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{ margin:0;  padding:0}
+body{ padding:20px}
+.hide{ display:none}    
+.imgTab{ width:400px; height:300px; border:1px solid #ccc; margin-bottom:10px}    
+.imgTab button{ border:none; background:#ccc; width:30px; height:30px; margin-left:10px}
+.imgTab .ac{ background:red; color:#fff;}
+</style>
+<script>
+window.onload=function(){
+	
+	function tab_img(id){
+		//找到单元的容器
+		var oDiv=document.getElementById(id);
+		var aImg=oDiv.getElementsByTagName('img');
+		
+
+		//插入按钮-------------------------------------
+		var html='';//空字符串
+		for(var i=0; i<aImg.length;i++){//根据图片长度，拼了按钮的字符串
+			html+='<button type="button">'+(i+1)+'</button>';
+		};
+		
+		oDiv.innerHTML+=html;//插入到了div里
+		var aBtn=oDiv.getElementsByTagName('button');//把所有的按钮选中
+		
+		aBtn[0].className='ac';//让第一按钮加上ac
+		
+		//所有的按钮，都要绑定上事件-------------------------------------
+		for(var i=0; i<aImg.length; i++){
+			aBtn[i].index=i;
+			//绑事件
+			aBtn[i].onclick=function(){
+				//去掉所有按钮上ac
+				for(var j=0; j<aImg.length; j++){
+					aBtn[j].className='';
+					aImg[j].style.display="none";
+				};
+				//让自己加上ac
+				this.className='ac';
+				aImg[this.index].style.display="block";
+			};
+		}
+	};
+	
+	tab_img('box1');
+	tab_img('box2');
+	tab_img('box3');
+
+}
+
+
+
+</script>
+
+
+
+
+</head>
+
+<body>
+<div id="box1" class="imgTab">
+	<div class="imglist">
+        <img src="01.jpg">
+        <img class="hide" src="02.jpg">
+        <img class="hide" src="03.jpg">
+        <img class="hide" src="04.jpg">
+        <img class="hide" src="05.jpg">
+    </div>
+   	<!--<button class="ac" type="button">1</button><button type="button">2</button><button type="button">3</button>-->
+
+</div>
+
+<div id="box2" class="imgTab">
+	<div class="imglist">
+        <img src="01.jpg">
+        <img class="hide" src="02.jpg">
+        <img class="hide" src="03.jpg">
+    </div>
+</div>
+
+<div id="box3" class="imgTab">
+	<div class="imglist">
+        <img src="01.jpg">
+        <img class="hide" src="02.jpg">
+        <img class="hide" src="03.jpg">
+    </div>
+</div>
+
+</body>
+</html>

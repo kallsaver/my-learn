@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			span {
+				color :orange
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<h3>
+				<!--template是vue自定义的一个便签,渲染完成后自动删除,ng也有这个功能-->
+				<!--这样v-if就可以控制多个模块的显示和隐藏-->
+				<template v-if="type">
+					<span >{{type}}</span><span> | </span>
+				</template>
+				<strong>{{content}}</strong>
+			</h3>
+			
+		</div>
+	</body>
+	<script src="js/vue.js"></script>
+	<script type="text/javascript">
+		
+		var app = new Vue({
+			el : '#app',
+			data : {
+				type : '热点',
+				content : '广告 : 碎片时间学英语 广告 : 跳转美国名校'
+			}
+		})
+		
+		
+	</script>
+</html>

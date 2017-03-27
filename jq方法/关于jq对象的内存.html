@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-3.1.0.js"></script>
+	</head>
+	<body>
+		<div></div>
+	</body>
+	<script>
+		//$是个构造函数,会产生新的实例,因此会开辟新的内存地址
+		var a = $('div')
+		var b = $('div')
+		if(a == b){        //不弹   说明a和b是在不同的内存地址
+			alert(1)
+		}
+		
+		if(a[0] == b[0]){ //弹   a和b的DOM元素的地址是相同的内存地址
+			alert(2)
+		}
+		
+	</script>
+</html>

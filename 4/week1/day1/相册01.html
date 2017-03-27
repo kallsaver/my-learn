@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="css/index.css" rel="stylesheet">
+    <script src="jQuery_lib/jquery-3.1.0.js"></script>
+
+    <script>
+        $(function(){
+            //尽量少点用$找DOM元素
+            var $ul=$("#gallery")
+            var $ul_width=$ul.width()
+            var $ul_height=$ul.height()
+            var ROW=4;
+            var COL=5;
+            for(var i=0;i<ROW;i++){
+                for(var j=0;j<COL;j++){
+                    $("<li><div class='img'></div></li>").find("div")
+                            .width($ul.width()/COL)
+                            .height($ul.height()/ROW)
+                            .css('background-image',"url(images/0.jpg)")
+                            .css("background-position",j*100/(COL-1)+"% "+i*100/(ROW-1)+"%")
+                            .end()
+                            .attr("index",i*COL+j).click(function(){
+                            //alert($(this).attr("index"))
+                    })
+                            .appendTo($ul)
+
+                }
+            }
+
+            function slice(){
+                var padding=2
+
+                $ul.width($ul.width()+padding*COL*2)
+                        .height($ul.height()+padding*ROW*2)
+                $("#gallery li").css("padding",padding)
+
+
+                $("#gallery li div").each(function(index){
+                    $(this).css('background-image',"url(images/"+index+".jpg)")
+                            .css("background-size","cover")
+                            .css("left",$(this).get(0).offsetLeft)
+
+                    //console.log(slice)
+                    //console.log($(this).slice)
+
+                })
+
+            }
+
+            $("#slice").on("click", slice)
+
+
+
+            $("#hide").on("click",function(){
+                $("#gallery li").each(function(){
+                    var del=Math.random()*2000+500
+                    var ani=Math.random()*1500+500
+                    $(this).delay(del).finish().animate({"opacity":0},ani)
+                })
+            })
+
+
+            $("#show").on("click",function(){
+                $("#gallery li").each(function(){
+                    var del=Math.random()*2000+500
+                    var ani=Math.random()*1500+500
+                    $(this).delay(del).finish().animate({"opacity":1},ani)
+                })
+            });
+
+
+
+        })
+
+
+
+    </script>
+</head>
+<body>
+<input type="button" id="slice" value="拆分" style="width: 50px;height: 30px">
+<input type="button" id="hide" value="隐藏" style="width: 50px;height: 30px">
+<input type="button" id="show" value="显示" style="width: 50px;height: 30px">
+<input type="button" id="toggle" value="toggle" style="width: 50px;height: 30px">
+<ul id="gallery" class="mid" >
+    <!-- <li><div class='img' ></div></li>-->
+</ul>
+</body>
+</html>

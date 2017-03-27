@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+		<script>
+			angular.module('myApp',[],['$provide',function($provide){
+				//$provide.factory
+				//$provide.service
+				
+				//$provide.constant
+				
+			}])
+			
+			//constant这个方法首先运行,可以用它来声明全局的常量,可以注入config,factory,service,controller任何方法中
+			.constant('APIKEY','key')
+			//可以声明一个函数,这个函数就可以注入了
+			.constant('fn',function(){
+				console.log('fn')
+			})
+			
+			//value 不能注入config,可以注入controller,factory,service
+			.value('vension','1,0,0')
+			
+			.config(function(APIKEY,fn){
+				console.log('config',APIKEY)
+				console.log('fn',fn)
+			})
+			
+			//注入启动之后执行某些操作,这些操作需要在页面对用户可用之前执行,config之后controller之前
+			//比如加载远程的模板,需要在使用前放入缓存,
+			//或者在使用操作前判断用户是否登录,未登录可以先去登录页面
+			.run(function(){
+				console.log('run');
+			})
+			
+			.factory('shopFactory',function(APIKEY,vension){
+				console.log('factory函数运行');
+				return {
+					fn : function(){
+						console.log('factory',APIKEY)
+						console.log('factory',vension)
+					}
+				}
+			})
+			
+			.factory('shopArr',function(){
+				console.log('factory函数运行');
+				return [1,2,3]
+				
+			})
+			
+			.controller('myCtrl',['$scope','APIKEY','vension','shopFactory','shopArr',function($scope,APIKEY,version,shopFactory,shopArr){
+				console.log('controller',APIKEY)
+				console.log('controller',version)
+				console.log(shopArr)
+				shopFactory.fn()
+			}])
+		</script>
+	</head>
+	<body ng-app='myApp'>
+		<div ng-controller='myCtrl'></div>
+	</body>
+</html>

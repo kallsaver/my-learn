@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id='div' style="width: 100px;height: 100px;background: red;"></div>
+		<input id='tel_input' style="width: 200px;height: 30px;">
+		<input id='name_input' style="width: 200px;height: 30px;">
+		<input id='address_input' style="width: 200px;height: 30px;">
+	</body>
+	<script>
+		//原需求:  假如原代码很复杂,在源代码改很繁琐
+		document.getElementById('tel_input').onclick=function(){
+			document.getElementById('div').style.background = 'peru';
+		}
+		
+		//不改变原来的原需求的代码,装饰新的需求,type的参数可以不要
+		var decorator = function(id,type,fn){
+			var dom = document.getElementById(id);
+			
+			if(typeof dom.onclick === 'function'){
+				//缓存原来的回调函数
+				var oldClickFn = dom.onclick;
+				dom.onclick = function(){
+					oldClickFn();
+					fn()
+				}
+			}else{
+				dom['on'+type] = fn;
+			}
+		}
+		
+		//不需要到找到原来代码的位置改
+		decorator('tel_input','focus',function(){
+			document.getElementById('tel_input').style.borderColor='blue';
+		})
+		
+		decorator('name_input','focus',function(){
+			document.getElementById('name_input').style.borderColor='gold';
+		})
+		
+		decorator('address_input','click',function(){
+			document.getElementById('address_input').style.borderColor='red';
+		})
+		
+		
+		
+		
+	</script>
+</html>

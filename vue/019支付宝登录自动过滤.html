@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			ul{list-style: none;margin-left: 142px;border :2px solid #00BBFF;width:200px;
+			padding-left: 10px;padding-right: 10px;}
+			li{line-height: 25px;height: 25px;}
+			#app{
+				width:800px;height: 500px;margin:100px auto;
+				boorder : 1px solid #ccc;
+				box-shadow: 2px 4px #ccc;
+				font-size: 16px;
+			}
+			label{
+				margin-left : 80px;
+			}
+			input{padding: 8px 10px;margin-left:10px;
+				width:200px;
+			}	
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<label for="login">账户名
+				<input id="login" v-model="msg" type="text" placeholder="请输入邮箱地址">
+			</label>
+			<ul v-if='msg'>
+				<!--vue的filterBy相当于ng的filter,并且没有 ‘:’号-->
+				<!--filterBykey是动态插值-->
+				<li v-for="item in mail |filterBy filterByKey ">{{dealMsg}}@{{item}}</li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/vue.js"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el : '#app',
+			data : {
+				msg : '',
+				mail : ['qq.com','163.com','126.com','189.cn','sina.com','hotmail.com','gmail.com','sohu.com','21.com.cn']
+			},
+			// 动态绑定数据,并且computed下的函数都是数据改变触发运行的函数,它们都有返回值,只是作为一种动态绑定数据的途径
+			computed : {
+				dealMsg : function(v){
+					//处理msg,截取@前面的字符串
+					return this.msg.indexOf('@') === -1 ? this.msg : this.msg.slice(0,this.msg.indexOf('@'));
+				},
+				//过滤的字段,computed对象下的函数是数据改变触发运行的,实际上等同于返回值的数据类型
+				//这些函数是filterBy的回调函数,会先执行得到结果再有filterBy内部的数组的filter的过滤效果执行
+				//那个结果是作为数组filter的回调函数中 return item === 结果  使用
+				filterByKey : function(){
+					//vue的this就相当于ng的$scope,computed对象中的所有函数全都绑定在vue实例化对象上
+					//返回的信息应该是msg的@后面的字段
+					var num = this.msg.indexOf('@');
+					//如果@符合不存在,返回所有的
+					//不考虑21.com.cn下面已经可以了
+//					if(num == -1){
+//						return '';
+//					}else{
+//						var key = this.msg.slice(num+1);
+//						return key;
+//					}
+					//考虑输入123@1不会出现123@21.com.cn的情况:
+					if(num == -1){
+						return '';
+					}
+					else{
+						var key = this.msg.slice(num+1);
+						return function(item,index){
+							//源码filterBy的第一个参数是arr,第二个参数是search,search可以是已经得到的返回值
+							//也可以是function,而如果是function,这个函数的参数是绑定好的(主函数传参),
+							//并且这个函数就是filterBy实现过滤效果的数组的filter函数的回调函数
+							console.log(this);      //window
+							console.log(arguments); //item,index,oldArr
+							//key是不是第一个,所以21.com.cn不会出现
+							return item.indexOf(key) === 0;
+						}
+					}
+				}
+			}
+		})
+	</script>
+</html>

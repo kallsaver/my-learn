@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function Super(){
+			//这里的数据是加在Super层的    实质上是一个对象
+			this.bookList =['Javascript','Typescript','Python','Java','Ruby']
+		}
+		
+		function Sub(){}
+		
+		Sub.prototype = new Super()
+		
+		var a = new Sub()
+		var b = new Sub()
+		console.log(a.__proto__ === b.__proto__)    //true   Super层是同一个引用地址
+		
+		//bookList是原型上的属性,所以会影响到上层的所有实例
+		a.bookList.push('Node')
+		console.log(b.bookList)
+		
+	</script>
+</html>

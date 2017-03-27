@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+		<script>
+		//最后一个参数是配置
+			var myApp=angular.module("myApp",[],function($provide){
+				
+				//自定义服务
+				$provide.provider("myService",function(){
+					this.$get=function(){
+						return {
+							message : "bbb"
+						}
+					}
+				})
+			})
+			
+			myApp.controller("myCtrl",function($scope,myService){
+				$scope.data={
+					name:"aaa"
+				}
+				console.log(myService)
+			})
+			
+		</script>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">{{data.name}}</div>
+		<div></div>
+	</body>
+	
+</html>

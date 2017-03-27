@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	//首先Object.create对于二维属性数据是无法拿值得  只能实现一维结构的拿值  二维结构拿引用
+		function student(){
+			this.type="a student";
+		}
+		
+		function hxsdStudent(){
+			this.type="a hxsdStudent"
+		}
+		
+		//student.prototype恰好是上层Object
+		student.prototype.name="aaa";
+		student.prototype.blood="500";
+		student.prototype.address={city:["beijing","shanghai"]};
+		
+	
+		var a={
+			/*name:"aaa",
+			blood:"500",
+			address:{city:["beijing","shanghai"]}	*/		
+		}
+		
+		a=new student();	//a在上层Object的属性数据全部被冲掉了  只能在构造函数中补上
+		
+		console.log(a)
+		
+		var b=Object.create(a)		//b克隆了a的全部 并且比a多了一层
+		
+		//b=new hxsdStudent();		会冲掉上层Object的所有层  正确的做法是看构造函数和Object.create创造的层.html
+		
+		console.log(b)				//b有上层student  底层student  上层Object 底层Object
+		
+		console.log(b instanceof student)	//true
+		
+		console.log(a.__proto__)	//object	student是在a现在这层的,a下面应该是上  层Object
+		
+		console.log(b.__proto__)	//student	
+		
+		
+		//所以构造函数是创造底层的  Object.create是创造上层的 
+	</script>
+</html>

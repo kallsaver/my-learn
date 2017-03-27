@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>			
+		</style>
+	</head>
+	<body>
+
+	</body>
+	<script>
+	//只有对象可以无限加层 其他的数组,函数等等都不能   数组只有固定的三层 函数   
+	function add(){
+		
+	}
+	//var arr=[];		
+	//var a={}		//新var的对象 只有两层  上层Object  底层Object
+	console.log("------------------")
+	//console.log(arr)	//数组只有三层  顶层Array  底层Array  底层Object 
+	//函数有四层  顶层Function 底层Function 上层Object 底层Object
+	console.log(add.prototype)	//直接跳上层Object  只有函数有prototype
+	console.log(add.__proto__)	//function(){}空函数  
+	//在写代码时  写Function首先得到的是上层Function 如果你希望得到底层Function 就要Function.prototype
+	console.log(Function.prototype)  //call方法就是封在这层  底层Function 所有的函数都有call方法
+	//可以封一个类似call的函数   Function.prototype.callPro=function(){}  这样所有的函数都有callPro方法了
+	console.log("--------------")
+		function Student(){
+			this.type="a Student"
+		}
+		
+		function HxsdStudent(){
+			this.type="a HxsdStudent"
+		}
+		
+		//这样 如果通过HxsdStudent创造出来的实例就有 底层HxsdStudent  底层Student 一个上层Object 一个底层Object
+		//但是没有上层Student 上层Student是Object.create()实现的
+		HxsdStudent.prototype=new Student() 
+		
+		var a=new HxsdStudent()
+		
+		//construtor是写在上层Object上的
+		console.log(a)
+		console.log(a.__proto__)//Student层	//a处于底层HxsdStudent  它的下一层是底层Student  
+		console.log(a.__proto__.__proto__)	//Student层下一层就是上层Object层了  这层有construtor 	
+		console.log(a.__proto__.__proto__.__proto__)	//底层Object
+		
+		var b=Object.create(a) //这句话对a是有影响的  在浏览器中a的最顶层会被改名成次顶层的名字,
+		alert(a instanceof HxsdStudent)	//true  还是true但是在浏览器中已经看不到HxsdStudent层了 被改名为Student
+		console.log('a',a)
+		console.log('b',b)		//有顶层HxsdStudent(被改名为Student) 底层HxsdStudent(被改名为Student) 底层Student 上层Object 底层Object
+		
+		Student.prototype.speak1=function(){	//再次说明HxsdStudent只是被改名了而已
+			alert("我在Object层")
+		}
+		
+		//这个HxsdStudent指的是构造器  不是Object.create创造出来的HxsdStudent层
+		HxsdStudent.prototype.speak2=function(){	//Object.create创造出来的层不是构造器,所以不能被检索
+			alert("我在Student层")
+		}
+		
+		
+		console.log(b)
+		
+		//总结函数用prototype 对象用__proto__
+	</script>
+</html>
