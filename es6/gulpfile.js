@@ -65,4 +65,8 @@ gulp.task('serve',['sass','less','babel'],function() {
 
 
 
+<<<<<<< HEAD
 gulp.task('default', ['serve']);
+=======
+gulp.task('default', ['serve']);
+>>>>>>> b5dcfc604a02ad5743b54b114891c28460b72931

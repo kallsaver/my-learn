@@ -8,11 +8,19 @@
 			ul {list-style: none;}
 		</style>
 		<script>
+<<<<<<< HEAD
 			<div>
 				controller和controllerAs和require
 				controller会暴露一个API,利用这个API可以在多个指令之间通过依赖注入进行通信
 				controllerAs是给controller起个别名,方便使用
 			</div>
+=======
+//			<div>
+//				controller和controllerAs和require
+//				controller会暴露一个API,利用这个API可以在多个指令之间通过依赖注入进行通信
+//				controllerAs是给controller起个别名,方便使用
+//			</div>
+>>>>>>> b5dcfc604a02ad5743b54b114891c28460b72931
 		</script>
 		<script>
 		
@@ -87,6 +95,10 @@
 					//没有写require规则,bookListCtrl这个controller就是自己的controller函数,名字随便给
 					//如果有require规则,必须依照依赖注入的规则
 					link : function(scope,element,attr,a){
+<<<<<<< HEAD
+=======
+						console.log('link执行')
+>>>>>>> b5dcfc604a02ad5743b54b114891c28460b72931
 						//console.log(scope.bookList);
 						element.on('click',a.addBook)
 					}
@@ -95,6 +107,10 @@
 			
 			
 			.controller('myCtrl',['$scope',function($scope){
+<<<<<<< HEAD
+=======
+				console.log('父controller执行')
+>>>>>>> b5dcfc604a02ad5743b54b114891c28460b72931
 				//就是directive中的controller,因为上面的directive都没有加上独立的scope,不过这个controller会先执行
 				console.log($scope)
 				

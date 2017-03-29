@@ -7,11 +7,22 @@
 	<body>
 	</body>
 	<script>
+<<<<<<< HEAD
 		var str = '中文dd45';
 		function run(str){
 			var a = str.match(/[\u4e00-\u9fa5]/g);
 			console.log(a);
 			var b = str.match(/[a-z]/ig);
+=======
+		//方法1:
+		var str1 = '5中文5dd45';
+		var str2 = '5dfd中文';
+		var str3 = '中文';
+		function run(str){
+			var a = str1.match(/[\u4e00-\u9fa5]/g);
+			console.log(a);
+			var b = str1.match(/[a-z]/ig);
+>>>>>>> b5dcfc604a02ad5743b54b114891c28460b72931
 			if(a !== null && b!==null){
 				console.log(1)
 				return 1;
@@ -19,7 +30,16 @@
 			return 0;
 		}
 		
+<<<<<<< HEAD
 		run(str);
+=======
+		run(str1);
+		
+		//方法2:   test是只要字符串中有这种片段就true
+		console.log(/[\u4e00-\u9fa5]+.*[a-z]+|[a-z]+.*[\u4e00-\u9fa5]+/i.test(str1));
+		console.log(/[\u4e00-\u9fa5]+.*[a-z]+|[a-z]+.*[\u4e00-\u9fa5]+/i.test(str2));
+		console.log(/[\u4e00-\u9fa5]+.*[a-z]+|[a-z]+.*[\u4e00-\u9fa5]+/i.test(str3));
+>>>>>>> b5dcfc604a02ad5743b54b114891c28460b72931
 		
 		
 		

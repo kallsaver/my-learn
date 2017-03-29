@@ -60,7 +60,11 @@
 				transformStyle : "preserve-3d",
 				transform      : "rotateY("+ax+"deg) rotateX("+ay+"deg)"
 			});
+<<<<<<< HEAD
 																			//亮度是衬托出来的  对角越暗显得这边越亮 
+=======
+			//亮度是衬托出来的  对角越暗显得这边越亮 
+>>>>>>> b5dcfc604a02ad5743b54b114891c28460b72931
 			$shine.css('background', 'linear-gradient(' + angle + 'deg, rgba(255,255,255,' + event.offsetY / h * .7 + ') 0%,rgba(255,255,255,0) 80%)');
 		}
 

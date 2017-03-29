@@ -58,8 +58,13 @@
 						//&:作用域把一个属性包装成一个函数,从而以函数的方式读写父作用域$scope的属性,函数运行会返回父作用域$scope属性的值
 						//=:作用域的属性与父作用域的属性进行双向绑定,任何一方的修改均影响到对方
 						//@:只能读取父作用域里的值单项绑定
+<<<<<<< HEAD
 						//a :'&book'   		//1.将book属性封装成一个directive中的a函数
 						//b : '=parentBook'   //2.将parentBook属性拿到的myCtrl父级的属性引用赋给b,任何一方属性的数据改变都会影响对方
+=======
+						//a :'&book'   		  //1.将book属性封装成一个directive中的a函数
+						//b : '=parentBook'   //2.将父级的myCtrl的parentBook属性的引用赋给自定义指令scope.b,任何一方属性的数据改变都会影响对方
+>>>>>>> b5dcfc604a02ad5743b54b114891c28460b72931
 						/*c : '@parentTitle',
 						d : '@zhname'*/
 					},
@@ -67,7 +72,12 @@
 					//template不能写成平行元素,必须有个root element即最外围的元素  否则link中的element就找不到匹配的元素
 					template :'<div><ul><li ng-repeat="book in bookList">{{book.name}}</li></ul></div>',
 					link :function(scope){
+<<<<<<< HEAD
 						console.log(scope.bookList)
+=======
+						console.log(scope.bookList);
+						//console.log(scope.b)
+>>>>>>> b5dcfc604a02ad5743b54b114891c28460b72931
 					}
 							
 				}
