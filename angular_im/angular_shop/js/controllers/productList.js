@@ -9,7 +9,7 @@ myapp.controller("productListCtrl",function($scope,shopCart){
             {id:"10004",category:"商品类别4"}
         ]
 	}*/
-	
+	console.log(111)
 	
 	// 定义两个与分页计算有关的变量：
     $scope.pageNum = 1; // 当前页码，默认第一页
