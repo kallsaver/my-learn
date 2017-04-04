@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin:0;padding: 0;}
+			li{width:500px;height: 50px;background: peru;margin:0 auto;
+			   text-align: center;line-height: 50px;color: #fff;font-size: 20px;
+			}
+			li{list-style: none;}
+			span{display: inline-block;}
+		</style>
+	</head>
+	<body>
+		<div id="nav">
+			<ul>
+				<li class="home"><span>home</span></li>
+				<li class="about"><span>about</span></li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		//查找方法
+		// 1. 最低效的方法
+		// $('.home');
+		// 2.比较高效的做法
+		// $('#nav li.home');
+		// 3.最高效的做法,使用find
+		$('#nav').find('li.home').css({background : 'red'})
+		
+		
+		// 缓存
+		var a = $('#nav').find('li.home');
+		var b = $('#nav').find('li.home');
+		console.log(a === b);       //false
+		// 所以jquery使用$,其实是一种工厂方法,重新在内存中分配了地址给一个对象,
+		// 使用缓存,不仅可以减少内存分配,优化性能,而且可能避免$函数重复查找浪费程序的执行时间
+		// 低效的做法:
+//		var $nav = $('#nav');
+//		var $navLi = $('#nav li');
+//		var $navLiSpan = $('#nav li span');
+		
+		// 高效的做法:
+		var $nav = $('#nav');
+		var $navLi = $nav.find('li');
+		var $navLiSpan = $navLi.find('span');
+
+		
+		
+		
+		
+		
+	</script>
+</html>
