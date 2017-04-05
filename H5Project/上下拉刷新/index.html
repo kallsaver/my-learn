@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			*{margin:0;padding: 0;}
+			body{font-family: Arial,"microsoft yahei"}
+			.clearfix{
+				clear:both;display: block;font-size: 0;line-height: 0;
+			}
+			a,a:hover{
+				text-decoration: none;cursor: pointer;
+			}
+			li{list-style: none;height: 50px;}
+
+		</style>
+		<title></title>
+	</head>
+	<body>
+		<div id="wrapper">
+			<ul>
+				<li>row 10</li>
+			    <li>row 9</li>
+			    <li>row 8</li>
+			    <li>row 7</li>
+			    <li>row 6</li>
+			    <li>row 5</li>
+			    <li>row 4</li>
+			    <li>row 3</li>
+			    <li>row 2</li>
+			    <li>row 1</li>
+			</ul>
+		</div>
+	</body>
+	<!--<script src="js/jquery-3.1.0.js"></script>-->
+	<script src="js/bgColor.js"></script>
+	<script src="lib/iscroll.js"></script>
+	<script>
+		var aLi = document.querySelectorAll('#wrapper ul li');
+		console.log(aLi)
+		for(var i = 0,length = aLi.length; i < length; i++){
+			aLi[i].bgColor();
+		}
+		
+		
+		
+	</script>
+</html>

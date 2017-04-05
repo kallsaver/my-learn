@@ -7,10 +7,8 @@ var less = require('gulp-less');
 var plumber = require('gulp-plumber');
 var rename = require('gulp-rename');
 
-
-
 gulp.task('babel',function(){
-  return gulp.src('app/src/js/*.js')
+	return gulp.src('app/src/js/*.js')
         .pipe(plumber())
         .pipe(babel())
         .on('error',function(err){
@@ -48,19 +46,20 @@ gulp.task('sass', function() {
 });
 
 // Static Server + watching scss/html files
-gulp.task('serve',['sass','less','babel'],function() {
+gulp.task('serve',[],function() {
     //启动服务器
     browserSync.init({
-        server: "./app",
+        //server: "./app",
+        proxy : "127.0.0.1:8020/my-learn/H5Project/上下拉刷新/isScroll.html",
         notify : false
     });
-
-    gulp.watch("app/src/scss/*.scss", ['sass']);
-    gulp.watch("app/src/less/*.less", ['less']);
-    gulp.watch("app/src/js/*.js", ['babel']);
-    //src变化触发编译dist变化,再触发浏览器刷新
-    gulp.watch("app/dist/js/*.js").on('change',browserSync.reload);
-    gulp.watch("app/*.html").on('change', browserSync.reload);
+	
+	//不能使用./ 
+	//使用下面两者结合,可以监听一个文件夹中的所有js文件
+	gulp.watch("H5Project/*.js").on('change', browserSync.reload);
+    gulp.watch("H5Project/**/*.js").on('change', browserSync.reload);
+    gulp.watch("H5Project/*.html").on('change', browserSync.reload);
+    gulp.watch("H5Project/**/*.html").on('change', browserSync.reload);
 });
 
 gulp.task('default', ['serve']);
