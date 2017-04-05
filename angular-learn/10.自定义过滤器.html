@@ -60,7 +60,9 @@
 			})
 			
 			.filter("filterCity",function(){
-				return function(dataList){
+				return function(dataList,a,b){
+					console.log(dataList)
+					console.log(a,b);
 					var arr=[];
 					angular.forEach(dataList,function(item,index){
 						console.log(item)
@@ -88,7 +90,7 @@
 			<br>
 			<ul>
 				<!--先过滤data再person in data-->
-				<li ng-repeat="person in data |filterCity">
+				<li ng-repeat="person in data |filterCity: 1 : 2">
 					{{person.name}},
 					{{person.age}},
 					{{person.city}}

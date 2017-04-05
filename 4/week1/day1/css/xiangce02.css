@@ -1,10 +1,9 @@
 *{margin: 0;padding: 0;}
-*{margin: 0;padding: 0;}
 #gallery{width:980px;height: 500px;}
-body{background: #000}
+body{background: #000;-webkit-backface-visibility: hidden;}
 .mid{position: absolute;top:0;left: 0;bottom: 0;right: 0;margin: auto}
-ul{list-style: none; }
-#gallery li{position: absolute;background: #fff;transition:transform 2s ease-in}
+ul{list-style: none; -webkit-backface-visibility: hidden;}
+#gallery li{position: absolute;background: #fff;transition:transform 2s ease-in;-webkit-backface-visibility: hidden;}
 /*这里很吊   白色框延迟出现*/
 #gallery li div{position: relative;}
 

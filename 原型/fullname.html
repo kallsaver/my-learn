@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function Person(fullName){
+			this.fullName = fullName;
+			
+			this.getFullName = function(){
+				return this.fullName;
+			}
+			
+			this.getFirstName = function(){
+				return this.fullName.split(' ')[0];
+			}
+			
+			this.getLastName = function(){
+				return this.fullName.split(' ')[1];
+			}
+			
+			this.setFullname = function(str){
+				this.fullName = str;
+			}
+			
+			this.setFirstName = function(str){
+				this.fullName = str + ' ' + this.fullName.split(' ')[1];
+			}
+			
+			this.setLastName = function(str){
+				this.fullName = this.fullName.split(' ')[0] + ' ' + str;
+				console.log(this.getLastName())
+			}
+			
+		}
+		
+		var a = new Person('Bob Ross');
+		
+		a.getFirstName();
+		
+		a.setFullname('Mike Faker');
+		
+		a.getFirstName();
+		
+		a.setLastName('Yui');
+		
+
+		
+		
+		
+	</script>
+</html>

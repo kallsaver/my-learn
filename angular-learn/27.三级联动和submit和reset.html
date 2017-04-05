@@ -141,8 +141,8 @@
 				
 				// 让城市关联使用默认$scope.data.cityId
 				//controller是个构造函数,会有个实例产生而不是window的
-				//console.log(this)
-				//console.log($scope)
+				console.log(this)
+				console.log($scope)
 				this.findParentId = function(id){
 					//angular.forEach的回调函数中的return(true)或者return false都相当于for循环中的continue,找到结果后还是会遍历别的分支
 					//效率低,所以用for循环更好,如果不需要利用index参数,还是用for原生方法灵活
@@ -165,14 +165,22 @@
 					}
 				}
 				
-				this.init()
+				this.init();
 				
 				$scope.reset = function(){
 					$scope.data = angular.copy($scope.copyData)
 					$scope.myForm.$setPristine()
 					console.log($scope.data)
-					this.init()
+					this.init();
 				}.bind(this)             //这里太强大了  bind会强行把匿名函数的this绑定,而且在其他地方调用仍然是绑定的对象
+				
+				
+				//或者使用es6的箭头函数:
+				this.initData = () =>{
+					console.log(this)
+				}
+				
+				this.initData();
 				
 			}])
 			
