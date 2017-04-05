@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin:0;padding: 0;}
+			/*使用伪元素清除浮动是有缺陷的,因为伪元素本身受到父元素宽度的限制,只能清除父元素里面的浮动,不能清除父元素之外的浮动
+			 这其实和浮动的原理是不符的,清除浮动是为下一个元素清除浮动,而不是自身
+			 * */
+			.clearfix{clear: both;display: block;font-size: 0;line-height: 0;}
+
+			.clear::after{clear: both;display: block;font-size: 0;line-height: 0;content: '';}
+			
+			div.father{
+				height: 50px;width:500px;margin:0 auto;background: hotpink;text-align: center;margin-bottom: 50px;
+			}
+			/*使用cale的时候,减号是要空格分隔的,否则不生效*/
+			div.father div.son{width:calc(100% - 100px);background: peru;height: 100%;display: inline-block;
+			}
+		
+			div.mother{
+				height: 200px;width: 500px;margin:0 auto;background: khaki;
+			}
+			
+			div.mother div.son{
+				float:left;width:100px;height: 100px;background: magenta;
+				/*这个百分比是相对父元素的width*/    /*使用less编程可以修正height*/
+				margin-top:calc(20% - 50px);
+				margin-left:calc(50% - 50px);
+			}
+			
+			.box{width:50px;height: 50px;background: gold;}
+		</style>
+	</head>
+	<body>
+		<div class="father">
+			<div class="son"></div>
+		</div>
+		
+		<!--利用calc垂直居中-->
+		<div class="mother">
+			<div class="son clear"></div>
+			<div class="clearfix"></div>
+			<div class="box"></div>
+		</div>
+		
+	</body>
+</html>

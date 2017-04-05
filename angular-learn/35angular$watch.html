@@ -17,6 +17,24 @@
 			$http.get('data.json').then(function(_data){
 					$scope.data = _data.data;
 			});
+			
+			$scope.user = {};
+			//$watch监控的是view层的数据
+			$scope.$watch('user.name',function(){
+				console.log($scope.user.name);
+			});
+			
+			$scope.$watch('data',function(newValue,oldValue){
+				//$watch有初始化,因为在contoller或者link这些地方如果给监控的数据赋值了,那么也会执行
+				if(newValue  === oldValue){return}
+				//你的代码从这里开始
+				console.log($scope.data[0].name);
+			});
+			
+			setTimeout(function(){
+				$scope.user.name = 'dfd';
+				$scope.$apply('$scope.user.name');
+			},3000)
 		}])
 		
 		.directive('myMove',[function(){
@@ -24,10 +42,14 @@
 				restrict : 'A',
 				link : function($scope,element,attrs){
 					$scope.$watch('data',function(newValue,oldValue){
+						//$watch有初始化,因为在contoller或者link这些地方如果给监控的数据赋值了,那么也会执行
 						if(newValue  === oldValue){return}
 						//你的代码从这里开始
 						console.log($scope.data[0].name);
-					})
+					});
+					$scope.$watch('user.name',function(){
+						console.log($scope.user.name);
+					});
 				}
 			}
 		}])

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl"></div>
+	</body>
+	<script src="js/angular.js"></script>
+	<script>
+	var http = angular.module('http',[]);
+	
+	//service必须是对象,数组这些引用数据类型
+	//是类型require的AMD规范
+	http.service('httpService',[function(){
+//		return {
+//			name : 'http'
+//		}
+		//或者使用this替代返回
+		this.name = 'http';
+	}]);
+	
+	//而factory可以返回字符串,number等所有的数据类型
+	//不能使用this来替代返回
+	http.factory('httpFactory',[function(){
+		return{
+			name : 'factory'
+		}
+	}])
+	
+	var app = angular.module('myApp',['http']);
+	
+	app.controller('myCtrl',['$scope','httpService','httpFactory',function($scope,httpService,httpFactory){
+		console.log(httpService)
+		console.log(httpFactory)
+	}])
+		
+		
+		
+		
+		
+		
+	</script>
+</html>
