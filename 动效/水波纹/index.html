@@ -2,8 +2,105 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title></title>
+		<style>
+			/*animation的动画曲线:
+			 1.ease : 动画以低速开始，然后加快，在结束前变慢。
+			 2.ease-in : 动画以低速开始，然后加快，在结束前变慢。
+			 3.ease-out :动画以低俗结束
+			 4.ease-in-out : 动画以低速开始和结束，相对于ease缓慢，速度更均匀
+			**/
+			
+			/*animation的动画迭代次数:
+			 1.默认1次,可以设置任意次
+			 2.infinite表示无限
+			**/
+			
+			/*animation的动画迭代次数:
+			 1.默认1次,可以设置任意次
+			 2.infinite表示无限
+			**/
+			
+			/*animation的动画结束后的状态:
+			 1.none : 默认值。不设置对象动画之外的状态，DOM未进行动画前状态
+			 2.forwards : 设置对象状态为动画结束时的状态，100%或to时，当设置animation-direcdtion为reverse时动画结束后显示为keyframes第一帧
+			 3.backwards : 设置对象状态为动画开始时的状态,（测试显示DOM未进行动画前状态）
+			**/
+			
+			
+			*{margin:0;padding: 0;}
+			.content{
+				width:800px;margin: 0 auto;text-align: center;
+				padding-top: 100px;
+			}
+			
+			.ripple-containe{}
+			
+			.ripple-containe .ripple{
+				background-color: rgba(255,255,255,0.4);
+				/*动画名,完成时间(s或者ms),动画速度曲线,动画开始之前的延迟,播放次数*/
+				animation:  ripple 2s forwards;
+			}
+			
+			
+			button {
+	            background-color: dodgerblue;
+	            color: white;
+	            padding: 10px 20px;
+	            border:0;
+	            font-size: 14px;
+	            cursor: pointer;
+	            /*outline: none;8*/
+	        }
+		</style>
 	</head>
 	<body>
+		<div class="content">
+			<!-- we just added data-ripple attribute -->
+			<button data-ripple>
+			    Demo button 1
+			</button>
+			<button data-ripple>
+			    Demo button 2
+			</button>
+			<button data-ripple>
+			    Demo button 3
+			</button>
+			<button data-ripple>
+			    Demo button 4
+			</button>
+			<button data-ripple>
+			    Demo button 5
+			</button>
+		</div>
 	</body>
+	<script>
+		function RippleEffect(element){
+			this.element = element;
+			this.element.addEventListener('click', this.run.bind(this), false);
+		}
+		
+		RippleEffect.prototype ={
+			run : function(event){
+				console.log(1)
+				var ripplerContainer = this.element.querySelector('.ripple-container');
+				console.log( ripplerContainer)
+			}
+		}
+		
+	</script>
+	<script>
+		//找到属性有data-ripple的DOM元素,同样是个伪数组
+		var a = document.querySelectorAll('[data-ripple]');
+		console.log(a);
+		
+		Array.prototype.forEach.call(document.querySelectorAll('[data-ripple]'),
+			function(item,index){
+				new RippleEffect(item);
+		})
+		
+	</script>
 </html>
