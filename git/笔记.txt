@@ -21,5 +21,4 @@ git pull origin master
 git add -A
 git commit -m '你这次更新了什么'
 git push origin master
->>>>>>> ce10a90567c45b67b43817d40c7d1b7dc6df2f5a
 

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<style>
+			* {padding: 0;margin: 0;font-size: 12px;list-style-type: none;}
+			
+			span.name {display: block;width: 75px;text-align: right;line-height: 30px;}
+			
+			.gf-select {float: left;width: 157px;margin-right: 10px;position: relative;}
+			
+			.gf-select span {padding: 0px 27px 0px 10px;display: block;
+				border: 1px solid #ddd;cursor: pointer;
+			}
+			
+			em {display: inline-block;line-height: 30px;height: 30px;font-size: 12px;}
+			
+			.gf-select span em {font-style: normal;line-height: 30px;}
+			
+			.gf-select .icon-jt {
+				background: url(down-jt.jpg) center right no-repeat;
+				width: 12px;height: 6px;position: absolute;right: 10px;
+				top: 50%;margin-top: -3px;
+			}
+			
+			.gf-select ul {
+				border: 1px solid #ddd;position: absolute;
+				width: calc(100% - 2px);top: 31px;display: none;
+				background: #fff;overflow-x: hidden !important;overflow-y: auto !important;
+			}
+			
+			.gf-select ul li {
+				border-bottom: 1px solid #ddd;line-height: 30px;padding-left: 10px;height: 30px;
+			}
+			
+			.gf-select ul li:last-child {
+				border-bottom: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box">
+			<span class="name">所在城市：</span>
+			<div class="gf-select" id="province">
+				<span>
+					<em>请选择省份</em>
+					<i class="icon-jt"></i>
+					<input type="hidden" name="province" value=""></span>
+				<ul>
+					<li data-value="">请选择省份</li>
+				</ul>
+			</div>
+			<div class="gf-select" id="city">
+				<span>
+					<em>请选择城市</em>
+					<i class="icon-jt"></i>
+					<input type="hidden" name="city" value="">
+				</span>
+				<ul>
+					<li data-value="">请选择城市</li>
+				</ul>
+			</div>	
+			<div class="gf-select" id="area">
+				<span>
+					<em>请选择区县</em>
+					<i class="icon-jt"></i>
+					<input type="hidden" name="area" value="">
+				</span>
+				<ul>
+					<li data-value="">请选择区县</li>
+				</ul>
+			</div>	
+		</div>
+	</body>
+	<script src="jquery.js"></script>
+	<!--<script src="cityLink.js"></script>-->
+	<script src="distpicker.data.js"></script>
+	<script src="distpicker.js"></script>
+	<script>
+		
+	</script>
+</html>

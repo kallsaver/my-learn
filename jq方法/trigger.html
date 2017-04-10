@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin:0;padding: 0;}
+			a{display: inline-block;text-decoration: none;
+				width:200px;height: 50px;background: peru;}
+			span{display: inline-block;}
+			div{text-align: center;margin-top:120px;}
+			li{list-style: none;}
+		</style>
+	</head>
+	<body>
+		<div>
+			<a></a>
+		</div>
+		<ul id="tabs">
+   			<li data-tab="users">Users</li>
+    		<li data-tab="groups">Groups</li>
+		</ul>
+		<div id="tabsContent">
+    		<div data-tab="users">part1</div>
+    		<div data-tab="groups">part2</div>
+		</div>
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		$.fn.tabs = function(controller){
+			var $this = $(this);
+			controller = $(controller);
+			$this.delegate('li','click',function(){
+				var tabName = $(this).attr('data-tab');
+				$this.trigger('change.tabs',tabName);
+			});
+			
+			$this.on('change.tabs',function(e,tabName){
+				$this.find('>[data-tab]').removeClass('active');
+				
+			})
+			
+		}
+		
+		
+		$('#tabs').tabs("#tabsContent");
+		
+		
+		//简单的trigger
+		//绑定自定义事件
+		$('a').on('hello',function(){
+			alert(1)
+		});
+		
+		$('a').on('click',function(){
+			$('a').trigger('hello');
+		})
+		
+		
+		
+	</script>
+</html>

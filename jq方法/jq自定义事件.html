@@ -3,30 +3,65 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<style>
+			*{margin:0;padding: 0;}
+			div{padding: 0;margin-bottom: 50px;}
+		</style>
 	</head>
 	<body>
-		<div style="width:200px;height: 200px;background: red;" id="ta">
-			<span style="width: 100px;height: 100px;background: fuchsia;display: block;" id="span"></span>
+		<div style="width:200px;height: 200px;background: peru" id="ta1">
+			<span style="width: 100px;height: 100px;background: khaki;display: block;" 
+				id="span1">
+			</span>
+		</div>
+		<div style="width:200px;height: 200px;background: peru;" id="ta2">
+			<span style="width: 100px;height: 100px;background: khaki;display: block;" 
+				id="span2">
+			</span>
+		</div>
+		<div style="width:200px;height: 200px;background: peru;" id="ta3">
+			<span style="width: 100px;height: 100px;background:khaki;display: block;" 
+				id="span3">
+			</span>
 		</div>
 	</body>
 	<script src="js/jquery-3.1.0.js"></script>
 	<script>
-	/*//冒泡的trigger
-		
-		$("#ta,#span").on("meow",function(){
-			console.log(this.id)
-		})
-	//span 冒泡给父级元素
-		$("#span").trigger("meow")   //运行这个自定义事件     trigger是冒泡和执行默认事件的*/
-		
-	//不冒泡的triggerHandler
-		$("#ta,#span").on("newTool",function(){
-			console.log(this.id)
-		})
-		
-		$("#span").triggerHandler("newTool")
-		
+	  	//冒泡的trigger
+		$("#ta1,#span1").on("meow",function(){
+			console.log("meow事件触发 "+ this.id);
+		});
+		//span 冒泡给父级元素
+		$("#span1").trigger("meow");  //运行这个自定义事件     trigger是冒泡和执行默认事件的
 	
+	
+	
+	//不冒泡的triggerHandler
+		$("#ta1,#span1").on("newTool",function(){
+			console.log("newTool事件触发 " + this.id)
+		});
+		
+		$("#span1").triggerHandler("newTool");
+	
+	//传递参数
+	//普通的click有且只有一个参数,这个参数是event,
+	//自定义事件可以有个形参,但是只有二个实参,第二个实参是一个数组或者一个值
+		$("#span2").on('myEvent',function(event,a,b,c){
+			console.log('myEvent执行');
+			//如果trigger第二个实参是一个数组,那么把数组降维拆解
+			console.log(a);   //0
+			console.log(b);   //1
+			console.log(c);   //2
+		});
+		
+		$('#span2').on('click',function(event){
+			var that  = $(that);
+			var $this = $(this);
+			console.log(that === $this);    //$是一个工厂方法
+			$this.trigger('myEvent',[0,1,2]);
+		});
+		
+
 		
 		
 	</script>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding: 0;}
+			body{text-align: center;}
+			span{width:200px;height: 100px;background: peru;display: inline-block;}
+		</style>
+	</head>
+	<body>
+		<div>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</body>
+	<script>
+		function run(event){
+			var tagName =  event.currentTarget.tagName;
+			console.log(this);
+		}
+		function speak(event){
+			console.log('speak')
+		}
+		var div = document.getElementsByTagName('div')[0];
+		var spanList = document.getElementsByTagName('span');
+		spanList[0].onclick = function(){
+			console.log(this)
+		}
+		
+		//addEventListener一个事件可以绑定几个函数,onclick不行
+		//false表示在事件冒泡阶段触发,true表示在事件捕获阶段触发
+		spanList[1].addEventListener('click',run,false);
+		spanList[1].addEventListener('click',speak,false);
+		
+		//鼠标的事件,先经历事件捕获,然后事件冒泡
+		//鼠标点击span时,其实最先点击的是document,然后一层层下去,最后到span,然后又从span冒泡到document
+		//第二个触发
+		spanList[2].addEventListener('click',run,true);
+		//第三个触发
+		div.addEventListener('click',run,false);
+		//第一个触发
+		div.addEventListener('click',run,true);
+		
+		
+	</script>
+</html>
