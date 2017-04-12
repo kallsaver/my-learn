@@ -1,0 +1,68 @@
+1.在package.json中的script节点中可以定义脚本任务
+"scripts": {
+  	"e": "echo hello",
+  	//完成install后要执行这个命令
+    "postinstall": "bower install",
+    //运行start先执行这个命令
+    "prestart": "npm install",
+    //运行当前地址,把当前地址放在9000端口上
+    "start": "./node_modules/.bin/hs -a localhost -p 9000 -o",
+    "pretest": "npm install",
+    //用来同步几个浏览器,方便单元测试
+    "test": "./node_modules/.bin/browser-sync start --server app --files 'app/index.html' --no-notify"
+ },
+ 2.在根目录下的.bowerrc下设置了bower install下载的库存放路径
+ {
+   "directory":"app/bower_components"
+ }
+ 3.根目录下的.gitignore文件中的文件不会提交到github上
+ 4.bower.json是项目依赖的包  bower install xxx会在里面的dependencies输出东西
+ bower install会从里面读取信息输出东西
+ 5.package.json是说明npm的指令和生产依赖和开发依赖的包 npm install xxx -save或者--save-dev
+ 6.npm install会从package.json读取信息下载对应的包
+ 7.editorconfig是编码规范
+ 8.angular-seed 官方的骨架
+ 9.https://browsersync.io/docs/gulp 用gulp的browsersync插件,网站上有gulpfile.js最基础的开发
+10.npm install browser-sync --save-dev
+11.http://www.browsersync.cn/docs/command-line/
+12.需要注意的是这里的npm test只是test,用的是browser-sync的start和多浏览器同步的功能,
+不会运行glupfile.js上的语句,所以开发时用的命令时gulp不是npm test
+13.当然你可以把npm hello设置成gulp的功能(不推荐使用npm test,耗时长)
+
+API:Application Program Interface
+应用程序编程接口;所有有输入有输出的事物都可以是API;都是函数
+
+WebAPI : 通过web方式提供的接口叫WebAPI;
+
+14.angular-loader.js和script.js可以帮助我们异步加载库文件
+
+Math.random();
+
+测试WebAPI的工具 : POSTMAN
+
+后端设计API的时候,会在url地址封装参数,
+比如http://api.douban.com/v2/movie/in_theaters?count=2表示只拿2条
+比如http://api.douban.com/v2/movie/in_theaters?count=2&start=1表示从第1个索引值开始拿2条
+url参数特征: ?后面的就是参数  然后和key1=value1&key2=value2
+
+jsonp不属于ajax请求 
+angular对jsonp的处理:
+https://angularjs.org/greet.php?name=Super%20Hero&callback=angular.callbacks._0
+angular统一把jsonp请求回来的数据传给angular.callbacks._0函数,angular.callback是个对象
+
+15.bower install script.js --offline --save  (--offline是离线安装)
+
+16.angular.boostrap(document,['moviecat'])的意思是把angular启动起来,
+相当于在document标签上写ng-app="moviecat",把document给moviecat模块管理
+
+17.script.js是一个异步加载js文件的小库,缺点是对于有依赖关系过深的项目不方便
+
+18.angular-loader的作用就是在使用一些异步加载库的时候,比如script.js,load.js,自动处理依赖关系然后控制执行顺序
+
+19.url跳转到某个路由页面中,这个页面路由页面的controller才会执行,也就是说当这个页面reload,或者url更新参数,
+即使template是一样的,controller也会重新执行,这就是单页面应用的特点
+
+20.url更新参数=>controller重新执行=>controller中封装了API的请求的参数=>请求新的数据=>页面数据渲染
+
+21.路由配置的意义是1.真实的API地址隐藏起来,2.把url参数封装,3.单页面应用的精粹
+

@@ -1,0 +1,12 @@
+<div class="jumbotron" style="padding:0px 0px 0px 48px;">
+  <h2 ng-bind="movie.title" style="line-height: 80px;margin:0px;"></h2>
+  <img ng-src="{{movie.images.large}}"  style="margin-left:calc((100% - 48px)*0.5 - 150px )"/>
+  <p ng-bind="movie.summary" style="margin-top:30px;font-size: 18px;line-height: 30px;"></p>
+</div>
+<div class="mask" ng-show="loading">
+	<div class="spinner">
+	  <div class="bounce1"></div>
+	  <div class="bounce2"></div>
+	  <div class="bounce3"></div>
+	</div>	
+</div>

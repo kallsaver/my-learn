@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>异步加载库</title>
+		<script src="bower_components/script.js/dist/script.js"></script>
+		<script src="bower_components/angular-loader/angular-loader.js"></script>
+		<script>
+			
+//			//1.先执行$script的请求
+//			$script('./bower_components/jquery/dist/jquery.js',function(){
+//				//jquery加载完成后执行这里,因为$script的执行是在2前面,
+//				//所以即使2变量is not defined,这里也会打印出来
+//				console.log($)
+//			});
+//			//2.执行这里的同步任务
+//			//console.log($)
+			
+			
+			//会报错,因为jquery.js和bootstrap.js两个是同时请求的
+			//但是bootstrap.js比较小,所以先拿回来了
+			//异步的任务是同步任务执行完,拿回来的异步立马执行
+			//所以bootstrap.js会比jquery.js先执行
+//			$script([
+//				'./bower_components/jquery/dist/jquery.js',
+//				'./bower_components/bootstrap/dist/js/bootstrap.js'
+//			],function(){
+//				
+//			})
+
+			//$script解决依赖关系的方法,很麻烦
+//			$script(
+//				'bower_components/angular/angular.js',
+//			function(){
+//				$script('bower_components/angular-route/angular-route.js',
+//				function(){
+//					$script('components/auto-focus.js',function(){
+//						$script('app.js'),function(){
+//							//bootstrap是引导程序的意思,这里的意思是把moviecat应用到document中
+//							angular.bootstrap(document,['moviecat'])
+//						}
+//					})
+//				})
+//			})
+
+			$script([
+				'bower_components/angular-route/angular-route.js',
+				'bower_components/angular/angular.js',
+				'components/auto-focus.js',
+				'app.js',
+				'components/http.js',
+				'movieList/controller.js'
+			],function(){
+				console.log(1)
+			})
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
