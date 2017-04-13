@@ -1,0 +1,19 @@
+<ion-view view-title="Category" hide-back-button="true">
+	<ion-content>
+		<!--col-50的意思是占一行的50%,包括外边框外边距-->
+		<div class="row flex-wrap">
+			<div class="col-50" ng-repeat="item in products">
+				<a ui-sref="detail" ng-click="show(item.id)">
+					<img class="full-image" src="{{item.thumb}}" alt="" />
+					<span class="product-title">{{ item.name }}</span>
+          			<span class="price dark" ng-if="!item.sale_price">${{ item.price}}</span>
+          			<span class="price dark" ng-if="item.sale_price">${{ item.sale_price}}</span>
+          			<span class="old-price" ng-if="item.price">${{item.price}}</span>
+				</a>
+			</div>
+			
+		</div>	
+		
+		
+	</ion-content>
+</ion-view>
