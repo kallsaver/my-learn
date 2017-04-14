@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0px;padding: 0px;}
+			#button{width:50px;height: 50px;background: red;margin-top:200px;}
+			.box{
+				position: fixed;top:0px;height: 100px;background: rgba(0,0,0,0.6);
+				width:100%;
+			}
+			.box1{
+				position: fixed;top:0px;height: 100px;
+				width:100%;
+			}
+		</style>
+		<script src="js/jquery-3.1.0.js"></script>
+	</head>
+	<body>
+		<div id="button"></div>
+	</body>
+	<script>
+		
+		var timer;
+		
+		$('#button').on('click',function(event){
+
+			if( $('.box').length === 0){
+				$('<div>').addClass('box').text('1').appendTo($('body'));
+			}
+			$('<div>').addClass('box1').text('1').appendTo($('body'));
+
+			
+			clearTimeout(timer);
+			timer = setTimeout(function(){
+				console.log(1);
+				$('.box').remove();
+				$('.box1').remove();
+			},500)
+		})
+		
+	</script>
+</html>
