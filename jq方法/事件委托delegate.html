@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin:0;padding: 0;}
+			a,span{display: inline-block;text-decoration: none;
+				width:200px;height: 50px;background: peru;color: #fff;
+				text-align: center;line-height: 50px;font-size: 26px;
+				}
+			span{display: inline-block;}
+			div{text-align: center;margin-top:120px;}
+			li{list-style: none;}
+			.box{width:800px;margin: 0 auto;background: khaki;}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<a class="first">first a</a>
+			<a class="second">second a</a>
+			<span>span</span>
+		</div>
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		//delegate是jquery中的事件委托的写法
+		//第一个参数是父元素委托的子元素(支持id,class,tagName),第二个参数是事件名,第三个参数是事件的回调函数
+		//适用于当前或者未来(比如由脚本创建的新元素);
+		
+		//on也有delegate的功能,第一个参数是事件,第二个是委托对象
+		$('div').delegate('.first','click',function(){
+			console.log($(this).attr('class'))
+		})
+	</script>
+</html>

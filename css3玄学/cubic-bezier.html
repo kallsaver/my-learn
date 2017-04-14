@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin:0;padding: 0;}
+			body{font-size: 0;}
+			div{margin-bottom:50px;}
+			span{display: inline-block;width: 50px;height: 50px;background: cornflowerblue;}
+			.animation {
+		    	width: 50px;
+		        height: 50px;
+		        background-color: #ed3;
+		        -webkit-transition:  all 2s;
+		        transition:  all 2s;
+		    }
+		    .animation:hover {
+      			-webkit-transform:  translateX(100px);
+              	transform:  translateX(100px);
+    		}
+    		
+    		.animation1 {
+		    	width: 50px;
+		        height: 50px;
+		        background-color: #ed3;
+		        -webkit-transition:  all 2s;
+		        transition:  all 2s cubic-bezier(.17, .86, .73, .14);
+		    }
+		    .animation1:hover {
+      			-webkit-transform:  translateX(100px);
+              	transform:  translateX(100px);
+    		}
+    		/*ease*/
+    		.animation2{
+		    	width: 50px;
+		        height: 50px;
+		        background-color: #ed3;
+		        -webkit-transition:  all 2s;
+		        transition:  all 2s cubic-bezier(.25, .1, .25, 1);
+		    }
+		    .animation2:hover {
+      			-webkit-transform:  translateX(100px);
+              	transform:  translateX(100px);
+    		}
+    		/* /*ease-in*/
+    		.animation3{
+		    	width: 50px;
+		        height: 50px;
+		        background-color: #ed3;
+		        -webkit-transition:  all 2s;
+		        transition:  all 2s cubic-bezier(.42, 0, 1, 1);
+		    }
+		    .animation3:hover {
+      			-webkit-transform:  translateX(100px);
+              	transform:  translateX(100px);
+    		}
+    		/*ease-out*/
+    		.animation4{
+		    	width: 50px;
+		        height: 50px;
+		        background-color: #ed3;
+		        -webkit-transition:  all 2s;
+		        transition:  all 2s cubic-bezier(0, 0, .58, 1);
+		    }
+		    .animation4:hover {
+      			-webkit-transform:  translateX(100px);
+              	transform:  translateX(100px);
+    		}
+    		
+    		/*ease-in-out*/
+    		.animation5{
+		    	width: 50px;
+		        height: 50px;
+		        background-color: #ed3;
+		        -webkit-transition:  all 2s;
+		        transition:  all 2s cubic-bezier(.42, 0, .58, 1);
+		    }
+		    .animation5:hover {
+      			-webkit-transform:  translateX(100px);
+              	transform:  translateX(100px);
+    		}
+    		
+    		/*来回缓冲*/
+    		.animation6{
+		    	width: 50px;
+		        height: 50px;
+		        background-color: #ed3;
+		        -webkit-transition:  all 2s;
+		        transition:  all 2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+		    }
+		    .animation6:hover {
+      			-webkit-transform:  translateX(100px);
+              	transform:  translateX(100px);
+    		}
+		    
+			
+		</style>
+		<script>
+			// http://www.jianshu.com/p/d999f090d333
+			// cubic-bezier又称为三次贝塞尔,主要是为animation生成速度曲线的函数
+			// 三次贝有开始点P1(0,0),终点P4(1,1)
+			// 需要设置的点是P2,P3
+			// 大概就是(P2.y-P1.y)/(P2.x-P1.x)和(P4.y-P3.y)/(P4.x-P3.x)的速度斜率问题,中间平滑
+			// 大体趋势是S型(中间快)和反S型(中间慢)
+			// 面积为正,向正方向移动,面积为负数,向负方向移动
+			// 斜率为零,速度为零,说明有一刻是静止的
+		</script>
+	</head>
+	<body>
+		<!--1.我们可以在浏览器中看到,当鼠标移到元素上时,元素开始向右移动,
+		开始比较慢,之后则比较快,移开时按原曲线回到原点.-->
+		<!--2.并且说明元素还是在原来的地方占位的-->
+		<!--3.并不是absolute可以做动画-->
+		<!--4.transition的速度曲线默认是ease-->
+		<div>
+			<span class="animation"></span>
+			<span class="box"></span>
+		</div>
+		
+		<!--动画在执行过程中有一段很缓慢的移动，前后的速度相似-->
+		<div>
+			<span class="animation1"></span>
+			<span class="box"></span>
+		</div>
+		
+		<div>
+			<span class="animation2"></span>
+			<span class="box"></span>
+		</div>
+		
+		<div>
+			<span class="animation3"></span>
+			<span class="box"></span>
+		</div>
+		
+		<div>
+			<span class="animation4"></span>
+			<span class="box"></span>
+		</div>
+		
+		<div>
+			<span class="animation5"></span>
+			<span class="box"></span>
+		</div>
+		
+		<!--面积为正,向正方向移动,面积为负数,向负方向移动
+		斜率为零,速度为零,说明有一刻是静止的-->
+		<div>
+			<span class="animation6"></span>
+			<span class="box"></span>
+		</div>
+		
+	</body>
+</html>

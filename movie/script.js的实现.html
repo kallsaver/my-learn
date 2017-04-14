@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			function $script(loads,callback){
+				var script = document.createElement('script');
+				script.src = loads;
+				document.head.appendChild(script);
+				script.addEventListener('load',callback)
+			}
+			
+			$script('app/bower_components/jquery/dist/jquery.js',function(){
+				console.log($)
+			})
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

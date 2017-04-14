@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding: 0;}
+			body{text-align: center;}
+			i{color:#fff;line-height: 100px;font-size: 30px;font-style: normal;}
+			span,i{width:200px;height: 100px;background: peru;display: inline-block;}
+		</style>
+		<script src="js/jquery-3.1.0.js"></script>
+	</head>
+	<body>
+		<div>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+		<div>
+			<i>i</i>
+			<i>i</i>
+		</div>
+		
+	</body>
+	<script>
+		// on支持多个事件绑定一个函数,推荐使用
+		$('i').eq(0).on('click mousemove',function(event){
+			var tagName =  event.currentTarget.tagName;
+			console.log(tagName)
+		});
+		
+		//on只是处理事件冒泡的事件
+		//先执行
+		$('i').eq(1).on('click',function(event){
+			var tagName =  event.currentTarget.tagName;
+			console.log(tagName)
+		});
+		
+		//后执行
+		$('div').eq(1).on('click',function(event){
+			var tagName =  event.currentTarget.tagName;
+			console.log(tagName)
+		});
+		
+		//事件捕获写法: 只能用js原生对象
+		$('span').each(function(){
+			this.addEventListener('click',function(event){
+				var tagName =  event.currentTarget.tagName;
+				console.log('捕获'+ tagName)
+			},true);
+			
+			this.addEventListener('click',function(event){
+				var tagName =  event.currentTarget.tagName;
+				console.log('冒泡阶段'+ tagName)
+			},false)
+		})
+		
+		$('div').eq(0).each(function(){
+			this.addEventListener('click',function(event){
+				var tagName =  event.currentTarget.tagName;
+				console.log('捕获'+ tagName)
+			},true);
+			
+			this.addEventListener('click',function(event){
+				var tagName =  event.currentTarget.tagName;
+				console.log('冒泡阶段'+ tagName)
+			},false)
+		})
+		
+		
+		
+	</script>
+</html>

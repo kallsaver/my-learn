@@ -1,0 +1,57 @@
+angular.module("",["ionic"])  记得写ionic
+
+ui-sref是ionic特有的路由机   选项卡要注意配置的格式
+注意tabs.html的格式:   tabs,buttons说明这些是父容器 下面对应有tab,button
+tabs-icon-top 一定要写 不然文字被压下去
+<ion-tabs class="tabs-assertive tabs-icon-top tabs-striped">
+	<ion-tab title="商品" icon-on="icon ion-ios-filing"
+		icon-off="icon ion-ios-filing-outling" ui-sref="tabs.products">
+		<ion-nav-view name="tab-products"></ion-nav-view>
+	</ion-tab>
+	
+	<ion-tab title="购物车" icon-on="icon ion-ios-gear"
+		icon-off="icon ion-ios-gear-outline" ui-sref="tabs.cart">
+		<ion-nav-view name="tab-cart"></ion-nav-view>
+	</ion-tab>
+</ion-tabs>
+
+//factory是种工厂模式 同时在angular中被改造成全局自运行函数,返回一个对象
+
+///ionic的设计理念之一是父容器控制子元素的位置 用classname抑或子元素标签要放父容器才有预期效果
+//例如button要放在ion-nav-buttons下 这样button的位置在nav里面 并且有其他button时可以按百分比
+social-button
+//a标签和span在ionic中都被行块化了  text-center是用来控制子元素的位置居中的
+
+//ionic的文档不一定正确 <ion-slide-box does-continue="true">  does-continue是否循环
+//<ion-slide-box slide-interval="2000" auto-play="true"> 2秒slide一次 默认4秒  自动播放
+
+//<ion-content>这个父容器能实现子元素上下拖动  有时候我们不需要它  例如ion-slide-box 
+还有ion-tabs会和ion-content冲突
+//可以不使用ionic的预设指令<ion-nav-back-button>  用ionic文档提供的js方法 
+例如:		Delegate是代表,函数指针的意思  
+function MyCtrl($scope, $ionicNavBarDelegate) {
+  $scope.goBack = function() {
+    $ionicNavBarDelegate.back();
+  };
+}
+
+<!--button-icon说明它不仅是button也是icon 有图标放大的效果-->
+
+//不写这行代码的后果是<ion-side-menu>和<ion-nav-view>冲突  界面失去滑动效果,左菜单出不来:
+.controller('AuthCtrl', function($scope, $ionicHistory) {
+    // hide back butotn in next view
+    $ionicHistory.nextViewOptions({
+      disableBack: true         //默认是false 会出现冲突的情况
+    });
+});
+
+
+//ionic的栅格化 <!--col-50的意思是占一行的50% 包括外边框外边距-->
+
+//遍历找元素  用break调出for循环  如果希望for循环后面的语句也不执行了return跳出整个函数
+for(var i=0;i<$scope.product.length;i++){
+			if($scope.product[i].id===id){
+				$scope.item=$scope.product[i];
+				break;
+			}
+}
