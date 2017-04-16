@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+			li{list-style: none;height: 50px;margin-bottom: 20px;background: peru;
+				line-height: 50px;color: #fff;font-size: 20px;text-align: center;
+				font-weight: bold;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<ul id="first">
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+		</ul>
+		<ul id="second"></ul>
+		<ul id="third"></ul>
+	</body>
+	<script>
+		var first = document.getElementById('first');
+		var second = document.getElementById('second');
+		var third = document.getElementById('third');
+		// 用ES5的字符串语法插入li:
+		var html1 = "<li>1</li>"+
+			"<li>2</li>"+
+			"<li>3</li>";
+		first.innerHTML = html1;
+		
+		// 用ES6的字符串模板语法插入li:
+		var html2 =  `<li>1</li>
+					  <li>2</li>
+					  <li>3</li>`;
+		second.innerHTML = html2;
+		
+		// 当不知道li的数量,不把li写死,用数组的join方法
+		// 用数组的join方法
+		var arr = ['<li>1</li>','<li>2</li>','<li>3</li>'];
+		var html3 = arr.join('\n');   //
+		// 或者
+		// var html3 = arr.join('');  //html中li写成一行
+		third.innerHTML = html3;
+		
+	</script>
+</html>

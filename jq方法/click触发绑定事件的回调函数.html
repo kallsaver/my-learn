@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;margin-bottom: 20px;}
+			.first{
+				width:100px;height: 50px;background: peru;line-height: 50px;
+				text-align: center;color: #fff;
+			}
+			.second{
+				width:100px;height: 50px;background: tomato;line-height: 50px;
+				text-align: center;color: #fff;
+			}	
+			.third{
+				width:100px;height: 50px;background: tomato;line-height: 50px;
+				text-align: center;color: #fff;
+			}
+		</style>
+		
+	</head>
+	<body>
+
+		<div class="first">first</div>
+		<div class="second">second</div>
+		<div class="third">third</div>
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		// click,mouseenter等函数可以在模拟事件监听中触发
+		$('.first').on('click',function(){
+			alert('first盒子的click事件监听函数触发');
+		});
+		
+		$('.first').on('mouseenter',function(){
+			alert('first盒子的mouseenter事件监听函数触发');
+		});
+		
+		$('.second').on('click',function(){
+			// 模拟点击
+			$('.first').click();
+		});
+		
+		$('.third').on('click',function(){
+			// 模拟滑入盒子
+			$('.first').mouseenter();
+		})
+		
+		
+		
+	</script>
+</html>
