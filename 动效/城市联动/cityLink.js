@@ -1,7 +1,6 @@
 ;(function(){
 	$(document).on('click','.gf-select > span',function(){
 		//closest先查找自己,再往上查找父元素,如果找到了第一个匹配的就返回
-		$(this).closest('.gf-select').css({'zIndex':100});
 		// 其它的ul隐藏
 		$('.gf-select ul').hide();
 		// 设置ul的高度如果超过154,出现滚动条
@@ -16,10 +15,20 @@
 	});
 	
 	$(document).on('click','.gf-select ul li',function(){
-		var parent = $(this).closest('ul');
-		var select = $(this).closet('.gf-select');
-		var value = $(this).attr('data-value');
-		var text = $(this).text();
+		// 性能优化
+		var $this = $(this);
+		var parent = $this.closest('ul');
+		var select = $this.closet('.gf-select');
+		var value = $this.attr('data-value');
+		var text = $this.text();
+		if( $this.closest('.gf-select').hasClass('noclick') ){
+			parent.hide();
+			return false;
+		}
+		// em显示控件的文本是li的文本
+		select.find('em').html(text);
+		select.find("input[type='hidden']").val(value !== 0 ? value : '');
+		
 	})
 	
 })();
@@ -53,10 +62,24 @@ function selectCity(options){
 		for(var i = 0; i < data.length; i++){
 			item.push('<li data-value="'+data[i]["id"]+'" name="'+data[i]["id"]+'">'+data[i]["name"]+'</li>');
 		}
-		//console.log(item)
-		$(opts.domSelect[0]).find('ul').html(item.join("\n"));
+		//console.log(item);
+		// 在第一个ul中插入省份和直辖市
+		$(opts.domSelect[0]).find('ul').html(item.join("\n"));  //或者join('')
 		
 		$jsondata = json;
+		
+		// 如果初始化时input[hidden]以及有默认值了,那么久触发这个默认值的li的点击事件
+		if(initProvinVal!=""){
+			$(opts.domSelect[0]).find("ul li[data-value='"+initProvinVal+"']").click();
+		}
+
+		if(initCityVal!=""){
+			$(opts.domSelect[1]).find("ul li[data-value='"+initCityVal+"']").click();
+		}
+
+		if(initAreaVal!=""){
+			$(opts.domSelect[2]).find("ul li[data-value='"+initAreaVal+"']").click();
+		}
 		
 		
 	}
