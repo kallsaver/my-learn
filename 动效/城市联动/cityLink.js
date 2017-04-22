@@ -1,4 +1,4 @@
-// 多级关联就是第一级的数据是已经写好的
+// 多级关联就是第一级的数据是写好的
 // 选中第一级的数据,第二级的数据才开始插入
 
 function multiRelative(options){
@@ -60,7 +60,7 @@ function multiRelative(options){
 	var $jsondata = {};
 	
 	var ajaxConfig = {
-		url : "allcity.js",
+		url : options.jsonpUrl,
 		dataType : "jsonp",
 		jsonpCallback : "callback",
 		success : initProvince				
@@ -85,15 +85,15 @@ function multiRelative(options){
 		$(opts.element[0]).find('ul').html(item.join("\n"));  //或者join('')
 		
 		// 如果初始化时input已经有有默认值了,那么触发父元素li的点击事件
-		if(initProvinVal!=""){
+		if(initProvinVal !== ""){
 			$(opts.element[0]).find("ul li[data-value='"+initProvinVal+"']").click();
 		}
 
-		if(initCityVal!=""){
+		if(initCityVal !== ""){
 			$(opts.element[1]).find("ul li[data-value='"+initCityVal+"']").click();
 		}
 
-		if(initAreaVal!=""){
+		if(initAreaVal !== ""){
 			$(opts.element[2]).find("ul li[data-value='"+initAreaVal+"']").click();
 		}
 	}

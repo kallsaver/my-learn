@@ -49,7 +49,8 @@
 				<span>
 					<em>请选择省份</em>
 					<i class="icon-jt"></i>
-					<input type="hidden" name="province"></span>
+					<input type="hidden" name="province">
+				</span>
 				<ul>
 					<li data-value="">请选择省份</li>
 				</ul>
@@ -81,7 +82,8 @@
 	<script>
 		multiRelative({
 			element : ["#province","#city","#area"],
-			defaultText : ["请选择省份","请选择城市","请选择区县"]	
+			defaultText : ["请选择省份","请选择城市","请选择区县"],
+			jsonpUrl : 'allcity.js'
 		});
 				
 		

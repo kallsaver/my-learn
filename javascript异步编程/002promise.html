@@ -10,17 +10,13 @@
 		function runAsync(){
 			var p = new Promise(function(resolve,reject){
 				setTimeout(function(){
-<<<<<<< HEAD
 					console.log('执行完成');
-					resolve()
-				},2000)
-=======
-					console.log('异步任务');
-					//resolve要写在异步任务内部,这样then才能监听到异步任务结束时的信号
 					resolve();
 				},2000)
-				
->>>>>>> b5dcfc604a02ad5743b54b114891c28460b72931
+					console.log('异步任务');
+					//resolve要写在异步任务内部,这样then才能监听到异步任务结束时的信号
+					//resolve();
+				},2000)
 			})
 			return p ;
 		}
