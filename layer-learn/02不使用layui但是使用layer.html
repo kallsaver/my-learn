@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="lib/css/layui.css"/>
+	</head>
+	<body>
+		<button id="test">1</button>
+	</body>
+	<!--layer.js作为独立组件使用时,要依赖jquery-->
+	<script src="jquery-3.1.0.js"></script>
+	<script src="layer.js"></script>
+	<script>
+		console.log(layer)
+		$('#test').on('click',function(){
+			layer.msg('hello');
+		});
+		
+	</script>
+</html>

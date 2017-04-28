@@ -8,11 +8,11 @@ window.onload=function(){
 	var arr=['a','b','c','a','e','j','f','a','b','c','g']
 	var remove=[];
 	
-	for(var i=0;i<arr.length;i++){
-		for(var j=0;j<arr.length;j++){
-			if(j>i){
-			  if(arr[i]===arr[j]){
-				  remove=arr.splice(j,1)				  
+	for(var i = 0;i < arr.length; i++){
+		for(var j = 0;j < arr.length; j++){
+			if(j > i){
+			  if(arr[i] === arr[j]){
+				  remove = arr.splice(j,1)				  
 			  }
 			}
 		}

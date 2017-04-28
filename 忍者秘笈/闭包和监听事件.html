@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div style="width:100px;height: 100px;background: red;"></div>
+	</body>
+	<script>
+		var div = document.getElementsByTagName('div')[0];
+		
+		// 当一个私有变量在监听事件内部被引用了,那么这个变量也变成了闭包
+		// 因此,闭包至少有三种形式:
+		// 1.return
+		// 2.被全局变量引用
+		// 3.被事件监听函数使用
+		function run(){
+			var a = 1;
+			div.onclick = function(){
+				a++;
+				console.log(a)
+			}
+		}
+		
+		run();
+		
+		
+		
+	</script>
+</html>
