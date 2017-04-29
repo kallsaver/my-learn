@@ -8,16 +8,17 @@
 8.打开index.html;
 9.加入项目需要一个js文件  name.js;
 
-10.name.js采用模块化的写法
+10.name.js采用模块化的写法,webpack会分析编译这种语法
 module.exports = "ninghao.net";
 
 11.entry.js 里面写
 var name = require('./name');
-document.getElementById('app').textContent = "hello ~" +name;
+document.getElementById('app').textContent = "hello ~" + name;
 
 这样使用webpack entry.js bundle.js命令后会编译,name拿到的就是name.js的exports的东西了
 
-12.使用loader插件  npm install css-loader style-loader --save-dev
+12.webpack默认只会编译js,如果要编译css等需要使用loader
+使用loader插件  npm install css-loader style-loader --save-dev
 
 13.entry.js添加内容:  表示使用style-loader和css-loader插件处理根目录下的style.css
 require('style-loader!css-loader!./style.css');
@@ -29,7 +30,7 @@ require('style-loader!css-loader!./style.css');
 
 15.设置开发工具  webpack --devtool source-map   (调试代码用)
 或者在webpack.config.js里面设置好source-map
-16.在浏览器的source栏目,刷新,可以看到webpack目录下的.目录下面有没有打包之前的源文件
+16.在浏览器的source栏目,刷新,可以看到webpack目录下的.目录下面是没有打包之前的源文件
 
 17.安装babel-loader babel-core babel-preset-es2015插件到项目中
 
@@ -47,3 +48,6 @@ npm install babel-core babel-preset-es2015 babel-preset-react webpack
 webpack-dev-server babel-loader react-hot-loader --save-dev
 
 20.npm install react react-dom --save （运行依赖）
+
+21.在package.json中的script节点上写"watch": "webpack-dev-server --inline --hot"
+这样就能使用webpack的server热更新了,但是仅仅是react的那部分才会

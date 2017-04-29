@@ -1,0 +1,8 @@
+1.npm install webpack -g;
+2.cd 项目;
+3.npm init --yes;
+4.npm install webpack --save-dev;
+5.根目录新建一个index.html 引入bundle.js
+6.根目录新建entry.js 里面写document.getElementById('app').textContent = 'hello';测试用
+7.根目录新建webpack.config.js配置webpack的打包任务
+8.clear 清除git bash窗口的内容

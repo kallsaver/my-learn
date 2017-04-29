@@ -9,6 +9,7 @@
 
 'use strict';
 
+// React通过npm install react --save 运行依赖到项目中了,不使用bower
 import React from "react";
 
 class Name extends React.Component {

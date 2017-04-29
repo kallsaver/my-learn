@@ -1,5 +1,6 @@
 // //路径一定要写"./"表示当前目录
-// //var name = require('./name');
+// //require写法
+// var name = require('./name');
 // //标准的模块写法
 // import name from './name.js';
 // import k from './src/01.js';
@@ -12,7 +13,7 @@
 // //require('./style.css');
 // import './style.css' ;
 //
-// document.getElementById('app').textContent = "hello ~" +name+k;
+// document.getElementById('app').textContent = "hello ~" + name+ k;
 
 
 'use strict';
