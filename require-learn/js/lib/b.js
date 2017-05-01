@@ -30,8 +30,10 @@
 })*/
 
 //用法4:强烈推荐这种用法
-define(function(require,exports){
-	console.log("b.js运行")
+define(function(require,exports,module){
+	console.log("b.js运行");
+	//module是这个模块对象的信息,可以不加入这个参数
+	console.log(module)
 	var $ = require('jquery');
 	setTimeout(function(){
 		console.log("bbbb")

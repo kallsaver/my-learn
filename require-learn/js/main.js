@@ -37,7 +37,7 @@ requirejs.config({
 			//exports = jQuery也是可以的,exports = "D"也是可以的
 			//不过这个D必须是全局变量(在main.js中可以访问的)
 			//exports : 'D'
-			exports : jQuery.fn.scroll
+			exports : 'jQuery.fn.scroll'
 		}
 	}
 });

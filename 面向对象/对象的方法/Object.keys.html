@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		// Object.keys只收集自身属性名,不收集原型链上的属性,返回一个数组
+		// 类似于hasOwnProperty
+		var obj = {
+			'name' : 'obj',
+			'age' : '20'
+		}
+		
+		obj.__proto__ = {
+			pro : 'p'
+		}
+		
+		for(var key in obj){
+			console.log(key)
+		}
+		
+		console.log(obj);
+		console.log(Object.keys(obj));
+		
+		// 用法:
+		Object.keys(obj).forEach(function(item,index){
+			console.log(obj[item]);
+		});
+	</script>
+</html>

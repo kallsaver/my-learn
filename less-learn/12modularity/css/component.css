@@ -1,0 +1,38 @@
+.father {
+  height: 200px;
+  background: peru;
+}
+.father .son {
+  height: 100px;
+  background: mediumpurple;
+}
+.father .son .box {
+  height: 50px;
+  background: gold;
+}
+.mother {
+  height: 200px;
+  background: peru;
+}
+.mother .son {
+  height: 100px;
+  background: mediumpurple;
+}
+.mother .son .box {
+  height: 50px;
+  background: gold;
+}
+.mother .son {
+  height: 100px;
+  background: mediumpurple;
+}
+.mother .son .box {
+  height: 50px;
+  background: gold;
+}
+.top {
+  background: red;
+}
+.top .son {
+  background: khaki;
+}

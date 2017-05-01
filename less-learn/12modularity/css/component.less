@@ -1,0 +1,38 @@
+
+// less代码复用不好用,sass有@minix和@include实现代码复用
+// 唯一的办法是通过必须齐全的类名复用
+
+.father{
+    height: 200px;background: peru;
+    @son : {
+        height: 100px;background: mediumpurple;  
+        .box{
+            height: 50px;background: gold;
+        }
+    // 变量结束注意加;否则会报错
+    };
+    .son{
+        @son();    
+    }
+}
+
+// mother模块想复用father模块中的son,如果是想通过私有变量的方法,必须先运行father函数,但是这其实不是我们想要的
+.mother{
+    .father();
+    .son{
+        @son();   
+    }
+}
+
+
+// declare detached ruleset
+@det: { background: red;
+    .son{
+        background: khaki;
+    } 
+};
+
+// use detached ruleset
+.top {
+    @det();
+}
