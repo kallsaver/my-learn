@@ -9,10 +9,23 @@ var config = require('./webpack.config');
 
 config.vue = {
 	loaders : {
-		css : ExtractTextPlugin.extract('css');
+		// 这个命令会从.vue中提取less文件
+		less: ExtractTextPlugin.extract('css!less')
 	}
 };
 
 config.plugins = [
-	new ExtractTextPlugin('../')
-]
+	// 提取css为单文件
+	new ExtractTextPlugin('../[name].less'),
+	new HtmlWebpackPlugin({
+		filename : '../index.html',
+		template : path.resolve(__dirname,'../app/index/index.html'),
+		inject : true
+	})
+];
+
+module.exports = config;
+
+
+
+

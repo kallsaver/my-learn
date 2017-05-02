@@ -36,6 +36,11 @@ module.exports = {
     			test : /\.js$/,
     			loader : 'babel?presets=es2015',
     			exclude : /node_modules/
+    		},
+    		{
+    			test : /\.less$/,
+    			loader : 'style!css!less',
+    			exclude : /node_modules/
     		}
     	]
     },

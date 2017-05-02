@@ -1,12 +1,15 @@
 参考文献 : http://www.cnblogs.com/lhweb15/p/5660609.html
 参考文献 : http://www.ituring.com.cn/article/200534
 参考文献 : https://segmentfault.com/a/1190000007294861
+参考文献 : https://segmentfault.com/q/1010000005363929
 
 0.不推荐使用cnpm,经常构建失败,推荐使用npm
 
 1.build目录是打包时运行的文件
-其中webpack.config.js是构建项目的文件,dev-server.js是开发时的服务(热更新),
+其中webpack.config.js是构建项目的文件(或者是基本配置),dev-server.js是开发时的服务(热更新),
 webpack.dev.config.js是开发时dev-server.js使用webpack依赖的配置
+webpack.prod.config.js是开发环境时webpack的配置,
+webpack.dev.config.js和webpack.prod.config.js都依赖webpack.config.js(基本配置)
 
 2.webpack.config.js中path是node_modules包中的path模块,安装webpack等已经依赖path包了
 
