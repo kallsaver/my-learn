@@ -2,8 +2,14 @@
 参考文献 : http://www.ituring.com.cn/article/200534
 参考文献 : https://segmentfault.com/a/1190000007294861
 
+0.不推荐使用cnpm,经常构建失败,推荐使用npm
+
 1.build目录是打包时运行的文件
+其中webpack.config.js是构建项目的文件,dev-server.js是开发时的服务(热更新),
+webpack.dev.config.js是开发时dev-server.js使用webpack依赖的配置
+
 2.webpack.config.js中path是node_modules包中的path模块,安装webpack等已经依赖path包了
+
 3.path.resolve方法可以把两个参数生成绝对定位,
 
 4.比如var moment = require('moment');其实是查找node_modules中的moment/min/moment-with-locales.min.js文件,
@@ -16,16 +22,21 @@ resolve:{
 	}
 }
 5.webpack --config build/webpack.config.js的意思是webpack运行build目录下的webpack.config.js的任务
+
 6.而--display-modules和--display-chunks等更好的显示打包过程中的一些信息
 --display-modules:默认情况下node_modules下的模块会在打印打包信息中被隐藏,加上这个参数可以显示,
 --profile:打印性能数据,可以看到每一步的耗时
 --colors:打印结果带彩色,比如红色表示耗时较长的步骤
 
-7.在.vue文件使用less,<style lang="less">并且npm install less-loader --save-dev,不需要在webpack.config.js中配置,
-.vue文件中的样式是会作用于全局的,不单单是自己的template中的DOM,所以最好模块化
+7.在.vue文件使用less,<style lang="less">并且npm install less-loader less --save-dev,不需要在webpack.config.js中配置,
+.vue文件中的样式是会作用于全局的,不单单是自己的template中的DOM,所以最好模块化,或者在style上加上scope,表示当前样式只作用于当前样式
+
 8.webpack-dev-middleware中间件,它通过连接服务器服务从webpack发射出来的文件,不会向硬盘写文件,而是在内存里
+
 9.在build目录中创建一个dev-server.js文件,这个文件主要是利用node的express框架来实现中间件的功能
+
 10.dev-server.js的修改参照http://www.cnblogs.com/lhweb15/p/5660609.html
+
 11.在dev-server服务中首先要使用webpack命令打包然后再node build/dev-server.js
 并且要修改webpack.config.js的一些配置,很麻烦,
 所以在bulid目录下新建一个webpack.dev.conf.js文件

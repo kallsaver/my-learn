@@ -1,5 +1,6 @@
 <template>
 	<div v-for="n in 10">div</div>
+	<div class="fav"></div>
 </template>
 
 <script>
@@ -12,11 +13,15 @@
 	}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 	body{
-		background: purple;
+		background: gold;
 		#app{
 			height: 200px;background: peru;
 		}
+		.fav{
+			height: 200px;background: plum;
+		}
 	}
+	
 </style>

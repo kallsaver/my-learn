@@ -23,8 +23,8 @@ var devMiddleware = require('webpack-dev-middleware')(compiler,{
 var hotMiddleware = require('webpack-hot-middleware')(compiler);
 
 // webpack插件,监听html文件的改变事件
-compiler.plugin('comilation',function(comilation){
-	comilation.plugin('html-webpack-plugin-after-emit',function(data,callback){
+compiler.plugin('compilation',function(compilation){
+	compilation.plugin('html-webpack-plugin-after-emit',function(data,callback){
 		// 发布事件
 		hotMiddleware.publish({ action : 'reload' });
 		callback();
@@ -43,4 +43,4 @@ app.listen(8888,function(err){
 		return
 	}
 	console.log('Listenning at http://localhost:8888');
-})
+});

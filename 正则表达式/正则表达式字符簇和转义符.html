@@ -55,7 +55,21 @@
 		console.log(f13)                //['']
 		
 		var f14 = str.match(/\S/g);     //['d','f','4','d','g','.','8','4','s','?','g','G'];
-		console.log(f14)
+		console.log(f14);
+		
+		var urlstr = '&-type=1&name=a';
+		var f15 = urlstr.match(/[^&-]+?\=.+?/ig);
+		console.log(f15);
+				
+		var email1 = '415034609@qq.com';
+		var email2 = '-415034609@qq.com';
+		var email3 = 'a415034609@qq.com';
+		var regEmail = /^([a-zA-Z]|\d).*?@.*?\.com/;
+		console.log(regEmail.test(email1));
+		console.log(regEmail.test(email2));
+		console.log(regEmail.test(email3));
+		
+		
 		
 	</script>
 </html>

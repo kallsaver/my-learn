@@ -66,6 +66,15 @@
 		console.log(b2)						//[k,j,d,f]	
 		
 		
-		//
+		// 这个函数会返回一个存储url参数键值对对象
+		function getUrlParam(){
+			var result = {};
+			var arr = window.location.search.substr(1).match(/[^&]+?\=.+?/ig).join('=').split('=');
+			for(var i = 0; i < arr.length; i+=2){
+				result[arr[i]] = arr[i+1];
+			}
+			return result;
+		}
+		var urlParam = getUrlParam();
 	</script>
 </html>

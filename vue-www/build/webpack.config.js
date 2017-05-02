@@ -1,5 +1,4 @@
-
-// node.js的path模块
+// node.js的path模块  Command规范
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -8,14 +7,18 @@ module.exports = {
 	// 最终指向的就是我们的index.js文件
 	// entry可以多个入口
     entry : {
-    	indext : path.resolve(__dirname,'../app/index/index.js')
+    	index : path.resolve(__dirname,'../app/index/index.js')
     },
     output : {
     	// 输出路径是
     	path : path.resolve(__dirname,'../output/static'),
+    	// 根目录
     	publicPath : 'static/',
-    	filename : '[name].[hash].js',
-    	chunkFilename : '[id].[chunkhash].js'
+    	// 文件名
+    	//filename : '[name].[hash].js',
+    	// 会把filename冲掉
+    	//chunkFilename : '[id].[chunkhash].js'
+    	filename : '[name].bundle.js'
     },
     resolve : {
     	// require或者es6的import...from时省略的扩展名,如 :import Favlist from './components/favlist'

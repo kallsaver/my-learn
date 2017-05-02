@@ -2,7 +2,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 var webpack = require('webpack');
 
-// 引入一些和webpack.config.js的配置,不同的配置在webpack.dev.config.js后面冲掉
+// 引入webpack.config.js的配置,然后不同的配置在webpack.dev.config.js后面覆盖掉
 var config = require('./webpack.config');
 
 config.output.publicPath = '/';

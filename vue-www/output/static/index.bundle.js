@@ -10510,7 +10510,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "C:\\Users\\admin\\Desktop\\vue-www\\app\\index\\components\\favlist.vue"
+	  var id = "F:\\my-learn\\vue-www\\app\\index\\components\\favlist.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -10534,8 +10534,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!../../../node_modules/.0.23.1@css-loader/index.js!../../../node_modules/.7.5.3@vue-loader/lib/style-rewriter.js?id=_v-364ea7a8&file=favlist.vue!../../../node_modules/.4.0.3@less-loader/dist/index.js!../../../node_modules/.7.5.3@vue-loader/lib/selector.js?type=style&index=0!./favlist.vue", function() {
-				var newContent = require("!!../../../node_modules/.0.23.1@css-loader/index.js!../../../node_modules/.7.5.3@vue-loader/lib/style-rewriter.js?id=_v-364ea7a8&file=favlist.vue!../../../node_modules/.4.0.3@less-loader/dist/index.js!../../../node_modules/.7.5.3@vue-loader/lib/selector.js?type=style&index=0!./favlist.vue");
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-0d91263a&file=favlist.vue&scoped=true!../../../node_modules/less-loader/dist/index.js!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./favlist.vue", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-0d91263a&file=favlist.vue&scoped=true!../../../node_modules/less-loader/dist/index.js!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./favlist.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -10553,7 +10553,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  background: purple;\n}\nbody #app {\n  height: 200px;\n  background: peru;\n}\n", ""]);
+	exports.push([module.id, "body[_v-0d91263a] {\n  background: gold;\n}\nbody #app[_v-0d91263a] {\n  height: 200px;\n  background: peru;\n}\n", ""]);
 
 	// exports
 
@@ -11028,9 +11028,9 @@
 	};
 	// </script>
 	//
-	// <style lang="less">
+	// <style lang="less" scoped>
 	// 	body{
-	// 		background: purple;
+	// 		background: gold;
 	// 		#app{
 	// 			height: 200px;background: peru;
 	// 		}
@@ -11041,7 +11041,7 @@
 /* 10 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<div v-for=\"n in 10\">div</div>\r\n";
+	module.exports = "\n\t<div v-for=\"n in 10\" _v-0d91263a=\"\">div</div>\n";
 
 /***/ })
 /******/ ]);
