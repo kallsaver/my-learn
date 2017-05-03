@@ -31,7 +31,7 @@ body{
 		background: peru;
 	}
 	.fav{
-		.a .b .c;background: plum;
+		.a .b .c;background: gold;
 	}
 }
 	

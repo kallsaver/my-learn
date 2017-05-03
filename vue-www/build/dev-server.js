@@ -2,7 +2,7 @@
 var express = require('express');
 var webpack = require('webpack');
 var config = require('./webpack.dev.config');
-//var devMiddleware = require('webpack-dev-middleware');
+var opn = require('opn');
 
 // 创建一个express实例
 var app = express();
@@ -42,5 +42,7 @@ app.listen(8888,function(err){
 		console.log(err);
 		return
 	}
-	console.log('Listenning at http://localhost:8888');
+	var uri = 'http://localhost:8888' + '/app/index/index.html';
+	console.log('Listenning at ' + uri);
+	opn(uri)
 });
