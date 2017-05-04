@@ -1,0 +1,64 @@
+@import (reference)'./common.less';
+
+.motherDay_module{
+    .rem(width,750);
+    .rem(height,2160);
+    background-image: url(../../images/motherDayBg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    ul.packageList{
+        display: inline-block;
+        .rem(width,535);
+        .rem(padding-top,525);
+        li{
+            .rem(height,310);
+            background-repeat: no-repeat;
+        }
+        li:first-child{
+            .rem(height,344);
+            .pic{
+                float:left;
+                .rem(width,260);.rem(height,180);
+                .rem(padding-left,7);
+                background-image: url(../../images/first.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            .text{
+                float:right;
+                .rem(width,240);font-size: 0;
+                h4{
+                    .rem(font-size,36);color: #554070;
+                    .rem(line-height,66);text-align: right;
+                }
+                &>div{
+                    .clear;
+                    .rem(height,64);
+                    span{
+                        float: left;.rem(margin-left,36);
+                        .rem(font-size,28);.rem(line-height,47);
+                        color: #9273ad;
+                    }
+                    em{
+                        float: left;.rem(line-height,52);
+                        .rem(font-size,26);color: #9273ad;
+                        .rem(margin-left,2);
+                    }
+                    del{
+                        float: right;.rem(line-height,57);
+                        .rem(font-size,24);color: #999;
+                    }
+                }
+                a{
+                    .rem(width,240);.rem(height,50);background: red;
+                    text-align: center;color: #fff;.rem(font-size,28);
+                    .rem(line-height,50);
+                }
+            }
+            p{
+                
+            }
+        }
+    }
+}
