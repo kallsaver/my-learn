@@ -14,14 +14,10 @@
         li{
             .rem(height,310);
             background-repeat: no-repeat;
-        }
-        li:first-child{
-            .rem(height,344);
             .pic{
                 float:left;
                 .rem(width,260);.rem(height,180);
                 .rem(padding-left,7);
-                background-image: url(../../images/first.jpg);
                 background-repeat: no-repeat;
                 background-size: cover;
             }
@@ -41,7 +37,7 @@
                         color: #9273ad;
                     }
                     em{
-                        float: left;.rem(line-height,52);
+                        float: left;.rem(line-height,51);
                         .rem(font-size,26);color: #9273ad;
                         .rem(margin-left,2);
                     }
@@ -56,8 +52,26 @@
                     .rem(line-height,50);
                 }
             }
-            p{
-                
+        }
+        li:first-child{
+            .rem(height,344);
+            .pic{
+                background-image: url(../../images/motherday1.jpg);   
+            }
+        }
+        li:first-child + li{
+            .pic{
+                background-image: url(../../images/motherday2.jpg);   
+            }
+        }
+        li:first-child + li + li{
+            .pic{
+                background-image: url(../../images/motherday3.jpg);  
+            }
+        }
+        li:first-child + li + li + li{
+            .pic{
+                background-image: url(../../images/motherday4.jpg);   
             }
         }
     }
