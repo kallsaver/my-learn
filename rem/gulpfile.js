@@ -31,7 +31,7 @@ gulp.task('serve',['less'],function() {
         //server: "./views",
         //配合xamp的默认端口80或者443
         //proxy : "http://dev.daishutijian.com/pcsite/package/detail",
-        proxy : "http://127.0.0.1:8020/my-learn/rem/views/motherDay.html",
+        proxy : "http://127.0.0.1:8020/my-learn/rem/views/motherDayz.html",
         //proxy : "http://127.0.0.1:8020/my-learn/rem/index.html",
         notify : false
     });

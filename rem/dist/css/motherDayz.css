@@ -1,0 +1,217 @@
+.motherDayz_module {
+  font-family: HiraginsSansGB, PingFang SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+  width: 10rem;
+  height: 17.78666667rem;
+  font-size: 0;
+  position: relative;
+  background-image: url(../../images/motherDayzBg.jpg);
+  background-size: 10rem;
+}
+.motherDayz_module ul li {
+  background-color: #fff3f6;
+  font-size: 0;
+  margin-bottom: 0.74666667rem;
+  padding-top: 0.48rem;
+  height: 3.66666667rem;
+  background-repeat: no-repeat;
+  background-image: url(../../images/heart.png);
+  background-size: 0.49333333rem;
+  background-position-x: 7.66666667rem;
+  background-position-y: 0.36rem;
+}
+.motherDayz_module ul li .pic {
+  float: left;
+  width: 2.72rem;
+  height: 2.72rem;
+  border-radius: 50%;
+  border-width: 0.02666667rem;
+  margin-left: 0.96rem;
+  border-style: solid;
+  border-color: #f396b1;
+  background-color: #f8eee1;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1.73333333rem;
+}
+.motherDayz_module ul li .text {
+  float: left;
+  position: relative;
+  margin-left: 0.69333333rem;
+  padding-top: 0.10666667rem;
+  width: 4.66666667rem;
+}
+.motherDayz_module ul li .text h4 {
+  font-family: HiraginsSansGB, PingFang SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+  font-size: 0.48rem;
+  line-height: 0.84rem;
+  color: #ffa3c0;
+  letter-spacing: 0.06666667rem;
+}
+.motherDayz_module ul li .text span {
+  display: block;
+  line-height: 0.92rem;
+  padding-left: 0.09333333rem;
+  font-size: 0.66666667rem;
+  font-weight: bolder;
+  color: #ff2b6e;
+}
+.motherDayz_module ul li .text span i {
+  font-size: 0.53333333rem;
+  font-weight: normal;
+}
+.motherDayz_module ul li .text em {
+  display: block;
+  line-height: 0.46666667rem;
+  position: relative;
+  float: left;
+  padding-left: 0.08rem;
+  letter-spacing: 0.01333333rem;
+  font-size: 0.4rem;
+  color: #cacaca;
+}
+.motherDayz_module ul li .text em::after {
+  content: "";
+  display: block;
+  font-size: 0;
+  line-height: 0;
+  clear: both;
+  *zoom: 1;
+  margin: 0;
+  padding: 0;
+}
+.motherDayz_module ul li .text em::before {
+  position: absolute;
+  content: '';
+  top: 0.22666667rem;
+  left: 0rem;
+  height: 0.02666667rem;
+  background-color: #cacaca;
+  width: 110%;
+}
+.motherDayz_module ul li .text .clearfix {
+  content: "";
+  display: block;
+  font-size: 0;
+  line-height: 0;
+  clear: both;
+  *zoom: 1;
+  margin: 0;
+  padding: 0;
+}
+.motherDayz_module ul li .text a {
+  position: absolute;
+  background-color: #c95081;
+  width: 0.81333333rem;
+  height: 0.74666667rem;
+  border-radius: 0.13333333rem;
+  top: 1.69333333rem;
+  right: 0rem;
+  background-repeat: no-repeat;
+  background-image: url(../../images/cart.png);
+  background-position-x: 0.14666667rem;
+  background-position-y: 0.12rem;
+  background-size: 0.54666667rem;
+}
+.motherDayz_module ul li:first-child .pic {
+  background-image: url(../../images/portrait1.png);
+  background-position-y: 0.29333333rem;
+}
+.motherDayz_module ul li:first-child .text p {
+  font-family: HiraginsSansGB, PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+  line-height: 0.81333333rem;
+  font-size: 0.26666667rem;
+  color: #c95081;
+  padding-left: 0.70666667rem;
+  background-repeat: no-repeat;
+  background-image: url(../../images/gift.png);
+  background-position-x: 0.02666667rem;
+  background-position-y: 0.10666667rem;
+  background-size: 0.65333333rem;
+}
+.motherDayz_module ul li:first-child + li .pic {
+  background-image: url(../../images/portrait2.png);
+  background-position-y: 0.42666667rem;
+}
+.motherDayz_module ul li:first-child + li + li .pic {
+  background-image: url(../../images/portrait3.png);
+  background-position-y: 0.36rem;
+}
+.motherDayz_module ul li:first-child + li + li + li {
+  margin-bottom: 0rem;
+}
+.motherDayz_module ul li:first-child + li + li + li .pic {
+  background-image: url(../../images/portrait4.png);
+  background-position-y: 0.36rem;
+}
+.motherDayz_module .mfooter {
+  padding-top: 0.21333333rem;
+  text-align: center;
+  position: relative;
+}
+.motherDayz_module .mfooter span {
+  width: 1.78666667rem;
+  height: 0.53333333rem;
+  background-image: url(../../images/mfooter_logo.png);
+  background-repeat: no-repeat;
+  background-size: 1.78666667rem;
+}
+.motherDayz_module .mfooter p {
+  position: absolute;
+  color: #fff;
+  line-height: 0.61333333rem;
+  font-size: 0.32rem;
+  top: 0.16rem;
+  right: 0.29333333rem;
+}
+.motherDayz_module .rulePopup {
+  position: absolute;
+  text-align: center;
+  top: 0rem;
+  height: 17.78666667rem;
+  width: 10rem;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding-top: 2.77333333rem;
+}
+.motherDayz_module .rulePopup .rulePopup_text {
+  display: inline-block;
+  text-align: left;
+  background-color: #fff;
+  padding-left: 0.56rem;
+  padding-right: 0.53333333rem;
+  width: 7.78666667rem;
+  height: 10.50666667rem;
+  border-radius: 0.18666667rem;
+  border-width: 0.02666667rem;
+  padding-top: 0.09333333rem;
+  border-color: #ff87b1;
+  border-style: solid;
+}
+.motherDayz_module .rulePopup .rulePopup_text h4 {
+  line-height: 1.16rem;
+  text-align: center;
+  font-size: 0.34666667rem;
+  color: #c70046;
+}
+.motherDayz_module .rulePopup .rulePopup_text .rulePopup_context p {
+  font-family: HiraginsSansGB, PingFang SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+  line-height: 0.42666667rem;
+  color: #c70046;
+  font-size: 0.24rem;
+}
+.motherDayz_module .rulePopup .rulePopup_text .rulePopup_tip {
+  margin-top: 0.37333333rem;
+}
+.motherDayz_module .rulePopup .rulePopup_text .rulePopup_tip p {
+  line-height: 0.42666667rem;
+  color: #ff75a5;
+  font-size: 0.24rem;
+  letter-spacing: 0.01333333rem;
+}
+.motherDayz_module .rulePopup span {
+  width: 0.82666667rem;
+  height: 0.82666667rem;
+  margin-top: 0.86666667rem;
+  background-repeat: no-repeat;
+  background-image: url(../../images/close.png);
+  background-size: 0.84rem;
+}

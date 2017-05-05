@@ -27,7 +27,7 @@ i,em{font-style:normal;}
 
 span,button,input,i,em{display:inline-block;}
 
-html{font-family: "microsoft yahei",'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif;}
+html{font-family: PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;}
 
 h1,h2,h3,h4,h5{font-weight: normal;}
 
@@ -69,6 +69,10 @@ h1,h2,h3,h4,h5{font-weight: normal;}
 .width(@width:750){
     width : @width / @designWidth * 100%;
 }
+
+// 解决背景图片在不同的设备中会不一致的算法
+// 设置背景图片宽度尺寸 / 基准  * 1rem
+// background-size: (130 / @iphone6 * 1rem);
 
 
 .box1{

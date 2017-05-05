@@ -1,0 +1,164 @@
+@import (reference)'./common.less';
+
+.motherDayz_module{
+   font-family: HiraginsSansGB,PingFang SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+   .rem(width,750);.rem(height,1334);font-size: 0;position: relative;
+   background-image: url(../../images/motherDayzBg.jpg);
+   background-size: (750 / @iphone6 * 1rem);
+   ul{  
+        li{
+           background-color: rgba(255,243,246,1);font-size: 0;
+           .rem(margin-bottom,56);.rem(padding-top,36);.rem(height,275);
+            background-repeat: no-repeat;
+            background-image: url(../../images/heart.png);
+            background-size: (37 / @iphone6 * 1rem);
+            .rem(background-position-x,575);
+            .rem(background-position-y,27);
+           .pic{
+               float: left;
+               .rem(width,204);.rem(height,204);border-radius: 50%;
+               .rem(border-width,2);.rem(margin-left,72);
+               border-style: solid;border-color: rgba(243,150,177,1);
+               background-color: rgba(248,238,225,1);
+               background-repeat: no-repeat;
+               background-position: center center;
+               // 背景图片尺寸 / 尺寸  * 1rem
+               background-size: (130 / @iphone6 * 1rem);
+               
+           }
+           .text{
+                float: left;position: relative;
+                .rem(margin-left,52);.rem(padding-top,8);.rem(width,350);
+                h4{
+                    font-family: HiraginsSansGB,PingFang SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+                    .rem(font-size,36); .rem(line-height,63);  
+                    color: rgba(255,163,192,1);.rem(letter-spacing,5);
+                }
+                span{
+                    display: block;.rem(line-height,69); 
+                    .rem(padding-left,7);.rem(font-size,50);font-weight: bolder;
+                    color: rgba(255,43,110,1); 
+                    i{
+                        .rem(font-size,40);font-weight: normal;
+                    }
+                }
+                em{
+                    .clear;
+                    display: block;.rem(line-height,35); position: relative;float: left;
+                    .rem(padding-left,6);.rem(letter-spacing,1);
+                    .rem(font-size,30);color:rgba(202,202,202,1);
+                    &::before{
+                        position: absolute;content: '';
+                        .rem(top,17);.rem(left,0);.rem(height,2);
+                        background-color: rgba(202,202,202,1);
+                        width:110%;
+                    }
+                }
+                .clearfix{
+                    .clearfix;
+                }
+                a{
+                    position: absolute;background-color: rgba(201,80,129,1);
+                    .rem(width,61);.rem(height,56);
+                    .rem(border-radius,10);.rem(top,127);.rem(right,0);
+                    background-repeat: no-repeat;
+                    background-image: url(../../images/cart.png);
+                    .rem(background-position-x,11);
+                    .rem(background-position-y,9);
+                    background-size: (41 / @iphone6 * 1rem);
+                }
+           }
+        }
+        li:first-child{
+            .pic{
+                background-image: url(../../images/portrait1.png); 
+                .rem(background-position-y,22);  
+            }
+            .text{
+                p{
+                    font-family: HiraginsSansGB,PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;  
+                    .rem(line-height,61);.rem(font-size,20);color: rgba(201,80,129,1);
+                    .rem(padding-left,53);
+                    background-repeat: no-repeat;
+                    background-image: url(../../images/gift.png);
+                    .rem(background-position-x,2);
+                    .rem(background-position-y,8);
+                    background-size: (49 / @iphone6 * 1rem);
+                }
+            } 
+        }
+        li:first-child + li {
+            .pic{
+                background-image: url(../../images/portrait2.png);  
+                .rem(background-position-y,32);  
+            } 
+        }
+        li:first-child + li + li{
+            .pic{
+                background-image: url(../../images/portrait3.png); 
+                .rem(background-position-y,27);  
+            } 
+        }
+        li:first-child + li + li + li{
+            .rem(margin-bottom,0);
+            .pic{
+                background-image: url(../../images/portrait4.png); 
+                .rem(background-position-y,27);  
+            } 
+        }
+    }
+    .mfooter{
+        .rem(padding-top,16);text-align: center;position: relative;
+        span{
+            .rem(width,134);.rem(height,40);  
+            background-image: url(../../images/mfooter_logo.png);
+            background-repeat: no-repeat;
+            background-size: (134 / @iphone6 * 1rem);
+        }
+        p{  
+            position: absolute;color: #fff;
+            .rem(line-height,46);.rem(font-size,24);
+            .rem(top,12);.rem(right,22);
+        }
+    }
+    
+    .rulePopup{
+        //display: none;
+        position: absolute;text-align: center;.rem(top,0);.rem(height,1334);
+        .rem(width,750);background-color: rgba(255,255,255,0.6);
+        .rem(padding-top,208);
+        .rulePopup_text{
+            display: inline-block;text-align: left;background-color: #fff;
+            .rem(padding-left,42);.rem(padding-right,40);
+            .rem(width,584);.rem(height,788);.rem(border-radius,14);
+            .rem(border-width,2);.rem(padding-top,7);
+            border-color: rgba(255,135,177,1);
+            border-style: solid;
+            h4{
+                .rem(line-height,87);text-align: center;
+                .rem(font-size,26);color:rgba(199,0,70,1);
+            }
+            .rulePopup_context{
+                p{
+                    font-family: HiraginsSansGB,PingFang SC,Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+                   .rem(line-height,32); color:rgba(199,0,70,1);
+                   .rem(font-size,18);
+                }
+            }
+            .rulePopup_tip{
+                .rem(margin-top,28);
+                p{
+                    .rem(line-height,32);color: rgba(255,117,165,1);
+                    .rem(font-size,18);.rem(letter-spacing,1);
+                }
+            }
+        }
+        
+        span{
+            .rem(width,62);.rem(height,62);.rem(margin-top,65);
+            background-repeat: no-repeat;
+            background-image: url(../../images/close.png);
+            background-size: (63 / @iphone6 * 1rem);
+        }
+    }
+}
