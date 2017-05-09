@@ -1,4 +1,4 @@
-.motherDay_module {
+.motherDayq_module {
   width: 10rem;
   height: 28.8rem;
   background-image: url(../../images/motherDayBg.jpg);
@@ -6,16 +6,16 @@
   background-size: cover;
   text-align: center;
 }
-.motherDay_module ul.packageList {
+.motherDayq_module ul.packageList {
   display: inline-block;
   width: 7.13333333rem;
   padding-top: 7rem;
 }
-.motherDay_module ul.packageList li {
+.motherDayq_module ul.packageList li {
   height: 4.13333333rem;
   background-repeat: no-repeat;
 }
-.motherDay_module ul.packageList li .pic {
+.motherDayq_module ul.packageList li .pic {
   float: left;
   width: 3.46666667rem;
   height: 2.4rem;
@@ -23,21 +23,21 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-.motherDay_module ul.packageList li .text {
+.motherDayq_module ul.packageList li .text {
   float: right;
   width: 3.2rem;
   font-size: 0;
 }
-.motherDay_module ul.packageList li .text h4 {
+.motherDayq_module ul.packageList li .text h4 {
   font-size: 0.48rem;
   color: #554070;
   line-height: 0.88rem;
   text-align: right;
 }
-.motherDay_module ul.packageList li .text > div {
+.motherDayq_module ul.packageList li .text > div {
   height: 0.85333333rem;
 }
-.motherDay_module ul.packageList li .text > div::after {
+.motherDayq_module ul.packageList li .text > div::after {
   content: "";
   display: block;
   font-size: 0;
@@ -47,27 +47,27 @@
   margin: 0;
   padding: 0;
 }
-.motherDay_module ul.packageList li .text > div span {
+.motherDayq_module ul.packageList li .text > div span {
   float: left;
   margin-left: 0.48rem;
   font-size: 0.37333333rem;
   line-height: 0.62666667rem;
   color: #9273ad;
 }
-.motherDay_module ul.packageList li .text > div em {
+.motherDayq_module ul.packageList li .text > div em {
   float: left;
   line-height: 0.68rem;
   font-size: 0.34666667rem;
   color: #9273ad;
   margin-left: 0.02666667rem;
 }
-.motherDay_module ul.packageList li .text > div del {
+.motherDayq_module ul.packageList li .text > div del {
   float: right;
   line-height: 0.76rem;
   font-size: 0.32rem;
   color: #999;
 }
-.motherDay_module ul.packageList li .text a {
+.motherDayq_module ul.packageList li .text a {
   width: 3.2rem;
   height: 0.66666667rem;
   background: red;
@@ -76,18 +76,18 @@
   font-size: 0.37333333rem;
   line-height: 0.66666667rem;
 }
-.motherDay_module ul.packageList li:first-child {
+.motherDayq_module ul.packageList li:first-child {
   height: 4.58666667rem;
 }
-.motherDay_module ul.packageList li:first-child .pic {
+.motherDayq_module ul.packageList li:first-child .pic {
   background-image: url(../../images/motherday1.jpg);
 }
-.motherDay_module ul.packageList li:first-child + li .pic {
+.motherDayq_module ul.packageList li:first-child + li .pic {
   background-image: url(../../images/motherday2.jpg);
 }
-.motherDay_module ul.packageList li:first-child + li + li .pic {
+.motherDayq_module ul.packageList li:first-child + li + li .pic {
   background-image: url(../../images/motherday3.jpg);
 }
-.motherDay_module ul.packageList li:first-child + li + li + li .pic {
+.motherDayq_module ul.packageList li:first-child + li + li + li .pic {
   background-image: url(../../images/motherday4.jpg);
 }
