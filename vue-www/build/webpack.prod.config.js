@@ -16,7 +16,7 @@ config.vue = {
 };
 
 config.plugins = [
-	// 提取css为单文件
+	// 提取less为单文件
 	new ExtractTextPlugin('../[name].less'),
 	new HtmlWebpackPlugin({
 		filename : '../index.html',

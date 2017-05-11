@@ -10,9 +10,9 @@ module.exports = {
     	index : path.resolve(__dirname,'../app/index/index.js')
     },
     output : {
-    	// 输出路径是
+    	// 输出的js的文件路径是
     	path : path.resolve(__dirname,'../output/static'),
-    	// 根目录
+    	// 输出文件根目录
     	publicPath : 'static/',
     	// 文件名
     	//filename : '[name].[hash].js',
@@ -51,6 +51,7 @@ module.exports = {
     		// filename会输出一个html文件
     		// output的path节点定义的目录为根目录,或者使用原来的index.html,并且使用绝对路径
     		filename : '../index.html',
+    		// 相对这个文件
     		template : path.resolve(__dirname,'../app/index/index.html'),
     		// 是否把生成的js文件注入到生成的html中,默认是true
     		inject : true
