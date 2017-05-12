@@ -8,19 +8,21 @@
 	</body>
 	<script>
 	//实现数组的每个元素相加:		+是递归函数的功能  
-/*		function sum(arr,index){
-			
-			if(index==1){
-				return arr[0]
-			}
-			else{
-				//由此可见 要写结构好打理的递归  arr[index-1]就是sum(arr,index-1)的"提取值"
-				return arr[index-1]+arguments.callee(arr,--index)
-			}
-			
+	
+	function sum(arr,index){
+		
+		if(index==1){
+			return arr[0]
 		}
-		var arr=[1,2,3,4,5]
-		console.log(sum(arr,arr.length))*/
+		else{
+			//由此可见 要写结构好打理的递归  arr[index-1]就是sum(arr,index-1)的"提取值"
+			return arr[index-1] + arguments.callee(arr,--index)
+		}
+		
+	}
+	var arr=[1,2,3,4,5]
+	console.log(sum(arr,arr.length))
+	
 		
 		
 		//如果要实现复杂的功能  不是+ 那么就要用到函数了   而这个函数就是外面函数的回调函数(因为它要作为参数递归传下去)
@@ -39,8 +41,8 @@
 		//总结:主函数是封装重复代码 和设计函数结构的   回调函数是写实现功能的
 		//回调函数要写的内容越少  这个函数越是好好函数	但同时回调函数写的内容越少 可能主函数功能越专一化
 		function run(fn){
-			var length=arguments.length;
-			var result=arguments[1];
+			var length = arguments.length;
+			var result = arguments[1];
 			var provider={
 				filterRepeat:function(f){
 					var filter=[];
@@ -66,8 +68,7 @@
 		//功能多样的:
 		var arrnew=run(function(a,b,c){	//c是工具包
 			var f={result:[]};
-						//由于主函数体工具包的功能   result会被filter方法所改变	不需要result=c.filterRepeat(a);
-			
+			//由于主函数体工具包的功能   result会被filter方法所改变	不需要result=c.filterRepeat(a);
 			//a.push.apply(a,b)			//一种不需要var result的方法  用a来接收返回值
 			//return a;		
 			f.result.push.apply(f.result,a);

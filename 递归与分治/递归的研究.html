@@ -10,20 +10,20 @@
 <script>
 	//主函数递归
 	function mulit(n){
-		if(n==1){
+		if(n === 1){
 			return 1;
 		}
 		else{
-			return n*arguments.callee(n-1)
+			return n * arguments.callee( n - 1 )
 		}
-		//或者写成一句话     n==1?return 1:return n*arguments.callee(n-1) 
+		//或者写成一句话     n === 1 ? return 1 : return n*arguments.callee(n-1);
 	}
 
 	
-	//c获得函数体的地址
-	var c=mulit;
-	//把mulit指向函数体的地址清空
-	mulit=null;
+	// c获得函数体的栈地址
+	var c = mulit;
+	// 把mulit指向函数体的栈地址清空
+	mulit = null;
 	
 	alert(c(6));
 	
@@ -31,7 +31,7 @@
 	
 	
 	
-	//最简单的递归:	f(f(f(f())))	只是每次f的参数(控制次数的number)都会改变
+	//最简单的回调递归:	f(f(f(f())))	只是每次f的参数(控制次数的number)都会改变
 	//升级的递归
 </script>
 </html>

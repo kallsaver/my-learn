@@ -33,7 +33,7 @@ resolve:{
 --colors:打印结果带彩色,比如红色表示耗时较长的步骤
 
 7.在.vue文件使用less,<style lang="less">并且npm install less-loader less --save-dev,不需要在webpack.config.js中配置,
-.vue文件中的样式是会作用于全局的,不单单是自己的template中的DOM,所以最好模块化,或者在style上加上scope,表示当前样式只作用于当前样式
+.vue文件中的样式是会作用于全局的,不单单是自己的template中的DOM,所以最好模块化,或者在style上加上scoped,表示当前样式只作用于当前样式
 
 8.webpack-dev-middleware中间件,它通过连接服务器服务从webpack发射出来的文件,不会向硬盘写文件,而是在内存里
 
