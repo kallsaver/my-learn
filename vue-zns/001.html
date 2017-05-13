@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			li{list-style: none;}
+		</style>
+		<!--<script src="lib/vue.js"></script>-->
+		<script src="lib/vue2.0.js"></script>
+	</head>
+	<body>
+		<div id="box">
+			<input type="text" v-model="msg">
+			<input type="text" v-model="msg">
+			<button v-on:click="add()">单击</button>
+			<button v-on:dblclick="show()">双击</button>
+			<ul>
+				<li v-for="item in arr">{{item}}</li>
+			</ul>
+			<ul>
+				<!--vue1.0和vue2.0的item,index位置是反的-->
+				<!--推荐这种用法-->
+				<li v-for="(item,index) in arr">{{item}}{{index}}</li>
+			</ul>
+			<ul>
+				<li v-for="(value,key) in obj">{{key}}：{{value}}</li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		var a = new Vue({
+			el : '#box',
+			data : {
+				msg : 'welcome vue',
+				arr : ['angular','vue','react'],
+				obj : {
+					name : 'obj',
+					age : '24'
+				}
+			},
+			methods : {
+				show : function(){
+					alert(1)
+				},
+				add : function(){
+					this.arr.push('jquery')
+				}
+			}
+		})
+		
+	</script>
+</html>

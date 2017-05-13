@@ -52,6 +52,7 @@ export default {
       }
     }
   },
+  // 自定义过滤器
   filters : {
     date(val){
       return moment(val).calendar()
@@ -80,6 +81,10 @@ export default {
 
 
 </script>
+<style lang="less">
+  // 全局less
+   @import './less/common.less'; 
+</style>
 
 <style lang="less" scoped>
 // 不需要在webpack.config.js中设置,只需要npm install less-loader --save-dev
