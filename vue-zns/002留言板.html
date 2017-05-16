@@ -41,12 +41,13 @@
 					<td>{{item.name}}</td>
 					<td>{{item.age}}</td>
 					<td><button class="btn btn-sm btn-primary"
-						data-toggle="modal" data-target="#layer" v-on:click="nowIndex=index"
+						data-toggle="modal" data-target="#layer" v-on:click="nowIndex = index"
 					>删除</button></td>
 				</tr>
 				<tr v-show="myData.length!==0">
 					<td colspan="4" class="text-right">
-						<button class="btn btn-danger btn-sm" v-on:click="deleteAll()">删除全部</button>
+						<button class="btn btn-danger btn-sm" 
+						data-toggle="modal" data-target="#layer" v-on:click="nowIndex = -1">删除全部</button>
 					</td>
 				</tr>
 				<tr v-show="myData.length===0">
@@ -68,7 +69,7 @@
 						<div class="modal-body text-right">
 							<button class="btn btn-primary btn-sm" data-dismiss="modal">取消</button>
 							<button class="btn btn-danger btn-sm" data-dismiss="modal"
-								v-on:click="deleteSingle(nowIndex)">确认</button>
+								v-on:click="deleteData(nowIndex)">确认</button>
 						</div>
 					</div>
 				</div>
@@ -102,12 +103,10 @@
 					this.username = '';
 					this.age = '';
 				},
-				deleteAll : function(){
-					console.log(this)
-					this.myData = []
-					
-				},
-				deleteSingle : function(nowIndex){
+				deleteData : function(nowIndex){
+					if( nowIndex === -1 ){
+						this.myData = [];
+					}
 					this.myData.splice(nowIndex,1);
 				}
 			}

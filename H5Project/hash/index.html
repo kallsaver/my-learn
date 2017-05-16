@@ -27,22 +27,7 @@
 				}
 			}, 150);
 		}
-		window.location.hash = '#/?count=20&start=5';
-		hashChangeTrigger();
-		// 检测到hash改变,发起ajax请求
-		var urlParam = getUrlParam();
-		function hashChangeTrigger(){
-
-			// 每改变一次hash,都会读取一次url
-			urlParam = getUrlParam();
-			console.log( urlParam );
-			$jsonp("http://api.douban.com/v2/movie/in_theaters?",urlParam,function(data){
-				console.log(data);
-				console.log(typeof data.count)  // number
-			});
-		}
-		//接口:http://api.douban.com/v2/movie/in_theaters?count=1&start=5
-
+		
 		// 路由格式 index.html#/?page=1&?category="a"
 		// 这个函数会返回一个存储url参数(ajax接口)键值对对象
 		function getUrlParam(){
@@ -58,8 +43,32 @@
 			return result;
 		}
 		
+		window.location.hash = '#/?count=20&start=5';
+		// 初始化
+		hashChangeTrigger();
+		// 检测到hash改变,发起ajax请求
+		var urlParam = getUrlParam();
+		console.log(urlParam)
+		function hashChangeTrigger(){
+
+			// 每改变一次hash,都会读取一次url
+			urlParam = getUrlParam();
+			console.log( urlParam );
+			$jsonp("http://api.douban.com/v2/movie/in_theaters?",urlParam,function(data){
+				console.log(data);
+				//console.log(typeof data.count)  // number
+			});
+		}
+		//接口:http://api.douban.com/v2/movie/in_theaters?count=1&start=5
+
+		
 		var divList = document.getElementsByTagName('div');
 		divList[0].onclick = function(){
+			var a = {
+				start : 0
+			}
+			
+			
 			// 改变url的hash
 			var hash = window.location.hash;
 			hash = hash.replace(/start\=\d+/,'start=0');
