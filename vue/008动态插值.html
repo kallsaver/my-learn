@@ -30,10 +30,10 @@
 		var app = new Vue({
 			el : 'div',
 			data : data,
-			//动态插值如果是函数返回值方式要在computed里面定义属性方法
-			//而且这个方法的参数就是Vue的实例,并且这个函数的this也是Vue的实例
+			// 动态插值如果是函数返回值方式要在computed里面定义属性方法
+			// 而且这个方法的参数就是Vue的实例,并且这个函数的this也是Vue的实例
 			computed : {
-				size : function(v){
+				size : function(v,a){
 					//这个this指向app实例
 					console.log(this);
 					//return this.width * this.height;

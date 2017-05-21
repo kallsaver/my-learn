@@ -36,7 +36,8 @@
 			// substr是切掉参数个前面的字符
 			// 格式 index.html#/?page=1&category='a';会从#起计算返回page=1&category='a'
 			//console.log(window.location.hash.substr(3))
-			var arr = window.location.hash.substr(3).match(/[^&]+?\=[^&]+/ig).join('=').split('=');
+			// '='是不需要转义的
+			var arr = window.location.hash.substr(3).match(/[^&]+?=[^&]+/ig).join('=').split('=');
 			for(var i = 0; i < arr.length; i += 2){
 				result[arr[i]] = arr[i+1];
 			}
@@ -46,9 +47,10 @@
 		window.location.hash = '#/?count=20&start=5';
 		// 初始化
 		hashChangeTrigger();
-		// 检测到hash改变,发起ajax请求
 		var urlParam = getUrlParam();
-		console.log(urlParam)
+		console.log(urlParam);
+		
+		// 检测到hash改变,发起ajax请求
 		function hashChangeTrigger(){
 
 			// 每改变一次hash,都会读取一次url
@@ -62,33 +64,49 @@
 		//接口:http://api.douban.com/v2/movie/in_theaters?count=1&start=5
 
 		
-		var divList = document.getElementsByTagName('div');
-		divList[0].onclick = function(){
-			var a = {
-				start : 0
-			}
-			
-			
-			// 改变url的hash
-			var hash = window.location.hash;
-			hash = hash.replace(/start\=\d+/,'start=0');
-			window.location.hash = hash;
-		}
+//		divList[0].onclick = function(){
+//			var a = {
+//				start : 0
+//			}
+//			
+//			
+//			// 改变url的hash
+//			var hash = window.location.hash;
+//			hash = hash.replace(/start=\d+/,'start=0');
+//			window.location.hash = hash;
+//		}
+//
+//		divList[1].onclick = function(){
+//			
+//			// 改变url的hash
+//			var hash = window.location.hash;
+//			hash = hash.replace(/start=\d+/,'start=2');
+//			window.location.hash = hash;
+//		}
+//
+//		
+//		divList[2].onclick = function(){
+//			// 改变url的hash
+//			var hash = window.location.hash;
+//			hash = hash.replace(/count=\d+/,'count=5');
+//			window.location.hash = hash;
+//		}
 
-		divList[1].onclick = function(){
-			// 改变url的hash
-			var hash = window.location.hash;
-			hash = hash.replace(/start\=\d+/,'start=2');
-			window.location.hash = hash;
-		}
-
+		$('div').eq(0).data('message',{ category : 'start' , num : '0' });
+		$('div').eq(1).data('message',{ category : 'start' , num : '2' });
+		$('div').eq(2).data('message',{ category : 'count' , num : '5' });
 		
-		divList[2].onclick = function(){
-			// 改变url的hash
-			var hash = window.location.hash;
-			hash = hash.replace(/count\=\d+/,'count=5');
-			window.location.hash = hash;
-		}
+		// 整合成一个公有的方法
+		$('div').each(function(){
+			$(this).on('click',function(){
+				var hash = window.location.hash;
+				console.log(hash)
+				var category = $(this).data('message').category;
+				var num = $(this).data('message').num;
+				hash = hash.replace( eval( '/'+ category + '=\\d+' + '/' ), category + '=' + num);
+				window.location.hash = hash;
+			});
+		});
 
 	</script>
 
