@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding:0}
+			h1{
+				background-color: peru;
+			}
+			li{
+				list-style: none;
+			}
+			.list{
+				height:50px;background-color: plum;margin-bottom: 20px;
+			}
+			.box{
+				height:100px;background-color: lawngreen;color: #fff;text-align: center;
+				line-height: 100px;
+			}
+		</style>
+		<script src="../lib/template-web.js"></script>
+	</head>
+	<body>
+		<div id="content"></div>
+		<button id="btn">点击div消失</button>
+	</body>
+	<script id="test" type="text/html">
+		
+		<h1>{{title}}</h1>
+		<ul class="">
+			{{each list value i}}
+			 <li class="list">索引 {{i + 1}} ：{{value}}</li>
+    	{{/each}}
+		</ul>
+		
+		{{if isAdmin}}
+			<div class="box" id="box">isAdmin是true时展示</div>
+		{{/if}}
+		
+	</script>
+	
+	<script>
+		
+		var data = {
+			title : '基本例子',
+			isAdmin : true,
+			list : ['angular','react','vue']
+		}
+		
+		var html = template('test',data);
+		document.getElementById('content').innerHTML = html;
+		
+		
+		
+		
+	</script>
+</html>

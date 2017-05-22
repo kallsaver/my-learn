@@ -48,7 +48,7 @@
 		hashChangeTrigger();
 		// 检测到hash改变,发起ajax请求
 		var urlParam = getUrlParam();
-		console.log(urlParam)
+		
 		function hashChangeTrigger(){
 
 			// 每改变一次hash,都会读取一次url
@@ -89,6 +89,16 @@
 			hash = hash.replace(/count\=\d+/,'count=5');
 			window.location.hash = hash;
 		}
+		
+		
+		console.log(urlParam)
+		// 对象的key和value转字符串
+		function toStr(){
+			for(var key in urlParam){
+				
+			}	
+		}
+		
 
 	</script>
 

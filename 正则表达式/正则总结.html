@@ -13,7 +13,8 @@
 		//3.    * + ? {n} {n,} {n,m} 	限定符
 		//4.	^, $, \任何元字符、任何字符	定位符和序列    (位置和顺序)
 		//5.	|   或
-	
+		//6.   不是所有的符号都需要转义(比如=),需要转义的符号为* . ? + $ ^ [ ] ( ) { } | \ /  
+		//
 	
 		//		/name{3}/;相当于nameee
 		var reg1=/name{3}/						//验证是否含有nammeee
@@ -69,7 +70,8 @@
 		// 这个函数会返回一个存储url参数键值对对象
 		function getUrlParam(){
 			var result = {};
-			var arr = window.location.search.substr(1).match(/[^&]+?\=.+?/ig).join('=').split('=');
+			// '='不需要转义
+			var arr = window.location.search.substr(1).match(/[^&]+?=.+?/ig).join('=').split('=');
 			for(var i = 0; i < arr.length; i+=2){
 				result[arr[i]] = arr[i+1];
 			}

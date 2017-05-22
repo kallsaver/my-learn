@@ -63,7 +63,7 @@ require(['c','jquery.scroll'],function(c,fn){
 		console.log(c.product)  //
 	},1000);
 	console.log(fn)
-	$("div").on("click",function(){
+	$("#div").on("click",function(){
 		$(this).scroll()
 	})
 });
