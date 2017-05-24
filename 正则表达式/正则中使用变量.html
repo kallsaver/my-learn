@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="lib/jquery-3.1.0.js"></script>
+	</head>
+	<body>
+		<script>
+			
+			var url = 'http://api.douban.com/v2/movie/in_theaters?start=0&count=5';
+			// 正则使用变量的方式之一:
+			// 注意使用\\d+
+			var str1 = 'start=\\d+' ; 
+			// 使用new RegExp其实内部已经调用了eval解析了str1变量
+			var reg = new RegExp(str1);
+			result1 = url.replace(reg,'start=4');
+			console.log(result1);
+			
+			// 使用eval解析字符串
+			var str2 = 'start=\\d+';
+			var str3 = '\start\=\d+';
+			console.log( eval('/'+ str2 + '/' ));   //   解析为/start=\d+/
+			// 值得一提的是如果\后面的字符是没有eval的转义语法的(不需要转义),比如=,s,d,\这些 ,这个\会被剔除掉,
+			// 如果是t的话,\t会被解析为tab
+			console.log( eval('/'+ str3 + '/' ))
+			result2 = url.replace( eval('/'+ str2 + '/' ), 'start=4' );
+			console.log(result2);
+			
+			// 实际上并不可能url种不可能有两个'?'
+			var url4 = 'http://dev.daishutijian.com/pcsite?/orgs/get_orgs?start=0&count=10&a=b_c';
+			function getUrlParam(url){
+				var result = {};
+				// 把最后面的问号(默认是贪婪的)包括这个问号的左边的内容清空 ,实际上url中不可能有两个问号
+				url = url.replace(/.*\?/,'');
+				// '='是不需要转义的
+				var arr = url.match(/[^&]+?=[^&]+/g).join('=').split('=');
+				for(var i = 0; i < arr.length; i += 2){
+					result[arr[i]] = arr[i+1];
+				}
+				return result;
+			}
+			var urlParam = getUrlParam(url4);
+			console.log(urlParam);
+			
+			function parseUrl(url,urlParam){
+				var str = '';
+				function getBaseUrl(url){
+					// 非贪婪匹配最右边问号右边的内容,实际上url中并不可能有两个'?'
+					return url.replace(/\?.*$/,'?')
+				}
+				
+				function isEmptyObject(obj){
+					for(var key in obj){
+						return false
+					}
+					return true;
+				}
+				
+				// 如果不为空对象
+				if( !isEmptyObject( urlParam ) ){
+					for(var key in urlParam){
+						str += ( key + '=' + urlParam[key] + '&');
+					};
+					// 把url转化为baseUrl(不带参数的url)
+					url = getBaseUrl(url);
+					return url + str.substring(0,str.length-1);
+				}
+				return url;
+			};
+			//var baseUrl = 'http://dev.daishutijian.com/pcsite/orgs/get_orgs?';
+			var url5 = 'http://dev.daishutijian.com/pcsite/orgs/get_orgs?start=1&count=5&a=d+e';
+			urlParam = getUrlParam(url5);
+			var updataUrl = parseUrl(url4,urlParam);
+			console.log(updataUrl);
+			
+			
+			
+			console.log( $.isEmptyObject({}) )
+			
+			if( $.isEmptyObject({}) ){
+				console.log('空对象时执行')
+			}
+			if(  $.isEmptyObject({name:'aaa'}) ){
+				alert(2)
+			}
+		</script>
+	</body>
+</html>

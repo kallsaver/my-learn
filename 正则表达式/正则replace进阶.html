@@ -30,14 +30,15 @@
 		
 
 		
-		//意义很大  把script换成script~
+		// 意义很大  把script换成script~
 		var a4 = 'javascript'.replace(/script/,'$&~');
 		console.log(a4);
 		
-		//$`表示所匹配的文本的左边文本
+		// $`表示得到所匹配内容的左边文本
 		var a5 = 'javascript'.replace(/script/,'$`'); //把script换成script左边的文本
 		console.log(a5);            //javajava
 		
+		// $'表示得到所匹配内容的右边文本
 		var a6 = 'javascript'.replace(/java/,"$'");
 		console.log(a6);			//scriptscript
 		

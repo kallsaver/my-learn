@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="father">
+			<ul id="son1">
+				<li v-for="item in product" v-text="item.name" v-on:click="k(item.name)"></li>
+			</ul>
+		</div>
+		
+		<div id="mother">
+			<ul id="son2">
+				<li v-for="item in product" v-text="item.name"></li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script>
+		
+		var common = [
+			{ name : 'other' }
+		];
+		
+		new Vue({
+			el : '#father',
+			data : {
+				product : [
+					{ name : 'aaa' },
+					{ name : 'bbb' },
+					{ name : 'ccc' },
+				]
+			},
+			mounted : function(){
+				
+			},
+			methods : {
+				k : function(){
+					alert(1)
+					var vm = this;
+					common = vm.data;
+				}
+			}
+		});
+		
+		new Vue({
+			el : '#son1',
+			data : {
+				product : [
+					{ name : 'eee' },
+					{ name : 'fff' },
+					{ name : 'ggg' },
+				]
+			},
+//			computed : {
+//				size : function(){
+//					return common;
+//				}
+//			}
+		});
+		
+		new Vue({
+			el : '#mother',
+			data : {
+				product : common
+			}
+		});
+		
+
+		
+		
+		
+		
+	</script>
+</html>
