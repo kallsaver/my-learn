@@ -4,24 +4,57 @@
 		<meta charset="UTF-8">
 		<title></title>
 	</head>
+	<script src="js/vue2.0.js"></script>
 	<body>
 		<!--和ng一样,ng-model和v-model是双向数据绑定的-->
 		<!--vue同样是DOM子元素可以拿到父元素的数据-->
-		<div id="app" title="{{title}}">
-			<!--和ng一样,指令里面是不用写{{}},注意区分属性和指令-->
-			<input type="text" v-model="msg" />
-			<p>{{msg}}</p>
+		<!--和ng一样,指令里面是不用写{{}},注意区分属性和指令-->
+		<div id="app">
+			<input type="text" v-model="item.msg1" ref="listen1" >
+			<p v-text="item.msg1"></p>
+			<input type="text" v-model="item.msg2" ref="listen2" >
+			<p v-text="item.msg2"></p>
+			<input type="text" v-model="item.msg3" v-on:keydown="test(item.msg3)">
+			<p v-text="item.msg2"></p>
 		</div>
 		
 	</body>
-	<script src="js/vue.js"></script>
+	
 	<script>
 		var app = new Vue({
 			el : '#app',
-			data : {
-				msg : 'aaaa',
-				title : '滑上去会出现'
-			}
+			data: {
+				item: {
+					msg1 : '',
+					msg2 : ''
+				}
+			},
+			methods : {
+				test : function(listen){
+					var vm = this;
+//					vm.$watch('item.msg3',function(val){
+//						console.log(val)
+//					})
+					setTimeout(function(){
+						console.log(listen)
+					})
+				}
+			},
+			watch: {
+				// 监听一个对象的某个属性,属性保存在$refs里面
+				item: {
+					handler: function(val, oldval) {
+						var vm = this;
+						if(vm.$refs.listen1 !== 0 ){
+							console.log('第一个input报错')
+						}
+						console.log(vm.$refs.listen1.value);
+						console.log(vm.$refs.listen2.value)
+						//vm.item.msg2 = vm.$refs.listen1.value
+					},
+					deep: true
+				}
+			},
 			
 		})
 

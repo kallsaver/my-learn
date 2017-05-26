@@ -49,7 +49,7 @@
 		})*/
 		
 		//$.when
-		/*$.when($.ajax('data/data.json'),$.ajax('data/message.json'))
+		$.when($.get('data/data.json'),$.get('data/message.json'))
 		.done(function(data1,data2){
 			console.log(data1)
 			console.log(data2)
@@ -58,7 +58,7 @@
 		.fail(function(){
 			console.log("其中一个数据没有拿到")
 		})
-		*/
+		
 		
 		//本地异步编程
 //		var def = $.Deferred();
