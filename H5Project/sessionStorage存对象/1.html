@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<a href="2.html">2</a>
+	</body>
+	<script>
+		var obj = {
+			"name" : "dd",
+			"age" : "26",
+			"idCode" : "4564916516541",
+			"isMarryed" : false,
+		}
+		
+		var str = JSON.stringify(obj); 
+		
+		sessionStorage.setItem('obj',str);
+	</script>
+</html>

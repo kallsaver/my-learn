@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!--<a href='javascript:mailsome1()'>E-Mail Someone!</a>-->
+		<a href="Mailto:test@163.com">给我发邮件</a> 
+		<a href="mailto">Send email</a>
+		<FORM>
+			<input type=button value="E-Mail Someone!" onClick="mailsome1()">
+		</FORM>
+		
+		<form name='sendmail' action='mailto:test@163.com'> 
+<input name='cc' type='text' value='test@hotmail.com'> 
+<input name='subject' type='text' value='testtitle'> 
+<input name='body' type='text' value='this is body'> 
+</form>
+	</body>
+		<script>
+		function mailsome1(){
+			
+			
+			//who=prompt("Enter recipient's email address: ","antispammer@earthling.net");
+			//what=prompt("Enter the subject: ","none");
+			//if (confirm("Are you sure you want to mail "+who+" with the subject of "+what+"?")==true){
+			parent.location.href='mailto:'   //+who  //+'?subject='+what+'';
+			  //}
+		}
+		</script>
+<script>
+	function SendMail(filePath) { 
+var path = location.href.substring(0, location.href.lastIndexOf("/")) + filePath; 
+var outlookApp = new ActiveXObject("Outlook.Application"); 
+var nameSpace = outlookApp.getNameSpace("MAPI"); 
+var mailItem = outlookApp.CreateItem(0); 
+var mailto = "test@163.com "; 
+var mailBody= "<HTML><BODY><DIV><FONT color=‘red’>test this is body html</FONT></DIV></BODY></HTML>"; 
+mailItem.Subject = "test title"; 
+mailItem.To = mailto; 
+mailItem.HTMLBody = mailBody; 
+if (path != "") { 
+mailItem.Attachments.Add(path); 
+} 
+mailItem.Display(0); 
+mailItem = null; 
+nameSpace = null; 
+outlookApp = null; 
+}
+</script>
+</html>

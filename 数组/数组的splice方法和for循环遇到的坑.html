@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		var arr1 = [0,1,11,2,3,13,4,5,6,7,8,9];
+		var arr2 = arr1.slice();
+		var arr3 = arr1.slice();
+		
+		// 原意是想过滤出偶数
+		
+		// 写法1:每次循环都更新length
+		for(var i = 0 ; i < arr1.length ; i++){
+			if( arr1[i] % 2 ){
+				console.log(arr1[i])
+				arr1.splice(i,1);
+				// 11的index替代了1的index,逃过了遍历
+			}
+		}
+		console.log(arr1);
+		
+		// 写法2:不更新length
+		for(var i = 0 ,length = arr2.length ; i < length; i++){
+			if( arr2[i] % 2 ){
+				arr2.splice(i,1);
+				// 11的index替代了1的index,逃过了遍历
+			}
+		}
+		console.log(arr2);
+		
+		// 有漏洞的写法(遍历过剩)
+		for(var i = 0 ,length = arr3.length ; i < length; i++){
+			if( arr3[i] % 2 ){
+				arr3.splice(i,1);
+				i--;
+			}
+		}
+		console.log(arr3);
+		
+		
+		var productList = [
+			{ name : 'a'},
+			{ name : 'b'},
+			{ name : 'c'}
+		]
+		
+		var clone = productList.slice();
+		
+		// 然后这种写法和splice配合使用,是会把数组遍历过头的,因为中途有元素退出,而遍历会遍历到未定义的元素,可能会导致报错
+//		for(var i = 0, length = productList.length; i < length; i++){
+//			if( productList[i].name === 'a' ){       // product[3] cannot read property 'name' of undefined
+//				productList.splice(i,1);
+//				i--;
+//			}
+//		}
+
+	
+		for(var i = 0 ; i < clone.length ; i++){
+			if( clone[i].name === 'a' ){
+				clone.splice(i,1);
+				i--;
+			}
+		}
+		
+		console.log(clone)
+		
+	</script>
+</html>

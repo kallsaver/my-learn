@@ -53,13 +53,11 @@
 				}
 			},
 			computed: {
-				selection: {
-					get: function() {
+				selection: function(){
 						var vm = this;
 						return this.YX.filter(function(item) {
 							return item.text === vm.selected;
 						})[0].ZY;
-					}
 				}
 			},
 			methods: {

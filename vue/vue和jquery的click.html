@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			li{
+				list-style: none;color: #333;line-height: 40px;
+			}
+		</style>
+	</head>
+	<script src="js/vue2.0.js"></script>
+	<script src="js/jquery-3.1.0.js"></script>
+	<body>
+		<div id="app" v-show="show">
+			<ul>
+				<li v-for="item in list" v-on:click="vueClick(a)" v-text="item.id" v-if="list&&item"></li>
+			</ul>
+			<div id="dd">555</div>
+		</div>
+	</body>
+	<script>
+		
+	// 如果是通过jquery的事件触发,那么先触发jquery的事件,再触发vue的事件
+	// 如果是通过vue的事件触发,那么先触发vue的事件,再触发jquery的事件
+		new Vue({
+			el : '#app',
+			data : {
+				list : [
+					{ id : 1 },
+					{ id : 2 },
+					{ id : 3 },
+				],
+				show : false,
+				a : 'a'
+			},
+			methods : {
+				vueClick : function(){
+					console.log('vue')
+				}
+			},
+			mounted : function(){
+				var vm = this;
+				vm.show = true;
+				vm.$nextTick(function(){
+					afterRender();
+				});
+			}
+		});
+		
+		function afterRender(){
+			var li = $('li')
+			li.each(function(){
+				$(this).on('click',function(){
+					console.log('jquery')
+					li.css({color:'#333'});
+					$(this).css({color:'gold'});
+				})
+				
+			});
+			li.eq(1).click()
+			$('#dd').on('click',function(){
+				li.eq(1).click()
+			})
+		}
+		
+							
+		
+	</script>
+</html>
