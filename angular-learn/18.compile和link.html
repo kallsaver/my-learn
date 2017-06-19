@@ -22,7 +22,7 @@
 		<script src="js/angular.js"></script>
 		<script>
 
-			var i=0
+			var i = 0;
 			angular.module("myApp",[])
 			
 			.directive("customTags",function(){
@@ -84,9 +84,16 @@
 								//console.log('jqLite',jqLite(document))
 								//或者:
 								element.on("click",function(){
-									//find是找子元素 不能找自身
+									// find是找子元素 不能找自身
 									console.log(angular.element(this).find('div').text("click after"))
-								})
+								});
+								
+								angular.element(document).on('click',function(){
+									alert('document')
+								});
+								
+								angular.element(document).find('p').text('我是在兄弟元素的directive中设置text的')
+								
 							}
 						}
 					},
@@ -113,11 +120,8 @@
 							 name : 'errorWay'
 						}*/
 					},
-<<<<<<< HEAD
 					//link不会执行了,这个link就是postLink
-=======
 					//一旦写了compile,link不会执行了,这个link就是postLink
->>>>>>> b5dcfc604a02ad5743b54b114891c28460b72931
 					link : function(){
 						console.log("link function")
 					}
@@ -175,6 +179,7 @@
 			-->
 			<div custom-tags custom-tags2 ng-repeat="user in userList" text="txt"></div>
 		</div>
+		<p></p>
 
 	</body>
 	<script>
@@ -193,12 +198,12 @@
 	<script>
 		var a = angular.element(document.body)
 		var b = angular.element(document.body)
-		if(a==b){				//不弹,说明a和b分别是两个引用
+		if( a === b ){				//不弹,说明a和b分别是两个引用
 			alert(1)           
 		}
 		var c = a[0]
 		var d = b[0]
-		if (c==d){
+		if ( c === d ){
 			alert(2)
 		}
 		
@@ -213,7 +218,7 @@
 		var result = ''  //不声明会无法使用+=
 		for(var i=0,length=getContent2.length;i<length;i++){
 			//方法1:
-			if(i!==0&&i!==1&&i!==length-2&&i!==length-1) result+=getContent2[i]
+			if(i!==0&&i!==1&&i!==length-2&&i!==length-1) result += getContent2[i]
 
 			//数组能借用字符串的方法,而字符串不能借用数组的方法
 		}

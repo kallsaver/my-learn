@@ -3,13 +3,18 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
+		<style type="text/css">
+			li{list-style: none;line-height: 50px;margin-bottom: 50px;}
+		</style>
 	</head>
 	<body>
 		<div id="app">
 			<!--<span v-run="reigster('test')"></span>-->
 			<div>
 				<ul>
-					<li v-for="item in produceList" v-text="item.remain" v-run v-bind:data-value="item.remain"></li>
+					<li v-for="item in produceList"  v-run v-bind:data-value="item.remain">
+						<p v-text="item.remain"></p>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -20,10 +25,10 @@
 		
 		Vue.directive('run',{
 			bind : function(element,binding,scope,f){
-				//console.log('binding',binding)
+				console.log('binding',binding)
 				console.log('scope',scope);
 				//console.log(scope.data.domProps)
-				//console.log('f',f)
+				console.log('f',f)
 				//console.log($(element).find('li'));
 				//var $li = $(element).find('li');
 				//console.log($(element).text());

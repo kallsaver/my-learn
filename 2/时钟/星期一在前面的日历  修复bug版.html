@@ -5,7 +5,10 @@
 <title>无标题文档</title>
 <style id="css">
 *{margin:0px;padding:0px;font-size:0px;}
-.calendar{width:600px;height:650px;border:1px solid black;text-align:center;margin:100px auto;position:relative;}
+.calendar{
+	width:600px;height:650px;border:1px solid cornflowerblue;text-align:center;margin:100px auto;position:relative;
+	background-size: cover;background-repeat: no-repeat;
+}
 
 /*select{width:75px;height:30px;border:1px solid #24B5D3;font-size:14px;z-index:3;line-height:30px;padding-left:5px;}
 
@@ -139,7 +142,7 @@ window.onload=function(){
 //-------------------------------------------------------------------------
 	
 	
-//注意时间问题有个bug 就是如果当天的时间是30号  下个月没有30号  而拨到下个月 setMonth(month+1) 没有天的参数 会有bug  这个程序没有这个bug 但是会有另外一个bug
+	//注意时间问题有个bug 就是如果当天的时间是30号  下个月没有30号  而拨到下个月 setMonth(month+1) 没有天的参数 会有bug  这个程序没有这个bug 但是会有另外一个bug
 	//时间实例化
 	var four=new Date();
 	
@@ -345,8 +348,8 @@ window.onload=function(){
 	
 	<!--<select class="yearselect"></select>
     <select class="monthselect"></select>-->
-	<div class="leftspan"> < </div>
-    <div class="rightspan"> > </div>
+	<div class="leftspan"> &#60; </div>
+    <div class="rightspan"> &#62; </div>
 	<h2 class="clear">
     </h2>
 	<h3>	<!--<div class="leftspan"> < </div>

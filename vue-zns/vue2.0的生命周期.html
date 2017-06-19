@@ -7,14 +7,56 @@
 </head>
 <body>
 
-<div id="app">
-	<p id="box"></p>
+<div id="app" v-all>
+	<p id="box">box</p>
+	<p v-></p>
     <p v-text="message"></p>
     <p v-text="parseWeek"></p>
-    <p v-text="selfRun()"></p>
+    <p v-text="self()"></p>
 </div>
 
 <script type="text/javascript">
+    
+    Vue.directive('',{
+    	bind : function(element){
+    		console.log('directive运行');
+    		// directive是在mounted(挂载完毕)之前执行的,也就是挂载中,这里操作DOM的一切都是可以的
+    		$(element).text('directive');
+    	}
+    });
+    
+    Vue.directive('all',{
+    	bind : function(element){
+    		console.log('directive运行');
+    		// directive是在mounted(挂载完毕)之前执行的,也就是挂载中,这里操作带指令DOM是可以的
+    		console.log($('p'))
+    		$(element).find('p').each(function(index){
+    			$(this).on('click',function(){
+    				alert(index)	
+    			});
+    		});
+    		// 值得一提的是在directive中只能操作element这个元素以内的元素,不能操作全局的元素
+    		// 而angular的directive是可以操控所有的DOM元素的
+    		// angular的directive更多的是对操作DOM的一个隔离,而vue的directive要弱得多,更纯粹,只能操作带这个指令的元素
+    		// 无效
+    		$('p').each(function(){
+    			$(this).css({
+    				fontSize : '30px'
+    			})
+    		});
+    		// 无效
+    		$(document).find('p').each(function(){
+    			$(this).css({
+    				fontSize : '30px'
+    			})
+    		});
+    		
+    		// 无效
+    		$('#box').css({
+    			fontsize : '30px'
+    		});
+    	}
+    });
     
 	var app = new Vue({
       	el: '#app',
@@ -23,7 +65,7 @@
       	},
 	   	beforeCreate: function () {
 	   		var vm = this;
-            console.group('beforeCreate构造函数运行,实例开始创建,数据和DOM都没有关联');
+            console.log('beforeCreate构造函数运行,实例开始创建,数据和DOM都没有关联');
             //console.log("el:" + vm.$el);                 // undefined
             //console.log("data:" + vm.$data);             // undefined 
             //console.log("message:" + vm.message);        // undefined
@@ -32,7 +74,7 @@
 	    },
 	    created: function () {
 	    	var vm = this;
-	        console.group('created实例创建完毕,数据已经关联实例,但是DOM没有关联');
+	        console.log('created实例创建完毕,数据已经关联实例,但是DOM没有关联');
 	        console.log("el:" + vm.$el);                   // undefined
             console.log("data:" + vm.$data);               // 数据已经关联
             console.log("message:" + vm.message);          // 数据已经关联
@@ -41,10 +83,10 @@
 	    },
 	    beforeMount: function () {
 	    	var vm = this;
-	        console.group('beforeMount虚拟DOM技术,DOM挂载前状态');
-	        console.log("el     : " + (vm.$el));          //虚拟DOM已被初始化
+	        console.log('beforeMount虚拟DOM技术,DOM挂载前状态');
+	        console.log("el: " + (vm.$el));          //虚拟DOM已被初始化
 	        console.log(vm.$el);
-            console.log("data   : " + vm.$data);          // 数据已经关联
+            console.log("data: " + vm.$data);          // 数据已经关联
             console.log("message: " + vm.message);        // 数据已经关联
             console.log('vm.message',vm.message);
             vm.message = 20;
@@ -56,49 +98,55 @@
 	    },
 	    mounted: function () {
 	    	var vm = this;
-	        console.group('mounted 挂载结束状态===============》');
-	        console.log("el     : " + vm.$el); //已被初始化
+	    	// computed,methods,directive都在mounted之前,beforeMount之后执行
+	        console.log('mounted挂载结束状态');
+	        console.log("el: " + vm.$el); //已被初始化
 	        console.log(vm.$el);    
-            console.log("data   : " + vm.$data); //已被初始化
+            console.log("data: " + vm.$data); //已被初始化
             console.log("message: " + vm.message); //已被初始化 
             // DOM 在这里更新数据会触发updated函数
             vm.message = 30;
+            vm.$nextTick(function(){
+//          	$('p').css({
+//  				color : 'gold'
+//  			});
+            });
 	           
 	    },
 	    beforeUpdate: function () {
 	    	var vm = this;
-	        console.group('beforeUpdate 更新前状态===============》');
-	        console.log("el     : " + vm.$el);
+	        console.log('beforeUpdate 更新前状态===============》');
+	        console.log("el: " + vm.$el);
 	        console.log(vm.$el);   
-	        console.log("data   : " + vm.$data); 
+	        console.log("data: " + vm.$data); 
 	        console.log("message: " + vm.message); 
 	    },
 	    updated: function () {
 	    	var vm = this;
-	        console.group('updated 更新完成状态===============》');
+	        console.log('updated');
 	        console.log("el     : " + vm.$el);
 	        console.log(vm.$el); 
-	        console.log("data   : " + vm.$data); 
+	        console.log("data: " + vm.$data); 
 	        console.log("message: " + vm.message); 
 	    },
 	    beforeDestroy: function () {
 	    	var vm = this;
-	        console.group('beforeDestroy 销毁前状态===============》');
-	        console.log("el     : " + vm.$el);
+	        console.log('beforeDestroy');
+	        console.log("el: " + vm.$el);
 	        console.log(vm.$el);    
-	        console.log("data   : " + vm.$data); 
+	        console.log("data: " + vm.$data); 
 	        console.log("message: " + vm.message); 
 	    },
 	    destroyed: function () {
 	    	var vm = this;
-	        console.group('destroyed 销毁完成状态===============》');
-	        console.log("el     : " + vm.$el);
+	        console.log('destroyed 销毁完成状态===============》');
+	        console.log("el: " + vm.$el);
 	        console.log(vm.$el);  
-	        console.log("data   : " + vm.$data); 
+	        console.log("data: " + vm.$data); 
 	        console.log("message: " + vm.message)
 	    },
 	    methods : {
-	    	selfRun : function(){
+	    	self : function(){
 	    		var vm = this;
 	    		console.log('methods运行');
 	    	}
