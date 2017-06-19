@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			li{
+				list-style: none;
+			}
+			.box{
+				width:50px;height: 50px;background: peru;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-html=" '<div class=box></div>' "></li>
+				<li v-text=" '<div class=box></div>' "></li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script>
+		new Vue({
+			el : '#app',
+			data : {
+				a : 1
+			},
+			mounted : function(){
+				
+			},
+			methods : {
+				
+			}
+		})
+	</script>
+</html>

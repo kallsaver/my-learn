@@ -14,6 +14,7 @@
 			<h3>
 				<!--template是vue自定义的一个便签,渲染完成后自动删除,ng也有这个功能-->
 				<!--这样v-if就可以控制多个模块的显示和隐藏-->
+				<!--用于ul的子元素有时候必须要借用一个div的情况-->
 				<template v-if="type">
 					<span >{{type}}</span><span> | </span>
 				</template>

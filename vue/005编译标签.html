@@ -8,7 +8,9 @@
 		<div data-id="{{id}}" title="{{title}}"  style="background:{{background}};
 			color:{{color}}; width: 200px;height: 200px;">
 			{{{content}}}
-			
+			<input v-model="msg" />
+			<br>
+			<p>{{*msg}}</p>
 		</div>
 	</body>
 	<script src="js/vue.js"></script>
@@ -19,6 +21,7 @@
 			content : "内容<p>1111</p>",
 			color : 'white',
 			title : '鼠标划上去显示',
+			msg : 'abc'
 		}
 		
 		var app = new Vue({

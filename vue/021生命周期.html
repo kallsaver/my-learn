@@ -9,7 +9,9 @@
   <div id="app">
     <p>{{ number }}</p>
     <input type="text" name="btnSetNumber" v-model="number">
+    <div id="other"></div>
   </div>
+  <script src="js/jquery-3.1.0.js"></script>
   <script>
     var app = new Vue({         
       el: '#app',               
@@ -17,11 +19,12 @@
         //number: 1
       },
       beforeCreate: function () {
-      	// 1.在没有绑定数据之前
+      	// 1.在html已经托管给vue(可以通过jquery等找到DOM元素了),但是vue和html之间还没有绑定数据之前
         console.log('beforeCreate 钩子执行...');
         console.log(this.number);
         // 无效
         this.number = 10;
+        $('#other').text('135900')
       },
       cteated: function () {
         console.log('cteated 钩子执行...');
@@ -36,7 +39,8 @@
       },
       mounted: function () {
         console.log('mounted 钩子执行...');
-        console.log(this.number)
+        console.log(this.number);
+        // 
         this.number = 40;
       },
       beforeUpdate: function () {
