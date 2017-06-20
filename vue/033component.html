@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding: 0;}
+			#app{
+				text-align: center;position: relative;
+			}
+			div{
+				margin: 0 auto;margin-bottom: 50px;
+			}
+			.asides{
+				width:600px;height: 400px;background: peru;
+				line-height: 400px;color: #fff;text-align: center;font-size: 20px;
+			}
+			.mains{
+				width:600px;height: 600px;background: chocolate;
+				line-height: 400px;color: #fff;text-align: center;font-size: 20px;
+			}
+			li{
+				list-style: none;line-height: 50px;color: #fff;text-align: center;font-size: 20px;background: khaki;
+			}
+			p{
+				line-height: 50px;color: #fff;text-align: center;font-size: 20px;background: cornflowerblue;
+			}
+			span{
+				width:100px;height: 50px;position: absolute;top:400px;background: chartreuse;
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<right-aside v-text="message"></right-aside>
+			<!--pass等最终不会在html中解析出来-->
+			<!--pass等拿到message,product的引用-->
+			<center-main v-bind:pass1="message" v-bind:pass2="product"></center-main>
+			<span v-on:click="changeProduct()">点击改变product</span>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script>
+		
+		// 组件的命名,js部分可以驼峰命名也可以不驼峰,但是html的标签命名不能是驼峰
+		// 如果是全局的component,使用的是单数形式component
+		// 全局的component最外围的元素同样是支持实例中的数据的
+		Vue.component('rightAside',{
+			template : '<div class="asides"></div>',
+			// data : 
+		});
+		
+		// 如果是局部的component,使用的是复数形式的components
+		// 局部的component最外围的元素支持实例中的数据
+		new Vue({
+			el : '#app',
+			data : {
+				message : '我是实例中的数据',
+				product : [
+					{ name : 'vue' },
+					{ name : 'jquery' },
+					{ name : 'angular' },
+					{ name : 'react' },
+				],
+			},
+			methods : {
+				changeProduct : function(){
+					var vm = this;
+					vm.product.push({ name : 'rx' });
+					console.log('说明props拿到的是指针不是克隆对象')
+				}
+			},
+			components : {
+				'center-main' : {
+					template :  `<div class="mains">
+									<ul v-bind:b="selfRun()">
+										<li v-for="item in products" v-text="item.name"></li>
+									</ul>
+									<p v-text="run"></p>
+									<p v-text="pass1"></p>
+									<ul>
+										<li v-for="item in pass2" v-text="item.name"></li>
+									</ul>
+								</div>`,
+					//  组件component中的data必须是个函数
+					data : function(){
+						return  {
+							products : [
+								{ name : 'php' },
+								{ name : 'node' },
+								{ name : 'go' },
+								{ name : 'python' },
+							]
+						};
+					},
+					// methods照常
+					methods : {
+						selfRun : function(){
+							console.log('methods');
+							return 'haha'
+						}
+					},
+					computed : {
+						run : function(){
+							console.log('computed')
+							return 'computed'
+						}
+					},
+					// 组件component中的DOM是独立的,不能直接拿到外部的数据
+					// 通过props来传值
+					props : ['pass1','pass2']
+				}
+			}
+		})
+		
+	</script>
+</html>

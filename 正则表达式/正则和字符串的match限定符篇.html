@@ -41,7 +41,7 @@
 		console.log("-----------------------------------");
 		
 		var str5="doesdodsodoesesdododd";
-		var a5=str5.match(/do(es)?/g);	//先考虑does再考虑do
+		var a5=str5.match(/do(es)?/g);	//先考虑does再考虑do 贪婪
 		var _a5=str5.match(/do|does/g);	//do被提取了 does就没了
 		var __a5=str5.match(/do(es)/g);	//()等于无效
 		var ___a5=str5.match(/does|do/g);//先考虑does再考虑do
