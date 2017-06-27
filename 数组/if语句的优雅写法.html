@@ -23,6 +23,11 @@
 		c+=b==6&&1;			//运算符的优先级   比较>逻辑>赋值
 		console.log(c)
 		
+		var str = '%E5%9F%BA%E7%A1%80%E5%A5%97%E9%A4%90(%E7%94%B7)%2B%E8%84%91%E8%A1%80%E7%AE%A1%E5%8A%A0%E9%A1%B9%E5%8C%85&extra_package_name=%2C%E4%B8%8B%E8%A1%A3%E7%9A%84%E8%A2%96%E6%91%86%2C%E8%B0%A2%E9%91%AB%E7%9A%84%E5%AE%BD%E6%9D%BE%E7%99%BD%E6%AF%9B%E8%A1%A3%2C%E4%B8%8D%E5%8F%AF%E6%8F%8F%E8%BF%B0'
+		str = decodeURI( decodeURI(str));
+		console.log(str);
 		
+		console.log( encodeURIComponent('基础套餐(男)+脑血管加项包' ))
+		console.log( encodeURIComponent(',下衣的袖摆,谢鑫的宽松白毛衣,不可描述') )
 	</script>
 </html>

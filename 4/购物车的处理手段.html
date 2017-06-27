@@ -57,7 +57,7 @@
 				for(var i=0;i<cart.length;i++){
 					if(cart[i].item.name === product.item.name){
 						product.count++ //或者cart[i].count++ 引用同一个对象(浅克隆)
-						return;   //return出for循环
+						return;   //return出整个函数
 					}
 				}
 				//执行到这步 说明购物车中没有重复商品

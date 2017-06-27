@@ -3,14 +3,29 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
+		<style type="text/css">
+			li{
+				list-style: none;width:500px;height: 50px;margin-bottom: 50px;
+				text-align: center;line-height: 50px;line-height: 50px;font-size: 20px;
+				background: peru;
+			}
+			.gold{
+				background: gold;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="app">
 			<div v-run></div>
 			<div v-all></div>
+			<ul v-package>
+				<li v-for="item in packageList" v-text="item.name" 
+					v-on:click="selectPackage(item)" v-bind:class="{ 'gold' : item === packageSelect  }" ></li>
+			</ul>
 		</div>
 	</body>
 	<script src="js/vue2.0.js"></script>
+	<script src="js/jquery-3.1.0.js"></script>
 	<script>
 		
 		
@@ -18,19 +33,38 @@
 		
 		Vue.directive('all',{
 			bind : function(){
-				console.log('all')
+				console.log('all');
 			}
 		})
 		
 		// 如果是某个实例的directive,使用的是复数形式directives,同样的components也是
 		new Vue({
 			el : '#app',
-			data : {},
+			data : {
+				packageList : [
+					{ name : 'a' },
+					{ name : 'b' },
+					{ name : 'c' },
+					{ name : 'd' },
+				],
+				packageSelect : {}
+			},
 			directives : {
 				'run' : {
 					bind : function(){
 						console.log('run')
 					}
+				},
+				'package' : {
+					bind : function(element,binding,scope,f){
+						console.log($(element).find('li'));
+					}
+				}
+			},
+			methods : {
+				selectPackage : function(item){
+					var vm = this;
+					vm.packageSelect = item;
 				}
 			}
 		})

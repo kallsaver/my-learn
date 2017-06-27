@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<a>打开pdf</a>
+	</body>
+	<script src="http://www.lanrenzhijia.com/ajaxjs/pdfobject.js"></script>
+	<script>
+	  
+	  	var a = document.getElementsByTagName('a')[0];
+	  	a.onclick = function(){
+	  	 	var myPDF = new PDFObject({ url: "http://demo.lanrenzhijia.com/2014/pdf1023/sample.pdf" }).embed();	
+	  	}
+	   
+	  
+	</script>
+</html>
