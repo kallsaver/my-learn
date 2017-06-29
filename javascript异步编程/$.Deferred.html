@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		// return $.Deferred().promise()的意义
+		
+		// 1.延时对象作为暴露的全局变量
+		var def1 = $.Deferred();
+		
+		function wait1(def){
+			setTimeout(function(){
+				console.log('setTimeout执行');
+				def.resolve()
+			},5000);
+			return def
+		}
+		
+		$.when( wait1(def1) )
+		.done(function(){
+			console.log('done');
+		}).fail(function(){
+			console.log('fail');
+		});
+		// 由于def是全局变量,所以外界可以改变它的状态,
+		// 会马上输出done,5秒后输出setTimeout执行
+		def1.resolve();
+		
+		
+		// 2.延迟对象作为局部变量
+		function wait2(){
+			var def = $.Deferred();
+			setTimeout(function(){
+				console.log('setTimeout执行');
+				def.resolve()
+			},5000);
+			// 返回一个promise对象
+			return def.promise();
+		}
+		
+		$.when( wait2())
+		.done(function(){
+			console.log('done');
+		}).fail(function(){
+			console.log('fail');
+		});
+		
+		
+		
+	</script>
+</html>
