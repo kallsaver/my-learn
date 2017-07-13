@@ -47,8 +47,10 @@
 			//console.log($location)
 			//HttpService是自己写跨域,在模块http.js中
 			//因为这个项目的url设计和豆瓣提供的API的url同步了,
-			//url的输入框就是个input框,手动改变url地址,model层的数据也会变化,并且路由的controller会重新执行
+			//url的输入框就是个input框,手动改变url地址,angular内部的路由模块监听了hash路由的变化,model层的数据也会变化,
+			//这个监听回调函数就包括了路由的controller,所以controller会重新执行
 			//这就是为什么$route.updateParams方法执行后,路由的controller会重新执行会重新执行的原因
+			//hash路由变化=>触发了监听hash路由的回调函数=>controller执行=>视图变化
 			//如果手动改变的url地址刚好符合豆瓣API提供的地址,比如http://localhost:3000/#/search/1,会成功请求
 			//因为手动输入url相当于调用$route.updateParams的方法,把search给/:category,1给/:page
 			//主要是豆瓣API设计得好 :http://api.douban.com/v2/movie/search?q={text},

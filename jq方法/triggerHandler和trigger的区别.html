@@ -6,19 +6,31 @@
 		<style type="text/css">
 			*{margin:0;padding: 0;}
 			li{list-style: none;}
-			li{height: 50px ;margin-bottom: 50px;background: purple;}
+			li{
+				height: 50px ;margin-bottom: 50px;background: purple;
+				line-height: 50px;color: #fff;text-align: center;
+				font-size: 30px;
+			}
 			div{height: 80px;background: mediumpurple;line-height: 80px;
 				text-align: center;color: #fff;font-size: 30px;
-			}	
+				line-height: 80px;margin-bottom: 50px;
+			}
+			span{
+				height: 100px;background: mediumpurple;line-height: 80px;
+				text-align: center;color: #fff;font-size: 20px;
+				line-height: 80px;width:200px;display: inline-block;
+				margin-bottom: 50px;
+			}
 		</style>
 	</head>
 	<body>
 		<input id="input" />
 		<ul>
-			<li></li>
-			<li></li>
+			<li>li</li>
+			<li>li</li>
 		</ul>
-		<div></div>
+		<div>div</div>
+		<span>点击触发自定义事件</span>
 	</body>
 	<script src="js/jquery-3.1.0.js"></script>
 	<script>
@@ -32,20 +44,45 @@
 		// 而trigger仅仅是触发绑定的事件处理函数
 		//$('#input').triggerHandler('focus');
 		
-		
+		$('ul').on('click',function(){
+			console.log('ul被点击了');
+		})
 		
 		//区别2:triggerHandler只触发jquery集合的第一个元素绑定的事件处理函数
 		$('ul li').on('click',function(){
 			$(this).css({
 				background : 'red'
-			})
+			});
 		});
 		
 		// 使用trigger,被jquery的集合中的元素都被触发click事件的事件处理函数
+		// 并且trigger会模拟浏览器的冒泡事件
 		//$('ul li').trigger('click');
+		
+		
 		// 而triggerHander只会触发jquery集合中第一个元素的click事件的回调函数
+		// triggerHandler不会模拟浏览器的冒泡事件
 		$('ul li').triggerHandler("click");
 		
+		// 触发自定义事件
+		$('ul li').on('myClick',function(event,a,b,c){
+			console.log('myClick');
+			console.log(event);
+			console.log('a',a);
+			console.log('b',b);
+			c();
+		});
+		
+		$('span').on("click",function(){
+			function run(){
+				console.log('run执行')
+			}
+			// trigger可以触发自定义事件
+			//$('ul li').trigger('myClick',[1,2]); 
+			
+			// triggerHandler也可以触发自定义事件,同样的只触发集合中的第一元素的自定义事件
+			$('ul li').triggerHandler('myClick',[1,2,run]);
+		});
 		
 		
 		// 区别3:triggerHandle返回的是事件处理函数的返回值
@@ -61,7 +98,9 @@
 		
 		// 而triggerHandle的返回值是事件处理函数的返回值
 		var b = $('div').triggerHandler('click');
-		console.log(b)
+		console.log(b);
+		
+		
 		
 		
 	</script>
