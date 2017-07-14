@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		// toFixed是number数据类型才有的方法,但是return出来的数据类型是string
+		console.log( typeof (4/100).toFixed(2) )    // string
+		console.log( typeof ('4'/100) )             // number
+		console.log( typeof ('4'/100).toFixed(2))   // string而不是number
+		
+		
+		console.log( '4.2' > '4.1');
+		console.log( '4.2' < '4.1' )
+		
+	</script>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html dir="ltr" lang="zh-CN">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <title>tabIndex By 司徒正美</title>
+    <style type="text/css">
+    	p{
+    		/*outline: none;*/
+    		width:500px;height: 40px;line-height: 40px;background: peru;
+    	}
+    	#div{
+    		width:500px;height: 40px;line-height: 40px;background: khaki;
+    		display: none;
+    	}
+    </style>
+    <script>
+      window.onload = function(){
+        var els = document.getElementsByTagName("input");
+        for(var i=0,n=els.length;i<n;i++){
+          els[i].onfocus = function(){
+            this.style.cssText='background:#69C;border-color:#6cc;';
+          };
+          els[i].onblur = function(){
+            this.style.cssText='background:#fff;border-color:#000;';
+          };
+        }
+        var p = document.getElementsByTagName('p')[0];
+        var div = document.getElementById('div');
+        
+        p.onfocus = function(){
+        	console.log(555);
+        	div.style.display = 'block';
+        }
+        
+      }
+    </script>
+  </head>
+  <body>
+    <form name="nasami">
+      <p tabindex="1">111</p>
+      <div id="div"></div>
+      <input tabindex="3" value="第三个" type="text" ><br />
+      <input tabindex="5" value="第五个" type="text" ><br />
+      <input tabindex="6" value="第六个" type="text" ><br />
+      <input tabindex="4" value="第四个" type="text" ><br />
+      <input tabindex="2" value="第二个" type="text" ><br />
+    </form>
+  </body>
+</html>

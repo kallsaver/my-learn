@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			@-webkit-keyframes shake {
+				0% {
+					transform: scale(1);
+					-webkit-transform: scale3d(1, 1, 1);
+				}
+				6% {
+					-webkit-transform: scale(.9) rotate(-8deg);
+					-webkit-transform: scale3d(1, 1, 1) rotate(0, 0, 1, -8deg);
+				}
+				18%,
+				30%,
+				42% {
+					-webkit-transform: scale(1.1) rotate(8deg);
+					-webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 8deg);
+				}
+				12%,
+				24%,
+				36%,
+				48% {
+					-webkit-transform: scale(1.1) rotate(-8deg);
+					-webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -8deg);
+				}
+				54% {
+					-webkit-transform: scale(1);
+					-webkit-transform: scale3d(1, 1, 1);
+				}
+				60% {
+					-webkit-transform: scale(1);
+					-webkit-transform: scale3d(1, 1, 1);
+				}
+				80% {
+					-webkit-transform: scale(1) translate(0px, 150px);
+					-webkit-transform: scale3d(1, 1, 1) translate3d(0px, 150px, 0);
+				}
+				90% {
+					-webkit-transform: scale(1) translate(0px, 130px);
+					-webkit-transform: scale3d(1, 1, 1) translate3d(0px, 130px, 0);
+				}
+				100% {
+					-webkit-transform: scale(1) translate(0px, 150px);
+					-webkit-transform: scale3d(1, 1, 1) translate3d(0px, 150px, 0);
+				}
+			}
+			*{ margin:0;padding:0;}
+			.box1{
+				width:400px;height: 200px;margin:0 auto;background-color: chocolate;
+				margin-bottom: 50px;
+			}
+			.box2{
+				width:200px;height: 200px;margin: 0 auto;background-color: chartreuse;
+				position: relative;z-index: 2;
+			}
+			.clear_sawtooth{
+				outline: 1px solid transparent;
+			}
+			.shake{
+				-webkit-animation:shake 1.2s linear;-webkit-animation-fill-mode:forwards
+			}
+			.hide{
+				display: none;
+			}
+			.show{
+				display: block;
+			}
+			.sacle{
+				
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box1 clear_sawtooth"></div>
+		<div class="box2 hide"></div>
+		<div class="box1 clear_sawtooth"></div>
+		<div class="box3 hide"></div>
+	</body>
+	<script src="lib/jquery-3.1.0.js"></script>
+	<script>
+		// animationend是监听@-webkit-keyframes动画,无法监听transform动画,
+		// 当然你可以把transform放在@-webkit-keyframes动画里就可以实现监听了
+		$('.box1').eq(0).on('click',function(){
+			$(this).addClass('shake');
+			// 或者webkitAnimationEnd
+			$(this).on('animationend',function(){
+				$('.box2').show();
+			});
+		});
+		
+		// 无法监听transform动画
+		$('.box1').eq(1).on('click',function(){
+			$(this).css({
+				transform: 'scale(1.05)'
+			});
+			$(this).on('animationend',function(){
+				$('.box3').show();
+			});
+		});
+		
+		// 除了animationend,还有animationstart,animationiteration
+	        	
+	</script>
+</html>

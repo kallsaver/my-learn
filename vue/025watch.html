@@ -7,11 +7,11 @@
 	<body>
 		<div id="box">
 			<input v-model="msg" />
-			<p>{{msg}}</p>
+			<p v-text="msg"></p>
 			<div v-on:click="change()"
 				style="width:50px;height: 50px;background: peru;text-align: center;line-height: 50px;"></div>
 			<input v-model="obj.name" />
-			<p>{{obj.name}}</p>
+			<p></p>
 		</div>
 	</body>
 	<script src="js/vue2.0.js"></script>
@@ -21,29 +21,37 @@
 		 	el : '#box',
 		 	data : {
 		 		obj : {
-		 			
+		 			name : 'd',
+		 			hide : '8'
 		 		},
 		 		msg : 'aaa',
 		 		num : 0,
 		 	},
-		 	mounted : {
+		 	methods : {
 		 		change : function(){
 		 			var vm = this;
 		 			vm.num++;
+		 			vm.obj.hide += '8';
 		 		}
 		 	},
-//		 	watch : {
-//		 		num : {
-//		 			handler : function(nowVal,oldVal){
-//		 				console.log(nowVal,oldVal)
-//		 			},
-//		 			deep : true
-//		 		}
-//		 	}
+		 	watch : {
+		 		num : {
+		 			handler : function(nowVal,oldVal){
+		 				//console.log(nowVal,oldVal)
+		 			},
+		 			deep : true
+		 		},
+		 		obj : {
+		 			handler : function(nowVal,oldVal){
+		 				console.log(nowVal,oldVal)
+		 			},
+		 			deep : true
+		 		}
+		 	}
 		});
 		
-		app.$watch('obj',function(val){
-			
-		})
+//		app.$watch('obj',function(val){
+//			
+//		})
 	</script>
 </html>

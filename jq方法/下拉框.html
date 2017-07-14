@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>倒计时-多种格式调用-原生js封装</title>
+		<link rel="shortcut icon" href="../public/image/favicon.ico" type="images/x-icon" />
+		<link rel="icon" href="../public/image/favicon.png" type="images/png" />
+		<link rel="stylesheet" type="text/css" href="../public/style/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="../public/style/common.css">
+		<style type="text/css">
+			/*公共*/
+			
+			html {
+				height: 100%;
+			}
+			
+			body,
+			div,
+			dl,
+			dt,
+			dd,
+			ul,
+			ol,
+			li,
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			pre,
+			code,
+			form,
+			fieldset,
+			legend,
+			input,
+			textarea,
+			p,
+			blockquote,
+			th,
+			td {
+				margin: 0;
+				padding: 0
+			}
+			
+			ol,
+			ul {
+				list-style: none
+			}
+			
+			body {
+				position: relative;
+				min-height: 100%;
+				font-size: 14px;
+				font-family: Tahoma, Verdana, "Microsoft Yahei";
+				color: #333;
+			}
+			
+			a {
+				text-decoration: none;
+				color: #333;
+			}
+			
+			.header {
+				width: 960px;
+				padding-top: 15px;
+				margin: 0 auto;
+				line-height: 30px;
+				text-align: right;
+			}
+			
+			.header a {
+				margin: 0 5px;
+			}
+			
+			.main {
+				width: 960px;
+				margin: 50px auto 0;
+			}
+			
+			.code {
+				border: 1px dashed #e2e2e2;
+				padding: 10px 5px;
+				margin-bottom: 25px;
+			}
+			
+			pre {
+				font-family: "Microsoft Yahei", Arial, Helvetica;
+				white-space: pre-wrap;
+				/*css-3*/
+				white-space: -moz-pre-wrap;
+				/*Mozilla,since1999*/
+				white-space: -pre-wrap;
+				/*Opera4-6*/
+				white-space: -o-pre-wrap;
+				/*Opera7*/
+				word-wrap: break-word;
+				/*InternetExplorer5.5+*/
+			}
+			
+			.example {
+				padding-top: 40px;
+				margin-bottom: 90px;
+			}
+			
+			.example .call {
+				padding: 18px 5px;
+				background: #f0f5f8;
+			}
+			
+			.example h2 {
+				padding-top: 20px;
+				margin-bottom: 7px;
+			}
+			
+			.example table {
+				width: 100%;
+				table-layout: fixed;
+				border-collapse: collapse;
+				border-spacing: 0;
+				border: 1px solid #cee1ee;
+				border-left: 0;
+			}
+			
+			.example thead {
+				border-bottom: 1px solid #cee1ee;
+				background-color: #e3eef8;
+			}
+			
+			.example tr {
+				line-height: 24px;
+				font-size: 13px;
+			}
+			
+			.example tr:nth-child(2n) {
+				background-color: #f0f5f8;
+			}
+			
+			.example tr th,
+			.example tr td {
+				border-left: 1px solid #cee1ee;
+				word-break: break-all;
+				word-wrap: break-word;
+				padding: 0 10px;
+				font-weight: normal;
+			}
+			
+			.example tr th {
+				color: #555;
+				padding-top: 2px;
+				padding-bottom: 2px;
+				text-align: left;
+			}
+			/*公共*/
+			
+			.select-container {
+				width: 186px;
+				margin: 80px 0;
+				position: relative;
+				z-index: 10000;
+			}
+			
+			.select-container .select-pose {
+				width: 150px;
+				height: 24px;
+				line-height: 24px;
+				display: block;
+				color: #807a62;
+				cursor: pointer;
+				font-style: normal;
+				padding-left: 4px;
+				padding-right: 30px;
+				border: 1px solid #333333;
+				/* background: url(xjt.png) no-repeat right center; */
+			}
+			
+			.select-pose:before {
+				content: '';
+				position: absolute;
+				right: 7px;
+				bottom: 7px;
+				width: 0;
+				height: 0;
+				border-width: 4px;
+				border-style: solid;
+				border-color: #888 transparent transparent transparent;
+				transition: all 0.2s;
+				-webkit-transition: all 0.2s;
+				-moz-transition: all 0.2s;
+				-o-transition: all 0.2s;
+				-ms-transition: all 0.2s;
+				transform-origin: 50% 25%;
+				-ms-transform-origin: 50% 25%;
+				-moz-transform-origin: 50% 25%;
+				-webkit-transform-origin: 50% 25%;
+				-o-transform-origin: 50% 25%;
+			}
+			
+			.extended.select-pose:before {
+				transform: rotate(180deg);
+				-webkit-transform: rotate(180deg);
+				-moz-transform: rotate(180deg);
+				-o-transform: rotate(180deg);
+				-ms-transform: rotate(180deg);
+			}
+			
+			.select-container .select-content {
+				width: 184px;
+				border: 1px solid #333333;
+				background-color: #ffffff;
+				position: absolute;
+				z-index: 20000;
+				margin-top: -1px;
+				display: none;
+				overflow: hidden;
+			}
+			
+			.select-list {
+				cursor: pointer;
+				height: 24px;
+				line-height: 24px;
+				padding-left: 10px;
+			}
+		</style>
+		<script type="text/javascript">
+			/*封装代码*/
+			(function() {
+				var Select = function(el, opts) {
+					var self = this;
+					var defaults = {
+						before: '#fff',
+						after: '#ccc'
+					}
+					opts = opts || {};
+					for(var w in defaults) {
+						if("undefined" == typeof opts[w]) {
+							opts[w] = defaults[w];
+						}
+					}
+					this.params = opts;
+					this.container = r(el);
+
+					if(this.container.length > 1) {
+						var x = [];
+						return this.container.each(function() {
+							x.push(new Select(this, opts))
+						}), x
+					}
+					this.containers = this.container[0];
+					this.pose = this.container.find(".select-pose")[0];
+					this.content = this.container.find(".select-content")[0];
+					this.list = this.container.find(".select-list");
+					this.index = -1;
+					this.init();
+				}
+				Select.prototype = {
+					//初始化
+					init: function() {
+						var self = this;
+						this.page();
+						this.event();
+						this.mover();
+					},
+					event: function() {
+						var self = this;
+						self.pose.addEventListener('click', function(e) {
+							e = e || window.event;
+							e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true;
+							var oSrc = e.srcElement || e.target;
+							if(oSrc.className.indexOf('extended') > -1) {
+								self.resetM();
+							} else {
+								oSrc.classList.add("extended");
+								self.content.style.display = "block";
+							}
+						}, false);
+					},
+					//鼠标经过list
+					mover: function() {
+						var self = this;
+						var list = this.list;
+						for(var i = 0; i < list.length; i++) {
+							! function(i) {
+								list[i].addEventListener('mouseover', function(e) {
+									self.resetA();
+									this.style.background = self.params.after;
+									self.index = i;
+								}, false);
+							}(i)
+							list[i].addEventListener('click', function(e) {
+								self.pose.innerHTML = this.innerHTML;
+							}, false);
+						}
+					},
+					resetA: function() {
+						var self = this;
+						var list = this.list;
+						for(var i = 0; i < list.length; i++) {
+							list[i].style.background = self.params.before;
+						}
+					},
+					resetM: function() {
+						var self = this;
+						self.content.style.display = "none";
+						self.pose.classList.remove("extended");
+						self.resetA();
+					},
+					// 点击页面空白处时
+					page: function() {
+						var self = this;
+						document.addEventListener('click', function(e) {
+							self.resetM();
+						}, false);
+						document.addEventListener('keydown', function(e) {
+							e = e || window.event;
+							var keyVel = e.keyCode;
+							if(keyVel == 38 || keyVel == 37) {
+								e.preventDefault ? e.preventDefault() : e.returnValue = false; //取消事件默认行为
+								self.index--;
+								if(self.index < 0) {
+									self.index = self.list.length - 1;
+								}
+								self.resetA();
+								self.list[self.index].style.backgroundColor = self.params.after;
+							} else if(keyVel == 39 || keyVel == 40) {
+								e.preventDefault ? e.preventDefault() : e.returnValue = false; //取消事件默认行为
+								self.index++;
+								if(self.index > self.list.length - 1) {
+									self.index = 0;
+								}
+								self.resetA();
+								self.list[self.index].style.backgroundColor = self.params.after;
+							} else if(keyVel == 13 && self.index != -1) {
+								e.preventDefault ? e.preventDefault() : e.returnValue = false;
+								self.pose.innerHTML = self.list[self.index].innerHTML;
+								self.index = -1;
+								self.resetA();
+								self.resetM();
+							}
+						}, false);
+					},
+				}
+				var r = (function() {
+					var e = function(e) {
+						var a = this,
+							t = 0;
+						for(t = 0; t < e.length; t++) {
+							a[t] = e[t];
+						}
+						return a.length = e.length, this
+					};
+					e.prototype = {
+						addClass: function(e) {
+							if("undefined" == typeof e) return this;
+							for(var a = e.split(" "), t = 0; t < a.length; t++)
+								for(var r = 0; r < this.length; r++) this[r].classList.add(a[t]);
+							return this
+						},
+						each: function(e) {
+							for(var a = 0; a < this.length; a++) e.call(this[a], a, this[a]);
+							return this
+						},
+						html: function(e) {
+							if("undefined" == typeof e) return this[0] ? this[0].innerHTML : void 0;
+							for(var a = 0; a < this.length; a++) this[a].innerHTML = e;
+							return this
+						},
+						find: function(a) {
+							for(var t = [], r = 0; r < this.length; r++)
+								for(var i = this[r].querySelectorAll(a), s = 0; s < i.length; s++) t.push(i[s]);
+							return new e(t)
+						},
+						append: function(a) {
+							var t, r;
+							for(t = 0; t < this.length; t++)
+								if("string" == typeof a) {
+									var i = document.createElement("div");
+									for(i.innerHTML = a; i.firstChild;) this[t].appendChild(i.firstChild)
+								} else if(a instanceof e)
+								for(r = 0; r < a.length; r++) this[t].appendChild(a[r]);
+							else this[t].appendChild(a);
+							return this
+						},
+					}
+					var a = function(a, t) {
+						var r = [],
+							i = 0;
+						if(a && !t && a instanceof e) {
+							return a;
+						}
+						if(a) {
+							if("string" == typeof a) {
+								var s, n, o = a.trim();
+								if(o.indexOf("<") >= 0 && o.indexOf(">") >= 0) {
+									var l = "div";
+									for(0 === o.indexOf("<li") && (l = "ul"), 0 === o.indexOf("<tr") && (l = "tbody"), (0 === o.indexOf("<td") || 0 === o.indexOf("<th")) && (l = "tr"), 0 === o.indexOf("<tbody") && (l = "table"), 0 === o.indexOf("<option") && (l = "select"), n = document.createElement(l), n.innerHTML = a, i = 0; i < n.childNodes.length; i++) r.push(n.childNodes[i])
+								} else
+									for(s = t || "#" !== a[0] || a.match(/[ .<>:~]/) ? (t || document).querySelectorAll(a) : [document.getElementById(a.split("#")[1])], i = 0; i < s.length; i++) s[i] && r.push(s[i])
+							} else if(a.nodeType || a === window || a === document) {
+								r.push(a);
+							} else if(a.length > 0 && a[0].nodeType) {
+								for(i = 0; i < a.length; i++) {
+									r.push(a[i]);
+								}
+							}
+						}
+						return new e(r)
+					};
+					return a;
+				}())
+				window.select = Select;
+			})()
+			/*封装代码*/
+		</script>
+	</head>
+
+	<body>
+		<div class="header">
+			<a href="https://github.com/huanghanzhilian/widget" target="_blank">项目地址</a>
+			<a href="/widget/">返回首页</a>
+		</div>
+		<div class="main">
+			<div class="select-container" id="select1">
+				<cite class="select-pose">请选择分类</cite>
+				<ul class="select-content">
+					<li class="select-list">选项一</li>
+					<li class="select-list">选项二</li>
+					<li class="select-list">选项三</li>
+					<li class="select-list">选项四</li>
+				</ul>
+			</div>
+			<div class="select-container" id="select2">
+				<cite class="select-pose">请选择分类</cite>
+				<ul class="select-content">
+					<li class="select-list">选项一</li>
+					<li class="select-list">选项二</li>
+					<li class="select-list">选项三</li>
+					<li class="select-list">选项四</li>
+				</ul>
+			</div>
+			<script type="text/javascript">
+				new select("#select1");
+				new select("#select2");
+			</script>
+			<div class="code">
+				<p>
+					支持键盘事件,执行默认参数,鼠标点击分类显示,鼠标经过list执行默认参数
+				</p>
+				<p>new select("#select1");</p>
+			</div>
+			<div class="example">
+				<div class="call">
+					<h1>调用方法：</h1>
+					<p>new select(selector,{options});</p>
+				</div>
+				<h2>options参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th width="150">参数</th>
+							<th width="100">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>before</td>
+							<td>'#fff'</td>
+							<td>鼠标经过list初始化颜色色值</td>
+						</tr>
+						<tr>
+							<td>after</td>
+							<td>'#ccc'</td>
+							<td>鼠标经过list颜色色值</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+
+</html>
