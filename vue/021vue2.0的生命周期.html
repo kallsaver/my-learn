@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/vue/2.1.3/vue.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+</head>
+<body>
+
+<div id="app" v-all>
+	<p id="box" v-local >box</p>
+    <p v-text="message" v-on:click="addProduct()"></p>
+    <p v-text="parseWeek"></p>
+    <p v-text="self()"></p>
+    <p v-text="productLength"></p>
+    <p v-text="selfProductList()"></p>
+    <!--不管是全局的还是局部的component,它们所在的位置决定了编译运行的优先级-->
+    <right-aside></right-aside>
+    <center-main v-bind:pass1="message" v-bind:pass2="product"></center-main>
+    <p v-></p>
+</div>
+<script>
+	// 运行顺序总结:  create是指实例的数据,mount是指DOM元素
+	// 1.beforeCreate运行,html给vue托管,vue实例开始创建,数据和DOM都没有关联
+	// 3.其实是实例的data函数运行,数据已经关联上vue实例
+	// 4.created运行,说明数据关联vue实例完毕,从这个阶段开始可以操作数据,DOM没有关联上
+	// 5.beforeMouted运行,采用的是虚拟DOM技术,不能操作真实的DOM元素
+	// 6.实例的没有用到data里面的数据的computed运行,computed其实就是methods的自运行函数,但是不支持使用单例item,只支持data里面的数据
+	// 7.实例的没有用到data里面的数据的methods自运行函数运行
+	// 8.实例的有用到data里面的数据的computed运行
+	// 9.实例的有用到data里面的数据的methods自运行函数运行
+	// 10.局部的directives运行,vue的directive只能操作这个指令所在DOM元素和它的子元素,不能操作其他DOM
+	// 但是这个阶段操作DOM也是不保险的,组件还没关联上实例
+	// 11.全局的directives运行
+	// 12.components的beforeCreated函数运行(components的位置绝对了编译运行的优先级)
+	// 13.components的data函数运行,数据关联中
+	// 14.components的created函数运行,组件数据关联完毕,components的this和实例的this不是同一个指针
+	// 15.components的beforeMount运行
+	// 16.components的directive运行,说明组件DOM已经完毕
+	// 17.写在最外围的directive运行,这个directive是所有directive运行完成后才运行的,并且在所有的mounted之前运行
+	// 最外围的directive是可以操作实例中的所有的DOM的,包括组件的,但是不包括document这些更外围的DOM
+	// 18.components的mounted运行
+	// 19.实例的mounted运行,这个函数运行说明DOM已经挂载完毕了(包括组件的),其实在directive运行的时候就已经挂载完毕,
+	// 这个阶段可以操作真实DOM,包括document
+	// 20.如果mounted没有发生数据变化,如果有写$nextTick,那么$nextTick执行,表示vue的一个数据更新流程走完了
+	// 21.如果mounted发生了数据变化,那么先执行new Vue之后的同步代码,(这里相当于'异步了')再回来触发挂载在vue的methods方法执行,
+	// 然后update执行,最后$nextTick,表示vue的一个数据更新流程走完了
+	// 22.当实例的data里面的数据发生变化时,
+	// 那么会触发 : 
+	// a.挂载在DOM元素的computed和自运行methods的方法执行
+	// b.beforeUpdate函数运行,数据是已经更新了的,但是DOM还没更新
+	// c.update函数运行,DOM已经更新完毕
+	// d.c
+	// 如果点击的方法有写$nextTick,那么$nextTick执行,vue的一次数据更新流程走完
+
+</script>
+
+<script type="text/javascript">
+    
+    var a = 0;
+    
+	Vue.component('rightAside',{
+		template : '<div class="asides">rightAside</div>',
+		beforeCreate : function(){
+			console.log('全局的component运行')
+		}
+	});
+    
+    
+    Vue.directive('',{
+    	bind : function(element){
+    		console.log('全局的v-,directive运行');
+    		// directive是在mounted(挂载完毕)之前执行的,也就是挂载中,这里操作DOM的一切都是可以的
+    		$(element).text('directive');
+    	}
+    });
+    
+    Vue.directive('all',{
+    	bind : function(element){
+    		console.log('全局的v-all,directive运行');
+    		// directive是在mounted(挂载完毕)之前执行的,也就是挂载中,这里操作带指令DOM是可以的
+    		$(element).find('p').each(function(index){
+    			$(this).on('click',function(){
+    				//alert(index);
+    			});
+    		});
+    		// 值得一提的是在directive中只能操作element这个元素以内的元素,不能操作全局的元素
+    		// 而angular的directive是可以操控所有的DOM元素的
+    		// angular的directive更多的是对操作DOM的一个隔离,而vue的directive要弱得多,更纯粹,只能操作带这个指令的元素
+    		// 无效
+    		$('p').each(function(){
+    			$(this).css({
+    				fontSize : '30px'
+    			})
+    		});
+    		// 无效
+    		$(document).find('p').each(function(){
+    			$(this).css({
+    				fontSize : '30px'
+    			})
+    		});
+    		
+    		// 无效
+    		$('#box').css({
+    			fontsize : '30px'
+    		});
+    	}
+    });
+    
+	var app = new Vue({
+      	el: '#app',
+      	data: {
+          	message : "xuxiao is boy",
+      		product : [
+				{ name : 'vue' },
+				{ name : 'jquery' },
+				{ name : 'angular' },
+				{ name : 'react' },
+			], 
+      	},
+	   	beforeCreate: function () {
+	   		var vm = this;
+            console.log('beforeCreate构造函数运行,实例开始创建,数据和DOM都没有关联');
+            //console.log("el:" + vm.$el);                 // undefined
+            //console.log("data:" + vm.$data);             // undefined 
+            //console.log("message:" + vm.message);        // undefined
+            // 数据没有进来,自然在这里操作数据是无效的
+            vm.message = 0;
+	    },
+	    created: function () {
+	    	var vm = this;
+	        console.log('created运行,实例创建完毕,数据已经关联实例,但是DOM没有关联');
+	        console.log("vm.$el",vm.$el);                   // undefined
+            console.log("vm.$data",vm.$data);               // 数据已经关联
+            console.log('vm.message',vm.message);
+            vm.message = 10;
+	    },
+	    beforeMount: function () {
+	    	var vm = this;
+	        console.log('beforeMount运行,虚拟DOM技术,DOM挂载前');
+	        console.log("vm.$el",vm.$el);          //虚拟DOM已被初始化
+            vm.message = 20;
+            // 虚拟DOM技术
+            // 在这里可以使用vue数据驱动来改变数据,但是通过jquery找到DOM元素是不行的
+            //console.log('text',$('#box').text())          // 'box'
+            //console.log('box',$('#box').text('5'))        // 无效
+           
+	    },
+	    mounted: function () {
+	    	window.vue = this;
+	    	var vm = this;
+	    	// computed,methods,directive都在mounted之前,beforeMount之后执行
+	        console.log('实例的mounted运行,挂载结束');
+	        console.log("vm.$el",vm.$el);           //已被初始化
+            console.log("vm.$data",vm.$data);       //已被初始化
+            console.log("vm.message",vm.message);   //已被初始化 
+            // 所有的DOM包括组件的DOM挂载完毕
+            // 在这里更新数据会触发updated函数运行,同时重新触发挂载在DOM中的methods运行
+            console.log('mounted中更新数据');
+            vm.message = 30;
+            // $nextTick是同步任务
+            // 并且不是永久的监听(因为是同步任务),只能监听上一次的数据变化,如果mounted中没有数据变化,不会触发updated,
+            // 那么$nextTick会在所有的vue方法完毕后自动运行
+            // 如果在mounted中发生数据变化,那么触发updated后再在最后执行$nextTick表示vue一个流程走完了
+            vm.$nextTick(function(){
+				console.log('vm.$nextTick运行');
+            });
+	           
+	    },
+	    beforeUpdate: function () {
+	    	var vm = this;
+	        console.log('beforeUpdate运行,更新前状态');
+	        console.log("vm.$el",vm.$el);
+	        console.log("vm.$data",vm.$data); 
+	        console.log("vm.message",vm.message); 
+	    },
+	    updated: function () {
+	    	var vm = this;
+	    	a++;
+	    	console.log('a',a);
+	        console.log('updated运行');
+	        console.log('vm.$el',vm.$el); 
+	        console.log("vm.$data",vm.$data); 
+	        console.log("vm.message",vm.message); 
+	    },
+	    beforeDestroy: function () {
+	    	var vm = this;
+	        console.log('beforeDestroy');
+	        console.log("vm.$el",vm.$el);
+	        console.log("vm.$data",vm.$data); 
+	        console.log("vm.message",vm.message); 
+	    },
+	    destroyed: function () {
+	    	var vm = this;
+	        console.log('destroyed运行,销毁完成状态');
+	        console.log("vm.$el",vm.$el);
+	        console.log("vm.$data",vm.$data); 
+	        console.log("vm.message",vm.message)
+	    },
+	    computed : {
+	    	parseWeek : function(){
+	    		var vm = this;
+	    		console.log('没有用到data里面的数据的computed运行');
+	    		return '周一'
+	    	},
+	    	productLength : function(){
+	    		var vm = this;
+	    		console.log('用到data里面的数据的computed运行');
+	    		return vm.product.length;
+	    	}	
+	    },
+	    methods : {
+	    	self : function(){
+	    		var vm = this;
+	    		console.log('没有用到实例的data里面的数据的methods运行');
+	    	},
+	    	selfProductList : function(){
+	    		var vm = this;
+	    		console.log('用到实例的data里面的数据的methods运行');
+	    		return vm.product.length;
+	    	},
+	    	addProduct : function(){
+	    		var vm = this;
+	    		var obj = { name : '新对象'};
+	    		vm.product[0].name = 'vue+vuex';
+	    		vm.product.push(obj);
+	    	}
+	    },
+	    
+	    directives : {
+	    	'local' : {
+	    		bind : function(element){
+	    			console.log('实例的局部的v-local,directives运行');
+	    		}
+	    	}
+	    },
+	    components : {
+	    		// 可以驼峰命名也可以不驼峰命名
+				'center-main' : {
+					template :  `<div class="mains" v-package>
+									<ul v-bind:b="selfRun()">
+										<li v-for="item in products" v-text="item.name"></li>
+									</ul>
+									<p v-text="run"></p>
+									<p v-text="pass1"></p>
+									<ul>
+										<li v-for="item in pass2" v-text="item.name"></li>
+									</ul>
+								</div>`,
+					//  组件component中的data必须是个函数
+					data : function(){
+						console.log('局部的components里面的data函数运行');
+						return  {
+							products : [
+								{ name : 'php' },
+								{ name : 'node' },
+								{ name : 'go' },
+								{ name : 'python' },
+							]
+						};
+					},
+					beforeCreate : function(){
+						console.log('局部的components的beforeCreate运行');
+					},
+					created : function(){
+						console.log('局部的components的created运行');
+					},
+					beforeMount : function(){
+						console.log('局部的components的beforeMount运行');
+					},
+					mounted : function(){
+						var vm = this;
+						console.log('局部的components的mounted运行');
+						window.component = this;
+						console.log('实例和组件的this是否是同一个指针',window.vue === window.component);
+					},
+					computed : {
+						run : function(){
+							console.log('局部的components的computed运行');
+							return 'computed';
+						}
+					},
+					// methods照常
+					methods : {
+						selfRun : function(){
+							console.log('局部的components的没有用到data里面的数据的methods运行');
+							return 'haha';
+						}
+					},
+					// 组件component中的DOM是独立的,不能直接拿到外部的数据
+					// 通过props来传值
+					props : ['pass1','pass2'],
+					directives : {
+						'package' : {
+							bind : function(element,binding,scope,f){
+								console.log('局部的components的局部的的directives运行');
+								$(element).on('click',function(){
+									console.log($(this).find('li').length);
+								})
+							}
+						}
+					},
+					beforeUpdate : function(){
+						console.log('局部的component的beforeUpdate运行');
+						// DOM还没有更新,DOM上的数据是旧的映射信息
+						console.log('第5个li的text',$(document).find('li').eq(4).text());
+					},
+					updated : function(){
+						console.log('局部的component的updated运行');
+						// DOM已经更新,DOM上的数据是新的映射信息
+						console.log('第5个li的text',$(document).find('li').eq(4).text());
+					}
+				}
+			}
+	});
+	app.$nextTick(function(){
+    	console.log('全局的$nextTick只会在第一次数据初始化的时候执行一次');
+    });
+	console.log('vue内部的函数运行完毕,开始执行new vue外部的同步任务');
+	for(var i = 0 ; i < 50; i++){
+		
+	}
+	console.log('同步任务的for循环结束');
+	
+	setTimeout(function(){
+		console.log('0秒的setTimeout运行');
+		console.log('---------------------华丽的分割线-------------------------');
+	},0);
+	
+	setTimeout(function(){
+		console.log('---------------------华丽的分割线-------------------------');
+		console.log('10秒的setTimeout运行');
+		app.$data.product.push({ name : 'setTimeout执行'});
+	},5000);
+	
+	
+</script>
+</body>
+</html>

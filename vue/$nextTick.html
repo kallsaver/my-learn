@@ -17,7 +17,8 @@
 	<body>
 		<div id="app">
 			<ul v-if="show">
-				<li v-for="item of product" v-text="item.name"></li>
+				<li v-for="item of product" v-text="item.name"
+					v-on:click="liClick()" ></li>
 			</ul>
 			<div class="box" v-on:click="changeProduct()"></div>
 		</div>
@@ -40,31 +41,42 @@
 				
 				var vm = this;
 				
+				// $nextTick是监听数据在vue的DOM元素中渲染完成触发
+				// 一旦触发了$nextTick就取消了回调函数中内容的绑定
+				// 但是如果多个$nextTick在vue的on事件中调用,会造成前面的$nextTick一直没有触发而冲掉后面的$nextTick
 				vm.$nextTick(function(){
-					console.log(1)
+					console.log('mounted');
 				});
 				
 			},
 			methods : {
 				changeProduct : function(){
 					var vm = this;
-					vm.show = false;
-					vm.product.push({ name : 'e' , price : 300 });
 					setTimeout(function(){
-						vm.show = true;
-					},1000)
+						vm.product.push({ name : 'e' , price : 300 });
+						// $nextTick其实很low,并不是异步的,而是渲染DOM元素完成后执行的函数指针
+						vm.$nextTick(function(){
+							console.log('div的点击$nextTick');
+						});
+					},1000);
+				},
+				liClick : function(){
+					var vm = this;
+					vm.$nextTick(function(){
+						console.log('li的点击$nextTick');
+					});
 				}
 			},
 			watch : {
 				product : {
 					deep : true,
 					handler : function(newVal,oldVal){
-						console.log(77);
+						//console.log(77);
 						// 同一个指针
-						console.log(newVal === oldVal)
+						//console.log(newVal === oldVal)
 					}
 				}
-			}
+			},
 //			watch : {
 //				product : {
 //					handle : function(){
@@ -74,9 +86,19 @@
 //			}
 		});
 		
-		// 只执行一次,监听数据->视图的渲染完成,可以多次使用
+		// 只执行一次,监听数据->视图的渲染完成,可以多次使用,
+		// $nextTick的正确使用方法不应该放在全局的同步任务中,没有任何意义
+		// $nextTick表示每一次的vue实例的data里面的数据更新一次所走流程的结束
+		// 正确的使用方法是放在点击函数,ajax请求这些函数中
+		// 
 		app.$nextTick(function(){
-			console.log(2)
+			console.log('全局的$nextTick1')
+		});
+		app.$nextTick(function(){
+			console.log('全局的$nextTick2')
+		});
+		app.$nextTick(function(){
+			console.log('全局的$nextTick3')
 		});
 		
 //		app.$watch('product',function(val){

@@ -18,6 +18,7 @@
 		<div id="app">
 			<div v-run></div>
 			<div v-all></div>
+			<li>li</li>
 			<ul v-package>
 				<li v-for="item in packageList" v-text="item.name" 
 					v-on:click="selectPackage(item)" v-bind:class="{ 'gold' : item === packageSelect  }" ></li>
@@ -57,7 +58,9 @@
 				},
 				'package' : {
 					bind : function(element,binding,scope,f){
-						console.log($(element).find('li'));
+						$(element).on('click',function(){
+							console.log($(this).find('li').length);
+						});
 					}
 				}
 			},

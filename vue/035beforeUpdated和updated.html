@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{ margin: 0;padding: 0;}
+			li{
+				list-style: none;margin-bottom: 10px;line-height: 30px;
+				text-align: center;background-color: chocolate;color: #fff;font-size: 12px;
+			}
+			#div{
+				width:500px;height: 50px;margin: 0 auto;text-align: center;
+				color: #fff;line-height: 50px;background-color: chartreuse;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul v-on:click="addProduct()">
+				<li v-for="item in product" v-on:click="showMessage()" v-text="item.name"></li>
+			</ul>
+			<div id='div' v-on:click="showMessage()">点击添加新任务</div>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		
+		new Vue({
+			el : '#app',
+			data : {
+				product : [
+					{ name : 'vue'},
+					{ name : 'jquery'},
+					{ name : 'webpack'},
+					{ name : 'swiper'},
+					{ name : 'angular2'},
+					{ name : 'Rx'},
+					{ name : 'react'},
+					{ name : 'php'},
+					{ name : 'mysql'},
+					{ name : 'http'},
+					{ name : 'node'},
+					{ name : 'python'}
+				],
+				message : 10,
+				report : [
+					{ name : 'six'},
+				]
+			},
+			mounted : function(){
+				console.log('初始化时的length',$(document).find('li').length);
+			},
+			beforeUpdate : function(){
+				var vm = this;
+				console.log('beforeUpdate执行');
+				// 数据已经在点击函数中更新,这个函数执行时,数据还没映射到DOM中
+				console.log('vm.product.length',vm.product.length);
+				console.log('li length',$(document).find('li').length);
+				// 读取DOM的信息还是旧的信息
+				console.log('第一个li的text',$(document).find('li').eq(0).text());
+			},
+			updated : function(){
+				console.log('updated执行');
+				console.log('li length',$(document).find('li').length);
+				// 读取DOM的信息是更新后的信息
+				console.log('第一个li的text',$(document).find('li').eq(0).text());
+			},
+			methods : {
+				addProduct : function(){
+					var vm = this;
+					var obj = { name : 'new know'};
+					vm.product[0].name = 'vue+vuex';
+					vm.product.push(obj);
+					vm.$nextTick(function(){
+						console.log('addProduct的$nextTick执行');
+						console.log('vm.product.length',vm.product.length);
+						console.log('li length',$(document).find('li').length);
+					});
+				},
+				showMessage : function(){
+					var vm = this;
+					var obj = { name : 'new report'};
+					vm.report.push(obj);
+					vm.$nextTick(function(){
+						console.log('showMessage的$nextTick执行');
+						console.log(vm.product.length);
+					});
+				}
+			}
+		})
+		
+	</script>
+</html>

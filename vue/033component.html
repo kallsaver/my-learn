@@ -34,10 +34,10 @@
 	<body>
 		<div id="app">
 			<right-aside v-text="message"></right-aside>
+			<span v-on:click="changeProduct()">点击改变product</span>
 			<!--pass等最终不会在html中解析出来-->
 			<!--pass等拿到message,product的引用-->
 			<center-main v-bind:pass1="message" v-bind:pass2="product"></center-main>
-			<span v-on:click="changeProduct()">点击改变product</span>
 		</div>
 	</body>
 	<script src="js/vue2.0.js"></script>
