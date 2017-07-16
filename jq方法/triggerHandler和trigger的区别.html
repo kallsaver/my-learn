@@ -31,6 +31,7 @@
 		</ul>
 		<div>div</div>
 		<span>点击触发自定义事件</span>
+		<div id="self">事件监听自定义事件</div>
 	</body>
 	<script src="js/jquery-3.1.0.js"></script>
 	<script>
@@ -100,7 +101,14 @@
 		var b = $('div').triggerHandler('click');
 		console.log(b);
 		
+		$(document).on('myClick','#self',function(){
+			console.log('自定义事件的事件委托');
+		});
 		
+		$('#self').on('click',function(){
+			$(this).trigger('myClick');
+			//$(this).triggerHandler('myClick')
+		});
 		
 		
 	</script>

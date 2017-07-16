@@ -34,7 +34,6 @@
 		
 		function test(){
 			var def3 = $.Deferred();
-			return d3 = wait3(def3);
 			function wait3(def){
 				setTimeout(function(){
 					console.log('setTimeout执行');
@@ -43,12 +42,13 @@
 				
 				return def.promise();
 			}
+			return d3 = wait3(def3);
 		}
 		
 		// jQuery中只要是异步对象都有then方法
 		test().then(function(){
 			console.log('promise')
-		})
+		});
 		
 		
 		

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		
+		// 如果一个对象不是延迟对象,是其它任何数据类型,把它放在$.when里面,那么then的回调函数将做延迟处理
+		// 其实$.when把这个对象包装成延迟对象了,不过是立刻resolve;因为then只有延迟对象才可以调用
+		$.when({}).then(function(){
+			console.log(1)
+		});
+		
+		console.log(2);
+		
+		function run(){
+			setTimeout(function(){
+				console.log('setTimeout')
+			},2000);
+		}
+		
+		$.when(run()).then(function(){
+			console.log('run的then回调函数执行');
+		});
+		
+		
+		function run1(){
+			var def = $.Deferred();
+			setTimeout(function(){
+				console.log('setTimeout');
+				def.resolve();
+			},2000);
+			return def.promise();
+		}
+		
+		$.when(run1()).then(function(){
+			console.log('run1的then回调函数执行');
+		});
+		
+	</script>
+</html>

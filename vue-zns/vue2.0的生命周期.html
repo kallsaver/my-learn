@@ -7,9 +7,9 @@
 </head>
 <body>
 
-<div id="app" v-all>
+<div id="app" v-all v-show="show">
 	<p id="box">box</p>
-	<p v-></p>
+	<p></p>
     <p v-text="message"></p>
     <p v-text="parseWeek"></p>
     <p v-text="self()"></p>
@@ -29,10 +29,13 @@
     	bind : function(element){
     		console.log('directive运行');
     		// directive是在mounted(挂载完毕)之前执行的,也就是挂载中,这里操作带指令DOM是可以的
-    		console.log($('p'))
+    		console.log($('p'));
     		$(element).find('p').each(function(index){
     			$(this).on('click',function(){
-    				alert(index)	
+    				$(this).css({
+    					fontsize : '30px',
+    					color : 'gold'
+    				});
     			});
     		});
     		// 值得一提的是在directive中只能操作element这个元素以内的元素,不能操作全局的元素
@@ -53,7 +56,8 @@
     		
     		// 无效
     		$('#box').css({
-    			fontsize : '30px'
+    			fontsize : '30px',
+    			color : 'gold'
     		});
     	}
     });
@@ -61,7 +65,8 @@
 	var app = new Vue({
       	el: '#app',
       	data: {
-          	message : "xuxiao is boy" 
+          	message : "xuxiao is boy" ,
+          	show : false,
       	},
 	   	beforeCreate: function () {
 	   		var vm = this;
@@ -106,11 +111,11 @@
             console.log("message: " + vm.message); //已被初始化 
             // DOM 在这里更新数据会触发updated函数
             vm.message = 30;
-            vm.$nextTick(function(){
-//          	$('p').css({
-//  				color : 'gold'
-//  			});
-            });
+            
+            setTimeout(function(){
+            	vm.show = true;
+            },3000)
+            vm.$nextTick(function(){});
 	           
 	    },
 	    beforeUpdate: function () {
