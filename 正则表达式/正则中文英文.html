@@ -45,5 +45,24 @@
 		console.log(/^([\u4e00-\u9fa5]|[a-zA-Z]){2,}$/.test('M'))
 		console.log(/^([\u4e00-\u9fa5]|[a-zA-Z]){2,}$/.test('M诚'))
 		
+		var strgg = 'sip:1055225@4dfsip:1055225@4df';
+		strgg = strgg.replace(/.*:(.*)@.*/g,'$1');
+		console.log(strgg);
+		
+		var arr = [];
+		for(var i = 0 ; i < 13; i++){
+			arr.push(i);
+		}
+		console.log(arr);
+		
+		console.log(arr.slice(12));
+		
+		var name1 = '哈';
+		var name2 = '恩';
+		var hide = true;
+		hide = !hide;
+ 		console.log(hide?name1.match(/哈/g)===null:true); //false
+ 		console.log(hide?name2.match(/哈/g)===null:true); //true
+		
 	</script>
 </html>

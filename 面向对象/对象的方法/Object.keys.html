@@ -19,11 +19,14 @@
 		}
 		
 		for(var key in obj){
-			console.log(key)
+			// for in 枚举会带上原型上的数据
+			console.log('for in',key);
 		}
 		
 		console.log(obj);
-		console.log(Object.keys(obj));
+		
+		var keyArray = Object.keys(obj);
+		console.log('keyArray',keyArray);
 		
 		// 用法:
 		Object.keys(obj).forEach(function(item,index){
