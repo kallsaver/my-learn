@@ -79,12 +79,12 @@
 
     //判断类型的函数   toString和slice都是好函数  不改变原有对象的值
     function isClass(o){
-        if (o===null){
-            return "null";
-        }
-        if(o===undefined){
-            return "undefined";
-        }
+//      if (o===null){
+//          return "null";
+//      }
+//      if(o===undefined){
+//          return "undefined";
+//      }
         return Object.prototype.toString.call(o).slice(8,-1)
     }
 

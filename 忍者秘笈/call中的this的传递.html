@@ -8,6 +8,7 @@
 		<div style="width: 200px;height: 200px;background: red;"></div>
 	</body>
 	<script>
+		
 		//函数调用
 		var obj = {
 			name : 'obj',
@@ -39,12 +40,12 @@
 			console.log(this)
             return function() {
             	//this是无法闭包传递的,每声明一个函数就默认创造一个this,这个this是window
+            	// 在严格模式中这个this是window
                console.log(this);
             };
         };
         
-        var a = run.call(obj)();
-		//a(); //window
+        var a = run.call(obj)();   //window
 		
 		
 		

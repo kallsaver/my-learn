@@ -8,13 +8,34 @@
 	</body>
 	<script>
 		
+		// 观察一个对象及其属性中为对象的属性,暂未包括数组
 		function observe(data){
-			if( !data || typeof data !== 'object' ){
+			
+			// !data是为了过滤掉null
+			if( !data ||　typeof data !== 'object' ){
 				return;
 			}
+			
+			Object.keys(data).forEach(key => {
+				observeProperty(data,key,data[key]);
+				//console.log(key);
+			})
+		}
+		
+		function observeProperty(obj,key,val){
+			observe(val);
 		}
 		
 		
+		var data = {
+			a : {
+				b : {
+					c : '哈哈哈'
+				}
+			}
+		}
+		
+		observe(data);
 		
 	</script>
 </html>

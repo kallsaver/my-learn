@@ -75,12 +75,13 @@
 		obj2.__proto__ =  proto;
 		
 		Object.defineProperty(obj2,'name',{
-			get : function(){
+			get : function(newVal){
 				console.log('当获取值的时候触发get函数');
 				//return this.name;   
 			},
-			set : function(){
+			set : function(newVal){
 				console.log('当设置新值的时候触发set函数');
+				console.log('obj.name=>' + newVal);
 			},
 			configurable : true,
 			enumerable : true

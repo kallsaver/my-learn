@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding: 0;}
+			li{
+				list-style: none;
+			}
+			#button{
+				width:100px;height: 30px;background: cornflowerblue;
+			}
+			#box{
+				margin-left: 100px;margin-top:100px;
+			}
+			#box>ul{display: none;}
+			#box>ul>li{
+				width:100px;height: 30px;background: cornsilk;text-align: center;line-height: 30px;
+				position: relative;
+			}
+			#box>ul>li:hover{background: peru;}
+			#box>ul>li .sub_ul{
+				display: none;position: absolute;top:0;left: 100px;background:#2D93CA;width:100px;
+			}
+			#box>ul>li .sub_ul li{
+				height: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="button">点击出现省</div>
+		<div id="box">
+			<ul>
+				<li>北京</li>
+				<li>广东</li>
+				<li>四川</li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		
+		var cityList = [
+			[
+				{ name : '北京'}
+			],
+			[
+				{ name : '深圳'},
+				{ name : '广州'}
+			],
+			[
+				{ name : '成都'},
+				{ name : '都江堰'}
+			],
+		]
+		
+		$('#box').find('>ul>li').each(function(index){
+			var $this = $(this).data('city',cityList[index]);
+			var ul = $('<ul>');
+			ul.addClass('sub_ul');
+			// 当然你可以所有的省份共有一个sub_ul,减少DOM
+			for(var i = 0,length = $this.data('city').length; i < length; i++){
+				$('<li>').text($this.data('city')[i].name).appendTo(ul);
+			}
+			ul.appendTo($this);
+		});
+		
+		$('#button').on('click',function(){
+			$('#box').find('>ul').css({display:'inline-block'});
+		});
+		
+		$('#box').find('>ul>li').on('mouseenter',function(){
+			$(this).siblings().find('.sub_ul').hide();
+			$(this).find('.sub_ul').show();
+		});
+		
+		$('#box').find('>ul').on('mouseleave',function(){
+			$(this).hide();
+		});
+		
+
+		
+		
+	</script>
+</html>
