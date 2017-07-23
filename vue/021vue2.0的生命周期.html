@@ -18,6 +18,8 @@
     <right-aside></right-aside>
     <center-main v-bind:pass1="message" v-bind:pass2="product"></center-main>
     <p v-></p>
+    <p v-on:click="cancel()">点击下方的元素会取消编译</p>
+    <p v-if="isCompile" v-text="isCompile"></p>
 </div>
 <script>
 	// 运行顺序总结:  create是指实例的数据,mount是指DOM元素
@@ -116,7 +118,8 @@
 				{ name : 'jquery' },
 				{ name : 'angular' },
 				{ name : 'react' },
-			], 
+			],
+			isCompile : true,
       	},
 	   	beforeCreate: function () {
 	   		var vm = this;
@@ -192,6 +195,7 @@
 	    },
 	    destroyed: function () {
 	    	var vm = this;
+	    	console.log('----------------------')
 	        console.log('destroyed运行,销毁完成状态');
 	        console.log("vm.$el",vm.$el);
 	        console.log("vm.$data",vm.$data); 
@@ -224,7 +228,11 @@
 	    		var obj = { name : '新对象'};
 	    		vm.product[0].name = 'vue+vuex';
 	    		vm.product.push(obj);
-	    	}
+	    	},
+	    	cancel : function(){
+	    		var vm = this;
+	    		vm.isCompile = false;
+	    	},
 	    },
 	    
 	    directives : {

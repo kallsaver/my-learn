@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding: 0;color: #fff;}
+			p{
+				width:500px;height: 50px;margin-bottom: 30px;
+				background: peru;
+			}
+			#div{
+				width:500px;background:darkorange;
+				text-align: center; margin-bottom: 30px;
+			}
+			#div span{
+				height: 30px;line-height: 30px;text-align: center;
+				widows: 100px;display: inline-block;margin-right: 50px;
+				background: slateblue;margin-bottom: 30px;
+			}
+			li{
+				list-style: none;background: peru;line-height: 50px;
+				width:500px;height: 50px;margin-bottom: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="(item,index) in product" v-text="index+1"></li>
+			</ul>
+			<p v-text="valid.name"></p>
+			<p v-text="valid.tel"></p>
+			<div id="div">
+				<span v-on:click="changeValidProperty()">changeValidProperty</span>
+				<span v-on:click="addValidProperty()">addValidProperty</span>
+				<span v-on:click="setValidProperty()">setValidProperty</span>
+				<br>
+				<span v-on:click="clearArrayByNew()">clearArrayByNew</span>
+				<span v-on:click="clearArrayByLength()">clearArrayByLength</span>
+				<span v-on:click="clearArrayBySetLength()">clearArrayBySetLength</span>
+				<span v-on:click="clearArrayBySplice()">clearArrayBySplice</span>
+			</div>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		
+		new Vue({
+			el : '#app',
+			data : {
+				product : [
+					{ name : 'vue' },
+					{ name : 'angular' },
+				],
+				valid : {
+					name : 'aaa'
+				}
+			},
+			methods : {
+				addProperty : function(){
+					var vm = this;
+					vm.valid.tel = 'addProperty';
+				},
+				changeValidProperty : function(){
+					var vm = this;
+					// 如果在实例创建之后添加新的属性到实例上的数据后,它不会触发视图更新
+					vm.valid.name = 'bbb';
+				},
+				setProperty : function(){
+					var vm = this;
+					// 触发视图更新
+					vm.$set(vm.valid,'tel','setProperty');
+				},
+				clearArrayByNew : function(){
+					var vm = this;
+					// 触发视图更新
+					vm.product = [];
+				},
+				clearArrayByLength : function(){
+					var vm = this;
+					// 不触发视图更新
+					vm.product.length = 0;
+				},
+				clearArrayBySetLength : function(){
+					var vm = this;
+					// 不触发视图更新
+					vm.$set(vm.product,'length',0);
+				},
+				clearArrayBySplice : function(){
+					var vm = this;
+					vm.product.splice(0,vm.product.length);
+				}
+			},
+			updated : function(){
+				console.log('vue触发视图更新完成');
+			}
+		});
+		
+	</script>
+</html>

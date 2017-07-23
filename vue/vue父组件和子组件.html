@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding: 0;}
+			#app{
+				text-align: center;position: relative;
+			}
+			div{
+				margin: 0 auto;margin-bottom: 50px;
+			}
+			.asides{
+				width:600px;height: 400px;background: peru;
+				line-height: 400px;color: #fff;text-align: center;font-size: 20px;
+			}
+			.mains{
+				width:600px;height: 600px;background: chocolate;
+				line-height: 400px;color: #fff;text-align: center;font-size: 20px;
+			}
+			li{
+				list-style: none;line-height: 50px;color: #fff;text-align: center;font-size: 20px;background: khaki;
+			}
+			p{
+				line-height: 50px;color: #fff;text-align: center;font-size: 20px;background: cornflowerblue;
+			}
+			span{
+				width:100px;height: 50px;position: absolute;top:400px;background: chartreuse;
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<center-main v-bind:pass1="message" v-bind:pass2="product"></center-main>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script>
+		
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				product : [
+					{ name : 'vue' },
+					{ name : 'jquery' },
+					{ name : 'angular' },
+					{ name : 'react' },
+				],
+				message : '父组件的信息',
+			},
+			methods : {
+				addProduct : function(){
+					vm.product.push({ name : 'new  learn' });
+				}
+			},
+			components : {
+				'center-main' : {
+					template :  `<div class="mains">
+									<ul>
+										<li v-for="item in products" v-text="item.name"></li>
+									</ul>
+									<p v-text="pass1"></p>
+									<ul>
+										<li v-for="item in pass2" v-text="item.name"></li>
+									</ul>
+									<p v-on:click="showProps()">showData</p>
+								</div>`,
+					data : function(){
+						return  {
+							products : [
+								{ name : 'php' },
+								{ name : 'node' },
+								{ name : 'go' },
+								{ name : 'python' },
+							]
+						};
+					},
+					// 组件component中的DOM是独立的,不能直接拿到外部的数据
+					// 通过props来存值, v-bind是个黑科技
+					props : ['pass1','pass2'],
+					methods : {
+						showProps : function(){
+							var vm = this;
+							console.log(vm.$props);
+						}
+					},
+					beforeCreate : function(){
+						var vm = this;
+						// 同样的beforeCreate阶段无论是data里面的数据还是props里面的数据,都没有挂载进来
+						console.log(vm.$props);
+					},
+					created : function(){
+						var vm = this;
+						console.log(vm.$props.pass1);
+					}
+				}
+			}
+		})
+		
+		
+	</script>
+</html>
