@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		
+		
+		var url = './data/persons.json'
+		$.get(url).done(function(respond){
+			console.log(respond)
+		}).fail(function(){
+			console.log('fail')
+		}).then(function(){
+			console.log('then只会在done执行成功后执行,如果是fail不会执行')
+		});
+		
+	</script>
+</html>

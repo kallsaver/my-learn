@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			div{
+				width:200px;height: 50px;margin-bottom: 50px;background: goldenrod;
+				text-align: center;color: #fff;line-height: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				<input v-model='valid.val' />
+				<input v-model='valid.val' />	
+			</div>
+			<div v-on:click="showVal()">2</div>
+			<div>3</div>
+			<div>4</div>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		var app = new Vue({
+			el : '#app',
+			data : {
+				valid : {
+					val : ''	
+				}
+			},
+			mounted : function(){
+				
+			},
+			methods : {
+				showVal : function(){
+					var vm = this;
+					console.log(vm.val);
+				}
+			}
+		});
+		
+		// jquery改变input的视图层不能触发vue数据层的改变
+		$('#app').find('div').eq(2).on('click',function(){
+			console.log('jquery');
+			$('input').val('5');
+		});
+		
+		// 数据层改变会改变视图层,正确要说是触发vue的一个流程
+		$('#app').find('div').eq(3).on('click',function(){
+			app.$data.valid.val = 5;
+		});
+		
+		
+	</script>
+</html>

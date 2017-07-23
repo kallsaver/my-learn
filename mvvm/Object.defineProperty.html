@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		// Object.defineProperty是es5给对象属性设置描述符的方法   //ie8下只能在DOM对象上使用
+		//Object.defineProperty(obj, prop, descriptor)   // 对象、属性、描述符
+		
+		var proto = {
+			ancestors : 'i am a sub data'
+		}
+		
+		var obj = {
+			name : 'a'
+		};
+		
+		obj.__proto__ = proto;
+		
+		// 对象的属性添加特性描述
+		Object.defineProperty(obj,'name',{
+			//value : 'b',		         // 设置值
+			//writable : false,          // true为可以被改写,false为不可以被改写,默认true
+			enumerable : true,        // true为可以被枚举,false为不可以被枚举,默认true
+			configurable :  true,       // true为可以删除或可以重新设置特性,false相反,默认true
+		});
+		
+		// value测试
+		console.log('value',obj.name);
+		
+		
+		// writable测试
+		obj.name = 'c';
+		console.log('writable',obj.name);
+		
+		// enumerable测试
+		for(var key in obj){
+			// for in 方法会打印出原型里面的数据
+			console.log('key',key);
+		}
+		
+		// 或者:
+		var ownPropList = Object.getOwnPropertyNames(obj);
+		for(var i = 0; i < ownPropList.length; i++){
+			console.log('ownPropList[i]',ownPropList[i]);
+		}
+		
+		// configurable测试
+		delete obj.name;
+		console.log('delete obj.name',obj.name);
+		
+		
+		function reset(){
+			// 报错 cannot redefine property : name
+			Object.defineProperty(obj,'name',{
+				value : 'd',		      
+				writable : false,          
+				enumerable : false,        
+				configurable :  false       
+			});
+			
+			console.log(obj.name);	
+		}
+		
+		// 存取器描述getter和setter   
+		// 当使用了getter和setter,不允许使用writable和value这两个属性
+		
+		var obj2 = {
+			name : 'A'
+		};
+		
+		obj2.__proto__ =  proto;
+		
+		Object.defineProperty(obj2,'name',{
+			get : function(newVal){
+				console.log('当获取值的时候触发get函数');
+				//return this.name;   
+			},
+			set : function(newVal){
+				console.log('当设置新值的时候触发set函数');
+				console.log('obj.name=>' + newVal);
+			},
+			configurable : true,
+			enumerable : true
+		});
+		
+		// 读取触发get函数
+		var name = obj2.name;
+		
+		// 存储触发set函数
+		obj2.name = 'B';
+		
+	</script>
+</html>

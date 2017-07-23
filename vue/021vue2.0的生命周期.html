@@ -159,7 +159,7 @@
             console.log("vm.message",vm.message);   //已被初始化 
             // 所有的DOM包括组件的DOM挂载完毕
             // 在这里更新数据会触发updated函数运行,同时重新触发挂载在DOM中的methods运行
-            console.log('mounted中更新数据');
+            console.log('mounted中更新message数据');
             vm.message = 30;
             // $nextTick是同步任务
             // 并且不是永久的监听(因为是同步任务),只能监听上一次的数据变化,如果mounted中没有数据变化,不会触发updated,
@@ -172,19 +172,15 @@
 	    },
 	    beforeUpdate: function () {
 	    	var vm = this;
-	        console.log('beforeUpdate运行,更新前状态');
+	        console.log('实例的beforeUpdate运行,DOM更新前状态');
 	        console.log("vm.$el",vm.$el);
-	        console.log("vm.$data",vm.$data); 
-	        console.log("vm.message",vm.message); 
 	    },
 	    updated: function () {
 	    	var vm = this;
 	    	a++;
 	    	console.log('a',a);
-	        console.log('updated运行');
+	        console.log('实例的updated运行');
 	        console.log('vm.$el',vm.$el); 
-	        console.log("vm.$data",vm.$data); 
-	        console.log("vm.message",vm.message); 
 	    },
 	    beforeDestroy: function () {
 	    	var vm = this;
@@ -338,6 +334,7 @@
 	setTimeout(function(){
 		console.log('---------------------华丽的分割线-------------------------');
 		console.log('10秒的setTimeout运行');
+		console.log('改变vue里面的数据')
 		app.$data.product.push({ name : 'setTimeout执行'});
 	},5000);
 	

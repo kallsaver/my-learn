@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding: 0;}
+			li{
+				list-style: none;width:200px;height: 50px;margin-bottom: 50px;
+				text-align: center;line-height: 50px;font-size: 30px;
+				background-color: peru;color: #fff;
+			}
+			#app{
+				list-style: none;width:200px;height: 50px;margin-bottom: 50px;
+				text-align: center;line-height: 50px;font-size: 30px;
+				background-color: darkgoldenrod;color: #fff;
+			}
+			#box{
+				list-style: none;width:200px;height: 50px;margin-bottom: 50px;
+				text-align: center;line-height: 50px;font-size: 30px;
+				background-color: darkblue;color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+		<div id="app">div.app</div>
+		<div id="box">div.box</div>
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		
+		var liList = $('li').each(function(index){
+			$(this).on('click.a',function(){
+				console.log('第' + index + '个li触发click.a');
+				$(this).trigger('myClick.a');
+				$(this).trigger('myClick.b');
+			});
+			$(this).on('click.b',function(){
+				console.log('第' + index + '个li触发click.b');
+				$(this).trigger('myClick.a');
+				$(this).trigger('myClick.b');
+			});
+			$(this).on('myClick.a',function(){
+				console.log('第' + index + '个li触发myClick.a');
+			});
+			$(this).on('myClick.b',function(){
+				console.log('第' + index + '个li触发myClick.b');
+			});
+		});
+		
+		$('#app').on('click',function(){
+			liList.eq(0).off('click.a');
+			liList.eq(0).off('myClick.a');
+			liList.eq(1).off('click.b');
+			liList.eq(0).off('myClick.b');
+			liList.eq(2).off('click');
+			liList.eq(2).off('myClick');
+		});
+		
+		$('#box').on('click',function(){
+			liList.trigger('myClick');
+		});
+		
+	</script>
+</html>
