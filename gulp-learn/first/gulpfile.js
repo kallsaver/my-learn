@@ -92,7 +92,8 @@ gulp.task('imagesAll',function(){
 
 gulp.task('data',function(){
   // !表示排除这个文件
-  return gulp.src(['xml/*.xml','json/*.json','!json/secret-*.json']).pipe(gulp.dest('dist/data'));
+	return gulp.src(['xml/*.xml', 'json/*.json', '!json/secret-*.json'])
+				.pipe(gulp.dest('dist/data'));
 });
 
 //数组里面的任务是同时执行的,执行完毕后执行回调函数

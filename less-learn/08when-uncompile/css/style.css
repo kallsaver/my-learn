@@ -73,3 +73,39 @@ body h6 {
   background: peru;
   margin-top: 10px;
 }
+body .div1 {
+  background-image: url("../images/customer_1.jpg");
+  background-size: cover;
+  width: 200px;
+  height: 90px;
+}
+body .div2 {
+  background-image: url("../images/customer_2.jpg");
+  background-size: cover;
+  width: 200px;
+  height: 90px;
+}
+body .div3 {
+  background-image: url("../images/customer_3.jpg");
+  background-size: cover;
+  width: 200px;
+  height: 90px;
+}
+body .div4 {
+  background-image: url("../images/customer_4.jpg");
+  background-size: cover;
+  width: 200px;
+  height: 90px;
+}
+body .div5 {
+  background-image: url("../images/customer_5.jpg");
+  background-size: cover;
+  width: 200px;
+  height: 90px;
+}
+body .div6 {
+  background-image: url("../images/customer_6.jpg");
+  background-size: cover;
+  width: 200px;
+  height: 90px;
+}

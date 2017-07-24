@@ -16,7 +16,7 @@ header{
     text-align: center;
     font-size: 30px;
     color: white;
-    .loop(6)
+    .loop(6);
 }
 
 .loop1(@number)when(@number < 7){
@@ -29,7 +29,18 @@ header{
     .loop1(@number + 1)
 }
 
+.loop2(@i)when(@i < 7){
+    
+    .div@{i}{
+        background-image: url("../images/customer_@{i}.jpg");
+        background-size: cover;
+        width:200px;height: 90px;
+    }
+    .loop2(@i + 1);
+}
+
 body{
-   .loop1(1) 
+   .loop1(1);
+   .loop2(1);
 }
 

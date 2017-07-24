@@ -1,0 +1,21 @@
+{
+  "name": "font-spider-learn",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "kallsaver@163.com <kallsaver@163.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/kallsaver/my-learn",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "^4.7.0"
+  }
+}

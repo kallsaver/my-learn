@@ -2,9 +2,10 @@
 //引入bootstrap,栅格化不可用,因为@media没有输出在css中,如果要用到栅格化,需要在index.html引入bootstrap.css
 //引入bootstrap.css不能使用图标,使用图片要引入bootstrap.less
 //@import (less,reference)'../../bower_components/bootstrap/dist/css/bootstrap.css';
+@import (less)'../../app/bower_components/bootstrap/dist/css/bootstrap.css';
 //@import (less,reference)'../../lib/css/flat-ui.css';
 
-@import (reference)'../../bower_components/bootstrap/dist/less/bootstrap.less';
+//@import (reference)'../../app/bower_components/bootstrap/dist/less/bootstrap.less';
 
 //使用less来实现文字图标的问题是~''只能不编译样式值,
 //所以文字图标路径@font-face是无法通过less正确编译成css的,
@@ -17,12 +18,14 @@
     .glyphicon;.glyphicon-tint;
 }
 
-
+.box3{
+    width:400px;
+}
 
 
 body,h1,h2,h3,h4,h5,h6,p,span,div,li,ul,ol,dd,dt,dl,img,a,i,header,hgroup,footer,article,aside,section,strong{
         margin:0;padding: 0;box-sizing: border-box;
-     }
+}
 
 a,a:hover{text-decoration:none;}
 

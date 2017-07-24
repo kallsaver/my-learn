@@ -1,18 +1,23 @@
 {
-  "name": "less-learn",
+  "name": "font-spider-learn",
   "version": "1.0.0",
   "description": "",
-  "main": "001less.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {},
   "devDependencies": {
+    "bower": "^1.8.0",
     "browser-sync": "^2.18.8",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^3.4.1",
     "gulp-less": "^3.3.0",
-    "gulp-plumber": "^1.1.0"
+    "gulp-plumber": "^1.1.0",
+    "gulp-postcss": "^6.4.0"
   }
 }
