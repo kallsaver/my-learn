@@ -97,6 +97,7 @@ export default {
       li{
         .a;text-align: center;line-height:50px;
         height:50px;margin-bottom:20px;
+        
       }
     }
   }

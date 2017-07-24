@@ -7,20 +7,5 @@
         "command": "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
     },
     //"isShellCommand": true,
-    "args": ["${file}"],
-    //"showOutput": "always",
-    // "tasks": [
-    //     {
-    //         "taskName": "default",
-    //         "identifier": "default",
-    //         "args": [],
-    //         "isBuildCommand": true,
-    //         "isWatching": false,
-    //         "problemMatcher": [
-    //             "$lessCompile",
-    //             "$tsc",
-    //             "$jshint"
-    //         ]
-    //     }
-    // ]
+    "args": ["${file}"]
 }

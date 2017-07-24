@@ -1,0 +1,13 @@
+vscode更改的配置参数保存在setting.json里,复制到新的vscode中就可以多端统一UI风格
+0.设置符合自己习惯的快捷键
+1.文件=>首选项=>键盘快捷键=>显示资源管理器=>设置为ctrl+T
+2.设置打开控制台终端(git命令窗口)为ctrl+g
+3..vue文件的less样式补全:编辑器下方的vue关联为html,首选项=>设置=>html=>设置html的styles校验为false
+4.ctrl+shift+n  新建窗口
+5.ctrl+n 新建文件
+6.设置ctrl+d 删除当前行
+7.ctrl+w 关闭当前文件
+8.设置ctrl+r为打开当前任务(浏览器)
+9.对于项目中用vscode打开浏览器,ctrl+shift+p =>输入ctr=>配置任务,
+vscode会一级一级往上找.vscode中tasks.json文件,所以只要在大的项目目录的.vscode配置好tasks.json就ok
+下级项目还可以直接使用gulp等

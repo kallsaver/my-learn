@@ -1,0 +1,13 @@
+{
+    "window.zoomLevel": -1,
+    "window.menuBarVisibility": "default",
+    "editor.fontSize": 22,
+    "editor.mouseWheelZoom": true,
+    "workbench.colorTheme": "Visual Studio Dark",
+    "workbench.iconTheme": "material-icon-theme",
+    "files.associations": {
+        "*.vue": "vue-html"
+    },
+    "html.validate.styles": false,
+
+}
