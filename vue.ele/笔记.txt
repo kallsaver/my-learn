@@ -1,0 +1,10 @@
+1.build和config文件夹跟webpack配置有关
+2.static文件夹是存放第三方静态资源的,
+文件夹如果为空,一般是不会提交到github上的,
+如果文件有里有.getkeep文件,那么即使这个文件夹为空也会提交github上
+3..babelrc是babel的配置文件,在node_modules里面可以看到
+babel的各种语法补丁库,stage-2是es的第几个阶段,数字越小包含内容越多
+比如stage-2是要依赖于stage-3的
+4.transform-runtime是把es6的Promise等方法做转化
+3.src目录是存放项目源码的目录
+4..eslintignore文件里面的文件不会做js语法检查
