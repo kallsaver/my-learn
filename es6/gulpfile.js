@@ -6,13 +6,20 @@ var babel = require('gulp-babel');
 var less = require('gulp-less');
 var plumber = require('gulp-plumber');
 var rename = require('gulp-rename');
+var webserver = require('gulp-webserver');
 
 
 
 gulp.task('babel',function(){
   return gulp.src('app/src/js/*.js')
-        .pipe(plumber())
-        .pipe(babel())
+        .pipe(plumber({
+          errorHandler : function(){
+                this.emit('end');
+          }
+        }))
+        .pipe(babel({
+          presets: ['es2015']
+        }))
         .on('error',function(err){
           console.log('Error:',err.message)
         })
@@ -50,17 +57,14 @@ gulp.task('sass', function() {
 // Static Server + watching scss/html files
 gulp.task('serve',['sass','less','babel'],function() {
     //启动服务器
-    browserSync.init({
-        server: "./app",
-        notify : false
-    });
-
-    gulp.watch("app/src/scss/*.scss", ['sass']);
-    gulp.watch("app/src/less/*.less", ['less']);
+    // 默认监听这个项目中所有文件的变化都会触发浏览器刷新
+    gulp.src('./')
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: true,
+      open: true
+    }));
     gulp.watch("app/src/js/*.js", ['babel']);
-    //src变化触发编译dist变化,再触发浏览器刷新
-    gulp.watch("app/dist/js/*.js").on('change',browserSync.reload);
-    gulp.watch("app/*.html").on('change', browserSync.reload);
 });
 
 gulp.task('default', ['serve']);

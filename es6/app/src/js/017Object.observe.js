@@ -1,9 +1,15 @@
 
 
+import './test';
+var obj = {
+  foo: 0,
+  bar: 1,
+  c : 8
+};
 
-var model = {};
-Object.observe(model,function(change){
-  console.log(change);
-});
+// Object.observe(obj, function(changes) {
+//   console.log(changes);
+// });
 
-model.name = 'a';
+
+
