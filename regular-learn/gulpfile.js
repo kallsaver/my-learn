@@ -3,9 +3,8 @@ var browserSync = require('browser-sync').create();
 var less        = require('gulp-less');
 var plumber     = require('gulp-plumber');
 
-var current = '08when/';
-
-var dir = 'less-learn/';
+var baseDir = './';
+var current = 'views/001.html';
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['less'], function() {
@@ -13,15 +12,14 @@ gulp.task('serve', ['less'], function() {
     browserSync.init({
     	server: {
     		// 当前目录
-            baseDir : './' + current,
-            //index : 'index.html'
+            baseDir : baseDir + current,
         },
         notify : false
     });
 
-    gulp.watch( '**/css/*.less', ['less']);
-    gulp.watch( '**/css/*.css').on('change', browserSync.reload);
-    gulp.watch( '**/*.html').on('change', browserSync.reload);
+    gulp.watch( baseDir + 'less/*.less', ['less']);
+    gulp.watch( baseDir + 'css/*.css').on('change', browserSync.reload);
+    gulp.watch( baseDir +　'*.html').on('change', browserSync.reload);
 
 });
 

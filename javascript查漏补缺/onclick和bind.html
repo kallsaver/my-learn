@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<ul id="ul">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</body>
+	<script>
+		
+		var ul = document.getElementById('ul');
+		
+		var li = ul.getElementsByTagName('li');
+		
+		for(var i = 0, length = li.length; i　< length ; i++){
+			console.log(i);
+			// bind可以把原来的那个固定的参数改写
+			li[i].onclick = function(event,i){
+				console.log('event',event);
+				console.log('i',i);
+			}.bind(null,event,i);           // 给函数固定预设的参数
+		}
+
+
+		// 不希望把event参数去掉
+//		for(var i = 0, length = li.length; i　< length ; i++){
+//			console.log(i);
+//			(function(i){      // 隔离作用域
+//				li[i].onclick = function(event){
+//					console.log('event',event);
+//					console.log('i',i);
+//				}	
+//			})(i);
+//		}
+		
+	</script>
+</html>

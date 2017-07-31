@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		// ~~可以把字符串转为数字
+		console.log(typeof (~~'123'));      // number
+		console.log( (~~'123') === 123 );   // true;
+		
+		console.log(typeof (~~123));		// number
+		
+		console.log(typeof (~~[]));			// number
+		console.log(~~[]);					// 0
+		console.log(~~[1]);                 // 1
+		console.log(~~[2]);                 // 2
+		console.log(~~[1,2]);               // 0
+		console.log(~~{});					// 0
+		console.log(~~{ name : 'a'});		// 0
+		
+	</script>
+</html>

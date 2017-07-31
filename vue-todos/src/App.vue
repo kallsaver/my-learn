@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <ul>
-      <li v-for="(item,index) in todoList ">
+      <li v-for="(item,index) in todoList">
         <!--b这个类名可以在template中使用-->
-        <label v-bind:class="{'b':item.done}">{{index+1}}啦啦啦{{item.value}}</label>
+        <label v-bind:class="{'b':item.done}" v-bind:s="showObj()">{{index+1}}啦啦啦{{item.value}}</label>
         <time>{{item.created | date }}</time>
       </li>
     </ul>
@@ -55,8 +55,15 @@ export default {
   // 自定义过滤器
   filters : {
     date(val){
-      return moment(val).calendar()
+      return moment(val).calendar();
     }
+  },
+  methods : {
+  	showObj(){
+  		var obj = { a : 1 };
+  		var copy = Object.assign( {} , obj)
+  		console.log(copy);
+  	}
   }
 }
 // 等同于
@@ -97,7 +104,6 @@ export default {
       li{
         .a;text-align: center;line-height:50px;
         height:50px;margin-bottom:20px;
-        
       }
     }
   }

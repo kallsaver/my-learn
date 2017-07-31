@@ -10,14 +10,14 @@
 		var Type = {};
 		
 		//当type = undefined时,循环体结束,i++语句是先赋值再++
-		for(var i = 0,type;type = ['String','Array','Number'][i++];){
-			(function(){
-				Type['is'+type] = function(type,obj){
+		for(var i = 0,type; type = ['String','Array','Number'][i++];){
+			//(function(){
+				Type['is'+ type] = function(type,obj){
 					//type传进来了
-					console.log(type)
-					return Object.prototype.toString.call(obj) === '[object '+type+']';
+					//console.log(type)
+					return Object.prototype.toString.call(obj) === '[object '+ type + ']';
 				}.bind(Type,type)
-			})(type)
+			//})(type);
 		}
 		//利用bind可以预定前面的参数
 		console.log(Object.prototype.toString.call([]))
