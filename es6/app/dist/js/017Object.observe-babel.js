@@ -1,8 +1,13 @@
 'use strict';
 
-var model = {};
-Object.observe(model, function (change) {
-  console.log(change);
-});
+require('./test');
 
-model.name = 'a';
+var obj = {
+  foo: 0,
+  bar: 1,
+  c: 8
+};
+
+// Object.observe(obj, function(changes) {
+//   console.log(changes);
+// });
