@@ -29,7 +29,7 @@
 		<!--align-items是管理每条轴上的元素和元素之间的对齐方式-->  <!--轴线对齐,文字对齐等--> 
 		<!--如果是单轴,align-items还管理单轴在父盒子上的位置(align-content的作用)-->   
 		<!--如果是多轴,align-items管理轴上的元素对齐-->
-		<!--例如align-items:center可以使得单轴垂直居中,多轴等同于align-content:space-around+align-items:center-->
+		<!--例如align-items:center可以使得单轴垂直居中,多轴等同于align-content:space-around+align-items:center(元素对齐轴线)-->
 		<!--例如align-items:flex-end可以使单轴在右边,如果是column就是下边-->			
 		<!--justify-content是管理多轴在父盒子的布局,即轴和轴之间的空隙--> 
 		
@@ -54,35 +54,35 @@
 		<!--默认align-items:stretch-->
 		<!--align-items在多轴上是用来管理每条轴的元素的对齐方式-->
 		<div class="box" style="flex-direction: row;flex-wrap: wrap;">  
-			<div style="width:50px;height: 50px;margin-right: 20px;background: gold;"></div>
-			<div style="width:50px;height: 80px;margin-right: 20px;background: peru;"></div>
-			<div style="width:50px;height: 50px;margin-right: 20px;background: darkgreen;"></div>
-			<div style="width:50px;height: 100px;margin-right: 20px;background: fuchsia;"></div>
+			<div style="width:50px;height: 50px;margin-right: 20px;background: gold;">1</div>
+			<div style="width:50px;height: 80px;margin-right: 20px;background: peru;">2</div>
+			<div style="width:50px;height: 50px;margin-right: 20px;background: darkgreen;">3</div>
+			<div style="width:50px;height: 100px;margin-right: 20px;background: fuchsia;">4</div>
 		</div>
 		
 		<!--align-items:center使得每个轴的上的元素高度中心对齐,
 		并且所有的轴(整体)在父盒子上也居中,由每条轴中最高的元素决定了空隙值-->
 		<div class="box" style="flex-direction: row;flex-wrap: wrap;align-items: center;">  
-			<div style="width:50px;height: 50px;margin-right: 20px;background: gold;"></div>
-			<div style="width:50px;height: 80px;margin-right: 20px;background: peru;"></div>
-			<div style="width:50px;height: 50px;margin-right: 20px;background: darkgreen;"></div>
-			<div style="width:50px;height: 50px;margin-right: 20px;background: fuchsia;"></div>
+			<div style="width:50px;height: 50px;margin-right: 20px;background: gold;">1</div>
+			<div style="width:50px;height: 80px;margin-right: 20px;background: peru;">2</div>
+			<div style="width:50px;height: 50px;margin-right: 20px;background: darkgreen;">3</div>
+			<div style="width:50px;height: 50px;margin-right: 20px;background: fuchsia;">4</div>
 		</div>
 		
 		<div class="clearfix"></div>
 
 		<div class="box" style="flex-direction: row;flex-wrap: wrap;align-items: center;">  
-			<div style="width:50px;height: 50px;margin-right: 20px;background: gold;"></div>
-			<div style="width:50px;height: 80px;margin-right: 20px;background: peru;"></div>
-			<div style="width:50px;height: 50px;margin-right: 20px;background: darkgreen;"></div>
-			<div style="width:50px;height: 100px;margin-right: 20px;background: fuchsia;"></div>
+			<div style="width:50px;height: 50px;margin-right: 20px;background: gold;">1</div>
+			<div style="width:50px;height: 80px;margin-right: 20px;background: peru;">2</div>
+			<div style="width:50px;height: 50px;margin-right: 20px;background: darkgreen;">3</div>
+			<div style="width:50px;height: 100px;margin-right: 20px;background: fuchsia;">4</div>
 		</div>
 		
 		<div class="box" style="flex-direction: row;flex-wrap: wrap;align-content: space-around;">  
-			<div style="width:50px;height: 50px;margin-right: 20px;background: gold;"></div>
-			<div style="width:50px;height: 80px;margin-right: 20px;background: peru;"></div>
-			<div style="width:50px;height: 50px;margin-right: 20px;background: darkgreen;"></div>
-			<div style="width:50px;height: 100px;margin-right: 20px;background: fuchsia;"></div>
+			<div style="width:50px;height: 50px;margin-right: 20px;background: gold;">1</div>
+			<div style="width:50px;height: 80px;margin-right: 20px;background: peru;">2</div>
+			<div style="width:50px;height: 50px;margin-right: 20px;background: darkgreen;">3</div>
+			<div style="width:50px;height: 100px;margin-right: 20px;background: fuchsia;">4</div>
 		</div>
 		
 		<!--每条轴以子元素的文字的底部对齐-->
@@ -158,7 +158,7 @@
 			<div style="width:50px;height: 100px;margin-right: 20px;background: fuchsia;"></div>
 		</div>
 		
-		<!--父盒子的空隙平均分配到父盒子-->
+		<!--父盒子的空隙平均分配到轴两侧-->
 		<div class="box" style="flex-direction: row;flex-wrap: wrap;align-content: space-around;">  
 			<div style="width:50px;height: 50px;margin-right: 20px;background: gold;"></div>
 			<div style="width:50px;height: 80px;margin-right: 20px;background: peru;"></div>
@@ -289,7 +289,7 @@
 		</div>
 		
 		<div class="box" style="flex-direction: row;flex-wrap: wrap;
-			justify-content: space-around;align-content: space-between;align-items: center;">  
+			justify-content: space-around;align-items: center;">  
 			<div style="width:70px;height: 50px;background: gold;"></div>
 			<div style="width:70px;height: 80px;background: peru;"></div>
 			<div style="width:70px;height: 50px;background: darkgreen;"></div>
@@ -304,7 +304,7 @@
 		<div class="clearfix"></div>
 		
 		<div class="box" style="flex-direction: row;flex-wrap: wrap;
-			justify-content: center;align-content: center;">  
+			justify-content: center;">  
 			<div style="width:50px;height: 50px;background: gold;"></div>
 			<div style="width:50px;height: 50px;background: fuchsia;"></div>
 		</div>

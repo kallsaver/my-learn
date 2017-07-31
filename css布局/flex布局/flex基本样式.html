@@ -23,7 +23,7 @@
 		<!--flex-direction:子元素排成一行,子元素的高度100%-->
 		<!--子元素不分块元素和行元素-->
 		<div class="box" style="flex-direction: row;">
-			<div style="flex: 1;background: peru;"></div>
+			<div style="flex: 1;background: peru;height: 50px;"></div>
 			<div style="flex: 1;background: fuchsia;"></div>
 			<span style="flex: 1;background: saddlebrown;"></span>
 		</div>
@@ -61,6 +61,7 @@
 			<span style="flex:1;background: fuchsia;margin-right:10px"></span>
 		</div>
 		
+		<!--多轴模式,如果超出,默认一个元素占一个轴,margin优先于width等-->
 		<div class="box" style="flex-direction: row;flex-wrap: wrap;">
 			<span style="flex: 1;background: gold;margin-right: 10px;height: 50px;"></span>
 			<span style="width: 200px;background: peru;margin-right: 50px;height: 50px;"></span>
@@ -73,6 +74,7 @@
 			<span style="flex:1;background: fuchsia;margin-right:10px;height: 50px;"></span>
 		</div>
 		
+		<!--多轴模式如果没有参考物,给了flex,width还是0-->
 		<div class="box" style="flex-direction: row;flex-wrap: wrap;">
 			<span style="width: 200px;background: peru;height: 50px;"></span>
 			<span style="flex: 1;background: gold;height: 50px;"></span>
