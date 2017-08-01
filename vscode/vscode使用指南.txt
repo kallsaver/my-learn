@@ -11,3 +11,4 @@ vscode更改的配置参数保存在setting.json里,复制到新的vscode中就�
 9.对于项目中用vscode打开浏览器,ctrl+shift+p =>输入ctr=>配置任务,
 vscode会一级一级往上找.vscode中tasks.json文件,所以只要在大的项目目录的.vscode配置好tasks.json就ok
 下级项目还可以直接使用gulp等
+10.Alt+d 查看定义处

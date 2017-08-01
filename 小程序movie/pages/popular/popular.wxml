@@ -1,0 +1,6 @@
+<block wx:if="{{!showLoading}}">
+    1
+    <view class="search-bar">
+
+    </view>
+</block>

@@ -1,0 +1,6 @@
+<view> header </view>
+<template name="movieList" >
+    <view>  
+    <text>1</text>
+  </view>
+</template>

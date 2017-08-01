@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container">
+ <view class="container">
   <view  bindtap="bindViewTap" class="userinfo">
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
@@ -7,4 +7,12 @@
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
-</view>
+  <block wx:for="{{productList}}" wx:key="key">
+    <text>{{item.name}}:{{index}}</text>
+    <text>{{item.name}}</text>
+  </block>
+  <import src="../../component/flimList/filmList.wxml"/>
+  <template is="msgItem1" data="{{...item}}"/>
+  <include src="../../component/movieList/movieList.wxml"/>
+</view> 
+
