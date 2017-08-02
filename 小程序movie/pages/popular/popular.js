@@ -11,6 +11,7 @@ Page({
         bannerList: config.bannerList
     },
     onLoad : function(){
+        // 页面加载,数据渲染在这里执行
         var that = this
         console.log('onload')
         // 顶部的加载动画
@@ -24,8 +25,19 @@ Page({
             })
             // douban.fetchFilm这个函数是doubar这个对象的,第三个参数count是默认的config.count
             // 之所以要使用call是因为函数用了this,需要在这个实例使用setData
+            // 第一次使用的start是0,往后的start是页面的的数据长度
+            // 同时films这个数据要使用concat方法加入新加载出来的数据
             douban.fetchFilms.call(that, config.apiList.popular, that.data.start)
         })
+        
+    },
+    onShow : function(){
+        // 页面显示,只会执行第一次
+        console.log('onshow')
+    },
+    onReady : function(){
+        // 页面渲染完成,只会执行第一次
+        console.log('onready')
     },
     onPullDownRefresh : function(){
         // 下拉刷新
@@ -34,5 +46,15 @@ Page({
     pullUpLoad: function( e ) {
         console.log('上拉')
     },
+    onReachBottom : function(){
+        var that = this
+        douban.fetchFilms.call(that, config.apiList.popular, that.data.start)
+    },
+    viewFilmDetail : function(e){
+        var data = e.currentTarget.dataset;
+        wx.navigateTo({
+            url: "../filmDetail/filmDetail?id=" + data.id + '&' +　'type=4'
+        })
+    }
 
 })

@@ -5,8 +5,10 @@
 <block wx:else>
     <view class="film">
             <block wx:for="{{films}}" wx:key="key">
-                <view class="film-cover">
-                    <image src="{{item.images.large}}" class="film-cover-img"></image>
+                <view data-id="{{item.id}}" class="film-item" catchtap="viewFilmDetail">
+                    <view class="film-cover">
+                        <image src="{{item.images.large}}" class="film-cover-img"></image>
+                    </view>
                 </view>
             </block>
     </view>

@@ -18,15 +18,17 @@ function fetchFilms(url, start, count, cb, fail_cb) {
         "Content-Type": "application/json,application/json"
       },
       success: function(res){
+        // 如果某一次拿到的数据长度是0,说明到顶了
         if(res.data.subjects.length === 0){
           that.setData({
             hasMore: false,
           })
         }else{
+            // 更新数据层,
           that.setData({
             // 合并
             films: that.data.films.concat(res.data.subjects),
-            // 下拉所以使用这个
+            // start是页面上的数据长度
             start: that.data.start + res.data.subjects.length,
             showLoading: false
           })
@@ -62,6 +64,7 @@ function fetchFilmDetail(url, id, cb) {
       "Content-Type": "application/json,application/json"
     },
     success: function(res){
+      // 更新初始化的数据层
       that.setData({
         filmDetail: res.data,
         showLoading: false,
