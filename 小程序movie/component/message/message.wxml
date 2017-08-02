@@ -1,0 +1,9 @@
+<!--template接受data传参-->
+<template name="message">
+    <view class="message-area" hidden="{{message.visiable ? false : true}}">
+        <view class="message">
+            <view class="message-icon message-icon-{{message.icon}}"></view>
+            <view class="message-content">{{message.content}}</view>
+        </view>
+    </view>
+</template>

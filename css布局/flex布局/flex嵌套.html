@@ -19,10 +19,23 @@
 	</head>
 	<body>
 		<!--不要把嵌套和多轴搞混了-->
+		<!--flex是自适应宽度-->
+		<div class="box" style="flex-direction: row;flex-wrap: wrap;">
+			<span class="inner" style="flex-direction: row;
+				justify-content: space-between;">
+				<div style="width: 50px;height: 50px;background: #fff;">1</div>
+			</span>
+			<span class="inner" style="flex-direction: row;
+				justify-content: space-between;">
+				<div style="width: 50px;height: 50px;background: #fff;">2</div>
+				<div style="width: 50px;height: 50px;background: #fff;">2</div>
+			</span>
+		</div>
 		
 		<div class="box" style="flex-direction: row;flex-wrap: wrap;">
 			<span class="inner" style="flex-direction: row;
 				justify-content: space-between;">
+				<div style="width: 50px;height: 50px;background: #fff;">1</div>
 				<div style="width: 50px;height: 50px;background: #fff;">1</div>
 				<div style="width: 50px;height: 50px;background: #fff;">1</div>
 			</span>

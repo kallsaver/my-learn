@@ -35,17 +35,17 @@
 .box7 {
   width: 100px;
   height: 10px;
-  background: #ff0000;
+  background: red;
   border: 10px solid red;
 }
 .box8 {
   border: 10px solid red;
 }
 .x-blue {
-  case-2: #00008b;
+  case-2: darkblue;
 }
 .x-green {
-  default-color: #008000;
+  default-color: green;
 }
 .x-foo {
   case-1: I am 'foo';

@@ -9,7 +9,7 @@
   </view>
   <block wx:for="{{productList}}" wx:key="key">
     <text>{{item.name}}:{{index}}</text>
-    <text>{{item.name}}</text>
+    <text bindtap="changeProduct" data-name="{{item.name}}" data-father="{{productList}}">{{item.name}}</text>
   </block>
   <import src="../../component/flimList/filmList.wxml"/>
   <template is="msgItem1" data="{{...item}}"/>

@@ -1,0 +1,14 @@
+<template name="filmList">
+<block wx:if="{{showLoading}}">
+    <view class="loading">玩命加载中</view>      
+</block>
+<block wx:else>
+    <view class="film">
+            <block wx:for="{{films}}" wx:key="key">
+                <view class="film-cover">
+                    <image src="{{item.images.large}}" class="film-cover-img"></image>
+                </view>
+            </block>
+    </view>
+</block>
+</template>

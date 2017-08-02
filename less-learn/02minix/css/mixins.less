@@ -1,3 +1,18 @@
+.title(){
+    background : ~'red'  ;
+    .a(){
+      ~'@import aa.wxss';  
+    } 
+}
+
+body{
+    .title; 
+}
+  
+
+
+
+
 //这种注释不会输出到css文件中
 /*这种可以输出到css文件中*/
 div{text-align: center;line-height: 100px;font-size: 30px;}
@@ -108,3 +123,5 @@ div{text-align: center;line-height: 100px;font-size: 30px;}
 .newdiv{
     .mixind(@padding:20px);
 }
+
+

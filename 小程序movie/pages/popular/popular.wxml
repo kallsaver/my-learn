@@ -1,6 +1,9 @@
 <block wx:if="{{!showLoading}}">
-    1
-    <view class="search-bar">
-
-    </view>
+<view class="search-bar">
+    <input class="search-txt" placeholder="请输入关键词搜索" type="text" 
+              
+    />
+</view>
 </block>
+<import src="../../component/filmList/filmList.wxml"/>
+<template is="filmList" data="{{films: films, hasMore: hasMore, showLoading: showLoading}}"/>

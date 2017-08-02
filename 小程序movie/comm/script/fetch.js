@@ -24,7 +24,9 @@ function fetchFilms(url, start, count, cb, fail_cb) {
           })
         }else{
           that.setData({
+            // 合并
             films: that.data.films.concat(res.data.subjects),
+            // 下拉所以使用这个
             start: that.data.start + res.data.subjects.length,
             showLoading: false
           })
@@ -167,6 +169,8 @@ function search(url, keyword, start, count, cb){
     })
   }
 }
+
+// 输出
 module.exports = {
   fetchFilms: fetchFilms,
   fetchFilmDetail: fetchFilmDetail,

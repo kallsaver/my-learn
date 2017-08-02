@@ -1,3 +1,7 @@
+body {
+  background: red;
+  a: @import aa.wxss;
+}
 /*这种可以输出到css文件中*/
 div {
   text-align: center;
@@ -26,38 +30,38 @@ div {
   background: khaki;
 }
 .box3 {
-  border: 2px solid #ff00ff;
+  border: 2px solid fuchsia;
   width: 100px;
   height: 100px;
 }
 .box4 {
-  background: #cd853f;
+  background: peru;
   width: 100px;
   height: 100px;
 }
 .box5 {
-  background: #ffd700;
+  background: gold;
   width: 100px;
   height: 100px;
 }
 .box6 {
-  background: #008080;
+  background: teal;
   width: 100px;
   height: 100px;
 }
 .box7 {
-  background: #0000ff;
+  background: blue;
   width: 200px;
   height: 100px;
 }
 .box8 {
-  background-image: linear-gradient(45deg, #ff0000 10%, #ffd700);
+  background-image: linear-gradient(45deg, red 10%, gold);
   width: 200px;
   height: 200px;
   line-height: 200px;
 }
 .box9 {
-  background-image: linear-gradient(45deg, #cd853f 10%, #ffd700);
+  background-image: linear-gradient(45deg, peru 10%, gold);
   width: 100px;
   height: 100px;
   line-height: 100px;
@@ -80,7 +84,7 @@ div {
   line-height: 100px;
 }
 .box13 {
-  border: 10px solid #ff0000;
+  border: 10px solid red;
   width: 100px;
   height: 100px;
 }
@@ -92,14 +96,14 @@ div {
   font-size: 20px;
 }
 .box15 {
-  background: #ff0000;
+  background: red;
   line-height: 150px;
   width: 150px;
   height: 150px;
   font-size: 50px;
 }
 .newdiv {
-  color: #ff0000;
+  color: red;
   padding: 20px;
   margin: 3px;
 }

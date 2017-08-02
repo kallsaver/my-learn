@@ -69,11 +69,14 @@
 			<div style="width:50px;height: 50px;background: darkcyan;">5</div>
 		</div>
 		
+		<!--align-self很实用,方便单独调整元素在所在轴的位置,重写align-items但不改变整体轴的轴线-->
+		<!--align-self:center 元素对齐轴线--><!--align-self:flex-start 元素贴近轴顶部-->
+		<!--常用于个别元素在轴上的错位处理-->
 		<div class="box" style="flex-direction: row-reverse;flex-wrap: wrap;justify-content: space-between;">
 			<div style="width:50px;height: 50px;background: gold;">1</div>
 			<div style="width:50px;height: 50px;background: peru;">2</div>
 			<div style="width:50px;height: 50px;background: darkgreen;">3</div>
-			<div style="width:50px;height: 50px;background: fuchsia;align-self: flex-end;">4</div>
+			<div style="width:50px;height: 50px;background: fuchsia;">4</div>
 			<div style="width:50px;height: 50px;background: darkcyan;align-self: flex-end;">5</div>
 		</div>
 		
