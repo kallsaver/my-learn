@@ -31,7 +31,7 @@
 		<!--如果是多轴,align-items管理轴上的元素对齐-->
 		<!--例如align-items:center可以使得单轴垂直居中,多轴等同于align-content:space-around+align-items:center(元素对齐轴线)-->
 		<!--例如align-items:flex-end可以使单轴在右边,如果是column就是下边-->			
-		<!--justify-content是管理多轴在父盒子的布局,即轴和轴之间的空隙--> 
+		<!--align-content是管理多轴在父盒子的布局,即轴和轴之间的空隙--> 
 		
 		<!--默认每条轴以子元素的顶部对齐-->
 		<div class="txt1"></div>
@@ -62,6 +62,7 @@
 		
 		<!--align-items:center使得每个轴的上的元素高度中心对齐,
 		并且所有的轴(整体)在父盒子上也居中,由每条轴中最高的元素决定了空隙值-->
+		<!--如果有margin-top,先居中再算margin-top-->
 		<div class="box" style="flex-direction: row;flex-wrap: wrap;align-items: center;">  
 			<div style="width:50px;height: 50px;margin-right: 20px;background: gold;">1</div>
 			<div style="width:50px;height: 80px;margin-right: 20px;background: peru;">2</div>
@@ -311,4 +312,21 @@
 		</div>
 		
 	</body>
+	<script>
+		
+		var obj = {
+			name : 'a',
+			id : 1,
+			title : '哈哈哈'
+		}
+		
+		for(var key in obj){
+			console.log(key)
+			if(key === 'id'){
+				console.log(obj[key])
+				break;
+			}
+		}
+		
+	</script>
 </html>

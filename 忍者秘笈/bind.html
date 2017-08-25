@@ -91,5 +91,13 @@
 		func(3,4)
 		
 		//bind的强大之处是不用函数体运行也能把外部的参数传入,永久绑定this,预定参数
+		
+		// 要永久绑定一个参数,要在申明的时候绑定,申明之后使用bind相当于普通的传参
+		var dd = function(a,b,c,d,e,f){
+			console.log(a,b,c,d,e,f)
+		}
+		
+		dd.bind(obj,1)(2,3,4,5,6)
+		dd(11,12,13,14,15)
 	</script>
 </html>

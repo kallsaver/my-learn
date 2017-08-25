@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			ul{
+				position: relative;
+				width:630px;height:210px;
+			}
+			li{
+				list-style: none;position: absolute;
+				width:100%;height: 100%;
+				background-size: cover;
+				transition: opacity 3s;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="item in imgList" v-on:click="fade(item)"
+					v-bind:style="{ 
+						'background-image': 'url(images/'+item.src+')',
+						'z-index' : item.zIndex,
+						
+					}">
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script>
+		
+		
+		new Vue({
+			el : '#app',
+			data : {
+				mostIndex : 10,
+				imgList : [
+					{ src : 'pic_01.jpg', zIndex : 3 },
+					{ src : 'pic_02.jpg', zIndex : 2 },
+					{ src : 'pic_03.jpg', zIndex : 1 },
+				]
+			},
+			methods : {
+				fade : function(item){
+					var vm = this
+					console.log(vm.imgList)
+				}
+			}
+		})
+
+		
+		
+	</script>
+</html>
