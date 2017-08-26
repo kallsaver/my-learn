@@ -4,29 +4,58 @@
 		<meta charset="utf-8">
 		<title></title>
 		<style type="text/css">
-			ul{
-				position: relative;
-				width:630px;height:210px;
-			}
+			*{margin:0;padding: 0;box-sizing: border-box;}
 			li{
-				list-style: none;position: absolute;
+				list-style: none;
+			}
+			.banner{
+				position: relative;
+				margin: 50px auto;
+				height:210px;width:630px;
+				text-align: center;
+			}
+			ul.pic-ul{
+				position: absolute;
+				width:100%;height: 100%;
+			}
+			li.pic-li{
+				position: absolute;
 				width:100%;height: 100%;
 				background-size: cover;
 				transition: opacity 3s;
+			}
+			ul.round-ul{
+				display: inline-block;
+				margin-top:180px;
+			}
+			li.round-li{
+				border-radius: 50%;position: relative;
+				width:15px;height: 15px;margin:0 10px;
+				background: #fff;z-index: 30;
+				float: left;
+			}
+			.current{
+				background: peru!important;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="app">
-			<ul>
-				<li v-for="item in imgList" v-on:click="fade(item)"
-					v-bind:style="{ 
-						'background-image': 'url(images/'+item.src+')',
-						'z-index' : item.zIndex,
-						
-					}">
-				</li>
-			</ul>
+			<div class="banner">
+				<ul class="pic-ul">
+					<li class="pic-li" v-for="item in imgList" 
+						v-bind:style="{ 
+							'background-image': 'url(images/'+item.src+')',
+							'z-index' : item.zIndex,
+							'opacity' : item.opacity
+						}">
+					</li>
+				</ul>
+				<ul class="round-ul">
+					<li class="round-li" v-for="(item,index) in imgList" v-bind:class="item.class" v-on:click="fade(item,index)"></li>
+				</ul>
+			</div>
+			
 		</div>
 	</body>
 	<script src="js/vue2.0.js"></script>
@@ -38,20 +67,63 @@
 			data : {
 				mostIndex : 10,
 				imgList : [
-					{ src : 'pic_01.jpg', zIndex : 3 },
-					{ src : 'pic_02.jpg', zIndex : 2 },
-					{ src : 'pic_03.jpg', zIndex : 1 },
-				]
+					{ src : 'pic_01.jpg', zIndex : 0 , opacity : 1,class : ''},
+					{ src : 'pic_02.jpg', zIndex : 0 , opacity : 1,class : ''},
+					{ src : 'pic_03.jpg', zIndex : 0 , opacity : 1,class : ''},
+					{ src : 'pic_04.jpg', zIndex : 0 , opacity : 1,class : ''},
+				],
+				nowIndex : 0,
+				lastIndex : 0,
+				cycleTimer : null
+				
+			},
+			mounted : function(){
+				var vm = this
+				
+				// init
+				vm.lastIndex = vm.nowIndex === 0 ? vm.imgList.length - 1 : vm.nowIndex - 1;
+				for(var i = 0; i < vm.imgList.length; i++){
+					vm.imgList[i]['zIndex'] = vm.imgList.length - i
+				}
+				vm.imgList[0]['class'] = 'current';
+ 				vm.fade();
+				
 			},
 			methods : {
-				fade : function(item){
+				banner : function(){
 					var vm = this
-					console.log(vm.imgList)
+					if( vm.nowIndex > vm.imgList.length - 1){
+						vm.nowIndex = 0;
+					}
+					vm.lastIndex = vm.nowIndex === 0 ? vm.imgList.length - 1 : vm.nowIndex - 1;
+					vm.imgList[vm.lastIndex]['zIndex'] = 0
+					//vm.imgList[vm.nowIndex]['opacity'] = 0;
+					for(var i = 0;i < vm.imgList.length ; i++){
+						vm.imgList[i]['class'] = '';
+						vm.imgList[i]['zIndex']++;
+					}
+					
+					vm.imgList[vm.nowIndex]['class'] = 'current';
+					//vm.imgList[vm.nowIndex]['opacity'] = 1;
+					vm.nowIndex++;
+				},
+				fade : function(item,index){
+					var vm = this
+					if(item){
+						vm.banner();
+					}
+					
+					clearInterval(vm.cycleTimer)
+					
+					vm.cycleTimer = setInterval(function(){
+						
+						vm.banner()
+						
+					},3000)
 				}
 			}
 		})
 
-		
 		
 	</script>
 </html>
