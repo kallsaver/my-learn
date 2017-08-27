@@ -31,7 +31,7 @@
 			li.round-li{
 				border-radius: 50%;position: relative;
 				width:15px;height: 15px;margin:0 10px;
-				background: #fff;z-index: 30;
+				background: #fff;
 				float: left;
 			}
 			.current{
@@ -44,15 +44,14 @@
 			<div class="banner">
 				<ul class="pic-ul">
 					<li class="pic-li" v-for="item in imgList" 
-						v-bind:style="{ 
-							'background-image': 'url(images/'+item.src+')',
-							'z-index' : item.zIndex,
-							'opacity' : item.opacity
-						}">
+						v-bind:style="item.style">
 					</li>
 				</ul>
 				<ul class="round-ul">
-					<li class="round-li" v-for="(item,index) in imgList" v-bind:class="item.class" v-on:click="fade(item,index)"></li>
+					<li class="round-li" v-for="(item,index) in imgList" 
+						v-bind:style="{'z-index':imgList.length+10}"
+						v-bind:class="item.class" v-on:click="fade(item,index)"
+					></li>
 				</ul>
 			</div>
 			
@@ -65,61 +64,75 @@
 		new Vue({
 			el : '#app',
 			data : {
-				mostIndex : 10,
 				imgList : [
-					{ src : 'pic_01.jpg', zIndex : 0 , opacity : 1,class : ''},
-					{ src : 'pic_02.jpg', zIndex : 0 , opacity : 1,class : ''},
-					{ src : 'pic_03.jpg', zIndex : 0 , opacity : 1,class : ''},
-					{ src : 'pic_04.jpg', zIndex : 0 , opacity : 1,class : ''},
+					{ style : {'background-image' : 'url(images/pic_01.jpg)', 'z-index' : 0 , 'opacity' : 1},
+					  class : '',
+					},
+					{ style : {'background-image' : 'url(images/pic_02.jpg)', 'z-index' : 0 , 'opacity' : 1},
+					  class : ''
+					},
+					{ style : {'background-image' : 'url(images/pic_03.jpg)', 'z-index' : 0 , 'opacity' : 1},
+					  class : ''
+					},
+					{ style : {'background-image' : 'url(images/pic_04.jpg)', 'z-index' : 0 , 'opacity' : 1},
+					  class : ''
+					},
 				],
 				nowIndex : 0,
 				lastIndex : 0,
-				cycleTimer : null
-				
+				cycleTimer : null,
+				fastTimer : null,
+				animateTime : 3000,
 			},
 			mounted : function(){
-				var vm = this
-				
-				// init
+				var vm = this;
+				// initStyle
 				vm.lastIndex = vm.nowIndex === 0 ? vm.imgList.length - 1 : vm.nowIndex - 1;
 				for(var i = 0; i < vm.imgList.length; i++){
-					vm.imgList[i]['zIndex'] = vm.imgList.length - i
+					vm.imgList[i]['style']['z-index'] = vm.imgList.length - i - 1;
 				}
 				vm.imgList[0]['class'] = 'current';
  				vm.fade();
-				
 			},
 			methods : {
 				banner : function(){
-					var vm = this
+					var vm = this;
+					// 第一次的setInterval的nowIndex应该是1,lastIndex是0
+					vm.nowIndex++;
 					if( vm.nowIndex > vm.imgList.length - 1){
 						vm.nowIndex = 0;
 					}
 					vm.lastIndex = vm.nowIndex === 0 ? vm.imgList.length - 1 : vm.nowIndex - 1;
-					vm.imgList[vm.lastIndex]['zIndex'] = 0
-					//vm.imgList[vm.nowIndex]['opacity'] = 0;
+					vm.imgList[vm.lastIndex]['style']['z-index'] = 0;
+					vm.imgList[vm.nowIndex]['opacity'] = 0;
 					for(var i = 0;i < vm.imgList.length ; i++){
 						vm.imgList[i]['class'] = '';
-						vm.imgList[i]['zIndex']++;
+						vm.imgList[i]['style']['z-index']++;
 					}
 					
 					vm.imgList[vm.nowIndex]['class'] = 'current';
-					//vm.imgList[vm.nowIndex]['opacity'] = 1;
-					vm.nowIndex++;
+					vm.imgList[vm.nowIndex]['opacity'] = 1;
 				},
-				fade : function(item,index){
-					var vm = this
-					if(item){
-						vm.banner();
+				fade : function(item,redirctIndex){
+					var vm = this;
+					clearInterval(vm.cycleTimer);
+					if(redirctIndex!==undefined){
+						vm.fastTimer = setInterval(function(){
+							if( redirctIndex === vm.nowIndex ){
+								// clearInterval the timer cant stop this time but can stop the next time , so we should use return
+								clearInterval(vm.fastTimer);
+								return vm.cycleTimer = setInterval(function(){
+									vm.banner();
+								},vm.animateTime)
+							}
+							vm.banner();
+						},0)
 					}
-					
-					clearInterval(vm.cycleTimer)
-					
-					vm.cycleTimer = setInterval(function(){
-						
-						vm.banner()
-						
-					},3000)
+					else{
+						vm.cycleTimer = setInterval(function(){
+							vm.banner();
+						},vm.animateTime)	
+					}
 				}
 			}
 		})
