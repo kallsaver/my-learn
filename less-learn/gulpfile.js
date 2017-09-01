@@ -1,5 +1,4 @@
 var gulp        = require('gulp');
-var browserSync = require('browser-sync').create();
 var less        = require('gulp-less');
 var plumber     = require('gulp-plumber');
 var webserver   = require('gulp-webserver');
@@ -9,9 +8,12 @@ gulp.task('serve', ['less'], function() {
 	
 	gulp.src('./')
     .pipe(webserver({
-      livereload: true,
-      directoryListing: true,
-      open: true
+      livereload : true,
+      directoryListing : true,
+      port : 8888,
+      //host : 'dev.daishutijian.com',
+      //path : '使用less开发的好处.txt',
+      open : true,
     }));
 
     gulp.watch( '**/css/*.less', ['less']);
