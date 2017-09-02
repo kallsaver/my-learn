@@ -138,21 +138,26 @@
 
 
 
-    //嵌套的箭头函数
-    //ES的多重嵌套函数
+    // 嵌套的箭头函数
+    // ES的多重嵌套函数
+    // 把2插入[1,3]这个数组中,变成[1,2,3]
     function insert(value) {
-      return {into: function (array) {
-          return {after: function (afterValue) {
-            //+1在afterValue的索引的后面插入,不+1会在afterValue前面插入
-            array.splice(array.indexOf(afterValue) + 1, 0, value);
-            return array;
-          }};
-        }};
-      }
+      return {
+      	into: function (array) {
+          return {
+          	after: function (afterValue) {
+            	// +1在afterValue的索引的后面插入,不+1会在afterValue前面插入
+            	array.splice(array.indexOf(afterValue) + 1, 0, value);
+            	return array;
+          	}
+          };
+        }
+      };
+    }
 
     console.log(insert(2).into([1,3]).after(1));     //[1,2,3]
 
-    //箭头函数改写:
+    // 箭头函数改写:
     let insert1 = (value) => ({into:(array)=>({after:(afterValue)=>{
       array.splice(array.indexOf(afterValue) + 1, 0, value);
       return array;
