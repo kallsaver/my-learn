@@ -27,7 +27,7 @@
 	<body>
 		<div id="app">
 			<ul>
-				<li v-for="(item,index) in product" v-text="index+1"></li>
+				<li v-for="(item,index) in product" v-text="item.name"></li>
 			</ul>
 			<p v-text="valid.name"></p>
 			<p v-text="valid.tel"></p>
@@ -40,6 +40,8 @@
 				<span v-on:click="clearArrayByLength()">clearArrayByLength</span>
 				<span v-on:click="clearArrayBySetLength()">clearArrayBySetLength</span>
 				<span v-on:click="clearArrayBySplice()">clearArrayBySplice</span>
+				<span v-on:click="changeArrayItemProperty()">changeArrayItemProperty</span>
+				<span v-on:click="changeArrayItem()">changeArrayItem</span>
 			</div>
 		</div>
 	</body>
@@ -61,11 +63,12 @@
 			methods : {
 				addProperty : function(){
 					var vm = this;
+					// 如果在实例创建之后添加新的属性到实例上的数据后,它不会触发视图更新
 					vm.valid.tel = 'addProperty';
 				},
 				changeValidProperty : function(){
 					var vm = this;
-					// 如果在实例创建之后添加新的属性到实例上的数据后,它不会触发视图更新
+					// 已有属性改变，触发视图更新
 					vm.valid.name = 'bbb';
 				},
 				setProperty : function(){
@@ -91,6 +94,14 @@
 				clearArrayBySplice : function(){
 					var vm = this;
 					vm.product.splice(0,vm.product.length);
+				},
+				changeArrayItemProperty : function(){
+					var vm = this;
+					vm.product[0].name = 'vue大法好';
+				},
+				changeArrayItem : function(){
+					var vm = this;
+					vm.product[0] = { name : '通过索引修改数组元素'}
 				}
 			},
 			updated : function(){

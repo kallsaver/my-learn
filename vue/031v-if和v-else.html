@@ -24,6 +24,17 @@
 				<p v-if=" num === 5 ">div2p1</p>
 				<p v-else>div2p2</p>
 			</div>
+			
+			<!--v-show同样可以配合v-else使用-->
+			<div v-show=" num === 5 ">
+				<p v-if=" num === 4 ">div1p1</p>
+				<p v-else>div1p2</p>
+			</div>
+			<div v-else>
+				<p v-if=" num === 5 ">div2p1</p>
+				<p v-else>div2p2</p>
+			</div>
+			
 		</div>
 	</body>
 	<script src="js/vue2.0.js"></script>
