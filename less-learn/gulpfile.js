@@ -12,7 +12,6 @@ gulp.task('serve', ['less'], function() {
       directoryListing : true,
       port : 8888,
       //host : 'dev.daishutijian.com',
-      //path : '使用less开发的好处.txt',
       open : true,
     }));
 

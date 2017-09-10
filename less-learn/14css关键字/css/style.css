@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+/* ie浏览器都是不支持@supports的*/
+.box {
+  width: 200px ;
+  height: 200px;
+  background: peru;
+}
+/*如果浏览器支持border-radius则执行这段代码*/
+@supports ( border-radius : 40px ) {
+  .box {
+    width: 800px ;
+    height: 200px;
+    background: chartreuse;
+  }
+}
+/*如果浏览器不支持border-radius则执行这段代码(ie除外)*/
+@supports not ( border-radius : 40px ) {
+  .box {
+    width: 800px ;
+    height: 200px;
+    background: blueviolet;
+  }
+}

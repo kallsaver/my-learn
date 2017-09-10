@@ -1,7 +1,3 @@
-body {
-  background: red;
-  a: @import aa.wxss;
-}
 /*这种可以输出到css文件中*/
 div {
   text-align: center;
