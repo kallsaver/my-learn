@@ -27,19 +27,22 @@ window.onload=function(){
 		
 		//box.offsetHeight要算上box的边框线的
 		//alert(box.offsetHeight)
-		
+		console.log(event.target)
 		
 		document.onmousemove=function(ev){
+			console.log(4)
 			ev=ev||event;
 			scroll.style.top=ev.clientY-disY-box.offsetTop+"px";
 			//设定滚动条的移动范围-------------------
 			if(ev.clientY-disY<box.offsetTop){
 				scroll.style.top=0+"px";
+				return;
 			}
 			
 			//条件句左边是变化的,右边是常量
 			if(ev.clientY-box.offsetTop-1-disY>box.offsetHeight-2-scroll.offsetHeight){
 				scroll.style.top=box.offsetHeight-scroll.offsetHeight-2+"px";
+				return;
 			}
 			
 			//------------------------------------

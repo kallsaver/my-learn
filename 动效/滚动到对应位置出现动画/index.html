@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/animate.min.css">
+    <style>
+        *{margin:0;padding:0}
+        div{
+            height: 100px;background:gold;
+            margin-bottom: 100px;
+        }
+        li{
+            list-style: none;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both
+        }
+        ul{
+            width:1000px;margin:0 auto;
+        }
+        ul li{
+            width: 490px;margin-top: 10px;
+        }
+        ul li:nth-child(odd){
+            float: left;
+        }
+        ul li:nth-child(even){
+            float: right;
+        }
+        ul li img{
+            width: 100%;
+        }
+        ul::after {
+            clear:both;content:'.';
+            display:block;width: 0;height: 0;visibility:hidden;}
+
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <ul>
+        <li>
+            <img src="img/a1.png" />
+        </li>
+        <li>
+            <img src="img/a2.png" />
+        </li>
+        <li>
+            <img src="img/a3.png" />
+        </li>
+        <li>
+            <img src="img/a4.png" />
+        </li>
+        <li>
+            <img src="img/a1.png" />
+        </li>
+        <li>
+            <img src="img/a2.png" />
+        </li>
+    </ul>
+</body>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script>
+
+    function test(){
+        $(window).scroll(function(){
+            // 视图的顶部到body顶部的距离
+            console.log( 'scrollTop',$(window).scrollTop() )
+            // 视图的高度
+            console.log( $(window).height()  )
+            // li元素出现在视图底部的时候触发回调函数
+            if( $('li').offset().top - $(window).scrollTop() < $(window).height() ){
+                console.log('触发')
+            }
+        })
+    }
+    
+
+    var aniList = [
+        "bounceInLeft",
+        "bounceInRight",
+        "fadeInDownBig",
+        "fadeInDownBig",
+        "bounceInUp",
+        "bounceInUp",
+        "rotateInDownLeft",
+        "rotateInDownRight",
+        "zoomInLeft",
+        "zoomInRight",
+        "bounceInUp",
+        "bounceInUp",
+    ]
+
+    $(window).scroll(function(){
+
+        $('li').each(function(index){
+
+            $(this).data('ani',aniList[index]);
+
+            if( $(this).offset().top -  $(window).scrollTop() < $(window).height() ){
+                console.log( $(this).data('ani') )
+                $(this).addClass( $(this).data('ani') )
+            }
+        })
+
+    })
+
+    
+
+
+    
+   
+
+</script>
+</html>

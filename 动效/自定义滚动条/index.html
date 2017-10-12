@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding:0;box-sizing: border-box;}
+			.scroll-box{
+				margin:0 auto;margin-top:200px;
+				position: relative;
+				width:200px;height:200px;
+				border:1px solid #666;
+				/*overflow: hidden;*/
+			}
+			.right-scroll{
+				width:5px;height:150px;
+				position: absolute;right:0px;
+				background:khaki;top:0px;
+				z-index: 10;border-radius: 5px;
+			}
+			.scroll-content{
+				position: absolute;display: block;
+				height: auto;
+				resize: none;outline: none;
+				border:none;line-height: 24px;
+				color: #666;font-size:14px;
+				padding:10px;width:100%;
+				height: auto;word-break: break-word;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div class="scroll-box">
+			<div class="right-scroll"></div>
+			<p contenteditable="true" class="scroll-content">树叶翩翩飞舞被寒风吹落在远处的那条街那拉长的身影 和道旁的银杏盼着见证 四季的更迭大声呼喊 却听不见回应枯黄的树叶翩翩飞舞被寒风吹落在远处的那条街那拉长的身影 和道旁的银杏盼着见证 四季的更迭大声呼喊 却听不见回应枯黄的树叶翩翩飞舞被寒风吹落在远处的那条街那拉长的身影 和道旁的银杏盼着见证 四季的更迭大声呼喊 却听不见回应</p>
+		</div>
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script src="js/jquery.mousewheel.js"></script>
+	<script>
+		
+		$('.right-scroll').on('mousedown',function(event,wheelSpeed,delta){
+			var scroll = $(this);
+			var scrollBox = scroll.closest('.scroll-box');
+			var scrollContent = scrollBox.find('.scroll-content');
+			var borderTopWidth = scrollBox.css('borderTopWidth').replace(/px/g,'') - 0;
+			var borderBottomWidth = scrollBox.css('borderBottomWidth').replace(/px/g,'') - 0;
+			var scrollBoxTop = scrollBox.offset().top;
+			console.log()
+			// 鼠标在滚动条的位置
+			var mousedownY = wheelSpeed ? 0 : event.clientY - scroll.position().top - scrollBoxTop ;
+			console.log('mousedownY',mousedownY)		
+			$(document).on('mousemove',function(event){
+				console.log(9)
+				var target = $(event.target);
+				if( target.closest('.scroll-box').length === 0 ){
+					return
+				}
+				scroll.css({
+					top : event.clientY - mousedownY - scrollBox.offset().top
+				})
+				
+				
+				// 设置滚动条的移动范围
+				var distance = scrollBox.height() - borderTopWidth - borderBottomWidth - scroll.height();
+				if(event.clientY - mousedownY < scrollBoxTop ){
+					scroll.css({top:0})
+					return;
+				}
+				else if( event.clientY - mousedownY - scrollBox.offset().top > distance ){
+					scroll.css({top:distance})
+					return;
+				}
+				
+				var rate = (scroll.position().top) / ( scrollBox.height() - borderTopWidth - borderBottomWidth - scroll.height());
+				var scrollContentTop = -rate * ( scrollContent.height() - scrollBox.height() + 2*borderTopWidth);
+				scrollContent.css({top:scrollContentTop})
+			});
+			
+			
+			$(document).on('mouseup',function(){
+				$(document).unbind('mousemove')
+			})
+			
+			if(wheelSpeed){
+				setTimeout(function(){
+					$(document).trigger('mouseup')
+				},0)
+			}
+			
+			return false
+		})
+		
+		
+		$('.scroll-box').on('mousewheel',function(event,delta, deltaX, deltaY){
+			console.log('delta',delta)
+			var wheelSpeed = 10;
+			$(scroll).trigger('mousedown',[wheelSpeed,delta])
+		})
+		
+		
+		
+		// textarea自动增高
+        function makeExpandingArea(el) {
+        	//console.log(el.scrollHeight)
+            var setStyle = function(el) {
+                el.style.height = 'auto';
+                el.style.height = el.scrollHeight + 'px';
+                // console.log(el.scrollHeight);
+            }
+            var delayedResize = function(el) {
+                window.setTimeout(function() {
+                    setStyle(el)
+                },0);
+            }
+            if (el.addEventListener) {
+                el.addEventListener('input',function() {
+                	console.log(el.offsetHeight)
+                    setStyle(el)
+                },false);
+                setStyle(el)
+            } else if (el.attachEvent) {
+                el.attachEvent('onpropertychange',function() {
+                	
+                    setStyle(el)
+                });
+                setStyle(el)
+            }
+            if (window.VBArray && window.addEventListener) { //IE9
+                el.attachEvent("onkeydown",function() {
+                    var key = window.event.keyCode;
+                    if (key == 8 || key == 46) delayedResize(el);
+
+                });
+                el.attachEvent("oncut",function() {
+                    delayedResize(el);
+                }); //处理粘贴
+            }
+        }
+        //makeExpandingArea( scrollContent );
+
+
+	</script>
+</html>
