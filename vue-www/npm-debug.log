@@ -1,26 +1,46 @@
 0 info it worked if it ends with ok
+<<<<<<< HEAD
 1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
 1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
 1 verbose cli   'run',
 1 verbose cli   'dev' ]
 2 info using npm@3.10.10
 3 info using node@v6.9.4
+=======
+1 verbose cli [ 'C:\\develop\\nodejs\\node.exe',
+1 verbose cli   'C:\\develop\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'run',
+1 verbose cli   'dev' ]
+2 info using npm@3.10.10
+3 info using node@v6.9.5
+>>>>>>> 02ba3b7fc20adff4e91a30e880bc5d93d379ff72
 4 verbose run-script [ 'predev', 'dev', 'postdev' ]
 5 info lifecycle vue-www@1.0.0~predev: vue-www@1.0.0
 6 silly lifecycle vue-www@1.0.0~predev: no script for predev, continuing
 7 info lifecycle vue-www@1.0.0~dev: vue-www@1.0.0
 8 verbose lifecycle vue-www@1.0.0~dev: unsafe-perm in lifecycle true
+<<<<<<< HEAD
 9 verbose lifecycle vue-www@1.0.0~dev: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;F:\my-learn\vue-www\node_modules\.bin;C:\Users\Administrator\bin;D:\Program Files\Git\mingw32\bin;D:\Program Files\Git\usr\local\bin;D:\Program Files\Git\usr\bin;D:\Program Files\Git\usr\bin;D:\Program Files\Git\mingw32\bin;D:\Program Files\Git\usr\bin;C:\Users\Administrator\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;D:\Program Files\svn\bin;D:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Users\Administrator\AppData\Roaming\npm;D:\Program Files\Microsoft VS Code\bin;D:\Program Files\Git\usr\bin\vendor_perl;D:\Program Files\Git\usr\bin\core_perl
+=======
+9 verbose lifecycle vue-www@1.0.0~dev: PATH: C:\develop\nvm\v6.9.5\node_modules\npm\bin\node-gyp-bin;F:\my-learn\vue-www\node_modules\.bin;C:\Users\admin\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\admin\bin;C:\Python27;C:\Python27\Scripts;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Intel\iCLS Client;C:\Program Files\Intel\iCLS Client;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Bitvise SSH Client;C:\Program Files (x86)\Java\jdk1.8.0_112\bin;C:\Program Files (x86)\Java\jdk1.8.0_112\jre\bin;C:\Program Files\Git\cmd;C:\Users\admin\AppData\Local\Microsoft\WindowsApps;C:\Users\admin\AppData\Roaming\npm;C:\Users\admin\AppData\Local\atom\bin;C:\Program Files\TortoiseSVN\bin;C:\Program Files\VisualSVN Server\bin;C:\develop\nvm;C:\develop\nodejs;F:\wamp64\bin\php\php5.6.25;F:\wamp64\bin\php\php5.6.25\ext;D:\Program Files\Microsoft VS Code\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+>>>>>>> 02ba3b7fc20adff4e91a30e880bc5d93d379ff72
 10 verbose lifecycle vue-www@1.0.0~dev: CWD: F:\my-learn\vue-www
 11 silly lifecycle vue-www@1.0.0~dev: Args: [ '/d /s /c', 'node ./build/dev-server.js' ]
 12 silly lifecycle vue-www@1.0.0~dev: Returned: code: 1  signal: null
 13 info lifecycle vue-www@1.0.0~dev: Failed to exec dev script
 14 verbose stack Error: vue-www@1.0.0 dev: `node ./build/dev-server.js`
 14 verbose stack Exit status 1
+<<<<<<< HEAD
 14 verbose stack     at EventEmitter.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:255:16)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at EventEmitter.emit (events.js:191:7)
 14 verbose stack     at ChildProcess.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\spawn.js:40:14)
+=======
+14 verbose stack     at EventEmitter.<anonymous> (C:\develop\nvm\v6.9.5\node_modules\npm\lib\utils\lifecycle.js:255:16)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at EventEmitter.emit (events.js:191:7)
+14 verbose stack     at ChildProcess.<anonymous> (C:\develop\nvm\v6.9.5\node_modules\npm\lib\utils\spawn.js:40:14)
+>>>>>>> 02ba3b7fc20adff4e91a30e880bc5d93d379ff72
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at ChildProcess.emit (events.js:191:7)
 14 verbose stack     at maybeClose (internal/child_process.js:877:16)
@@ -28,8 +48,13 @@
 15 verbose pkgid vue-www@1.0.0
 16 verbose cwd F:\my-learn\vue-www
 17 error Windows_NT 10.0.14393
+<<<<<<< HEAD
 18 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "dev"
 19 error node v6.9.4
+=======
+18 error argv "C:\\develop\\nodejs\\node.exe" "C:\\develop\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "dev"
+19 error node v6.9.5
+>>>>>>> 02ba3b7fc20adff4e91a30e880bc5d93d379ff72
 20 error npm  v3.10.10
 21 error code ELIFECYCLE
 22 error vue-www@1.0.0 dev: `node ./build/dev-server.js`

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <img id="img" src="images/a1.png" />
+</body>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script>
+
+        var img = document.getElementById('img');
+        img.addEventListener('load',function(){
+            console.log('加载图片完成')
+        });
+
+        window.addEventListener('load',function(){
+            console.log('所有资源加载完成')
+        });
+        
+    </script>
+</html>

@@ -9,6 +9,14 @@
 			return {
 				msg : 'hello world!'
 			}
+		},
+		created : function(){
+			console.log(11)
+			var a = 4;
+			console.log(a)
+		},
+		beforeCreate : function(){
+			console.log(7);
 		}
 	}
 </script>
