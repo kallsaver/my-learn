@@ -3,44 +3,6 @@
 <head>
 <meta charset="utf-8">
 <title>无标题文档</title>
-<script>
-window.onload=function(){
-	var aInput=document.getElementsByTagName("input");
-	
-	function placeholder(input,txt){
-		input.className="inactive";
-		input.value=txt;
-		//Input框得到焦点时
-		input.onfocus=function(){
-		//只在value值为原始值才会冲掉 不然会一直冲掉 
-		//注意这里的if判断  ==不是=！！！
-			if(this.value==txt){
-				this.value="";
-				this.className="active";
-			}	
-		}
-	
-		input.onblur=function(){
-		//只有在value值没有
-			if(this.value==""){
-				this.value=txt;
-				this.className="inactive";	
-			}
-		}
-		
-	}
-	
-	
-	placeholder(aInput[0],"请输入你的名字")	
-	placeholder(aInput[1],"请输入你的年龄")	
-	placeholder(aInput[2],"请输入你的工作")	
-	placeholder(aInput[3],"请输入你的城市")	
-	
-}
-
-
-</script>
-
 <style type="text/css">
 .active{color:red;}
 
@@ -49,16 +11,41 @@ window.onload=function(){
 </style>
 
 </head>
-
-
-
-
 <body>
-<input type="text"  id="input1" >
-<input type="text"  id="input2" >
-<input type="text"  id="input3" >
-<input type="text"  id="input4" >
-
-
+	<input type="text"  id="input1" >
+	<input type="text"  id="input2" >
+	<input type="text"  id="input3" >
+	<input type="text"  id="input4" >
 </body>
+<script>
+	window.onload=function(){
+		var aInput=document.getElementsByTagName("input");
+		
+		function placeholder(input,txt){
+			input.className="inactive";
+			input.value=txt;
+			//Input框得到焦点时
+			input.onfocus=function(){
+			//只在value值为原始值才会冲掉 不然会一直冲掉 
+				if(this.value == txt){
+					this.value = "";
+					this.className = "active";
+				}	
+			}
+		
+			input.onblur=function(){
+			//只有在value值没有
+				if(this.value==""){
+					this.value = txt;
+					this.className = "inactive";	
+				}
+			}
+			
+		}
+		placeholder(aInput[0],"请输入你的名字")	
+		placeholder(aInput[1],"请输入你的年龄")	
+		placeholder(aInput[2],"请输入你的工作")	
+		placeholder(aInput[3],"请输入你的城市")	
+	}
+</script>
 </html>

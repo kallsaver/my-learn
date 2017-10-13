@@ -3,6 +3,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<style type="text/css">
+			li{
+				list-style: none;height: 50px;
+				background-color: peru;
+			}
+		</style>
 	</head>
 	<body>
 		<select>
@@ -11,8 +17,14 @@
 			<option>3</option>
 			<option>4</option>
 			<option>5</option>
-			
 		</select>
+		
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
 	</body>
 	<script src="js//jquery-3.1.0.js"></script>
 	<script src='js/angular.min.js'></script>
@@ -52,27 +64,38 @@
 		
 		//只有jq的each在主函数里封装了回调函数return false和return true的处理区别
 		//angular是正常的
-		var arr=[0,1,2,3,4,5]
-		angular.forEach(arr,function(item,index){
-			if(item === 2){
-				return               //相当于for循环中的continue
-			}
-			console.log(item)        //0,1,3,4,5
-		})
-		
-		angular.forEach(arr,function(item,index){
-			if(item === 2){
-				return true          
-			}
-			console.log(item)        //0,1,3,4,5
-		})
-		
-		angular.forEach(arr,function(item,index){
-			if(item === 2){
+//		var arr=[0,1,2,3,4,5]
+//		angular.forEach(arr,function(item,index){
+//			if(item === 2){
+//				return               //相当于for循环中的continue
+//			}
+//			console.log(item)        //0,1,3,4,5
+//		})
+//		
+//		angular.forEach(arr,function(item,index){
+//			if(item === 2){
+//				return true          
+//			}
+//			console.log(item)        //0,1,3,4,5
+//		})
+//		
+//		angular.forEach(arr,function(item,index){
+//			if(item === 2){
+//				return false
+//			}
+//			console.log(item)        //0,1,3,4,5
+//		})
+
+	
+		var num = 0
+		$('li').each(function(){
+			if($(this).html() == 5){
 				return false
 			}
-			console.log(item)        //0,1,3,4,5
+			num++;
+			console.log('执行了' + num + '遍');
 		})
+	
 		
 	</script>
 </html>

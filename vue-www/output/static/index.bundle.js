@@ -46,11 +46,11 @@
 
 	'use strict';
 
-	var _Vue = __webpack_require__(1);
+	var _Vue = __webpack_require__(2);
 
 	var _Vue2 = _interopRequireDefault(_Vue);
 
-	var _favlist = __webpack_require__(3);
+	var _favlist = __webpack_require__(4);
 
 	var _favlist2 = _interopRequireDefault(_favlist);
 
@@ -62,7 +62,8 @@
 	});
 
 /***/ }),
-/* 1 */
+/* 1 */,
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/*!
@@ -10303,10 +10304,10 @@
 	}, 0);
 
 	module.exports = Vue;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 	// shim for using process in browser
@@ -10496,13 +10497,13 @@
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(4)
-	__vue_script__ = __webpack_require__(6)
-	__vue_template__ = __webpack_require__(7)
+	__webpack_require__(5)
+	__vue_script__ = __webpack_require__(7)
+	__vue_template__ = __webpack_require__(8)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -10519,14 +10520,14 @@
 	})()}
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 5 */,
-/* 6 */
+/* 6 */,
+/* 7 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -10574,7 +10575,7 @@
 	// </style>
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 	module.exports = "\n\t<div v-for=\"n in 10\" _v-0d91263a=\"\">div</div>\n\t<div class=\"fav\" _v-0d91263a=\"\"></div>\n";

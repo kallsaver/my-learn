@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div" style="width:50px;height:50px;background:khaki"></div>
+</body>
+<script src="js/jquery-3.1.0.js"></script>
+<script>
+(function($){
+
+    $.event.special.kao = {
+        setup : function(){
+            console.log('setup')
+        },
+        teardown : function(){
+            console.log('teardown')
+        }
+    }
+
+    // $.fn.extend({
+    //     kao : function(fn){
+    //         return fn() ? this.bind('kao',fn) : this.trigger("kao");
+    //     }
+    // })
+
+
+})(jQuery);
+
+</script>
+<script>
+
+    // $('#div').kao(function(){
+    //     console.log('kao')
+    // })
+
+    $('#div').kao(function(){
+        console.log(4)
+    })
+
+</script>
+</html>

@@ -30,6 +30,9 @@ export default {
   }
 }
 </script>
+<script>
+  console.log(77)
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
