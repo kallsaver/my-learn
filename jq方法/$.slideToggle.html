@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin:0;padding:0}
+        li{
+            list-style: none;
+            height:50px;
+            background:crimson; 
+        }
+        li:nth-of-type(2n){
+            background: peru
+        }
+        tr{
+            height:50px;
+            background:crimson; 
+        }
+        tr:nth-of-type(2n){
+            background: peru
+        }
+        td{
+            width:500px;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <ul>
+            <li></li> 
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</body>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script>
+        $('li,tr').each(function(){
+            $(this).on('click',function(){
+                $(this).slideToggle()
+            })
+        })
+    </script>
+</html>
