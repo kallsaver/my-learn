@@ -13,23 +13,26 @@
 	</body>
 	<script>
 		//one只能执行一次,其他规则和bind函数相同
-		$("button").one("click",function(){
-			alert(1)
-		})
-		
-		//on
-		$("#b,#a").on("click",function(event){
-			event.stopPropagation()
-			alert(this.id)
-			//return false;				//return false阻止冒泡和默认事件
-		})
+//		$("button").one("click",function(){
+//			alert(1)
+//		})
+//		
+//		//on
+//		$("#b,#a").on("click",function(event){
+//			event.stopPropagation()
+//			alert(this.id)
+//			//return false;				//return false阻止冒泡和默认事件
+//		})
 		
 		/*$("#b,#a").one("click",function(){
 			alert(this.id);
 			return false
 		})*/
 		
-		
-		
+		var obj = {
+			tel : 45
+		}
+		console.log( obj.hasOwnProperty('name'))
+		console.log( obj.hasOwnProperty('tel'))
 	</script>
 </html>

@@ -52,20 +52,28 @@
 //			console.log('promise的then执行')
 //		})
 
-		var p = new promise.Promise()
 		
-		function run(p){
+		var p = new promise.Promise()
+		function run(){
 			
 			setTimeout(function(){
 				console.log('setTimeout执行');
-				p.done();
+				//p.done();
 			},3000)
 			return p;
 		}
 		
-		run(p).then(function(){
+		var wait = run();
+		
+		var wait = {}
+		
+		wait.then(function(){
 			console.log('then执行')
-		})
+		});
+		
+		setTimeout(function(){
+			p.done();
+		},5000)
 		
 		
 		

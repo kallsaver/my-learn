@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="hidden" id="hidden" style="display: none;" / >
+		<input type="text" id="text" / >
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		$('input').on('focus',function(){
+			console.log(1)
+		});
+		setTimeout(function(){
+			//$('#text').trigger('focus')
+			// 对于display:none和type="hidden"的input是无法通过trigger('focus')触发回调函数的
+			$('#hidden').trigger('focus')
+			// 而triggerHandler
+			$('#hidden').triggerHandler('focus')
+		},1000)
+	</script>
+</html>
