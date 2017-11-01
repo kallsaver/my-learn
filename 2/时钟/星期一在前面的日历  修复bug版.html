@@ -182,7 +182,9 @@ window.onload=function(){
 		  //先放本月的背景图 后面的beforefn 和afterfn无法会冲掉写在前面的样式
 		  Ocaldendar.style.background="url(images/"+(month+1)+".jpg)";
 		  
-		  //把时间拨到下个月的第0天  也就是这个月的最后一天					
+		  //把时间拨到下个月的第0天  也就是这个月的最后一天	
+		  
+		  four.setYear(year)
 		  four.setMonth(month+1,0); 
 		  
 		  //这一天的号码就是这个月的天数  记录这个天数  
@@ -221,10 +223,10 @@ window.onload=function(){
 		 
 		 如果上个月有31天 这个月没31天 那就有bug了 
 		 console.log(b)*/
-		
+		var lastmonthfullday=four.getDate();
 		four.setYear(presentyear,presentmonth,today)	
 		//插入1号前面的上个月的号码
-		 var lastmonthfullday=four.getDate();
+		 
 		 		 
 		  for(var i=0;i<firstday_day-1;i++){
 			  var li=document.createElement("li");
@@ -262,6 +264,8 @@ window.onload=function(){
 		//----------------------------afterfn和beforefn重复部分
 		
 		var title=document.getElementsByTagName("h3")[0];
+		
+		
 		  title.innerHTML=year+"年"+(month+1)+"月";
 		
 		//bug影响的year会再这里产生bug
