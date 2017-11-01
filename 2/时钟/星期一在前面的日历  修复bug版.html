@@ -189,6 +189,9 @@ window.onload=function(){
 		  
 		  //这一天的号码就是这个月的天数  记录这个天数  
 		  var fullday=four.getDate();
+		  // 记录这天的星期
+		  var presentday_date = four.getDay();
+		  console.log(presentday_date)
 		  
 		  //把时间拨到这个月的第一天 求这天的星期号码   four.getDay 0代表星期天 1代表星期一
 		  four.setDate(1);
@@ -212,8 +215,8 @@ window.onload=function(){
 		 
 		 //把时间拨到这个月的第0天 也就是上个月的最后一天  记录这个天数
 
-		 four.setMonth(month,0); 
-		
+		four.setMonth(month,0); 
+		var lastmonthfullday=four.getDate();
 		//这里系统不会产生bug 当month=0 拨到0天 自动11  年份也自动减1	
 		/*var b=four.getYear();
 		
@@ -239,6 +242,12 @@ window.onload=function(){
 			  li.innerHTML=i+1;
 			  Odate.appendChild(li);
 			  
+		  }
+		  
+		  for(var i = 0 ; i < 7 - presentday_date ; i++){
+		  	var li=document.createElement("li");		
+			  li.innerHTML=i+1;
+			  Odate.appendChild(li);
 		  }
 		  
 		  //标记颜色

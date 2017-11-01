@@ -21,7 +21,7 @@
 			.text{
 				line-height: 30px;color: #666600;
 			}
-			#calendar{
+			#selete-time{
 				width:900px;height: 100px;
 				background-color: #f5f5f5;
 				border:1px solid #e3e3e3;
@@ -30,16 +30,46 @@
 				margin:0 auto;padding:19px;
 				margin-top:50px;
 			}
+			#calendar{
+				position: absolute;
+				top:200px;left:200px;z-index: 10;
+				width:578px;height: 316px;
+				box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+				background:#fff;padding:4px;
+				border-radius: 4px;
+				border:1px solid rgba(0,0,0,0.15);
+			}
+			#calendar::before{
+				content: '';position: absolute;
+				top:-7px;left:9px;
+				border-right:7px solid transparent;
+				border-bottom: 7px solid #ccc;
+				border-left:7px solid transparent;
+				border-bottom-color: rgba(0,0,0,0.2);
+			}
+			#calendar::after{
+				content: '';position: absolute;
+				top:-6px;left:10px;
+				border-right: 6px solid transparent;
+				border-bottom:6px solid #fff;
+				border-left:6px solid transparent
+			}
 		</style>
 	</head>
 	<body>
-		<div id="calendar">
+		<div id="selete-time">
 			<div class="text">时间选择器</div>
-			<input />
+			<input class="calendar-input" id="calendar-input" />
 		</div>
+		<div class="calendar" id="calendar"></div>
 	</body>
 	<script src="jquery-2.1.1.min.js"></script>
 	<script>
+		
+		
+		$('#calendar-input').focus(function(){
+			
+		});
 		
 	</script>
 </html>

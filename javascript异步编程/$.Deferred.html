@@ -50,6 +50,23 @@
 			console.log('fail');
 		});
 		
+		function wait3(){
+			var def = $.Deferred();
+			setTimeout(function(){
+				console.log('setTimeout执行');
+				def.resolve()
+			},1000);
+			// 返回一个promise对象
+			
+			return def.promise().val = 3;;
+		}
+		var d3 = wait3();
+		$.when(d3).done(function(){
+			var a = d3;
+			console.log('a',a.val)
+		})
+		
+		
 		
 		
 	</script>

@@ -44,19 +44,19 @@
 		console.log("-----------------------------")*/
 		
 		//jq中的each实现break和continue功能:    //或者使用$.each(arr,function(){})
-		/*$("option").each(function(){
+		/*$("option").each(function(index,item){
 			//在jq的each的回调函数中,return false会结束整个each循环,相当于for循环中的break
 			if($(this).val()==="4"){return false}   
 			console.log($(this).val())				//1,2,3
 		})
 		
-		$("option").each(function(){
+		$("option").each(function(index,item){
 			//在jq的each回调函数中,return true会结束当前循环分支以后的语句,相当于for循环中的continue
 			if($(this).val()==="3"){return  true}    //或者return
 			console.log($(this).val())		        //1,2,4,5		
 		})
 		
-		$("option").each(function(){
+		$("option").each(function(index,item){
 			//在jq的each回调函数中,return true会结束当前循环分支以后的语句,相当于for循环中的continue
 			if($(this).val()==="3"){return}    
 			console.log($(this).val())		        //1,2,4,5		
