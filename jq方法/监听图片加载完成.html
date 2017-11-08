@@ -5,17 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style type="text/css">
+    	div{
+    		width:283px;height:283px;
+    		background-size: cover;
+    	}
+    </style>
 </head>
 <body>
-    <img id="img" src="images/a1.png" />
+    <!--<img id="img" src="images/a1.png" />-->
+    <div id="div"></div>
 </body>
     <script src="js/jquery-3.1.0.js"></script>
     <script>
 
         var img = document.getElementById('img');
-        img.addEventListener('load',function(){
-            console.log('加载图片完成')
+        
+        var divImg = new Image();
+        
+        $(divImg).attr({src:'images/a1.png'});
+        
+        divImg.addEventListener('load',function(){
+            $('#div').css({
+            	backgroundImage : 'url(' + $(divImg).attr('src') + ')'
+            })
         });
+        
+//      img.addEventListener('load',function(){
+//          console.log('加载图片完成')
+//      });
 
         window.addEventListener('load',function(){
             console.log('所有资源加载完成')
