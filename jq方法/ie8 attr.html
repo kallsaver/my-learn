@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="div">
+			<input type="password" id="input">
+		</div>
+	</body>
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script>
+		
+		// 可以获得
+		console.log( $('#input').prop('type') )
+		
+		// ie8无法设置
+		console.log( $('#input').prop('type','text') )
+		
+	</script>
+</html>
