@@ -27,8 +27,13 @@
 			/*init webuploader*/
 			var $list = $("#thelist"); //这几个初始化全局的百度文档上没说明，好蛋疼。  
 			var $btn = $("#ctlBtn"); //开始上传  
+<<<<<<< HEAD
 			var thumbnailWidth = 160; //缩略图高度和宽度 （单位是像素），当宽高度是0~1的时候，是按照百分比计算，具体可以看api文档  
 			var thumbnailHeight = 120;
+=======
+			var thumbnailWidth = 100; //缩略图高度和宽度 （单位是像素），当宽高度是0~1的时候，是按照百分比计算，具体可以看api文档  
+			var thumbnailHeight = 100;
+>>>>>>> 4d8d140b28b26de11ac0a2266d2ad19789f97f60
 
 			var uploader = WebUploader.create({
 				// 选完文件后，是否自动上传。  
@@ -57,6 +62,10 @@
 				var $li = $(
 						'<div id="' + file.id + '" class="file-item thumbnail">' +
 						'<img>' +
+<<<<<<< HEAD
+=======
+						'<div class="info">' + file.name + '</div>' +
+>>>>>>> 4d8d140b28b26de11ac0a2266d2ad19789f97f60
 						'</div>'
 					),
 					$img = $li.find('img');
