@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.edit {
+				margin: 0 auto;
+				padding: 10px;
+				width: 500px;
+				margin-top: 100px;
+				height: 200px;
+				border: 1px solid red;
+			}
+			
+			textarea {
+				margin: 0 auto;
+				padding: 10px;
+				width: 500px;
+				margin-top: 100px;
+				height: 200px;
+				border: 1px solid red;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<textarea></textarea>
+	</body>
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<script>
+		
+		
+		$('textarea').on('keypress',function(event){
+			// 可以区分大小写
+			console.log( event.keyCode )
+		});
+		
+		$('textarea').on('keyup',function(event){
+			// 不能区分大小写
+			console.log( event.keyCode )
+		});
+		
+		
+	</script>
+</html>
