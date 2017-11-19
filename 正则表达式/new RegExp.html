@@ -9,8 +9,8 @@
 	<script>
 		var a=new RegExp("\d")
 		console.log(a)						//火狐浏览器可以看到RegExp层
-	
-		console.log(new RegExp("\d","g").__proto__)		//上层Object 里面写有正则的方法
+		console.log(a.test(8))
+		console.log(new RegExp("\d","ig").__proto__)		//上层Object 里面写有正则的方法
 		//有compile,exec,test,toString方法
 		//ignoreCase,global,flags,sticky,unicode,mulitiline,source属性
 		

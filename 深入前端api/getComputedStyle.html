@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.box{
+				width:400px;height: 200px;
+				background:peru;
+			}
+			p{
+				background:peru;float: left;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box" class="box"></div>
+		<p>111</p>
+	</body>
+	<script>
+		
+		// 非驼峰转驼峰的方法
+		function camelize(attr) {
+		    // /\-(\w)/g 正则内的 (\w) 是一个捕获，捕获的内容对应后面 function 的 letter
+		    // 意思是将 匹配到的 -x 结构的 x 转换为大写的 X (x 这里代表任意字母)
+		    return attr.replace(/\-(\w)/g, function(all, letter) {
+		        return letter.toUpperCase();
+		    });
+		}
+		
+		var box = document.getElementById('box');
+		var p = document.getElementsByTagName('p')[0];
+		
+		
+		function gaoji(){
+			// 高级浏览器
+			console.log( Object.prototype.toString.call(window.getComputedStyle(box,null)) );   //  [object CSSStyleDeclaration]
+			console.log( window.getComputedStyle(box,null) );
+			
+			// 浏览器渲染出来的结果
+			console.log(window.getComputedStyle(p,null)['font-size']);
+		}
+		
+		function ie(){
+			console.log( box.currentStyle.getAttribute(camelize('font-size')) )
+		}
+		
+		var DEFAULT_VERSION = "8.0";
+		var ua = navigator.userAgent.toLowerCase();
+		var isIE = ua.indexOf("msie")>-1;
+		var safariVersion;
+		if(isIE){
+		    safariVersion =  ua.match(/msie ([\d.]+)/)[1];
+		    if(safariVersion <= DEFAULT_VERSION ){
+		        console.log('ie8以下');
+		        ie();
+		    }else{
+		        console.log('ie8以上');
+		        gaoji();
+		    }
+		}else{
+		   console.log('非ie');
+		   gaoji()
+		}
+		
+		
+		
+		
+	</script>
+</html>
