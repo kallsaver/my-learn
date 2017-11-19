@@ -34,7 +34,7 @@
 	// 10.局部的directives运行,vue的directive只能操作这个指令所在DOM元素和它的子元素,不能操作其他DOM
 	// 但是这个阶段操作DOM也是不保险的,组件还没关联上实例
 	// 11.全局的directives运行
-	// 12.components的beforeCreated函数运行(components的位置绝对了编译运行的优先级)
+	// 12.components的beforeCreated函数运行(components的位置决定了编译运行的优先级)
 	// 13.components的data函数运行,数据关联中
 	// 14.components的created函数运行,组件数据关联完毕,components的this和实例的this不是同一个指针
 	// 15.components的beforeMount运行
