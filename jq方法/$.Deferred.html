@@ -91,6 +91,8 @@
 		//def对象应该在wait函数内部生命,并且返回的是def.promise(),这样外界就不能修改def的状态
 		var wait = function(def){
 			var def = $.Deferred();
+			console.log('---')
+			console.log(def instanceof $.Deferred)
 			var tasks = function(){
 				console.log('执行完毕');
 				def.resolve('回答问题')

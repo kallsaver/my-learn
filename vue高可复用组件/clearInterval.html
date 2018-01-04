@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">app</div>
+	</body>
+	<script>
+		
+		var a;
+		
+		a = (function(){ 
+				return setInterval(function(){
+					console.log(1)
+				},2000)
+		})();
+		
+		document.getElementById('app').onclick = function(){
+			clearInterval( a )
+		}
+		
+	</script>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function observe (data) {
+		  if (!data || typeof data !== 'object') {
+		    return;
+		  }
+//		  Object.keys(data).forEach(key => {
+//		    observeProperty(data, key, data[key])
+//		  })
+			// 只监听一个变量
+		  observeProperty(data,'a',data.a)
+		}
+		function observeProperty (obj, key, val) {
+		  //observe(val);
+		  Object.defineProperty(obj, key, {
+		    enumerable: true,   // 可枚举
+		    configurable: true, // 可重新定义
+		    get: function () {
+		      return val;
+		    },
+		    set: function (newVal) {
+		      if (val === newVal || (newVal !== newVal && val !== val)) {
+		        return;
+		      }
+		      console.log('数据更新啦 ', val, '=>', newVal);
+		      val = newVal;
+		    }
+		  });
+		}
+		
+		var data = {
+  			a: 'hello'
+		}
+		
+		observe(data);
+		
+		data.a = 88
+		
+	</script>
+</html>

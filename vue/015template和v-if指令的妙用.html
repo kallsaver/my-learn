@@ -18,6 +18,9 @@
 				<template v-if="type">
 					<span >{{type}}</span><span> | </span>
 				</template>
+				<template v-else="type">
+					<span >{{type}}11</span><span> | </span>
+				</template>
 				<strong>{{content}}</strong>
 			</h3>
 			
@@ -29,7 +32,7 @@
 		var app = new Vue({
 			el : '#app',
 			data : {
-				type : '热点',
+				type : '',
 				content : '广告 : 碎片时间学英语 广告 : 跳转美国名校'
 			}
 		})

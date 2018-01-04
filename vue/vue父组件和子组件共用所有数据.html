@@ -60,6 +60,7 @@
 		</style>
 		<script src="js/vue2.0.js"></script>
 		<script>
+			
 			Vue.component('modal',{
 		        template : '<div class="modal" v-if="modalData.show">'
 		                        +'<div class="modal-content">'
@@ -73,7 +74,7 @@
 		        // 组件component中的DOM是独立的,不能直接拿到外部的数据
 				// 通过props来存值, v-bind是个黑科技
 				// 并且是指针
-				props : ['pass1'],
+				props : ['alldata'],
 		        data : function(){
 		        	return {
 		        		modalData : {
@@ -88,7 +89,8 @@
 		        	var vm = this;
 		        	//console.log(vm.$props.pass1);
 		        	// 把父组件的变量的指针给到子组件,从此父组件更新这一变量,子组件也同时更新
-		        	vm.modalData = vm.$props.pass1;
+		        	console.log(vm.$props)
+		        	vm.$data = vm.$props.all;
 		        	console.log(vm.$props)
 		        },
 		    });
@@ -122,9 +124,10 @@
 		    }
 		    
 		    Vue.prototype.modalData = {
-		    	show : false,
+		    	show : true,
 		    	title : '确定要取消吗？',
 		    }
+		    
 		    
 		</script>
 	</head>
@@ -133,7 +136,7 @@
 			<ul>
 				<li v-for="item in list" v-on:click="deletedLi(item)" v-text="item.name"></li>
 			</ul>
-			<modal v-bind:pass1="modalData" v-hidden="showPopup" ></modal>
+			<modal v-bind:alldata="this.$data" v-hidden></modal>
 			<a></a>
 		</div>
 	</body>
