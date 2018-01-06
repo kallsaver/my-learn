@@ -35,6 +35,7 @@
 				<span v-on:click="changeValidProperty()">changeValidProperty</span>
 				<span v-on:click="addValidProperty()">addValidProperty</span>
 				<span v-on:click="setValidProperty()">setValidProperty</span>
+				<span v-on:click="myself()">=myself</span>
 				<br>
 				<span v-on:click="clearArrayByNew()">clearArrayByNew</span>
 				<span v-on:click="clearArrayByLength()">clearArrayByLength</span>
@@ -71,10 +72,15 @@
 					// 已有属性改变，触发视图更新
 					vm.valid.name = 'bbb';
 				},
-				setProperty : function(){
+				setValidProperty : function(){
 					var vm = this;
 					// 触发视图更新
 					vm.$set(vm.valid,'tel','setProperty');
+				},
+				myself : function(){
+					var vm = this;
+					vm.valid.tel = 'addProperty';
+					vm.valid = vm.valid;
 				},
 				clearArrayByNew : function(){
 					var vm = this;

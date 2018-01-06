@@ -1,0 +1,10 @@
+.click {
+  font-size: 0.16rem;
+}
+.preview-popup {
+  position: fixed;
+  top: -0.005rem;
+  bottom: -0.005rem;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
