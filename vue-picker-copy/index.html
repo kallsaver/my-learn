@@ -100,7 +100,6 @@
                 }
             }
         },
-        //props : ['show','selectData'],
 		data: function () {
 			return {
 				pData1: [],
@@ -295,22 +294,22 @@
                     this.pData1 = this.selectData.pData1;
                     console.log( this.pData1 )
                     return;
-					// this.pData2 = this.selectData.pData2;
-					// this.pData3 = this.selectData.pData3;
+					this.pData2 = this.selectData.pData2;
+					this.pData3 = this.selectData.pData3;
 				} else {
                     this.pData1 = this.selectData.pData1;
-					// this.pData2 = this.selectData.pData2[this.pData1[0].value]
-					// if (this.selectData.columns === 3) {
-					// 	this.pData3 = this.selectData.pData3[this.pData2[0].value]
-					// }
+					this.pData2 = this.selectData.pData2[this.pData1[0].value]
+					if (this.selectData.columns === 3) {
+						this.pData3 = this.selectData.pData3[this.pData2[0].value]
+					}
 				}
 				this.selects.select1 = this.pData1[0]
-				// if (this.selectData.columns === 2) {
-				// 	this.selects.select2 = this.pData2[0]
-				// } else if (this.selectData.columns === 3) {
-				// 	this.selects.select2 = this.pData2[0]
-				// 	this.selects.select3 = this.pData3[0]
-				// }
+				if (this.selectData.columns === 2) {
+					this.selects.select2 = this.pData2[0]
+				} else if (this.selectData.columns === 3) {
+					this.selects.select2 = this.pData2[0]
+					this.selects.select3 = this.pData3[0]
+				}
 			}
 		},
 		created: function () {

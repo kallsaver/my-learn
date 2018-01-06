@@ -1,0 +1,92 @@
+  
+  
+  @require "./mixin.styl"
+  @require "./variable.styl"
+
+  $picker-lr-padding = 16px
+
+  .cube-picker-fade-enter, .cube-picker-fade-leave-active
+    opacity: 0
+
+  .cube-picker-fade-enter-active, .cube-picker-fade-leave-active
+    transition: all .3s ease-in-out
+
+  .cube-picker-panel
+    height: 273px
+    text-align: center
+    font-size: $fontsize-medium
+    background: $picker-bgc
+
+  .cube-picker-move-enter, .cube-picker-move-leave-active
+    transform: translate3d(0, 273px, 0)
+
+  .cube-picker-move-enter-active, .cube-picker-move-leave-active
+    transition: all .3s ease-in-out
+
+  .cube-picker-choose
+    position: relative
+    height: 60px
+    > span
+      position: absolute
+      top: 6px
+      padding: 16px $picker-lr-padding
+      font-size: $fontsize-medium
+    > [data-action="confirm"]
+      right: 0
+      color: $picker-confirm-btn-color
+      &:active
+        color: $picker-confirm-btn-active-color
+    > [data-action="cancel"]
+      left: 0
+      color: $picker-cancel-btn-color
+      &:active
+        color: $picker-cancel-btn-active-color
+    > h1
+      margin: 0
+      line-height: 60px
+      text-align: center
+      font-weight: normal
+      font-size: $fontsize-large-x
+      color: $picker-title-color
+
+  .cube-picker-content
+    position: relative
+    top: 20px
+    > i
+      position: absolute
+      z-index: 10
+      left: 0
+      width: 100%
+      height: 68px
+      pointer-events: none
+      transform: translateZ(0)
+    > .border-bottom-1px
+      top: 0
+      background: linear-gradient(to top, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))
+    > .border-top-1px
+      bottom: 0
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))
+
+  .cube-picker-wheel-wrapper
+    display: flex
+    padding: 0 $picker-lr-padding
+    > div
+      flex-fix()
+      height: 173px
+      overflow: hidden
+      font-size: $fontsize-large-xx
+
+  .wheel-scroll
+    padding: 0
+    margin-top: 68px
+    line-height: 36px
+    list-style: none
+    > li
+      list-style: none
+      height: 36px
+      overflow: hidden
+      white-space: nowrap
+      color: $picker-item-color
+
+  .cube-picker-footer
+    height: 20px

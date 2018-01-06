@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>picker</title>
+		<link rel="stylesheet" href="css/picker.css">
+	</head>
+	<body>
+		<div id="app">
+			<div style="background:peru;width:200px;margin:0 auto;height:80px;"></div>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script src="js/bscroll.js"></script>
+	<script>
+		var apiMixin = {
+			data : function(){
+			    return {
+			      isVisible: false
+			    }
+  			},
+		  	methods: {
+		    	show : function() {
+		      	this.isVisible = true
+		    },
+		    hide : function() {
+		      this.isVisible = false
+		    }
+		  }
+		}
+	</script>
+	<script>
+		
+
+		const EVENT_SELECT = 'select'
+		const EVENT_VALUE_CHANGE = 'value-change'
+		const EVENT_CANCEL = 'cancel'
+		const EVENT_CHANGE = 'change'
+
+		const DEFAULT_KEYS = {
+		   value: 'value',
+		   text: 'text'
+		}
+
+		const COMPONENT_NAME = 'cube-popup'
+  	const EVENT_MASK_CLICK = 'mask-click'
+
+		Vue.component('picker',{
+			template : '<div>'
+										+'<transition name="cube-picker-fade">'
+												+'<cube-popup type="picker" :mask="true" :center="false" v-show="isVisible" @touchmove.prevent @mask-click="cancel">'
+													+'<transition name="cube-picker-move">'
+														+'<div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>'
+															+'<div class="cube-picker-choose border-bottom-1px">'
+																+'<span data-action="cancel" @click="cancel">{{cancelTxt}}</span>'
+																+'<span data-action="confirm" @click="confirm">{{confirmTxt}}</span>'
+																+'<h1>{{title}}</h1>'
+															+'</div>'
+															+'<div class="cube-picker-content">'
+																+'<i class="border-bottom-1px"></i>'
+																+'<i class="border-top-1px"></i>'
+																+'<div class="cube-picker-wheel-wrapper" ref="wheelWrapper">'
+																	+'<div v-for="data in pickerData">'
+																		+'<ul class="wheel-scroll">'
+																			+'<li v-for="item in data" class="wheel-item">{{item[textKey]}}</li>'
+																		+'</ul>'
+																	+'</div>'
+																+'</div>'
+															+'</div>'
+															+'<div class="cube-picker-footer"></div>'
+														+'</div>'
+													+'</transition>'
+												+'</cube-popup>'
+											+'</transition>'
+										+'</div>',
+			name: 'cube-picker',
+			mixins: [apiMixin],
+			props: {
+			  data: {
+			    type: Array,
+			    default : function() {
+			      return []
+			    }
+			  },
+			  title: {
+			    type: String
+			  },
+			  cancelTxt: {
+			    type: String,
+			    default: '取消'
+			  },
+			  confirmTxt: {
+			    type: String,
+			    default: '确定'
+			  },
+			  selectedIndex: {
+			    type: Array,
+			    default : function() {
+			      return []
+			    }
+			  },
+			  alias: {
+			    type: Object,
+			    default : function() {
+			      return {}
+			    }
+			  }
+			},
+			data : function() {
+			  return {
+			    pickerData: this.data.slice(),
+			    pickerSelectedIndex: this.selectedIndex
+			  }
+			},
+			computed: {
+			  valueKey : function() {
+			    return this.alias.value || DEFAULT_KEYS.value
+			  },
+			  textKey : function() {
+			    return this.alias.text || DEFAULT_KEYS.text
+			  }
+			},
+			created : function() {
+			  this.pickerSelectedVal = []
+			  if (!this.pickerSelectedIndex.length) {
+			    this.pickerSelectedIndex = []
+			    for (let i = 0; i < this.pickerData.length; i++) {
+			      this.pickerSelectedIndex[i] = 0
+			    }
+			  }
+			},
+			methods: {
+			  confirm : function() {
+			    if (!this._canConfirm()) {
+			      return
+			    }
+			    this.hide()
+			
+			    let changed = false
+			    let pickerSelectedText = []
+			    for (let i = 0; i < this.pickerData.length; i++) {
+			      let index = this.wheels[i].getSelectedIndex()
+			      this.pickerSelectedIndex[i] = index
+			
+			      let value = null
+			      let text = ''
+			      if (this.pickerData[i].length) {
+			        value = this.pickerData[i][index][this.valueKey]
+			        text = this.pickerData[i][index][this.textKey]
+			      }
+			      if (this.pickerSelectedVal[i] !== value) {
+			        changed = true
+			      }
+			      this.pickerSelectedVal[i] = value
+			      pickerSelectedText[i] = text
+			    }
+			
+			    this.$emit(EVENT_SELECT, this.pickerSelectedVal, this.pickerSelectedIndex, pickerSelectedText)
+			
+			    if (changed) {
+			      this.$emit(EVENT_VALUE_CHANGE, this.pickerSelectedVal, this.pickerSelectedIndex, pickerSelectedText)
+			    }
+			  },
+			  cancel : function() {
+			    this.hide()
+			    this.$emit(EVENT_CANCEL)
+			  },
+			  show : function() {
+			    if (this.isVisible) {
+			      return
+			    }
+			
+			    this.isVisible = true
+			    if (!this.wheels || this.dirty) {
+			      this.$nextTick(() => {
+			        this.wheels = []
+			        let wheelWrapper = this.$refs.wheelWrapper
+			        for (let i = 0; i < this.pickerData.length; i++) {
+			          this._createWheel(wheelWrapper, i)
+			        }
+			        this.dirty = false
+			      })
+			    } else {
+			      for (let i = 0; i < this.pickerData.length; i++) {
+			        this.wheels[i].enable()
+			        this.wheels[i].wheelTo(this.pickerSelectedIndex[i])
+			      }
+			    }
+			  },
+			  hide : function() {
+			    if (!this.isVisible) {
+			      return
+			    }
+			    this.isVisible = false
+			
+			    for (let i = 0; i < this.pickerData.length; i++) {
+			      this.wheels[i].disable()
+			    }
+			  },
+			  setData  : function(data, selectedIndex) {
+			    this.pickerSelectedIndex = selectedIndex ? [...selectedIndex] : []
+			    this.pickerData = data.slice()
+			    if (this.isVisible) {
+			      this.$nextTick(() => {
+			        this.wheels.forEach((wheel, i) => {
+			          wheel.refresh()
+			          wheel.wheelTo(this.pickerSelectedIndex[i])
+			        })
+			      })
+			    } else {
+			      this.dirty = true
+			    }
+			  },
+			  refill  : function(datas) {
+			    let ret = []
+			    if (!datas.length) {
+			      return ret
+			    }
+			    datas.forEach((data, index) => {
+			      ret[index] = this.refillColumn(index, data)
+			    })
+			    return ret
+			  },
+			  refillColumn  : function(index, data) {
+			    const wheelWrapper = this.$refs.wheelWrapper
+			    let scroll = wheelWrapper.children[index].querySelector('.wheel-scroll')
+			    let wheel = this.wheels ? this.wheels[index] : false
+			    let dist = 0
+			    if (scroll && wheel) {
+			      let oldData = this.pickerData[index]
+			      this.$set(this.pickerData, index, data)
+			      let selectedIndex = wheel.getSelectedIndex()
+			      if (oldData.length) {
+			        let oldValue = oldData[selectedIndex][this.valueKey]
+			        for (let i = 0; i < data.length; i++) {
+			          if (data[i][this.valueKey] === oldValue) {
+			            dist = i
+			            break
+			          }
+			        }
+			      }
+			      this.pickerSelectedIndex[index] = dist
+			      this.$nextTick(() => {
+			        // recreate wheel so that the wrapperHeight will be correct.
+			        wheel = this._createWheel(wheelWrapper, index)
+			        wheel.wheelTo(dist)
+			      })
+			    }
+			    return dist
+			  },
+			  scrollTo : function(index, dist) {
+			    const wheel = this.wheels[index]
+			    this.pickerSelectedIndex[index] = dist
+			    wheel.wheelTo(dist)
+			  },
+			  refresh() {
+			    this.$nextTick(() => {
+			      this.wheels.forEach((wheel) => {
+			        wheel.refresh()
+			      })
+			    })
+			  },
+			  _createWheel : function(wheelWrapper, i) {
+			    if (!this.wheels[i]) {
+			      const wheel = this.wheels[i] = new BScroll(wheelWrapper.children[i], {
+			        wheel: {
+			          selectedIndex: this.pickerSelectedIndex[i] || 0
+			        },
+			        observeDOM: false
+			      })
+			      wheel.on('scrollEnd', () => {
+			        this.$emit(EVENT_CHANGE, i, wheel.getSelectedIndex())
+			      })
+			    } else {
+			      this.wheels[i].refresh()
+			    }
+			    return this.wheels[i]
+			  },
+			  _canConfirm  : function(){
+			    return this.wheels.every((wheel) => {
+			      return !wheel.isInTransition
+			    })
+			  }
+			},
+			watch: {
+			  data  : function(newData) {
+			    this.setData(newData, this.selectedIndex)
+			  }
+			},
+			components: {
+			  template : '<div class="cube-popup" :class="typeClass" v-show="isVisible">'
+											+'<div class="cube-popup-mask" v-show="mask" @click="maskClick">'
+												+'<slot name="mask"></slot>'
+											+'</div>'
+											+'<div class="cube-popup-container" :class="{\'cube-popup-center\': center}">'
+												+'<div class="cube-popup-content" v-if="$slots.default">'
+													+'<slot></slot>'
+												+'</div>'
+												+'<div class="cube-popup-content" v-else v-html="content">'
+												+'</div>'
+											+'</div>'
+										+'</div>',
+				name: 'cube-popup',
+				mixins: [apiMixin],
+				props: {
+					type: {
+						type: String,
+						default: ''
+					},
+					mask: {
+						type: Boolean,
+						default: true
+					},
+					content: {
+						type: String,
+						default: ''
+					},
+					center: {
+						type: Boolean,
+						default: true
+					}
+				},
+				computed: {
+					typeClass : function() {
+						return this.type ? `cube-${this.type}` : ''
+					}
+				},
+				methods: {
+					maskClick : function(e) {
+						this.$emit(EVENT_MASK_CLICK, e)
+					}
+				}
+			}
+		})
+		
+		
+		new Vue({
+			el : '#app',
+
+		});
+		
+	</script>
+</html>

@@ -2,6 +2,7 @@
 var gulp        = require('gulp');
 var browserSync = require('browser-sync').create();
 var less = require('gulp-less');
+var stylus = require('gulp-stylus');
 var plumber = require('gulp-plumber');
 var postcss = require('gulp-postcss');
 //不是所有的前缀补全都支持,比如涉及伪元素的input::input-placeholder不支持,还是要手动写
@@ -16,6 +17,21 @@ gulp.task('less',function(){
 		}
 	}))
 	.pipe(less())
+	.on('error',function(err){
+		console.log('Error: ',err.message);
+	})
+	.pipe(autoprefixer())
+	.pipe(gulp.dest('dist/css'))
+});
+
+gulp.task('stylus',function(){
+	return gulp.src('src/stylus/*.styl')
+	.pipe(plumber({
+		errorHandler : function(){
+			this.emit('end');
+		}
+	}))
+	.pipe(stylus())
 	.on('error',function(err){
 		console.log('Error: ',err.message);
 	})
