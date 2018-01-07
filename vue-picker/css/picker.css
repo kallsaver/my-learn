@@ -133,8 +133,6 @@
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  -ms-flex-preferred-size: 1e-9px;
-      flex-basis: 1e-9px;
   width: 1%;
   height: 173px;
   overflow: hidden;

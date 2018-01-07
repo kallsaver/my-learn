@@ -16,7 +16,7 @@
 
 .area_ctrl {
     vertical-align: middle;
-    background-color: #d5d8df;
+    /*background-color: #d5d8df;*/
     color: #000;
     margin: 0;
     height: auto;
@@ -85,6 +85,7 @@
 }
 
 .area_roll {
+	padding-top:1em;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
