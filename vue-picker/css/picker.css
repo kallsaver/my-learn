@@ -18,8 +18,9 @@
   opacity: 0.4;
 }
 .cube-popup-mask::before {
-  content: ".";
+  content: "";
   display: block;
+  display: none;
   width: 1px;
   height: 1px;
   background-color: rgba(0,0,0,0.1);

@@ -2204,49 +2204,49 @@ function instantiateComponent(Vue, Component, data, renderFn) {
 
   var apiMixin = {
     data : function(){
-        return {
-          isVisible: false
-        }
-      },
-      methods: {
-        show : function() {
-          this.isVisible = true
+      return {
+        isVisible: false
+      }
     },
-    hide : function() {
-      this.isVisible = false
+    methods: {
+      show : function() {
+        this.isVisible = true
+      },
+      hide : function() {
+        this.isVisible = false
+      }
     }
   }
-}
 
 // picker组件
 var Picker = {
     template : '<div>'
-                    +'<transition name="cube-picker-fade">'
-                            +'<cube-popup type="picker" :mask="true" :center="false" v-show="isVisible" @touchmove.prevent @mask-click="cancel">'
-                                +'<transition name="cube-picker-move">'
-                                    +'<div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>'
-                                        +'<div class="cube-picker-choose border-bottom-1px">'
-                                            +'<span data-action="cancel" @click="cancel">{{cancelTxt}}</span>'
-                                            +'<span data-action="confirm" @click="confirm">{{confirmTxt}}</span>'
-                                            +'<h1>{{title}}</h1>'
-                                        +'</div>'
-                                        +'<div class="cube-picker-content">'
-                                            +'<i class="border-bottom-1px"></i>'
-                                            +'<i class="border-top-1px"></i>'
-                                            +'<div class="cube-picker-wheel-wrapper" ref="wheelWrapper">'
-                                                +'<div v-for="data in pickerData">'
-                                                    +'<ul class="wheel-scroll">'
-                                                        +'<li v-for="item in data" class="wheel-item">{{item[textKey]}}</li>'
-                                                    +'</ul>'
-                                                +'</div>'
-                                            +'</div>'
-                                        +'</div>'
-                                        +'<div class="cube-picker-footer"></div>'
-                                    +'</div>'
-                                +'</transition>'
-                            +'</cube-popup>'
-                        +'</transition>'
-                    +'</div>',
+                  +'<transition name="cube-picker-fade">'
+                          +'<cube-popup type="picker" :mask="true" :center="false" v-show="isVisible" @touchmove.prevent @mask-click="cancel">'
+                              +'<transition name="cube-picker-move">'
+                                  +'<div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>'
+                                      +'<div class="cube-picker-choose border-bottom-1px">'
+                                          +'<span data-action="cancel" @click="cancel">{{cancelTxt}}</span>'
+                                          +'<span data-action="confirm" @click="confirm">{{confirmTxt}}</span>'
+                                          +'<h1>{{title}}</h1>'
+                                      +'</div>'
+                                      +'<div class="cube-picker-content">'
+                                          +'<i class="border-bottom-1px"></i>'
+                                          +'<i class="border-top-1px"></i>'
+                                          +'<div class="cube-picker-wheel-wrapper" ref="wheelWrapper">'
+                                              +'<div v-for="data in pickerData">'
+                                                  +'<ul class="wheel-scroll">'
+                                                      +'<li v-for="item in data" class="wheel-item">{{item[textKey]}}</li>'
+                                                  +'</ul>'
+                                              +'</div>'
+                                          +'</div>'
+                                      +'</div>'
+                                      +'<div class="cube-picker-footer"></div>'
+                                  +'</div>'
+                              +'</transition>'
+                          +'</cube-popup>'
+                      +'</transition>'
+                  +'</div>',
     name: 'cube-picker',
     mixins: [apiMixin],
     props: {
@@ -2313,7 +2313,6 @@ var Picker = {
         if (!this._canConfirm()) {
           return
         }
-        this.hide()
     
         var changed = false
         var pickerSelectedText = []
@@ -2333,12 +2332,15 @@ var Picker = {
           this.pickerSelectedVal[i] = value
           pickerSelectedText[i] = text
         }
-    
+        if(value == ''){
+          return;
+        }
         this.$emit('select', this.pickerSelectedVal, this.pickerSelectedIndex, pickerSelectedText)
     
         if (changed) {
           this.$emit('value-change', this.pickerSelectedVal, this.pickerSelectedIndex, pickerSelectedText)
         }
+        this.hide()
       },
       cancel : function() {
         var vm = this
@@ -2478,17 +2480,17 @@ var Picker = {
     components: {
         'cube-popup' : {
             template : '<div class="cube-popup" :class="typeClass" v-show="isVisible">'
-                                    +'<div class="cube-popup-mask" v-show="mask" @click="maskClick">'
-                                        +'<slot name="mask"></slot>'
-                                    +'</div>'
-                                    +'<div class="cube-popup-container" :class="{\'cube-popup-center\': center}">'
-                                        +'<div class="cube-popup-content" v-if="$slots.default">'
-                                            +'<slot></slot>'
-                                        +'</div>'
-                                        +'<div class="cube-popup-content" v-else v-html="content">'
-                                        +'</div>'
-                                    +'</div>'
-                                +'</div>',
+                          +'<div class="cube-popup-mask" v-show="mask" @click="maskClick">'
+                              +'<slot name="mask"></slot>'
+                          +'</div>'
+                          +'<div class="cube-popup-container" :class="{\'cube-popup-center\': center}">'
+                              +'<div class="cube-popup-content" v-if="$slots.default">'
+                                  +'<slot></slot>'
+                              +'</div>'
+                              +'<div class="cube-popup-content" v-else v-html="content">'
+                              +'</div>'
+                          +'</div>'
+                      +'</div>',
             name: 'cube-popup',
             mixins: [apiMixin],
             props: {
