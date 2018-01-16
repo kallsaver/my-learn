@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
+		<title>picker</title>
+		<link rel="stylesheet" href="css/picker.css">
+		<style>
+			*{margin:0;padding:0}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div  style="background:peru;width:750px;margin:0 auto;height:50px;margin-bottoom:30px"
+                @click="showDatePicker">showDatePicker</div>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script src="js/vue-date-picker.js"></script>
+	<script>
+		new Vue({
+			el : '#app',
+			mounted () {
+                this.datePicker = this.$createDatePicker({
+                    min: [2008, 1, 1],
+                    max: [2030, 12, 31],
+                    onSelect: (selectedVal, selectedIndex, selectedText) => {
+                        console.log(selectedVal, selectedIndex, selectedText)
+                    },
+                    onCancel: () => {
+                        console.log('取消')
+                    }
+                })
+                },
+                methods: {
+                    showDatePicker() {
+                        this.datePicker.show()
+                    }
+                }
+		});
+		
+	</script>
+</html>
