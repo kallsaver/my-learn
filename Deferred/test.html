@@ -6,7 +6,7 @@
 	</head>
 	<body>
 	</body>
-	<script src="js/index.js"></script>
+	<script src="js/Deferred.js"></script>
 	<script>
 		
 		function S(){
@@ -52,7 +52,7 @@
 		function wait2(){
 			var def = new Deferred();
 			setTimeout(function(){
-				//def.resolve()
+				def.resolve()
 			},9000)
 			return def.promise();
 		}

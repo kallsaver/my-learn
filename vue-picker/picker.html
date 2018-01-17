@@ -7,13 +7,16 @@
 		<link rel="stylesheet" href="css/picker.css">
 		<style>
 			*{margin:0;padding:0}
+			.list{
+				background:peru;width:750px;margin:0 auto;height:50px;margin-bottoom:30px;
+			}
 		</style>
 	</head>
 	<body>
 		<div id="app">
-			<div v-for="item in list" style="background:peru;width:750px;margin:0 auto;height:50px;margin-bottoom:30px"
-				 @click="showPicker(item.list)">{{item.name}}</div>
+			<div v-for="item in list" class="list" @click="showPicker(item.list)">{{item.name}}</div>
 			<div>{{text}}</div>
+			<div class="list" @click="showDatePicker">日期</div>
 		</div>
 	</body>
 	<script src="js/vue2.0.js"></script>
@@ -139,4 +142,9 @@
 		});
 		
 	</script>
+	<script>
+
+	
+	</script>
 </html>
+
