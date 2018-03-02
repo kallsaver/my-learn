@@ -10,8 +10,8 @@
 <script>
 	var friends=[
 					{name:"a",age:25,time:"2016-05-2,09:00:00"},
-					{name:"b",age:21,time:"2015-07-1,14:00:00"},
-					{name:"c",age:24,time:"2016-08-3,16:50:21"},
+					{name:"b",age:21,time:"2016-05-2,09:00:00"},
+					{name:"c",age:24,time:"2016-05-2,09:00:00"},
 					{name:"d",age:23,time:"2016-11-4,12:00:00"},
 					{name:"e",age:27,time:"2014-08-4,00:30:14"},
 					{name:"f",age:20,time:"2013-08-4,14:00:01"},
@@ -20,12 +20,12 @@
 	
 	//console.log(friends[0].time.replace(/[-]/g,""))
 	
-	/*function compareAge(a,b){
+	function compareAge(a,b){
 		return a.age-b.age
-	}*/
+	}
 	
 	function compareTime(a,b){
-		return a.time.replace(/[-,:]/g,"")-b.time.replace(/[-,:]/g,"")
+		return a.time.replace(/[-,:]/g,"") - b.time.replace(/[-,:]/g,"") == 0 ? a.age-b.age : a.time.replace(/[-,:]/g,"")-b.time.replace(/[-,:]/g,"");
 	}
 	
 	//console.log(friends.sort(compareAge))

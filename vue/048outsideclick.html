@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin:0;padding: 0;
+			}
+			.box{
+				width:200px;height: 200px;background: chartreuse;
+			}
+			ul{
+				padding-top:50px;
+			}
+			li{
+				list-style: none;width:200px;height: 50px;
+				background:peru;line-height: 50px;
+				text-align: center;
+			}
+			.select{
+				width:200px;
+				background:lightblue;height: 50px;
+			}
+			[v-cloak] {
+			    display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<div class="box"></div>
+			<div class="select" v-clickoutside="handleClose" @click="toggleMenu">
+				<ul v-if="visible">
+					<li v-for="item in list">{{item}}</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script>
+		new Vue({
+			el : '#app',
+			data : {
+				visible : false,
+				list : [1,2,3,4,5,6]
+			},
+			mounted : function(){
+				var vm = this;
+			},
+			methods : {
+				toggleMenu : function() {
+					console.log('toggle');
+					var vm = this;
+	                vm.visible = !this.visible;
+	            },
+	            hideMenu : function() {
+	            	var vm = this;
+	                vm.visible = false;
+	            },
+	            handleClose : function(){
+	            	var vm = this;
+	            	vm.hideMenu();
+	            }
+			},
+			directives : {
+				clickoutside : {
+					bind : function(el, binding, vnode) {
+						console.log('binding',binding)
+				        function documentHandler (e) {
+				        	console.log('document.addEventListener')
+				        	// 如果directives包含了点击事件源
+				            if (el.contains(e.target)) {
+				            	console.log('el.contains(e.target)',el.contains(e.target));
+				            	// 不会运行下面的函数了
+				                return false;
+				            }
+				            // expression是directives指令绑定的回调函数
+				            if (binding.expression) {
+				            	console.log('binding.expression',binding.expression);
+				            	console.log('binding.value',binding.value)
+				                binding.value(e);
+				            }
+				        }
+				        el.__vueClickOutside__ = documentHandler;
+				        document.addEventListener('click', documentHandler);
+				    },
+				    unbind : function(el, binding) {
+				        document.removeEventListener('click', el.__vueClickOutside__);
+				        delete el.__vueClickOutside__;
+				    }
+				}
+			}
+		})
+	</script>
+</html>
