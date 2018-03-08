@@ -15,21 +15,11 @@
 			var a = 4;
 			console.log(a)
 		},
-		beforeCreate : function(){
+		beforeCreated : function(){
 			console.log(7);
 		}
 	}
 </script>
-
-<!--<style>
-	body{
-		background: gold;	
-	}
-	#app{
-		height: 200px;background: peru;
-	}
-	
-</style>-->
 
 <style lang="less" scoped>
 @import (reference)'./style.less';

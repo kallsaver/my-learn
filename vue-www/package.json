@@ -22,11 +22,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.28.0",
     "less": "^2.7.2",
-<<<<<<< HEAD
     "less-loader": "^2.2.3",
-=======
-    "less-loader": "^2.0.3",
->>>>>>> 02ba3b7fc20adff4e91a30e880bc5d93d379ff72
     "opn": "^5.0.0",
     "style-loader": "^0.16.1",
     "vue-hot-reload-api": "^1.2.2",
