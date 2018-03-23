@@ -57,5 +57,34 @@
 		makeSound(new Dog())
 		
 		
+		var Cat = function(name){
+			this.name = name || '';
+			console.log(name);
+		}
+		
+		Cat.prototype.sound = function(){
+			console.log('喵喵喵');
+		}
+		
+		// 共享 私有
+		
+		function makeSpeak(obj){
+			obj.sound();
+		}
+		
+		var cat1 = new Cat('猫一');
+		
+		var cat2 = new Cat('猫而');
+		
+		makeSpeak(cat1)
+		
+		makeSpeak(cat2)
+		console.log(cat1)
+		console.log(cat2)
+		
+		
+		
+		
+		
 	</script>
 </html>

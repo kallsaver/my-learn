@@ -51,5 +51,12 @@
 		var a9 = "javascript".replace(/script/,'$$');
 		console.log(a9)             //java$
 		
+		var www = 'https://www.baidu.com?order=444dfdfd&545';
+		
+		var result = www.replace(/.*?order=(.*)?&(.*)/,'$1');
+		
+		console.log(result)
+		
+		
 	</script>
 </html>

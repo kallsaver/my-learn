@@ -7,7 +7,7 @@
 	<body>
 	</body>
 	<script>
-		//首先js中所有的东西,包括Number,String,Array,Function等等这些类型都是由一个原型(最底层)来的
+		//首先js中所有的东西,包括Number,String,Array,Function等等这些类型都是由一个原型(最底层)(同一个指针)来的
 		
 		var obj = {
 			name : 'obj'
@@ -19,7 +19,6 @@
 		var arr1 = [1];
 		//你会发现arr有三层,一层是它私有的Array层,一层是所有数组共有的Array层(这层封了很多数组的方法),
 		//最底的一层是最底层的Object
-		console.log(arr1);
 		
 		//如果想拿到一个对象或者数组的下一层原型,那么使用__proto__
 		//比如我想拿到所有数组共有的Array层,也就是arr1的下一层原型
@@ -46,11 +45,10 @@
 		} 
 		
 		var student1 = new Student();   //创造一个Student实例
-		console.log(student1);
+		console.log('student1',student1);
 		var student2 = new Student();   //创造一个Student实例
 		console.log(Student.prototype);  //就是那个k了
 		//__proto__和prototype的意思
-	
 		//__proto__是一个对象的下一层原型,而prototype是函数才有的方法,对象是没有的
 		//prototype的意思是这个函数(构造函数)的实例的下一层,所以 student1.__proto__ === Student.prototype
 		// student1对象的下一层原型  === Student构造函数的实例的下一层原型

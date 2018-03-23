@@ -14,12 +14,13 @@
 		
 		var c = ++a+(b++)+a++;   // 1+10+1;
 		
-		console.log(c);
-		
-		var d = c++;
+		console.log('c',c); // 12
+		console.log('a',a); // 2
+		console.log('b',b); // 11
+		var d = c++;  
 		
 		// ++会在语句执行后再执行;
-		console.log(d);
+		console.log('d',d);  // 12
 		
 	</script>
 </html>

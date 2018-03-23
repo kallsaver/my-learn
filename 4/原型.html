@@ -12,12 +12,12 @@
 		this.type1="a student"
 		this.name=n;
 		this.iq=i;
-		alert("我是一个学生");
+		//alert("我是一个学生");
 	}
 
 
 	function hxsdStudent(n,i){
-		alert("我是一个火星时代的学生")
+		//alert("我是一个火星时代的学生")
 		//hxsdStudent原型和call方法   把底层的name和iq提到实例层    //继承和运行函数是两码事    这里是运行一个函数
 		student.call(this,n,i)
 		this.type2="a hxsd student";
@@ -78,6 +78,20 @@
 	var d=Array.prototype.push.call(arr,7);
 	
 	console.log(d)*/
+	
+	function RunTime(){
+		this.time = 1;
+	};
+	
+	function teacher(){
+		console.log('teacher.prototype',teacher.prototype)
+	}
+	
+	teacher.prototype = new RunTime();
+	
+	teacher();
+	
+	
 
 </script>
 </html>

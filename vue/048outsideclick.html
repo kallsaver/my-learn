@@ -8,7 +8,8 @@
 				margin:0;padding: 0;
 			}
 			.box{
-				width:200px;height: 200px;background: chartreuse;
+				width:200px;height: 200px;
+				background: chartreuse;
 			}
 			ul{
 				padding-top:50px;
@@ -60,13 +61,17 @@
 	            },
 	            handleClose : function(){
 	            	var vm = this;
+	            	
 	            	vm.hideMenu();
 	            }
 			},
 			directives : {
 				clickoutside : {
 					bind : function(el, binding, vnode) {
-						console.log('binding',binding)
+						// 只调用一次,指令第一次绑定到元素时调用.在这里可以进行一次性的初始化设置
+						console.log('binding',binding);
+						el.__vueClickOutside__ = documentHandler;
+				        document.addEventListener('click', documentHandler);
 				        function documentHandler (e) {
 				        	console.log('document.addEventListener')
 				        	// 如果directives包含了点击事件源
@@ -75,17 +80,17 @@
 				            	// 不会运行下面的函数了
 				                return false;
 				            }
-				            // expression是directives指令绑定的回调函数
+				            // expression是directives指令绑定的字符串指令
 				            if (binding.expression) {
 				            	console.log('binding.expression',binding.expression);
-				            	console.log('binding.value',binding.value)
+				            	console.log('binding.value',binding.value);
+				            	// binding.value是指令'='后面的值,如果是函数,那么可以拿到data里面的函数
 				                binding.value(e);
 				            }
 				        }
-				        el.__vueClickOutside__ = documentHandler;
-				        document.addEventListener('click', documentHandler);
 				    },
 				    unbind : function(el, binding) {
+				    	// 只调用一次，指令与元素解绑时调用。
 				        document.removeEventListener('click', el.__vueClickOutside__);
 				        delete el.__vueClickOutside__;
 				    }

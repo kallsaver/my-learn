@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<input v-focus="handleClose">
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script>
+		new Vue({
+			el : '#app',
+			data : {
+				
+			},
+			created : function(){
+				console.log('created')
+			},
+			beforeMount : function(){
+				console.log('beforeMount')
+			},
+			mounted : function(){
+				console.log('mounted');
+			},
+			directives : {
+				focus : {
+					bind : function(element,binding,vnode){
+						// 只调用一次,指令第一次绑定到元素时调用.在这里可以进行一次性的初始化设置
+						console.log('bind');
+						console.log(binding)
+					},
+					inserted : function(){
+						// 挂载到虚拟dom的时候调用
+						console.log('inserted')
+					},
+					unbind : function(){
+						// 只调用一次， 指令与元素解绑时调用。
+						console.log('unbind')
+					}
+				}
+			}
+		})
+	</script>
+</html>
