@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>vue-rx-learn</title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+        }
+        pre {
+            background: #21252B;
+            color: #F8F8EC;
+            font-size: 22px;
+        }
+        em {
+            color: #70714E;
+            font-style: normal;
+        }
+        a {
+            color:#FD9529;
+            text-decoration: none;
+        }
+        span {
+            color:#D7295C;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="app">rx-learn</div>
+    <a href="https://rxviz.com/" target="_blank">弹珠图</a>
+    <!-- built files will be auto injected -->
+    <pre>
+
+        <em>// 弹珠图示例代码:</em>
+        <em>// 创建符</em>
+        const { <a>of</a> } = Rx;
+        <em>// 操作符</em>
+        <span>const</span> { <a>map</a>, <a>filter</a> } = RxOperators;
+
+        <span>const</span> <a>source$</a> = <a>of</a>(1, 2, 3, 4);
+
+        <a>source$</a>.pipe(
+            <a>filter</a>(x => x % 2 === 0),
+            <a>map</a>(x => x * x)
+        );
+
+    </pre>
+  </body>
+</html>
+
+

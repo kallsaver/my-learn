@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		// https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object
+		// assign是转让转移的意思
+		// Object.assign(目标对象,转移对象...)
+		// Object.assign返回的是目标对象,把转移覆盖对象的key给目标对象
+		// Object.assign 方法只会拷贝源对象自身的并且可枚举的属性到目标对象
+		
+		var e = {
+			name: 'e'
+		}
+		
+		const obj1 = {
+			a: 1,
+			b: 2,
+			c: 3
+		}
+		
+		var obj2 = {
+			c: 4,
+			d: 5,
+			e: e
+		}
+		
+		var pro = {
+			a: 0
+		}
+		
+		obj1.__proto__ = pro
+		
+		const obj3 = Object.assign(obj1, obj2)
+		
+		// 不能拷贝原型上的
+		console.log(obj3)
+		
+		console.log(obj3.c)
+		
+		// true 浅拷贝
+		console.log(obj1.e === e)
+		
+		// true 返回的是目标对象
+		console.log(obj1 === obj3)
+		
+		var person1 = {
+			a: 1
+		}
+		
+		var person2 = {
+			a: 2,
+			b: 200
+		}
+		
+		var person3 = {
+			a: 3,
+			c: 500
+		}
+		
+		var person4 = {
+			a: 5,
+			c: 600,
+			d: 1000
+		}
+		
+		var person5 = Object.assign(person1, person2, person3, person4)
+		
+		console.log(person5)
+		
+		var student = {
+			name: 'student'
+		}
+		
+		console.log(Object.assign(student, undefined))
+		console.log(Object.assign(student, 1))
+		console.log(Object.assign(student, [1]))
+		
+		var realObj = {
+		    name: 'realObj',
+		    arr: [1, 2, 3],
+		    is: true,
+		    a: {
+		        name: 'a'
+		    },
+		    list: [
+		        {
+		            name: 'd',
+		            cityList:[
+		                {city:"beijing",countyList:["ddd","aaa","bbb"]},
+		                {city:"hangzhou",countyList:["fff","ggg","ooo"]},
+		            ]
+		        }
+		    ],
+		    fn: function(){
+		    	
+		    }
+		}
+		
+		var fn = function(){
+			
+		}
+		
+		console.log('fn',Object.prototype.toString.call(fn).slice(8,-1))
+		
+		function checkClass(o){
+		    return Object.prototype.toString.call(o).slice(8,-1)
+		}
+		
+		function parseDefinePlugin (obj) {
+		    var result
+		
+		    if(checkClass(obj) === 'Array'){
+		        result = []
+		    }else if(checkClass(obj) === 'Object'){
+		        result = {}
+		    }else{
+		        return obj
+		    }
+		    
+		    var objKeys = Object.keys(obj);
+		    var len = Object.keys(obj).length;
+		    var i = 0;
+		    for(var key in obj){
+		        i++;
+		        var copy = obj[key]
+		        if(checkClass(copy) === 'Array' || checkClass(copy) === 'Object'){
+		            result[key] = parseDefinePlugin(copy)
+		        }else{
+		            result[key] = JSON.stringify(copy)
+		            //result[key] = "'" + copy.toString() + "'"
+		            if(i === len){
+		                //var str = JSON.stringify(result)
+		                //console.log(str)
+		                //result = '' + str + ''
+		                // if(checkClass(result) === 'Array'){
+		                //     result = '[' + str + ']'
+		                // }else if(checkClass(copy) === 'Object'){
+		
+		                // }
+		            }
+		        }
+		    }
+		    return result
+		}
+		
+		var realObj1 = parseDefinePlugin(realObj)
+		console.log(realObj)
+		console.log(realObj1)
+		
+		console.log("'" + fn.toString() + "'")
+		console.log(JSON.stringify([1])[0])
+		
+		
+	</script>
+</html>

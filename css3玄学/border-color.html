@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			.box {
+				margin: 100px auto;
+				background-color: peru;
+				height: 100px;
+				width: 500px;
+				/*border区域的底色是background-color*/
+				border: 10px solid rgba(0, 0, 0, 0.1);
+				/* transparent其实是background-color*/
+				border: 10px solid transparent;
+			}
+			.input:checked .box{
+				background-color: gold;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<input type="checkbox" class="input">
+	</body>
+</html>

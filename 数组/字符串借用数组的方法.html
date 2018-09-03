@@ -9,29 +9,86 @@
 	</body>
 	<script>
 		//判断一个字符串中出现次数最多的字符,并统计次数
-		var str = 'aaaabbbccddddaaaa';
+		let str = 'aaaabbbccddddaaaa';
+		
+		str.split('').forEach((item) => {
+			console.log(item)
+		})
 		
 		function findTheMost(str){
-			var obj = {};
-			Array.prototype.forEach.call(str,function(item){
-				if(item in obj){
-					obj[item]++
-				}else{
-					obj[item] = 1;
-				}
+			let obj = {};
+			Array.prototype.forEach.call(str, function(item){
+				obj[item] = obj.hasOwnProperty(item) ? obj[item]++ : 1;
 			});
-			var result = { num : 0 , str : '' };
-			for (var key in obj){
+			let result = { num : 0 , str : '', alikeStr: null};
+			for (const key in obj){
 				if(obj[key] > result.num){
 					result.str = key;
 					result.num = obj[key];
+					result.alikeStr = null;
+				}else if (obj[key] === result.num) {
+					result.alikeStr = result.alikeStr || [];
+					result.alikeStr.push(key);
 				}
 			}
 			return result;
 		}
 		
 		console.log(findTheMost(str));
-
+		
+		
+		let c = 'aabbcc';
+		
+		console.log(findTheMost(c))
+		
+		// console.log(findTheMost(str));
+		
+//		let str = '11111dfsfsdsdfs';
+//		
+//		let arr = ['b', 'c', 1, '1', 'b']
+//		
+//		function getMostItem(str) {
+//			let most;
+//			let relative = {};
+//			let arr = [];
+//			Array.prototype.forEach.call(str, (item) => {
+//				if (!relative.hasOwnProperty(item)) {
+//					let obj = {};
+//					obj.count = 1;
+//					obj.name = item;
+//					relative[item] = obj;
+//				}else {
+//					relative[item].count++;
+//				}
+//			});
+//			console.log(relative);
+//			
+//			Object.keys(relative).forEach((key) => {
+//				arr.push(relative[key]);
+//			});
+//			
+//			arr.sort((a, b) => {
+//				return b.count - a.count;
+//			});
+//			
+//			console.log(arr)
+//			
+//			if (arr[1] && arr[0].count == arr[1].count) {
+//				return {
+//					item: arr[0].name,
+//					count: arr[0].count,
+//					tip: '存在一样多的元素'
+//				}	
+//			}else {
+//				return {
+//					item: arr[0].name,
+//					count: arr[0].count,
+//				}	
+//			}
+//		}
+//		
+//		console.log(getMostItem(str));
+//		console.log(getMostItem(arr));
 		
 		
 		

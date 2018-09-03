@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		function Student (name) {
+			// 类变量
+			this.name = name;
+		}
+		
+		// 挂载到实力层的下一层,也就是上层Object
+		// 继承变量
+		Student.prototype.getName = function () {
+			console.log(this.name);
+		}
+		
+		// 静态变量,挂载在构造函数上
+		Student.of = function () {
+			console.log('of');
+		}
+		
+		var s = new Student('Mike');
+		s.getName();
+		Student.of();
+		
+		console.log(s);
+		
+		
+	</script>
+</html>

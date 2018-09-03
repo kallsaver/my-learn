@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		'use strict';
+		
+		function observeProperty(obj, key, fn) {
+			// val是一个闭包,setter被触发时,它会改变,如果getter也依赖它,所以getter依赖setter
+			var val = obj[key];
+			Object.defineProperty(obj, key, {
+				enumerable: true, // 可枚举
+				configurable: true, // 可重新定义
+				get: function() {
+					// 这里的return值很重要,return的内存就是obj[key]的内存
+					return val;
+				},
+				set: function(newVal) {
+					// newVal接受的是外界给obj[key]赋值的内存
+					console.log('set');
+					if (val === newVal) {
+                        return;
+                    }
+					
+					console.log('更新啦 ', val, '=>', newVal);
+					val = newVal;
+					// 回调
+					if(typeof fn == 'function') {
+						//console.log('数据更新啦');
+						fn(obj);
+					}
+				}
+			});
+		};
+		
+		
+		
+		function observeArray (items) {
+		  
+		}
+		
+		
+		
+		var obj = {
+			data: {
+				name: 'vue'
+			},
+			list: [1, 2, 3]
+		}
+		
+		observeProperty(obj, 'data');
+		
+		
+		observeProperty(obj, 'data' ,function(obj){
+			console.log(obj)
+		});
+		
+		
+		// Object.defineProperty只能监听这个属性的赋值设置,不能递归监听属性的属性
+		var changeData = false;
+
+		if (changeData) {
+			obj.data = {
+				name: 'node'
+			}
+		}else {
+			obj.data.name = 'react';
+		}
+		
+		function notify() {
+			console.log('更新视图')
+		}
+		
+		
+		
+		// http://www.bslxx.com/a/vue/2017/1111/1425.html
+		// 没有变化
+		
+//		observeProperty(obj, 'list' ,function(obj){
+//			console.log(obj)
+//		});
+		//obj.list.push(4);
+		
+		
+		// 不能监听数组上的length属性,这就是为什么vue中对数组中的push等方法做变体处理
+//		observeProperty(obj.list, 'length' ,function(obj){
+//			console.log(obj)
+//		});
+		
+		// 策略:对各别数组上的push方法做调整
+		obj.list.push = function() {
+			var i = arguments.length;
+		    var args = new Array(i);
+		    while (i--) {
+		      args[i] = arguments[i];
+		    }
+		    var result = Array.prototype.push.apply(this, args);
+		    var inserted = args;
+		    if(inserted) {
+		    	observeArray(inserted);
+		    }
+		    notify();
+		    return result;
+		}
+		
+		obj.list.push(4,5);
+		console.log(obj.list);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
+</html>

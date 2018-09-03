@@ -1,0 +1,15 @@
+参考文献:https://www.zhihu.com/question/49382420/answer/223915243
+
+1.babel runtime的使用:
+
+// babel-plugin开头的都是babel编译js的插件,是构建工具
+// babel-plugin-transform-runtime告诉babel要引用runtime来替代注入
+npm install babel-plugin-transform-runtime --save-dev
+// babel-runtime是运行依赖
+npm install babel-runtime --save
+在项目根目录中新建.babelrc文件
+
+
+
+
+

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.app {
+				width: 200px;
+				height: 200px;
+				background: goldenrod;
+			}
+			
+			.box {
+				width: 100px;
+				height: 100px;
+				transition: all 2s;
+				background: peru;
+			}
+			.inner{
+				width: 50px;
+				height: 50px;
+				transition: all 2s;
+				background: cadetblue;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="app" id="app">
+			<div class="box" id="box">
+				<div class="inner" id="inner"></div>
+			</div>
+			</div》 </body>
+			<script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-beta.49/polyfill.js"></script>
+			<script>
+				
+				// 看了vue源码,其实只需要做transitionend和webkitTransitionEnd的兼容
+				var transitionEndEventNames = {
+					'WebkitTransition': 'webkitTransitionEnd',
+					'OTransition': 'oTransitionEnd',
+					'msTransition': 'MSTransitionEnd',
+					'transition': 'transitionend'
+				}
+				
+				var animationEndEventNames = {
+					'WebkitAnimation': 'webkitAnimationEnd',
+					'OAnimation': 'oAnimationEnd',
+					'msAnimation': 'MSAnimationEnd',
+					'animation': 'animationend'
+				}
+
+				var box = document.getElementById('box');
+				var app = document.getElementById('app');
+				var inner = document.getElementById('inner');
+				
+				
+				// 第三个参数true表示回调函数在捕获阶段执行
+				// false为冒泡阶段执行
+				box.addEventListener('click', function() {
+					// 冒泡阶段
+					console.log('box-click');
+					box.style.transform = 'translate3d(50px,0,0)';
+					inner.style.transform = 'translate3d(0,50px,0)';
+				}, false);
+				
+				
+				
+//				Object.keys(transitionEndEventNames).forEach(function(item){
+//					// 这个监听也包含了box的子元素的,所以可能触发多次,要做判断
+//					box.addEventListener(transitionEndEventNames[item], function(event) {
+//						if(event.target === box){
+//							console.log(item)
+//							console.log('box-transition');
+//						}
+//					});
+//				});
+
+				// 可以重复绑定
+				box.addEventListener('transitionend', function(event) {
+					//if(event.target === box){
+						console.log('box-transition');
+					//}
+				}, false);
+				
+				app.addEventListener('click', function() {
+					// 捕获阶段
+					console.log('app-click');
+				}, true);
+				
+				
+			</script>
+
+</html>

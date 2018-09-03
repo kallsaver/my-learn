@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+
+		</style>
+	</head>
+
+	<body>
+		<div id="div">
+			<img src="https://yys.res.netease.com/pc/fab/20170119112846/img/fea_05_75fa5be.jpg">
+		</div>
+	</body>
+	<script>
+		//<Javascript设计模式与开发实践40页>
+		var report = function(s) {
+			//DOM元素的生命周期是无限长的,所以img的生命周期也延长了
+			var div = document.getElementById('div')
+			var img = new Image();
+			img.src = s;
+			console.log(img)
+			div.appendChild(img);
+		}
+
+		report('https://yys.res.netease.com/pc/fab/20170119112846/img/fea_05_75fa5be.jpg');
+
+		var report1 = (function() {
+			var div = document.getElementById('div')
+			var imgList = [];
+			return function(s) {
+				var img = new Image();
+				//img被引用到imgList中,所以imgList的生命周期决定img的生命周期
+				imgList.push(img)
+				img.src = s;
+				return imgList
+			}
+		})();
+
+		var a = report1('https://yys.res.netease.com/pc/fab/20170119112846/img/fea_05_75fa5be.jpg');
+		console.log(a)
+		var div = document.getElementById('div');
+		div.appendChild(a[0]);
+	</script>
+
+</html>

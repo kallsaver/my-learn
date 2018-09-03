@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+				box-sizing: border-box;
+			}
+			.app {
+				margin-top:100px;
+				margin-left:100px;
+				font-size: 0;
+			}
+			span {
+				display: inline-block;
+			}
+			.box{
+				display: inline-block;
+				background: rgb(0, 160, 220);
+				padding: 0px 24px;
+				margin-right:30px;
+				font-size: 0;
+				height: 50px;
+				/*line-height: 100px;
+				vertical-align: text-top;*/
+			}
+			
+			.text,.count{
+				vertical-align: text-top;
+				line-height: 50px;
+				height:50px;
+				color: #fff;
+				background:chartreuse;
+			}
+			
+			.text{
+				maring-right:2px;
+				font-size: 24px;
+			}
+			
+			.count{
+				font-size: 16px;
+			}
+			
+			
+		</style>
+	</head>
+	<body>
+		<div class="app">
+			<div class="box"><span class="text">全部</span><span class="count">2</span></div>
+			<div class="box">
+				<span class="text">推荐</span>
+				<span class="count">2</span>
+			</div>
+			<div class="box">
+				<span class="text">吐槽</span>
+				<span class="count">2</span>
+			</div>
+		</div>
+	</body>
+	<script>
+		
+		// https://www.zhangxinxu.com/wordpress/2015/08/css-deep-understand-vertical-align-and-line-height/
+		// inline-block元素内部有两个幽灵节点,而默认vertical-align是baseline
+		// 用font-size:0和line-height:0也不能消除
+		// 可以设置vertical-align为text-top消除幽灵节点的站位
+		// 或者设置height
+		
+		// line-height会作用于行元素,和字体
+		// 让行元素中的字体居中,所以行元素是有便捷作用的
+		// span,a等不推荐给为inline-block,
+		// 这样会使得span,a继承了inline-block而获得高度,丧失了布局的便利
+		
+		var box1 = document.getElementsByClassName('box')[0];
+		var text1 = document.getElementsByClassName('text')[0];
+		var count1 = document.getElementsByClassName('count')[0];
+		
+		console.log(getComputedStyle(box1).height);
+		
+		console.log(getComputedStyle(text1).height);
+		
+		console.log(getComputedStyle(count1).height);
+	</script>
+</html>

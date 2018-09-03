@@ -1,0 +1,20 @@
+1.vscode对typescript支持很好,语法错误会提示报错
+
+2.@types/lodash是对lodash这个库传错参数等会有一个报错提示,
+npm install @types/lodash --save-dev后在vscode中会提示,打包在git窗口也会提示
+如果不install @types/lodash不会提示
+
+3.还有@types/vue等
+
+4.除了@types还有typings
+
+5.先全局安装npm install typings -g
+
+6.typings install lodash --save-dev 然后会在根目录生产typings.json
+
+7.然后再tsconfig.json中补上类型声明文件目录:
+"typeRoots": [
+    "./typings/modules"
+]
+
+8.@types用法比较简单粗暴

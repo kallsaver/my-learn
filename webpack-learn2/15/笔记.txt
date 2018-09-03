@@ -1,0 +1,12 @@
+参考文献:http://www.jb51.net/article/113235.htm
+
+1. Tree Shaking使用场景:
+常规优化
+引入第三方库的某一个功能
+
+
+2.在webpack打包出来的js文件,'harmony'是webpack的标识
+/* harmony export (immutable) */ 表示这个模块被用了
+/* unused harmony export b */ 表示b模块没有被用
+用webpack自带的插件optimize.UglifyJsPlugin可以把没有用到的js代码不打包
+webpack.optimize.UglifyPlugin不仅仅有压缩的功能,也有去掉无用模块的功能

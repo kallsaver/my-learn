@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		
+		function getConfig(name) {
+			var config = {
+				count: 0,
+			};
+			
+			Object.defineProperty(config, '_name', {
+				// 不可枚举
+			    enumerable: false,
+			    value: name
+			});
+			
+			return config;
+		}
+		
+		
+		var config = getConfig('c');
+		
+		console.log(config);
+		
+		config._name = 'a';
+		
+		console.log(config._name);
+		
+		for(var key in config){
+			console.log(key)
+		}
+		
+		
+	</script>
+</html>

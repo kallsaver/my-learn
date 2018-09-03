@@ -1,0 +1,13 @@
+html {
+  background: peru;
+}
+.box {
+  height: 200px;
+  width: 200px;
+  border: 4px solid gold;
+  background: #333;
+  -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
+  transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding:0;}
+			.box{
+				width:50px;height: 50px;
+				background: peru;margin-bottom: 10px;
+			}
+			.first{
+				width:50px;height: 50px;
+				background: cadetblue;margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="first" @click="change">{{currentIndex}}</div>
+			<div class="first">{{otherIndex}}</div>
+			<div>{{text()}}</div>
+			<div>{{otherText()}}</div>
+			<ul>
+				<li class="box" :key="item" v-for="item in list">{{item.name}}</li>
+			</ul>
+			<ul>
+				<li class="first" v-for="item in arr">{{item}}</li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script>
+		
+		var a = 0;
+		
+		new Vue({
+			el: '#app',
+			data: {
+				index: 0,
+				a: 0,
+				name: 'vue',
+				obj: {
+					index: 100,
+				},
+				list: [
+					{
+						name: 11
+					},
+					{
+						name: 22
+					},
+					{	name: 33
+					}
+				],
+				arr: ["aa","bb","cc","dd"]
+			},
+			mounted: function () {
+				var vm = this;
+//				setInterval(function(){
+//					vm.obj.index++;
+//					a++;
+//				}, 2000);
+//				
+				setTimeout(function(){
+//					vm.obj.index++;
+//					vm.index++;
+					a++;
+					
+					// updated只触发了一次,说明vue在model对view的更新是有策略的
+//					vm.list = [];
+//					vm.list =[
+//						{
+//							name: 1
+//						},
+//						{
+//							name: 2
+//						},
+//						{	name: 3
+//						}
+//					];
+				},2000)
+
+				// 如果在v-for元素中加key,元素的指针改变,dom会销毁
+				// 没有key,vue会采取最优化策略,不销毁dom,把新数据和dom结合
+				// 没有key可能会出现数据错位导致渲染错误
+				document.getElementsByClassName('box')[0].onclick = function () {
+					alert('点击')
+				}
+				
+			},
+			methods: {
+				text: function () {
+					console.log('methods text');
+					var vm = this;
+					return 1;
+					// 函数内部只有有vm属性的数据的逻辑,
+					// 外部这个vm属性发生变化时都会触发currentIndex运行
+					if(vm.index > 120){
+						vm.a = 100;
+					}
+					if (vm.obj.index > 120){
+						return 200;
+					}
+					return 1;
+				},
+				otherText: function () {
+					console.log('methods text');
+					var vm = this;
+					if (vm.index > 120){
+						return 200;
+					}
+					return 1;
+				},
+				change: function() {
+					console.log('methods change');
+					var vm  = this;
+					vm.index++;
+//					console.log('click');
+//					vm.list[0].name = '1';
+//					vm.arr[0] = 'll';
+					//vm.index++;
+				}
+			},
+			// computed这个属性太神奇了
+			// computed和编译作用的methods有类似有区别
+			// 类似:
+			// computed的触发条件是和内部使用了vm的属性,外部改变这个vm属性时,methods也是如此
+			// 区别:
+			// 当视图发生改变(updated被触发了),methods会被触发,而computed不会(除非关联)
+			// 所以computed的触发条件更少,性能更好
+			// computed的生命周期和methods的生命周期取决于结构先后
+			computed: {
+				currentIndex: function () {
+					console.log('computed currentIndex');
+					return 1;
+					var vm = this;
+					// 函数内部只有有vm属性的数据的逻辑,
+					// 外部这个vm属性发生变化时都会触发currentIndex运行
+					if(vm.index > 120){
+						vm.a = 100;
+					}
+					if (vm.obj.index > 120){
+						return 200;
+					}
+					return 1;
+				},
+				otherIndex: function (){
+					var vm = this;
+					console.log('computed otherIndex');
+					return 1;
+					if (vm.obj.index > 120){
+						return 200;
+					}
+					return 1;
+				}
+			},
+			beforeUpdate: function () {
+				console.log('beforeUpdate');
+			},
+			updated: function () {
+				console.log('updated');
+				console.log(this.list);
+			}
+		});
+	</script>
+</html>

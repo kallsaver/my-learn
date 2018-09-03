@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.test {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: peru;
+			}
+			.select {
+				width: 100px;
+				height: 50px;
+				background: gold;
+				line-height: 50px;
+				text-align: center;
+				color: #fff;
+				font-size: 24px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script>
+		var camelizeRE = /-(\w)/g;
+		
+		// -后的字母转大写
+		function camelize (str) {
+			str = String(str)
+			return str.replace(camelizeRE, function(m, c) {
+				return c ? c.toUpperCase() : ''
+			})
+		}
+		
+		function instantiateComponent (Vue, Component, data, renderFn) {
+			
+			
+			
+		}
+		
+		function parseRenderData (data, events) {
+			
+		}
+		
+		function parseEvents (events) {
+			
+		}
+		
+		function createAPIComponent(Vue, Component, events = [], single = false) {
+			
+		}
+		
+		
+		
+	</script>
+	
+	<script>
+		new Vue({
+			el: '#app',
+			data: {
+				$d: 'dd'
+			}
+		})
+	</script>
+	
+</html>

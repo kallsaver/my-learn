@@ -1,0 +1,15 @@
+文档参考:
+http://www.css88.com/doc/webpack2/plugins/commons-chunk-plugin/
+http://www.css88.com/doc/webpack2/guides/code-splitting-libraries/
+
+1.对于自打包成一个js文件的单页面应该,webpack.optimize.CommonsChunkPlugin
+有两种情况可以用得上：
+a.如果某几个模块的js需要懒加载,都import了某个库,看09文件夹)
+一个js文件用webpack.optimize.CommonsChunkPlugin可以分离库代码用
+因为如果最终只生产一个js文件,import语法会让重复的模块只引入一次
+b.提取库代码,库代码和业务代码分离,如果出现提取无效应该检查chunk名字是否写错了
+
+
+2.对于多入口chunks,最终生成多个js文件的项目,webpack.optimize.CommonsChunkPlugin用于
+提取这些js文件中的公共代码,比如第三方库,重复引入的模块,然后再script中引入公共代码,
+一般写成vendor.js或者common.js

@@ -14,8 +14,6 @@ webpack.dev.config.js和webpack.prod.config.js都依赖webpack.config.js(基本�
 
 2.webpack.config.js中path是node_modules包中的path模块,安装webpack等已经依赖path包了
 
-3.path.resolve方法可以把两个参数生成绝对定位,
-
 4.比如var moment = require('moment');其实是查找node_modules中的moment/min/moment-with-locales.min.js文件,
 如果指定具体的路径,会加快webpack的打包速度,var moment = require('moment/min/moment-with-locales.min.js')
 但是这样改,可读性会下降,而且每一个用到moment的地方都得这么写,

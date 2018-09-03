@@ -1,0 +1,8 @@
+app: Settings Sync
+tokens: e073ed0cbe81e131f8bd121d52b68fdfd4069ac1
+
+操作:
+ctrl + p 打开vscode命令窗口
+> sync update (如果有配置好token的就不会输入token)来上传配置
+> sync download 来下载配置
+

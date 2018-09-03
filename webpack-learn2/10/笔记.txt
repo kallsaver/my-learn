@@ -1,0 +1,7 @@
+参考文档:
+http://www.css88.com/doc/webpack2/guides/code-splitting-require/
+https://www.cnblogs.com/gaomingchao/p/6911762.html
+http://react-china.org/t/webpack-output-filename-output-chunkfilename/2256/2
+
+1.动态import和require.ensure的区别是import会加载完毕文件立即执行,
+require.ensure要require一下才会执行

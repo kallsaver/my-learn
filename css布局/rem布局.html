@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			// rem布局是html根元素的
+			// 移动端通常以iphone6为设计稿,dpr为2,就是说设计稿是750px,但是iphone的屏幕是375
+			// 所以量取的尺寸值都要除以2,
+			// rem布局的好处是正常设备上完全没问题,偏小的设备如iphone5的屏幕是320
+			// 导致宽度不够用,在iphone5会出现问题
+			// 如果不采用rem,要在出现问题的元素上进行媒体查询@media only screen and (max-width: 320px)
+			// 把宽度设小,比例是375/300
+			// 而rem布局会在iphone5上自动缩小,比例也是375/300
+			// 所以我们最好的方案是使用rem的时候就是设计量取的尺寸值,这样不用做任何换算
+			
+			// 而如果使用rem布局,本身是不会对px单位有影响的,
+			// 而如果一个开源框架对字体不做严格限制(这是开源框架的问题),会造成使用rem布局后字体变大
+			// 而一个好的布局也是不应该对字体继承,行块元素上字体不为零会造成空格等问题
+			
+			
+			// rem布局和flex是可以实现不同的效果的
+			// rem布局的使用可以避免@media only screen and (max-width: 320px)对小设备的兼容代码
+			// rem布局对pc端同样兼容
+			
+			// flex的核心是父元素有范围,对宽度固定子元素固定(flex:0 0 80px),
+			// 对不需要固定宽度的子元素做扩展处理(flex:1)
+			// 这样减少量尺寸的操作
+			// 所以flex适用于当一个元素不确定宽度你又懒得想的情形,并且使用flex布局可以减少float的使用
+			// flex完全可以替代float
+			
+			var designWidth = 375;
+      		var rem2px = 50;
+    		document.documentElement.style.fontSize = ((window.innerWidth / designWidth) * rem2px) + 'px';
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

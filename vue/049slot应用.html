@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title></title>
+		<style>
+			* {
+				margin:0;
+				padding:0;
+				text-align: center;
+			}
+			li {
+				list-style: none;
+			}
+			.nav ul {
+				display: flex;
+				justify-content: space-around;
+				background-color: #15191D;
+			}
+			.nav ul li {
+				flex: 60px;
+				color: #E0E4E8;
+				font-size: 12px;
+				line-height: 40px;
+				height: 40px;
+			}
+			.nav ul li.active {
+				color: gold;
+			}
+			.content ul li {
+				
+			}
+			[v-cloak] {
+				display: none;
+			}
+			.popup-mask {
+				position: fixed;
+			    left: 0;
+			    right: 0;
+			    top: 0;
+			    bottom: 0;
+			    overflow: hidden;
+			    background-color: #25262d;
+			    opacity: 0.4;
+			    z-index:100;
+			}
+			.popup-content {
+				background: rgba(255,255,255,1);
+		      	width:125px;
+		      	min-height:125px;
+		      	position: fixed;
+		      	top:50%;
+		      	margin-top:-62.5px;
+		      	left:50%;
+		      	margin-left:-62.5px;
+		      	border-radius: 9px;
+		      	font-size: 40px;
+		      	line-height: 125px;
+		      	color: crimson;
+		      	font-weight: bolder;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<div class="nav">
+				<ul>
+					<li v-for="(item, index) in list" 
+						:class="{'active': index === currentPage}"
+						@click="switchTab(index)">{{item.name}}</li>
+				</ul>
+			</div>
+			<div class="content">
+				<!--假如content-top是复杂的上下拉组件,是功能型组件-->
+				<!--使用插槽可以使得组件的功能更加的专一,大大提高了复用性-->
+				<!--同时组件的template已经决定了插槽的位置-->
+				<content-top>
+					<!--这里的内容的作用域其实是app的,也就是content-center的父组件-->
+					<!--相当于把父组件的数据通过结构语法而不是编程语法传给了子组件-->
+					<div slot="dots">
+						<ul>
+							<li v-for="item in list[currentPage]['learn']">{{item}}</li>
+						</ul>
+					</div>
+				</content-top>
+				<content-center>
+					<template slot="text" scope="props">
+						<div>{{props.text}}</div>
+					</template>
+				</content-center>
+				<content-bottom>
+					<!--组件内部的内容没有slot是不会生效的-->
+					<!--如果生效了说明content-bottom提供了插槽,而且还是万能插槽-->
+					<!--组件里面插入组件-->
+					<content-botto-item v-for="(item,index) in list" :key="index"></content-botto-item>
+					<div slot="dots">dots</div>
+				</content-bottom>
+			</div>
+			<div @click="showCurrentPage">showCurrentPage</div>
+			<popup-mask ref="popupMask">
+				<div class="popup-content" @click.stop.prevent>{{currentPage}}</div>
+			</popup-mask>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script>
+		
+		// slot插槽的作用
+		// 万能slot插槽可以封装功能型组件,比如scroll,模态层等,让里面的html可以穿透作用域而不用繁琐的props传值
+		// 让功能型组件更加容易复用
+		// 有名slot插槽则是封装了结构,html中的符合的插槽的内容将会分发到组件的指定位置
+		
+		new Vue({
+			el: '#app',
+			data: {
+				currentPage: 1, 
+				isShowCurrentPage: false,
+				list: [
+					{
+						name: 'Vue',
+						learn: ['Cube-ui', 'Vue-router', 'Weex'],
+					},
+					{
+						name: 'React',
+						learn: ['Jsx', 'React-router', 'React-Native'],
+					},
+					{
+						name: 'Angular',
+						learn: ['Rxjs', 'Typescript']
+					},
+				]
+			},
+			mounted() {
+				
+			},
+			methods: {
+				switchTab(index) {
+					this.currentPage = index;
+				},
+				showCurrentPage() {
+					// 控制一个组件显示的问题,最好用refs解决
+					this.$refs.popupMask.showPupopMask();
+				}
+			},
+			components: {
+				'content-top': {
+					template: `<div>
+								<div>you have to learn the follow knowledge</div>
+							  	<slot name="dots"></slot>
+							  </div>`
+				},
+				'content-center': {
+					template: `<div>
+							  	<slot name="text" text="作用域插槽"></slot>
+							  </div>`
+				},
+				'content-bottom': {
+					template: `<div>
+									content-bottom
+							  		<slot></slot>
+							  		<slot name="dots"></slot>
+							  </div>`,
+				},
+				'content-botto-item': {
+					template: `<div>
+								content-botto-item
+							  </div>`
+				},
+				'popup-mask': {
+					template: `<div class="popup-mask" v-if="isShowPupopMask" @click="hidePupopMask">
+								 <slot></slot>
+							  </div>`,
+					data() {
+						return {
+							isShowPupopMask: false,
+						}
+					},
+					methods: {
+						showPupopMask() {
+							this.isShowPupopMask = true;
+						},
+						hidePupopMask() {
+							this.isShowPupopMask = false;
+						}
+					}
+				}
+			}
+		});
+	</script>
+</html>

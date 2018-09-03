@@ -1,0 +1,24 @@
+转化插件搜索: https://www.npmjs.com/package
+babel原理:https://www.jianshu.com/p/e9b94b2d52e2
+stage: https://blog.csdn.net/wang252949/article/details/79064046
+stage是对分阶段插件的集合,类似babel-core,babel-core是正式的语法,stage是非正式的语法
+安装stage-0即可,包含了所有的stage-1~4
+stage-0可以不写在.babel.rc中,只是一个编译依赖,写在.babel.rc也不会有作用
+不推荐使用stage方式,对于不正式语法的补丁编译功能通常不完善
+要看文档逐个新语法插件配置
+
+presets是个数组,编译顺序是从下到上编译,里面是编译依赖的包,@babel是babel7的包,babel是babel6的包,
+babel和@babel不能同时使用,babel有babel-eslint对vscode可以支持EditorConfig for VS Code插件
+@babel不行,没有@babel/eslint
+新语法提议:https://github.com/tc39/proposals
+@babel使用:https://babeljs.io/docs/en/next/babel-plugin-proposal-function-bind.html
+
+对于操作符,补丁是不支持的,不推荐@babel/polyfill方式编译es6,es7
+所有的es6,es7最好通过预处理编译
+1:对操作符支持
+2:按需使用,按需编译,最小化代码
+3:不会对全局污染
+
+推荐使用babel-plugin-transform-runtime可以局部按需编译正式语法
+其中babel-runtime是在babel-core里面的,所以不需要npm install babel-runtime --save
+使用其他补丁局部按需编译非正式语法

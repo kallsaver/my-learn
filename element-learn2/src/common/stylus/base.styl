@@ -1,0 +1,50 @@
+// 这个文件定义全局的类
+body,html{
+  font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif
+}
+
+body{
+  font-size: 0;
+}
+
+// dpr小于1.5的是pc端,不做缩小处理
+
+// dpr大于1.5生效,由于后面设置了dpr大于2,所以这里相当于1.5~2生效
+@media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5){
+  .border-1px{
+    &:before,&:after{
+      -webkit-transform: scaleY(0.7)
+      transform: scaleY(0.7)
+    }
+  }
+}
+  
+// dpr大于2生效
+@media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2){
+  .border-1px{
+    &:before,&:after{
+      -webkit-transform: scaleY(0.5)
+      transform: scaleY(0.5)
+    }
+  }
+}
+
+// 其实没必要对dpr做判断,无论dpr大小,统一采用伪元素放大又缩小来做
+
+
+
+
+.clearfix{
+  display: inline-block;
+  &:after{
+    display: block;
+    content: "";
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+  
+  

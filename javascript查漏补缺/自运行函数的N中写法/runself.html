@@ -9,6 +9,7 @@
 	<script>
 		
 		// 1.在自运行函数前加运算符,通常加 ！或者 void
+		// 2.通常称为自执行函数,左边是运算符的格式都可以
 		! function(){
 			console.log(1)
 		}()
@@ -40,6 +41,10 @@
 		})()
 		
 		// void是个运算符,返回值是undefined;
-		console.log(void('哈哈'))
+		console.log(void('哈哈'));
+		
+		var a = function(){
+			console.log(6);
+		}();
 	</script>
 </html>

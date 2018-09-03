@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script>
+		
+		
+		function observeProperty(obj, key, fn) {
+			// val是一个闭包,setter被触发时,它会改变,如果getter也依赖它,所以getter依赖setter
+			var val = obj[key];
+			Object.defineProperty(obj, key, {
+				enumerable: true, // 可枚举
+				configurable: true, // 可重新定义
+				get: function() {
+					// 这里的return值很重要,return的内存就是obj[key]的内存
+					return val;
+				},
+				set: function(newVal) {
+					// newVal接受的是外界给obj[key]赋值的内存
+					if (val === newVal) {
+                        return;
+                    }
+					
+					console.log('更新啦 ', val, '=>', newVal);
+					val = newVal;
+					// 回调
+					if(typeof fn == 'function') {
+						//console.log('数据更新啦');
+						fn(obj);
+					}
+				}
+			});
+		};
+
+		var a = {
+			name: 'a',
+			list: [1, 2, 3],
+			data: {
+				first: '1'
+			}
+		}
+
+		observeProperty(a, 'name');
+		
+		observeProperty(a, 'list');
+		
+		observeProperty(a, 'data');
+		
+//		a.name = 'a'
+// 
+//		a.name = 'b';
+//		
+//		a.count = 0;
+		
+		a.list.push(4);
+		
+//		a.data.first = 'dd';
+//		
+//		console.log('a', a);
+//		
+//		console.log(a.name);
+//		
+//		setTimeout(function(){
+//			console.log(a.name);
+//		}, 2000)
+//		
+//		
+//		function bibao(obj, key) {
+//			var val = obj[key];
+//			obj.set = function(newVal){
+//				val = newVal;
+//				obj[key] = val;
+//			},
+//			obj.get = function(){
+//				return val;
+//			}
+//		}
+//		
+//		var obj = {
+//			name: 'obj'
+//		}
+//		
+//		
+//		bibao(obj, 'name');
+//		
+//		obj.set('new obj');
+//		
+//		console.log(obj.get());
+//		
+//		console.log(obj)
+		
+		
+	</script>
+
+</html>

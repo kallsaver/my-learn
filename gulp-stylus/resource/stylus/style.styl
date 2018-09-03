@@ -1,0 +1,30 @@
+.box {
+    height: 200px;
+    background: peru;
+}
+
+p {
+    height 200px;
+    background: orange;
+}
+
+.input, button {
+    width: 100px;height:100px;
+}
+
+// + 是表示后面的所有兄弟元素
+// 解析为.input:checked 后面的.box
+// 并不是说父元素只能操作子元素,而是css中的解析没有提供更多的选择器
+// 只有+是不是子元素,其他的都是操作子元素的
+.input:checked + .box {
+    background: gold;
+}
+
+button:hover + .box {
+  background: #ffd700;
+}
+
+// 解析为.input:checked里面的p
+.input:checked p {
+    background: gold;
+}

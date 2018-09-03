@@ -1,0 +1,9 @@
+webpack对babel支持是最好的
+无论是全局import 'babel-polyfill',
+还是局部垫片babel-runtime和其依赖babel-plugin-transform-runtime都可以很好编译es6
+
+当写开源代码时,为了使得编译出来的代码更好维护,应该避免使用es5需要补丁的语法,
+比如Promise,Gernerator这些需要补丁的语法,可以使用class,es module,arrow function的语法,
+而且webpack本身就会让编译的代码丑化,其实不是很适合做开源项目
+
+

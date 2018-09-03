@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		
+		
+		var wait1 = function () {
+			var def =$.Deferred();
+			var tasks = function(){
+				console.log("执行完毕");
+				var obj = {
+					name: '$.Deferred'
+				}
+				def.resolve(obj);
+				// def.resolve是个异步任务
+				console.log('$.Deferred的resolve后面的语句');
+			}
+			setTimeout(tasks,2000);
+			console.log("return1执行")
+			//返回promise对象
+			//def的状态会影响def.promise的状态
+			return def.promise();
+		};
+		
+		wait1().then(function (obj) {
+			console.log('Deferred的then方法执行');
+			console.log(obj.name);
+		});
+		
+		
+		var promise = new Promise(function(resolve, reject){
+			setTimeout(function(){
+				var obj = {
+					name: 'native Promise'
+				}
+    			resolve(obj);
+    			// resolve是个异步任务
+    			console.log('navtive Promise的reslove后面的语句');
+  			}, 3000);
+  			console.log('同步任务执行');
+		});
+		
+		promise.then(function (obj){
+			console.log('native Promise的then方法执行');
+			console.log(obj.name);
+		});
+		
+
+
+		
+		
+		
+	</script>
+</html>

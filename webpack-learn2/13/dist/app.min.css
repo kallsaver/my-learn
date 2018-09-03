@@ -1,0 +1,29 @@
+html {
+  background: peru;
+}
+.box {
+  height: 200px;
+  width: 200px;
+  border: 4px solid gold;
+  background: #333;
+}
+body {
+  color: lightblue;
+  font-size: 30px;
+}
+li {
+  list-style: none;
+}
+a,
+img,
+span,
+em {
+  display: inline-block;
+}
+.bigBox {
+  border-radius: 6px;
+}
+.a {
+  font-size: 14px;
+  color: lawngreen;
+}

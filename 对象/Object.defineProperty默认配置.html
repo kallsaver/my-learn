@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		var defaultConfig = {
+			name: 'obj'
+		}
+		
+		// 以下是默认配置
+		Object.defineProperty(defaultConfig, 'name' ,{
+			// 设置为false,属性也不能被delete删除,属性描述符啥的不懂
+			configuable: false,
+			// 为true时才能被枚举,false是不可以被for in 枚举的
+			enumerable: false,
+			// value值,赋值一个变量时,拿到这个值,
+			// value和writable用于简单静态配置,set和get用于复杂动态情况,他们不能同时使用,否则会报错
+			value: undefined,
+			// 为true时value才能赋值语句修改
+			writable: false
+		});
+		
+		
+		
+		function getStatic(name) {
+			var static = {
+				count: 1,
+			}
+			
+			Object.defineProperty(static, 'name', {
+				configuable: false,
+				enumerable: false,
+				value: name,
+				writable: false
+			});
+			return static
+		}
+		
+		var static = getStatic('static');
+		
+		static.name = 'a';
+		
+		// static
+		console.log(static.name);
+		
+		
+		var dynamic = {
+			
+		}
+		
+		function observeProperty(obj, key) {
+			var value = obj[key];
+			Object.defineProperty(obj, key, {
+				configuable: false,
+				enumerable: true,
+				get: function () {
+					return value
+				},
+				set: function(newValue) {
+					// 灵活设置,比如不让name为'config'
+					if (value === newValue || newValue === 'config') {
+						return;
+					}
+					
+					value =  newValue;
+				}
+			});
+		}
+		
+		observeProperty(dynamic, name);
+		
+		dynamic.name = 'a';
+		
+		// a
+		console.log(dynamic.name);
+		
+		dynamic.name = 'config';
+		
+		// a
+		console.log(dynamic.name);
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
+</html>

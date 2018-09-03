@@ -1,0 +1,33 @@
+.bigBox .img4 {
+  background-image: url(assets/imgs/4.bundle.jpg);
+}
+
+html {
+  background: peru;
+}
+
+.bigBox {
+  height: 400px;
+  width: 400px;
+  border: 5px;
+}
+
+.bigBox .img {
+  width: 160px;
+  height: 160px;
+  float: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bigBox .img1 {
+  background-image: url(assets/imgs/5.bundle.jpg);
+}
+
+.bigBox .img2 {
+  background-image: url(assets/imgs/2.bundle.jpg);
+}
+
+.bigBox .img3 {
+  background-image: url(assets/imgs/3.bundle.jpg);
+}

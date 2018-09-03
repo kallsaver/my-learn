@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin:0;padding:0;
+			}
+			.box{
+				width:100px;height:100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box" class="box"></div>
+	</body>
+	<script>
+		
+		// UI渲染和js执行是公用浏览器的一个线程的
+		// js执行的优先级高于UI渲染,当主线程的js执行完毕,UI渲染才开始
+		// 当发现js消息队列等待时间过长,浏览器切换到UI渲染
+		
+		// 把alert(1)分别放在同步任务,setTimeout等回调里面
+		
+		var box = document.getElementById('box');
+		
+		box.style.background = '#' + (Math.random() * 0xffffff << 0).toString(16);
+		
+		var promise = Promise.resolve()
+		
+		promise.then(() => {
+			console.log(1)
+		})
+		
+		// setTimout和first requestAnimationFrame
+		setTimeout(function () {
+			console.log('setTimeout');
+		}, 100);
+		
+		// 第一个requestAnimationFram可以说是浏览器第一次开始渲染重排
+		requestAnimationFrame(function () {
+			console.log('first requestAnimationFrame');
+			requestAnimationFrame(function () {
+				console.log('second requestAnimationFrame');
+			})
+		});
+		
+		window.onload = function () {
+			console.log('onload');
+		}
+		
+		window.onpageshow = function () {
+			console.log('onpageshow');
+		}
+		
+		
+	</script>
+</html>

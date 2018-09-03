@@ -1,0 +1,7 @@
+参考文档:
+http://www.css88.com/doc/webpack2/guides/code-splitting-require/
+
+
+1.npm install postcss postcss-loader autoprefixer cssnano postcss-cssnext --save-dev
+
+2.postcss和babel都可以共用browserslist

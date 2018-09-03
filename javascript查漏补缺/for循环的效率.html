@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var obj = {};
+		
+		var arr = Array.apply(null, {length: 100000}).map((item, index) => {
+			obj[index] = index;
+			return index;
+		});
+		
+		
+		+(function () {
+			let sum = 0;
+			console.time('forEach');
+			arr.forEach(function(item) {
+				sum += item;
+			});
+			console.timeEnd('forEach');
+		})()
+		
+		+(function () {
+			let sum = 0;
+			console.time('for');
+			for(var i = 0,len = arr.length; i < len; i++) {
+				sum += arr[i];
+			};
+			console.timeEnd('for');
+		})()
+		
+		
+		console.time('map');
+		arr.map(() => {
+			
+		});
+		console.timeEnd('map');
+		
+		console.time('Object.keys');
+		Object.keys(obj).forEach(() => {
+			
+		});
+		console.timeEnd('Object.keys');
+		
+		console.time('for in');
+		for(var key in obj) {
+			
+		}
+		console.timeEnd('for in');
+		
+	</script>
+</html>

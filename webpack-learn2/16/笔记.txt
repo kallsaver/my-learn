@@ -1,0 +1,8 @@
+参考文献:http://www.jb51.net/article/113235.htm
+
+1. Tree Shaking使用场景:
+常规优化
+引入第三方库的某一个功能
+
+
+2.npm install purifycss purifycss-webpack glob-all --save-dev

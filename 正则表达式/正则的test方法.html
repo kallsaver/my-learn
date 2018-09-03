@@ -18,6 +18,19 @@
 		console.log(/^\d{1,}/.test('+123'))  //false
 		console.log(/[^\+\-]/.test('-123'))  //true
 		
+		let files = ['my/learn/gen/src/d.js']
+		
+		let folder = 'gen';
+	    let build = files.map((file) => {
+	        console.log(file)
+	        let reg = new RegExp('.*?[\\\/]learn[\\\/]' + folder + '[\\\/].*');
+	        console.log('try', reg.test(file));
+	        if (reg.test(file)) {
+	        	console.log('find')
+	        }else{
+	        }
+	    });
+		
 		
 	</script>
 </html>

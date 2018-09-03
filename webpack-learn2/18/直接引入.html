@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script src="https://cdn.bootcss.com/require.js/2.3.5/require.js"></script>
+<!-- <script src="src/lib/jquery-module.js"></script> -->
+<!-- <script src="src/lib/vue-module.js"></script> -->
+<script>
+    // 参考文献:http://www.css88.com/archives/4826
+    // 参考文献:https://blog.csdn.net/ssisse/article/details/51785173
+    requirejs.config({
+        baseUrl: 'src/lib',
+        paths: {
+            Hbuilder: 'jquery-module',
+            underscore: 'underscore',
+            Vue: 'vue',
+            Better: 'vue-module'
+        }
+    });
+    requirejs(['Hbuilder','underscore','Vue','Better'], function( $, _, Vue, Better) {
+        console.log( $ );
+        console.log( _ );
+        console.log(Vue);
+        console.log(Better);
+    });
+</script>
+</html>

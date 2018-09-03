@@ -1,0 +1,3 @@
+npm install babel-preset-env --save-dev 的意思是
+babel支持的规范是从es5开始已经确认通过发布的js版本
+参考https://www.npmjs.com/package/babel-preset-env 查看配置

@@ -1,0 +1,5 @@
+参考文档:
+http://www.css88.com/doc/webpack2/guides/code-splitting-require/
+
+1.style-loader主要是把css创建到html中
+2.css-loader主要是让css支持import

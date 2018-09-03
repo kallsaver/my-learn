@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		// 不带()的正则,replace的第一个参数是匹配的字符,第二个参数是index
+//		var reg = /-\w/g;
+//		
+//		function simple (str) {
+//			str = String(str)
+//			return str.replace(reg, function(m, index) {
+//				console.log('m',m);
+//				// -b.toUpperCase() === -B
+//				console.log(m.toUpperCase())
+//				return m ? m.toUpperCase() : ''
+//			})
+//		}
+//			
+//		console.log(simple('aa-bb-cc'));
+		
+		
+		
+		
+		
+		// 带()的正则,replace的第一个参数是匹配到的字符,第二个参数匹配到是()里面的字符,第三个参数是index
+		
+		var camelizeRE = /-(\w)/g;
+		
+		// -后的字母转大写
+		function camelize (str) {
+			// 对NaN,undefined,null做处理
+			str = String(str)
+			return str.replace(camelizeRE, function(m, c, index) {
+				console.log('m',m)
+				console.log('c',c)
+				console.log(c.toUpperCase());
+				// 对()做处理,并return,自然-就去掉了
+				// 或者return m[1].toUpperCase()
+				return c ? c.toUpperCase() : ''
+			})
+		}
+		
+		
+		console.log(camelize('aa-bb-cc'));
+		
+	</script>
+	
+	
+</html>

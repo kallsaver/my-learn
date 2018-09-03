@@ -14,6 +14,7 @@
 			.box{display: flex;width:200px;height: 200px;float: left;
 			border-radius: 10px;background: #000;margin: 10px;overflow: hidden;}
 			.clearfix::after{clear: both;display: block;content: "-----------------------------------------------------------";}
+			.txt0::after{clear: both;display: block;content: "----------------单轴-----------------------------------";}
 			.txt1::after{clear: both;display: block;content: "----------------align-items-----------------------------------";}
 			.txt2::after{clear: both;display: block;content: "----------------align-content----------------------------";}
 			.txt3::after{clear: both;display: block;content: "----------------justify-content------------------------------";}
@@ -27,11 +28,25 @@
 		<!--每条row轴都是100%宽度-->
 		<!--justify-content是管理每条轴上的元素在轴上的布局-->		  <!--左右等-->
 		<!--align-items是管理每条轴上的元素和元素之间的对齐方式-->  <!--轴线对齐,文字对齐等--> 
+		<!--align-content是管理多轴在父盒子的布局,即轴和轴之间的空隙--> 
 		<!--如果是单轴,align-items还管理单轴在父盒子上的位置(align-content的作用)-->   
 		<!--如果是多轴,align-items管理轴上的元素对齐-->
 		<!--例如align-items:center可以使得单轴垂直居中,多轴等同于align-content:space-around+align-items:center(元素对齐轴线)-->
 		<!--例如align-items:flex-end可以使单轴在右边,如果是column就是下边-->			
-		<!--align-content是管理多轴在父盒子的布局,即轴和轴之间的空隙--> 
+		
+		<div class="txt0"></div>
+		<div class="box" style="justify-content: center;">  
+			<div style="width:50px;height: 50px;background: gold;">1</div>
+			<div style="width:50px;height: 100px;background: peru;">2</div>
+		</div>
+		<div class="box" style="align-items: center;">  
+			<div style="width:50px;height: 50px;background: gold;">1</div>
+			<div style="width:50px;height: 100px;background: peru;">2</div>
+		</div>
+		<div class="box" style="justify-content: center;align-items: center;">  
+			<div style="width:50px;height: 50px;background: gold;">1</div>
+			<div style="width:50px;height: 100px;background: peru;">2</div>
+		</div>
 		
 		<!--默认每条轴以子元素的顶部对齐-->
 		<div class="txt1"></div>

@@ -7,7 +7,7 @@
 	<body>
 	</body>
 	<script>
-		var a=new RegExp("\d")
+		var a=new RegExp('\d')
 		console.log(a)						//火狐浏览器可以看到RegExp层
 		console.log(a.test(8))
 		console.log(new RegExp("\d","ig").__proto__)		//上层Object 里面写有正则的方法
@@ -21,5 +21,20 @@
 		//正则表达式定位符有4种,^ ? \b \B
 		
 		//http://blog.csdn.net/weixin_36185028/article/details/53312109
+		
+		function hasClass(el, className) {
+		  let reg = new RegExp('(^|\\s)' + className + '(\\s|$)')
+		  return reg.test(el.className)
+		}
+		
+		function addClass(el, className) {
+		  if (hasClass(el, className)) {
+		    return
+		  }
+		
+		  let newClass = el.className.split(' ')
+		  newClass.push(className)
+		  el.className = newClass.join(' ')
+		}
 	</script>
 </html>

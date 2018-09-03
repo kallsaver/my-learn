@@ -1,0 +1,38 @@
+{
+  "name": "15",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.42",
+    "@babel/preset-env": "^7.0.0-beta.42",
+    "autoprefixer": "^8.3.0",
+    "babel-loader": "^8.0.0-beta.0",
+    "babel-plugin-lodash": "^3.3.2",
+    "css-loader": "^0.28.11",
+    "cssnano": "^3.10.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "less": "^3.0.1",
+    "less-loader": "^4.1.0",
+    "lodash-webpack-plugin": "^0.11.5",
+    "postcss": "^6.0.21",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-loader": "^2.1.4",
+    "style-loader": "^0.20.3",
+    "webpack": "^3.10.0"
+  },
+  "browserslist": [
+    ">= 1%",
+    "last 2 versions"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.5",
+    "lodash-es": "^4.17.8"
+  }
+}

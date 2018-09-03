@@ -1,0 +1,9 @@
+参考文献:https://www.zhihu.com/question/49382420/answer/223915243
+
+1.babel polyfill的使用:
+npm install babel-polyfill --save  在项目入口import 'babel-polyfill'
+
+
+
+
+

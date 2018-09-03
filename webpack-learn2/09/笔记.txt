@@ -1,0 +1,13 @@
+参考文档:
+http://www.css88.com/doc/webpack2/guides/code-splitting-require/
+https://www.cnblogs.com/gaomingchao/p/6911762.html
+http://react-china.org/t/webpack-output-filename-output-chunkfilename/2256/2
+
+1代码分割:
+分离业务代码和第三方依赖
+分离业务代码和业务公共代码和第三方依赖
+分离首次加载和访问后加载的代码
+
+2.require.ensure内部依赖Promise 所以如果在低版本浏览器记得用polyfill
+
+3.require.ensure是CommonJs规范的异步加载

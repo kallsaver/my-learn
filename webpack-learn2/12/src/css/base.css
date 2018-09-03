@@ -1,0 +1,11 @@
+html{
+    background:peru;
+}
+
+.box{
+    composes: bigBox from './common.css';
+    height: 200px;
+    width:200px;
+    border:4px solid gold;
+    background:  #333;
+}

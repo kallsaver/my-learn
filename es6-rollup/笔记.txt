@@ -1,0 +1,9 @@
+rollup对babel-plugin-transform-runtime的支持度不够
+只能通过import 'babel-polyfill'来解决
+
+当写开源代码时,为了使得编译出来的代码更好维护,应该避免使用es5需要补丁的语法,
+比如Promise,Gernerator这些需要补丁的语法,可以使用class,es module,arrow function的语法,
+而且webpack本身就会让编译的代码丑化,其实不是很适合做开源项目,
+rollup适合,使用rollup-plugin-buble简单编译es6语法即可
+
+而如果rollup作为一个应用项目,可以使用rollup-plugin-babel编译简单语法,使用cdn引入babel-polyfill

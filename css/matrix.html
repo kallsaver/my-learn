@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding:0;
+			}
+			.box {
+				transform: translate(30px, 30px) rotate(50deg) scale(1);
+				background: peru;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+	</body>
+</html>
+
+<script>
+	
+	let box = document.getElementsByClassName('box')[0]
+	
+	var transform = getTransformValue(box)
+	
+	console.log(transform)
+	
+	function getTransformValue(dom) {
+      const matrix = getComputedStyle(dom).getPropertyValue('transform')
+      let angle = 0
+      let scale = 1
+      if (matrix && matrix !== 'none') {
+        console.log(matrix)
+        let values = matrix.split('(')[1].split(')')[0].split(',')
+        let a = values[0]
+        let b = values[1]
+        let c = values[2]
+        let d = values[3]
+        console.log(a, b, c, d)
+        scale = Math.sqrt(a * a + b * b)
+        angle = Math.round(Math.atan2(b, a) * (180 / Math.PI))
+      }
+      return {
+        angle,
+        scale
+      }
+    }
+	
+</script>

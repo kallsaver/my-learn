@@ -15,9 +15,6 @@ module.exports = {
     	// 输出文件根目录
     	publicPath : 'static/',
     	// 文件名
-    	//filename : '[name].[hash].js',
-    	// 会把filename冲掉
-    	//chunkFilename : '[id].[chunkhash].js'
     	filename : '[name].bundle.js'
     },
     resolve : {
@@ -44,8 +41,6 @@ module.exports = {
     		}
     	]
     },
-    // plugins是在源文件经过webpack的loaders编译打包完成后进行,处理编译后的文件
-    // 所以作用的目录是在output的publicPath节点定义的目录
     plugins : [
     	new HtmlWebpackPlugin({
     		// filename会输出一个html文件

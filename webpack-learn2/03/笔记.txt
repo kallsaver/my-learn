@@ -1,0 +1,20 @@
+参考文献:https://www.zhihu.com/question/49382420/answer/223915243
+
+1.babel-core和babel-loader只是针对语法,并没针对函数和方法
+比如Promise,Generator,Array.prototype.includes,Set数据结构等等
+这时候要借助于babel polyfill和babel runtime transform
+
+2.babel polyfill和babel runtime的作用是一样的
+不同的是babel polyfill是全局垫片,会造成全局污染,一般在业务项目app中使用
+babel runtime是局部垫片,一般在开发框架中使用,避免对业务项目全局污染
+
+3.babel polyfill的使用:
+npm install babel-polyfill --save  在项目入口import 'babel-polyfill'
+
+4.babel runtime transform的使用:
+npm install babel-plugin-transform-runtime --save-dev
+npm install babel-runtime --save
+在项目根目录中新建.babelrc文件
+
+
+

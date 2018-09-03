@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			li {
+				list-style: none;
+			}
+			
+			.clearfix {
+				display: inline-block;
+				&:after {
+					display: block;
+					content: "";
+					height: 0;
+					line-height: 0;
+					font-size: 0;
+					clear: both;
+					visibility: hidden;
+				}
+			}
+			
+			.box {}
+			
+			.flex {
+				display: flex;
+				margin-bottom: 50px;
+			}
+			
+			.flex li {
+				flex: 0 0 100px;
+				height: 100px;
+				background: peru;
+				margin-right: 50px;
+			}
+			
+			.float {
+				margin-bottom: 50px;
+			}
+			
+			.float li {
+				float: left;
+				width:100px;
+				height: 100px;
+				background: goldenrod;
+				margin-right: 50px;
+				transition: transform 2s;
+				font-size: 20px;
+				text-align: center;
+				line-height: 100px;
+				color: #fff;
+			}
+			
+			.transition{
+				transition: transform 2s!important;
+			}
+			
+			.no-transition{
+				transition: none!important;
+			}
+			
+			.width120{
+				width:120;
+			}
+			
+			.transfrom-y{
+				transform: translate3d(0,30px,0);
+				transition: none!important
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="">
+
+		</div>
+		<ul class="flex" id="flex">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+
+		<ul class="float" id="float">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+		</ul>
+	</body>
+	<script>
+		// 页面的元素越多越复杂,重排的时间越长	
+		// 这个页面重排花费平均时间是0.15ms
+		
+//		var flex = document.getElementById('flex');
+//		var flexLi = flex.getElementsByTagName('li');
+//
+
+//		flexLi[0].onclick = function(){
+//			console.time('floatLi-display-no');
+//			this.style.display = 'none';
+//			console.timeEnd('floatLi-display-no');
+//		}
+		
+		
+		
+		var float = document.getElementById('float');
+		var floatLi = float.getElementsByTagName('li');
+		
+		
+		
+		floatLi[0].onclick = function(){
+			
+//			var a = 0;
+//			console.time('a++');
+//			a++;
+//			console.timeEnd('a++');
+			
+			console.time('floatLi-transfrom');
+			this.style.webkitTransform = 'translate3d(0,30px,0)';
+			console.timeEnd('floatLi-transfrom');
+			
+		}
+		
+		
+		floatLi[1].onclick = function(){
+			
+			console.time('floatLi-transfrom-y');
+			this.style.webkitTransform = 'translate3d(0,30px,0)';
+			console.timeEnd('floatLi-transfrom-y');
+			
+			// setTimeout隔离了浏览器对重排的统一处理
+			setTimeout(() => {
+//				console.time('window.getComputedStyle');
+//				var rf = window.getComputedStyle(this).height;
+//				console.timeEnd('window.getComputedStyle');
+				console.time('floatLi-transfrom-x');
+				this.style.webkitTransform = 'translate3d(300px,0px,0)';
+				console.timeEnd('floatLi-transfrom-x');
+			}, 500);
+			
+		}
+		
+		floatLi[2].onclick = function(){
+			this.className = 'no-transition';
+			console.time('floatLi-transfrom-y');
+			this.style.webkitTransform = 'translate3d(0,30px,0)';
+			console.timeEnd('floatLi-transfrom-y');
+			
+			
+			// 重排用了1ms
+			console.time('window.getComputedStyle');
+			// 整体强制立即重排 ,有效果 ,有效果
+			var rf = window.getComputedStyle(this).height;
+			
+			// 没有效果
+			//this.style.width = '120px';
+			//floatLi[0].style.webkitTransform = 'translate3d(0,30px,0)';
+			
+			console.timeEnd('window.getComputedStyle');
+			
+			
+			this.className = 'transition';
+			console.time('floatLi-transfrom-x');
+			this.style.webkitTransform = 'translate3d(300px,0px,0)';
+			console.timeEnd('floatLi-transfrom-x');
+			
+		}
+		
+		floatLi[3].onclick = function () {
+			var _this = this;
+			
+			function beforeEnter() {
+				_this.className = 'no-transition';
+				console.time('floatLi-transfrom-y');
+				_this.style.webkitTransform = 'translate3d(0,30px,0)';
+				console.timeEnd('floatLi-transfrom-y');
+			}
+			
+			//var timer = requestAnimationFrame(beforeEnter);
+			
+			beforeEnter();
+			
+			
+			// 整体强制立即重排 ,有效果
+			//var rf = window.getComputedStyle(this).height;
+			console.time('requestAnimationFrame');
+			requestAnimationFrame(() => {
+				this.className = 'transition';
+				console.timeEnd('requestAnimationFrame');
+				console.time('floatLi-transfrom-x');
+			    this.style.webkitTransform = 'translate3d(300px,0px,0)';
+			    console.timeEnd('floatLi-transfrom-x');
+			});
+			
+		}
+		
+		
+		// vue的效果
+		floatLi[4].onclick = function(){
+			console.time('all-time');
+			// display:none的元素是没有transitition效果的
+			// 所以可以当做transtion立即执行完毕的方法
+			this.style.display = 'none';
+			this.style.webkitTransform = 'translate3d(0,30px,0)';
+			
+			// 重排完毕
+			console.time('requestAnimationFrame');
+			requestAnimationFrame(() => {
+				console.timeEnd('requestAnimationFrame');
+				// 去掉行内样式,让css样式或者默认样式生效
+				this.style.display = '';
+				// 强制重排
+				var rf = window.getComputedStyle(this).height;
+				// 这里相当于隔离了另一个requestAnimationFrame
+				console.time('floatLi-transfrom-x');
+			    this.style.webkitTransform = 'translate3d(300px,0px,0)';
+			    console.timeEnd('floatLi-transfrom-x');
+			    
+			    console.timeEnd('all-time');
+			});
+		}
+		
+		// vue的效果
+		floatLi[5].onclick = function(){
+			
+			var _this = this;
+			console.time('all-time');
+			
+			function beforeEnter () {
+				// display:none的元素是没有transitition效果的
+				// 所以可以当做transtion立即执行完毕的方法
+				_this.style.display = 'none';
+				_this.style.webkitTransform = 'translate3d(0,30px,0)';
+			}
+			
+			beforeEnter();
+			
+			// 等待_this.style.display = 'none'完毕
+			requestAnimationFrame(() => {
+				_this.style.display = '';
+			})
+			
+			// 等待_this.style.display = ''重排完毕
+			requestAnimationFrame(enter);
+			
+			function enter () {
+				// 强制重排或者使用requestAnimationFrame或者setTimeout50
+				var rf = window.getComputedStyle(_this).height;
+				// 去掉行内样式,让css样式或者默认样式生效
+				// 这里相当于隔离了另一个requestAnimationFrame
+				console.time('floatLi-transfrom-x');
+			    _this.style.webkitTransform = 'translate3d(300px,0px,0)';
+			    console.timeEnd('floatLi-transfrom-x');
+			    
+			    console.timeEnd('all-time');
+			}
+			
+		}
+		
+		// 可以看出浏览器对于回流是有优化策略的,一定时间内只回流一次,
+        // 并且是第一句触发回流语句
+        // var el = floatLi[0];
+        // console.time('一次回流');
+        // let rf1 = window.getComputedStyle(el).height;
+        // console.timeEnd('一次回流');
+        // console.time('二次回流');
+        // let rf2 = el.clientWidth;
+        // console.timeEnd('二次回流');
+        // console.time('三次回流');
+        // let rf3 = el.clientHeight;
+        // console.timeEnd('三次回流');
+        // console.time('四次回流');
+        // let rf4 = el.style.width = '32px';
+        // console.timeEnd('四次回流');
+        // console.time('五次回流');
+        // let rf5 = el.style.height = '32px';
+        // console.timeEnd('五次回流');
+		
+		
+		
+	</script>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.box {
+				background: lightblue;
+				width: 100px;
+				height: 20px;
+				line-height: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box" id="box" style="width:0px">0%</div>
+		<button class="btn" id="btn">run</button>
+	</body>
+	<script>
+		// 参考文献: http://web.jobbole.com/91578/
+		// requestAnimationFrame是跟着浏览器的绘制走的，如果浏览器绘制间隔是16.7ms，
+		// 它就按这个间隔绘制；如果浏览器绘制间隔是10ms, 它就按10ms绘制
+		// 这样就不会存在过度绘制的问题，动画不会丢帧。
+		// 浏览器页面每次要重绘就会通知requestAnimationFrame
+		var timer;
+		var box = document.getElementById('box');
+		var btn = document.getElementById('btn');
+		
+		// box.style.width这个api是查找行内样式上的width,而不是盒子的真正width
+		console.log(box.style.width);
+		// parseInt还可以把一个以数字开头字符串截取数字,后面从非数字开始全部删除的整数
+		console.log(parseInt('300.2pxx333'))
+		
+		var isUseRequestAnimationFrame = true;
+		var a = 0;
+		
+		if (isUseRequestAnimationFrame) {
+			btn.onclick = function(){
+				var once = false;
+				cancelAnimationFrame(timer);
+				// 首次的重排执行时机最短,因为没有重排任务,
+				// 而后面要等待重排完毕后再选择时机requestAnimationFrame
+				// 换句话说requestAnimationFrame可以监听首屏重排完毕
+				// 写在requestAnimationFrame回调里面的都是一次新的重排
+				console.time('once');
+				// requestAnimationFrame是异步的,它会主动寻找重排的最佳时机
+				// 可以看出众数是13,14ms
+				timer = requestAnimationFrame(function fn() {
+					
+					if (once === false) {
+						once = true;
+						console.timeEnd('once');
+					}else{
+						console.timeEnd(a);
+					}
+					
+					if (parseInt(box.style.width) < 500) {
+						a++;
+						box.style.width = parseInt(box.style.width) + 5 + 'px';
+						box.innerHTML = parseInt(box.style.width) / 5 + '%';
+						console.time(a);
+						timer = requestAnimationFrame(fn);
+					}else{
+						cancelAnimationFrame(timer);
+					}
+				});
+				
+				console.log('同步任务')
+			}
+			
+		}else{
+			btn.onclick = function () {
+				clearInterval(timer);
+				box.style.width = '0px';
+				timer = setInterval(function () {
+					console.log(box.style.width);
+					if (parseInt(box.style.width) < 500) {
+						box.style.width = parseInt(box.style.width) + 5 + 'px';
+						box.innerHTML = parseInt(box.style.width) / 5 + '%';
+					}else {
+						clearInterval(timer);
+					}
+				})
+			}
+		}
+		
+		requestAnimationFrame(function(){
+			console.time('first');
+			console.log('首屏加载完毕');
+		});
+		
+		requestAnimationFrame(function(){
+			// 这个页面的频率
+			console.timeEnd('first');
+			console.log('首屏第二次更新屏幕');
+		});
+		
+		
+		var timer = requestAnimationFrame(function(){
+			console.log('timer');
+		});
+		
+		// 取消requestAnimationFrame
+		cancelAnimationFrame(timer)
+		
+		
+	</script>
+
+</html>

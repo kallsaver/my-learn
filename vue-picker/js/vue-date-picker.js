@@ -2066,7 +2066,7 @@ function instantiateComponent(Vue, Component, data, renderFn) {
     instance.init()
     var component = instance.$children[0]
     return component
-  }
+}
 
   // parse-render-data.js
   function parseRenderData(data, events) {

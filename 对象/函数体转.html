@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<script>
+	
+	function checkClass(o){
+    	return Object.prototype.toString.call(o).slice(8,-1)
+	}
+	
+	var fn = function( ) {
+		return 1
+	}
+	
+	fn = checkClass
+	
+	// 函数的形参
+	console.log(checkClass.length)
+	
+	var str = fn.toString()
+	
+	// 提取函数体
+	str = str.replace(/^function.*?\(.*?\).*?\{(.*)/g,'$1').slice(0, -1)
+	//str = str.replace(/function\s*\(\s+\)\s*\{(.*)\}/g,'$1')
+	console.log(str)
+	
+	var a = new Function ('  console.log(44) ')
+	
+	a()
+	
+	var arr = ['a','b'];
+	
+	console.log(...arr)
+	
+	var b = new Function (...arr,`return a+b`)
+	
+	var c = new Function(arr[0],arr[1],`return a+b`)
+	
+	console.log(b(4,3))
+	
+	console.log(c(4,3))
+	
+	console.log(`'111'`)
+	
+</script>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>输入5~10的值</p>
+    <input id="demo" type="text">
+    <button type="button" onclick="myFunction()">检测输入</button>
+    <p id="message"></p>
+</body>
+</html>
+<script>
+    function myFunction() {
+        var message, x;
+        message = document.getElementById("message");
+        message.innerHTML = "";
+        x = document.getElementById("demo").value;
+        try { 
+            if(x == "")  throw "为空";
+            if(isNaN(x)) throw "不是一个数字";
+            if(x > 10)   throw "太大";
+            if(x < 5)    throw "太小";
+        }
+        catch(err) {
+            console.log(err)
+            message.innerHTML = "输入的值 " + err;
+        }
+        finally {
+            console.log('无论如何都执行');
+            document.getElementById("demo").value = "";
+        }
+    }
+    
+    
+    let a = 100;
+
+	try {
+		// try语句包起来的语法错误不会在控制台报错,而是传给catch
+	    a.name = 'a';
+	} catch (err) {
+		console.log(err.__proto__)
+	    console.log(typeof err)
+	}
+
+</script>

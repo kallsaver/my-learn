@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,
+      		minimum-scale=1.0,user-scalable=no">
+		<title></title>
+		<style type="text/css">
+			
+			
+			*{
+				margin:0;
+				padding:0;
+				font-size: 16px;
+				color: chartreuse;
+				text-align: center;
+				box-sizing: border-box;
+			}
+			
+			.text {
+				margin-top:10px;
+				margin-left:100px;
+				width:100px;
+				height:100px;
+			}
+			
+			.radius-border {
+				position: relative;
+			}
+			
+			.border {
+				position: relative;
+			}
+			
+			.border2px {
+				position: relative;
+			}
+			
+			.box {
+				margin-top:50px;
+				margin-left:100px;
+				width:100px;
+				height:100px;
+				background:white;
+			}
+			
+			.radius-box {
+				margin-top:50px;
+				margin-left:100px;
+				width:100px;
+				height:100px;
+				border-radius: 50%;
+				background: white;
+			}
+			
+			
+			
+			.border:before {
+				content: "";
+				pointer-events: none;
+				/* 防止点击触发 */
+				box-sizing: border-box;
+				position: absolute;
+				width: 200%;
+				height: 200%;
+				left: 0;
+				top: 0;
+				border: 1px solid gold;
+				-webkit-transform: scale(0.5);
+				-webkit-transform-origin: 0 0;
+				transform: scale(0.5);
+				transform-origin: 0 0;
+			}
+			
+			
+			.border:before {
+				content: "";
+				pointer-events: none;
+				/* 防止点击触发 */
+				box-sizing: border-box;
+				position: absolute;
+				width: 200%;
+				height: 200%;
+				left: 0;
+				top: 0;
+				border: 1px solid gold;
+				-webkit-transform: scale(0.5);
+				-webkit-transform-origin: 0 0;
+				transform: scale(0.5);
+				transform-origin: 0 0;
+			}
+			
+			.border2px:before {
+				content: "";
+				pointer-events: none;
+				/* 防止点击触发 */
+				box-sizing: border-box;
+				position: absolute;
+				width: 200%;
+				height: 200%;
+				left: 0;
+				top: 0;
+				border: 2px solid gold;
+				-webkit-transform: scale(0.5);
+				-webkit-transform-origin: 0 0;
+				transform: scale(0.5);
+				transform-origin: 0 0;
+			}
+			
+			
+			.radius-border:before {
+				content: "";
+				pointer-events: none;
+				/* 防止点击触发 */
+				box-sizing: border-box;
+				position: absolute;
+				width: 200%;
+				height: 200%;
+				left: 0;
+				top: 0;
+				border: 1px solid gold;
+				border-radius: 50%;
+				-webkit-transform: scale(0.5);
+				-webkit-transform-origin: 0 0;
+				transform: scale(0.5);
+				transform-origin: 0 0;
+			}
+			
+			.no-box {
+				margin-top:50px;
+				margin-left:100px;
+				width:100px;
+				height:100px;
+				background:white;
+				border:1px solid gold;
+			}
+			
+			.no-box-05px {
+				margin-top:50px;
+				margin-left:100px;
+				width:100px;
+				height:100px;
+				background:white;
+				border:0.5px solid gold;
+			}
+			
+			.no-radius-box {
+				margin-top:50px;
+				margin-left:100px;
+				width:100px;
+				height:100px;
+				background:white;
+				border:1px solid gold;
+				border-radius: 50%;
+			}
+			
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="text"></div>
+		<div class="box border">做处理的1px</div>
+		<div class="no-box-05px border">不做处理的0.5px</div>
+		<div class="box border2px">不做处理的1px</div>
+		<div class="radius-box radius-border">做处理的1px</div>
+		<div class="no-box">不做处理的1px</div>
+		<div class="no-radius-box">不做处理的1px</div>
+	</body>
+	
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	
+	<script>
+		
+		// 在移动端设置0.5px会被渲染成1px
+		// 所以采用在伪元素上放大又缩小来做
+		// @media screen and (max-device-pixel-ratio: 1.5),(-webkit-max-device-pixel-ratio: 1.5)
+		// 的意思是dpr小于 1.5的时候生效
+		// @media screen and (min-device-pixel-ratio: 2),(-webkit-min-device-pixel-ratio: 2)
+		// 的意思dpr大于2的时候生效
+		// 1px和dpr的大小其实没关系,无论大小都可以采用在伪元素上放大又缩小来做
+		// 也可以采用饿了吗的做法
+		
+		
+		var text = document.getElementsByClassName('text')[0];
+		text.innerHTML = window.devicePixelRatio;
+		
+	</script>
+	
+</html>

@@ -14,11 +14,11 @@
 		//利用哈希表的属性名去重是有缺陷的    哈希表的a[0]和a["0"]是同一个东西   所以arr=["0",0]的时候就会有错误
 		
 		//正确的去重方法1:   利用数组的indexOf方法
-		var arr=[1,5,8,"5","f",8,1,9,4,"g"];
+		var arr = [1,5,8,"5","f",8,1,9,4,"g"];
 		function removeRepeat(arr){
 			var result=[];
-			for(var i=0;i<arr.length;i++){
-				if(result.indexOf(arr[i])===-1){
+			for(var i=0 ; i<arr.length; i++){
+				if(result.indexOf(arr[i]) === -1 ){
 					result.push(arr[i])
 				}				
 			}

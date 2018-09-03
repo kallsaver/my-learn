@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.test {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: peru;
+			}
+			.select {
+				width: 100px;
+				height: 50px;
+				background: gold;
+				line-height: 50px;
+				text-align: center;
+				color: #fff;
+				font-size: 24px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app" @click="showTest">showTest</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script>
+		var camelizeRE = /-(\w)/g;
+		
+		// -后的字母转大写
+		function camelize(str) {
+			str = String(str)
+			return str.replace(camelizeRE, function(m, c) {
+				return c ? c.toUpperCase() : ''
+			})
+		}
+
+		function instantiateComponent(Vue, Component, data, renderFn) {
+			var renderData
+			var childrenRenderFn
+			var instance = new Vue({
+				render(createElement) {
+					var children = childrenRenderFn && childrenRenderFn(createElement)
+					if(children && !Array.isArray(children)) {
+						children = [children]
+					}
+					return createElement(Component, renderData, children || [])
+				},
+				methods: {
+					init: function() {
+						document.body.appendChild(this.$el)
+					},
+					destroy: function() {
+						this.$destroy()
+						document.body.removeChild(this.$el)
+					}
+				}
+			})
+			instance.updateRenderData = function(data, render) {
+				renderData = data
+				childrenRenderFn = render
+			}
+			instance.updateRenderData(data, renderFn)
+			instance.$mount()
+			instance.init()
+			var component = instance.$children[0]
+			return component
+		}
+
+		// parse-render-data.js
+		function parseRenderData(data, events) {
+			data = data || {}
+			events = events || {}
+			events = parseEvents(events)
+			var props = data
+			var on = {}
+			for(var name in events) {
+				if(events.hasOwnProperty(name)) {
+					var handlerName = events[name]
+					if(props[handlerName]) {
+						on[name] = props[handlerName]
+						delete props[handlerName]
+					}
+				}
+			}
+			return {
+				props,
+				on
+			}
+		}
+
+		function parseEvents(events) {
+			var parsedEvents = {}
+			events.forEach(function(name) {
+				parsedEvents[name] = camelize(`on-${name}`)
+			})
+			return parsedEvents
+		}
+
+		function createAPIComponent(Vue, Component, events = [], single = false) {
+			var singleComponent
+			var singleInstance
+			var beforeFns = []
+			var api = {
+				before(fn) {
+					beforeFns.push(fn)
+				},
+				open(data, renderFn, instanceSingle) {
+					if(typeof renderFn !== 'function') {
+						instanceSingle = renderFn
+						renderFn = null
+					}
+					beforeFns.forEach(function(before) {
+						before(data, renderFn, instanceSingle)
+					})
+					if(instanceSingle === undefined) {
+						instanceSingle = single
+					}
+					if(instanceSingle && singleComponent) {
+						singleInstance.updateRenderData(data, renderFn)
+						singleInstance.$forceUpdate()
+						// singleComponent.show && singleComponent.show()
+						return singleComponent
+					}
+					var component = instantiateComponent(Vue, Component, data, renderFn)
+					var instance = component.$parent
+					var originRemove = component.remove
+
+					component.remove = function() {
+						if(instance.__cube__destroyed) {
+							return
+						}
+						originRemove && originRemove.call(this)
+						instance.destroy()
+						instance.__cube__destroyed = true
+						if(instanceSingle) {
+							singleComponent = null
+							singleInstance = null
+						}
+					}
+					var originShow = component.show
+					component.show = function() {
+						originShow && originShow.call(this)
+						return this
+					}
+					var originHide = component.hide
+					component.hide = function() {
+						originHide && originHide.call(this)
+						return this
+					}
+					if(instanceSingle) {
+						singleComponent = component
+						singleInstance = instance
+					}
+					// component.show && component.show()
+					return component
+				},
+				create(config, renderFn, single) {
+					var ownerInstance = this
+					var component = api.open(parseRenderData(config, events), renderFn, single)
+					if(component.__cube__parent !== ownerInstance) {
+						component.__cube__parent = ownerInstance
+						var beforeDestroy = function() {
+							if(component.__cube__parent === ownerInstance) {
+								component.remove()
+							}
+							ownerInstance.$off('hook:beforeDestroy', beforeDestroy)
+							component.__cube__parent = null
+						}
+						ownerInstance.$on('hook:beforeDestroy', beforeDestroy)
+					}
+					return component
+				}
+			}
+			return api
+		}
+
+		function createAPI(Vue, Component, events, single) {
+			var api = createAPIComponent.apply(this, arguments)
+			var name = Component.name
+			var pureName = name.replace(/^cube-/i, '')
+			var createName = `$${camelize(`create-${pureName}`)}`
+			Vue.prototype[createName] = api.create
+			return api
+		}
+	</script>
+	<script>
+		var test = {
+			name: 'test',
+			template: `<div class="test" v-show="showTest">
+						<div class="select" @click="select">select</div>
+						<div class="select">{{min[0]}}</div>
+					  </div>`,
+			data() {
+				return {
+					showTest: false,
+					count: 1,
+					relative: {
+						name: 'test.vue'
+					}
+				}
+			},
+			props: {
+				min: {
+					type: Array,
+					default () {
+						return [];
+					}
+				}
+			},
+			created() {
+				console.log('test components create');
+			},
+			methods: {
+				show() {
+					this.showTest = true;
+				},
+				hide() {
+					this.showTest = false;
+				},
+				select() {
+					this.$emit('select', this.count, this.relative);
+				}
+				
+			}
+		}
+		
+		// 第三个参数如果是true,表示是单例模式,即body下只会挂在一个test组件
+		// 如果是false,$createTest函数创建的都是一个新的test组件
+		createAPI(Vue, test, ['select'], true);
+
+		new Vue({
+			el: '#app',
+			created() {
+				this.test = this.$createTest({
+					min: [1],
+					onSelect: (count, relative) => {
+                        console.log(count);
+                        console.log(relative);
+                    }
+				});
+				
+				this.test2 = this.$createTest({
+					min: [2],
+					onSelect: (count, relative) => {
+                        console.log(count);
+                        console.log(relative);
+                    }
+				});
+				
+				console.log('this.test === this.test2',this.test === this.test2);
+			},
+			methods: {
+				showTest() {
+					console.log('showTest');
+					console.log(this.test);
+					this.test.show();
+				}
+			}
+		})
+	</script>
+
+</html>

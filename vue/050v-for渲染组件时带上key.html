@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin:0;padding: 0;
+			}
+			.box{
+				width:200px;height: 200px;background: chartreuse;
+			}
+			ul{
+				padding-top:50px;
+			}
+			li{
+				list-style: none;width:200px;height: 100px;
+				background:peru;
+				text-align: center;margin-bottom:50px;
+			}
+			li div{
+				height: 50px;font-size: 12px;
+				line-height: 50px;
+			}
+			li p{
+				height: 50px;font-size: 12px;
+				line-height: 50px;
+			}
+			.select{
+				width:200px;
+				background:lightblue;height: 50px;
+			}
+			[v-cloak] {
+			    display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="(item,index) in curOrderList">
+					<template v-if="item.status == '1'">
+						<rest-time v-on:timeover="listenToSon"
+							:key="item"
+							:pass1="item.restTime" 
+							:pass2="item"></rest-time>
+					</template>
+					<template v-else>
+						<div>超时</div>
+					</template>
+					<p>{{item.name}}</p>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+	<script>
+		// :key最好绑定item而不是index,因为一个元素被删了,item的指针就丢失了,
+		// 而index后面的元素会补上来,无效
+		// 或者可以绑定item.id,item.name等
+		new Vue({
+			el: '#app',
+			data: {
+				currentNavIndex: 0,
+				list: [
+					{ name: '1', status: '1', ctime: "2018-03-31 17:13:40",},
+					{ name: '2', status: '4', ctime: "2018-03-31 10:00:20",},
+					{ name: '3', status: '1', ctime: "2018-03-31 19:50:50",},
+					{ name: '4', status: '1', ctime: "2018-04-31 20:40:50",},
+					{ name: '5', status: '5', ctime: "2018-03-31 10:00:20",}
+				],
+				liminTime : 3600,
+				waitPayList : [],
+				bookedList : [],
+				orderList : [],
+				curOrderList : [],
+			},
+			created : function(){
+				console.log('父组件created,数据进来')
+			},
+			beforeMounted : function(){
+				console.log('父组件beforeMounted,绑定虚拟DOM')
+			},
+			mounted: function(){
+				var vm = this;
+				console.log('父组件挂载完成')
+				// 剩余时间
+				
+				vm.orderList = vm.list;
+				for(var i = 0; i < vm.list.length;i++){
+					vm.list[i].restTime = vm.liminTime - (new Date().getTime() - new Date(vm.list[i].ctime).getTime())/1000
+					if( vm.list[i].status == '1'){
+						vm.waitPayList.push(vm.list[i]);
+					}else if( vm.list[i].status == '5' ){
+						vm.bookedList.push(vm.list[i]);
+					}
+				}
+				vm.curOrderList = vm.waitPayList;
+			},
+			updated : function(){
+				console.log('父组件视图更新')
+			},
+			methods: {
+				listenToSon : function(item){
+	                var vm = this;
+		            item.status = '4';
+                	for (var i = 0; i < vm.waitPayList.length; i++) {
+	                    if (item === vm.waitPayList[i]) {
+	                        vm.waitPayList.splice(i, 1);
+	                        return;
+	                    }
+	                }	
+	            },
+			},
+			components : {
+				'rest-time' : {
+					template : `<div>{{min+ '分' + sec + '秒'}}</div>`,
+					data : function(){
+						return {
+							restTime : 0,
+	                        timer : null,
+	                        min : 0,
+	                        sec : 0,
+						}
+					},
+					props : ['pass1','pass2'],
+	                mounted : function(){
+	                	console.log('组件加载');
+	                    var vm = this;
+	                    vm.item = vm.$props.pass2;
+	                    vm.restTime = ~~vm.$props.pass1;
+	                    console.log('加载组件的restTime',vm.restTime)
+	                    vm.min = Math.floor(vm.restTime / 60);
+	                    vm.sec = vm.restTime % 60;
+	                    vm.selfRun();
+	                },
+	                methods : {
+	                    selfRun : function (item) {
+	                        var vm = this;
+	                        clearInterval(vm.timer);
+	                        vm.timer = window.setInterval(function () {
+	                        	console.log(vm.restTime)
+	                            vm.restTime--;
+	                            vm.min = Math.floor(vm.restTime / 60);
+	                            vm.sec = vm.restTime % 60;
+	                            if(vm.restTime < 0){
+	                                clearInterval(vm.timer);
+	                                vm.$emit('timeover',vm.item);
+	                            }
+	                        }, 1000);
+	                    },
+	                },
+	                created : function(){
+						console.log('子组件created,数据进来')
+					},
+					beforeMounted : function(){
+						console.log('子组件beforeMounted,绑定虚拟DOM')
+					},
+	                updated : function(){
+						//console.log('组件视图更新')
+					},
+					destroyed : function(){
+						var vm = this;
+						// 组件被销毁错误了,vm.restTime可以看出
+						console.log('组件销毁，销毁组件的restTime是:'+vm.restTime)
+					}
+				}
+			}
+		})
+	</script>
+</html>

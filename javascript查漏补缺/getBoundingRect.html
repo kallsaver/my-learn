@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding:0}
+			.app{
+				width:200px;height:200px;
+				background:peru;margin-top:50px;
+				margin-bottom:20px;margin-left:300px;
+			}
+			.box{
+				width:200px;height:200px;
+				background:goldenrod;
+				margin-bottom:400px;margin-left:300px;
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" class="app"></div>
+		<div id="box" class="box"></div>
+	</body>
+	<script>
+		// getBoundingClientRect可以得到这个元素相对视口的相对位置
+		var rect = document.getElementsByClassName('app')[0].getBoundingClientRect();
+		console.log(rect);
+		
+		var box = document.getElementsByClassName('box')[0];
+		
+		setTimeout(function(){
+			box.style.display = '';
+			console.log('s',window.getComputedStyle(box).display)
+		})
+		
+		
+	</script>
+</html>

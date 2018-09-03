@@ -1,11 +1,19 @@
 1.npm install webpack -g;
+
 2.cd 项目
+
 3.npm init --yes;
+
 4.npm install webpack --save-dev;
+
 5.根目录新建一个entry.js 里面写document.getElementById("app").textContent = "hello";
+
 6.根目录新建一个index.html 里面写一个id为app的div,并且引入bundle.js
+
 7.webpack entry.js bundle.js  会在根目录下生成一个bundle.js文件
+
 8.打开index.html;
+
 9.加入项目需要一个js文件  name.js;
 
 10.name.js采用模块化的写法,webpack会分析编译这种语法

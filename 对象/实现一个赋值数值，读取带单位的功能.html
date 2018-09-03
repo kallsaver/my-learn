@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		// setter,getter满足了对一个函数的读取做细致的逻辑封装
+		// setter,getter的值不一定是统一的,setter是真实存在于内存的,getter是获取的值(可以带包装)
+		// 当需要对一个属性赋值无效,可以在属性的set方法上设置拦截
+		// 当对属性的读取需要做依赖,可以在getter上return依赖关系
+		
+		
+		function observeProperty(obj, key) {
+			var value = obj[key];
+			Object.defineProperty(obj, key, {
+				configuable: false,
+				enumerable: true,
+				get: function () {
+					return value + '元'
+				},
+				set: function(newValue) {
+					// 灵活设置,比如不让name为'config'
+					if (value === newValue) {
+						return;
+					}
+					
+					value =  newValue;
+				}
+			});
+		}
+		
+		var obj = {
+			count: 100
+		}
+		
+		observeProperty(obj, 'count');
+		
+		obj.count = 10;
+		
+		console.log(obj.count)
+		
+		
+	</script>
+</html>

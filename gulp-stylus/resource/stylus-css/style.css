@@ -1,0 +1,22 @@
+.box {
+  height: 200px;
+  background: #cd853f;
+}
+p {
+  height: 200px;
+  background: #ffa500;
+}
+.input,
+button {
+  width: 100px;
+  height: 100px;
+}
+.input:checked + .box {
+  background: #ffd700;
+}
+button:hover + .box {
+  background: #ffd700;
+}
+.input:checked p {
+  background: #ffd700;
+}

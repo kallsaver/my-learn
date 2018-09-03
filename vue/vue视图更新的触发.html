@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+			}
+			li{
+				list-style: none;
+			}
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<div>
+				<ul>
+					<li v-for="item in showList">{{item}}</li>
+				</ul>
+			</div>
+			<div v-show="!showList.length">没有符合的数据</div>
+		</div>
+	</body>
+	<script src="js/vue2.0.js"></script>
+	<script>
+		new Vue({
+			el: '#app',
+			data: {
+				number: 0,
+				list: [1, 2, 3, 4, 5],
+			},
+			created: function () {
+				var vm = this;
+				setInterval(function () {
+					// 不被视图渲染依赖的变量更新不会触发updated更新
+					// 如果这个变量被computed依赖或者methods依赖会触发更新
+					vm.number++;
+				}, 1000);
+			},
+			methods: {
+				
+			},
+			computed: {
+				showList: function () {
+					var vm = this;
+					return vm.list.filter(function (item) {
+						if (item > 3) {
+							return true;
+						}else {
+							return false;
+						}
+					});
+				}
+			},
+			updated: function () {
+				console.log('updated');
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,15 @@
+参考文献:https://www.zhihu.com/question/49382420/answer/223915243
+
+1.babel polyfill的使用:
+npm install babel-polyfill --save  在项目入口import 'babel-polyfill'
+
+2.npm info babel-loader@6.22.1,发现webpack支持的版本是2.2.0,所以就换成webpack2
+不然用不了
+
+
+
+
+
+
+
+

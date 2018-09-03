@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+	// 纯函数满足两个条件
+	// 函数的执行过程完全由输入的参数决定,不会受除参数之外的任何数据的影响
+	// 函数不会修改任何外部状态,比如修改全局变量或传入的参数对象
+	// 最简单来说就是输入参数到返回结果的映射,中间不产生任何副作用
+
+	// 不纯函数
+	//
+
+	const double = arr => arr.map(item => item * 2)
+
+	const arrayPush = (arr, newValue) => [...arr, newValue]
+
+
+	const originalArray = [1, 2, 3];
+	const pushedArray = arrayPush(originalArray, 4);
+	const doubledPushedArray = double(pushedArray);
+
+	console.log(doubledPushedArray)
+
+
+
+
+</script>

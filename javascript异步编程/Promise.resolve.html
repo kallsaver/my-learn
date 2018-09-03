@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		// Promise.resolve()可以用于控制你想发生的事情按顺序发生
+		// 不需要return一个 Promise对象
+		// 但是这是简便写法,then里面都是同步任务才能保证一定是按顺序的
+		var promise = Promise.resolve();
+		
+		promise = promise.then(function(){
+			console.log('first');
+		});
+		
+		var arr = [1, 2, 3];
+		
+		for(const i of arr){
+			promise = promise.then(() => {
+				console.log(i);
+			});
+		}
+		
+		promise = promise.then(function(){
+			console.log('third')
+		});
+		
+		console.log('同步任务');
+		
+		
+		var builds = {
+			a : {
+				input: 1
+			},
+			b : {
+				input: 1
+			},
+			c : {
+				input: 1
+			},
+		}
+		
+		function genConfig(name) {
+			var options = builds[name];
+			
+			var config = {
+				input: options.input,
+			}
+			
+			Object.defineProperty(config, '_name', {
+			    enumerable: false,
+			    value: name
+			});
+			
+			return config;
+		}
+		
+		var getAllLists = () => Object.keys(builds).map(genConfig);
+		
+		console.log(getAllLists())
+		
+	</script>
+</html>

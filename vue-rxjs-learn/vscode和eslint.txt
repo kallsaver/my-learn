@@ -1,0 +1,10 @@
+vscode安装eslint插件 这个插件可以配置.eslintrc.js
+// 设置eslint规则为打开目录根目录的.eslintrc.js里面的规则
+"eslint.options": {
+  "configFile": ".eslintrc.js"
+},
+
+vcode安装EditorConfig for VS Code插件,这个插件依据.eslintrc.js的配置,
+可以实现部分功能ctrz+S后自动补全修正,
+
+eslint对中文名js文件检查无效...

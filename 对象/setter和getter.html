@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function observeProperty(obj, key, fn) {
+			// val是一个闭包,setter被触发时,它会改变,如果getter也依赖它,所以getter依赖setter
+			var val = obj[key];
+			Object.defineProperty(obj, key, {
+				enumerable: true, // 可枚举
+				configurable: true, // 可重新定义
+				get: function() {
+					console.log('getter');
+					// 这里的return值很重要,return的内存就是obj[key]的内存
+					return val;
+				},
+				set: function(newVal) {
+					// newVal接受的是外界给obj[key]赋值的内存
+					console.log('setter');
+					if (val === newVal) {
+                        return;
+                    }
+					
+					console.log('更新啦 ', val, '=>', newVal);
+					val = newVal;
+					// 回调
+					if(typeof fn == 'function') {
+						//console.log('数据更新啦');
+						fn(obj);
+					}
+				}
+			});
+		};
+		
+		var obj = {
+			name: 'obj'
+		}
+		
+		observeProperty(obj, 'name');
+		
+		var a = obj.name;
+		console.log(a);
+		
+		
+		
+		
+	</script>
+</html>
