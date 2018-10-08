@@ -40,6 +40,10 @@ git add -A (添加所有修改)
 git status (查看添加的内容)
 git commit -m "本次提交"
 git push origin master
+一个完整流程的应用需要develop下测试,这时候要在develop下合并master(同步其他开发者的模块)
+git checkout develop-1
+git merge master
+
 
 7.不要在master分支下修改代码,可能会导致其他分支缺失代码合并到master分支会冲突的问题
 
