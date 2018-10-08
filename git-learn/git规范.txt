@@ -1,0 +1,10 @@
+2.分支的一般架构
+master是主分支,是发布重大版本的分支,需要远程分支
+develop是开发分支,日常开发应该在这个分支上,完成后并入master分支,需要远程分支
+命题可以采用develop-开发者名字或者数字
+feature是功能分支,从develop分支上分出来,完成后并入develop分支,命名可以采用feature-*的形式
+release是预发布分支,预发布结束后必须合并到develop和master分支,命名可以采用release-*的形式
+git commit 采用 "分支负责人 + 所在分支 + 代码信息-代码版本"
+活动页使用activity-活动名分支 git commit -m "develop-1 acitivity 活动名-verions-0.0.1"
+开发活动页完毕后合并到develop分支 然后git commit -m "develop-1 develop-1 活动名-verions-1.0.0"
+活动页测试完毕后develop分支合并到master分支或者release分支发布 然后git commit -m "develop-1 master 活动名-verions-1.0.0"
