@@ -17,10 +17,15 @@ git checkout -b 分支名
 git checkout 分支名
 
 5.提交分支数据到远程分支
+git commit "本次提交的信息"
 git push origin 本地分支:远程分支(可以是新分支)
 或者git push origin 远程分支(可以是新分支) 默认是当前分支
 
-6.对比两个分支的差异
-查看develop有的,master没有的
-git log develop ^master
+6.分支合并
+假设要开发一个国庆的活动页,先创建一个actitity-guoqin的分支
+git checkout -b activity-guoqin
+开发完activity-guoqin.js后,切换到develop分支
+git checkout develop
+把activity-guoqin分支合并到develop分支
+
 

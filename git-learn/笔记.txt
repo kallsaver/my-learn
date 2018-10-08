@@ -16,7 +16,7 @@
 4.git pull origin master --allow-unrelated-histories
 5.git reset --hard HEAD
 
-
+5.基本操作
 git pull origin master
 git add -A
 git commit -m '你这次更新了什么'
