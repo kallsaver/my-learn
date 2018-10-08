@@ -27,7 +27,7 @@ git checkout -b activity-guoqin
 开发完activity-guoqin.js后,切换到develop-1分支
 git checkout develop-1
 把activity-guoqin分支合并到develop-1分支
-git merge activity-guoqin
+git merge --no-ff activity-guoqin
 提交develop-1分支到远程develop-1分支
 git add -A (添加所有修改)
 git status (查看添加的内容)
@@ -35,7 +35,7 @@ git commit -m "本次提交"
 git push origin develop-1
 自测完毕并且提交所有develop-1分支的代码后合并到master分支
 git checkout master (可能需要重新打开git base)
-git merge --no-ff() develop-1
+git merge --no-ff develop-1
 git add -A (添加所有修改)
 git status (查看添加的内容)
 git commit -m "本次提交"
