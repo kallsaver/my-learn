@@ -24,8 +24,14 @@ git push origin 本地分支:远程分支(可以是新分支)
 6.分支合并
 假设要开发一个国庆的活动页,先创建一个actitity-guoqin的分支
 git checkout -b activity-guoqin
-开发完activity-guoqin.js后,切换到develop分支
-git checkout develop
-把activity-guoqin分支合并到develop分支
-
-
+开发完activity-guoqin.js后,切换到develop-1分支
+git checkout develop-1
+把activity-guoqin分支合并到develop-1分支
+git merge activity-guoqin
+提交develop-1分支到远程develop-1分支
+git add -A (添加所有修改)
+git status (查看添加的内容)
+git commit -m "本次提交"
+git push origin develop-1
+自测完毕并且提交所有develop-1分支的代码后合并到master分支
+git checkout master
