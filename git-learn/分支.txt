@@ -1,0 +1,26 @@
+1.查看当前项目的所有分支
+git branch -a
+* 是当前所在分支
+master是主分支
+remotes/origin/xxx的是远程分支
+
+2.分支的一般架构
+master是主分支,是发布重大版本的分支,需要远程分支
+develop是开发分支,日常开发应该在这个分支上,完成后并入master分支,需要远程分支
+feature是功能分支,从develop分支上分出来,完成后并入develop分支,命名可以采用feature-*的形式
+release是预发布分支,预发布结束后必须合并到develop和master分支,命名可以采用release-*的形式
+
+3.切换并创建新分支
+git checkout -b 分支名
+
+4.切换支付
+git checkout 分支名
+
+5.提交分支数据到远程分支
+git push origin 本地分支:远程分支(可以是新分支)
+或者git push origin 远程分支(可以是新分支) 默认是当前分支
+
+6.对比两个分支的差异
+查看develop有的,master没有的
+git log develop ^master
+
