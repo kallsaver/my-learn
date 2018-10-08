@@ -34,4 +34,10 @@ git status (查看添加的内容)
 git commit -m "本次提交"
 git push origin develop-1
 自测完毕并且提交所有develop-1分支的代码后合并到master分支
-git checkout master
+git checkout master (可能需要重新打开git base)
+git merge develop-1
+git add -A (添加所有修改)
+git status (查看添加的内容)
+git commit -m "本次提交"
+git push origin master
+
