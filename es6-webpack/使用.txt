@@ -1,0 +1,3 @@
+npm run build是编译所有的文件
+
+npm run dev是编译指定的文件(在package.json中设置)

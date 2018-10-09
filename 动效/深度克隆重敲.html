@@ -5,8 +5,7 @@
 <title>无标题文档</title>
 </head>
 
-<body>
-</body>
+<body></body>
 <script>
 	//1.直接拿指针
 	/*var a={name:"mike",
@@ -100,7 +99,9 @@
         else if(isClass(obj)==="Object"){
             result={};
         } 
-		else{return obj}
+		else{
+			return obj
+		}
 
         for(var key in obj){
             //如果obj[key]是个数组或者对象  不递归只能拿到指针  无法拿到具体的堆地址的值
@@ -114,7 +115,9 @@
                 result[key]=arguments.callee(copy);
             }
             //如果obj[key]不是对象或者数组  直接拿值
-            else{result[key]=copy;}
+            else{
+            	result[key]=copy;
+            }
         }
 
         return result;
@@ -132,6 +135,6 @@
 	}
 	
 	person.skill.fn()
-
+	
 </script>
 </html>

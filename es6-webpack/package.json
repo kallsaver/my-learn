@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "node build/build.js",
-    "dev": "cross-env F=gen  node build/build.js"
+    "dev": "cross-env F=async  node build/build.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
+    "axios": "^0.18.0",
     "babel-runtime": "^6.26.0"
   },
   "devDependencies": {

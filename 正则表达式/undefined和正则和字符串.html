@@ -10,11 +10,11 @@
 		var obj = {}
 		
 		// test方法只能传字符串,所以undefined在这里做隐形转化了
-		// undefined在
 		if(!/^([\u4e00-\u9fa5]|[a-zA-Z]|\d)+$/.test(obj.valid)){
 			console.log(111)
 		}
 		
+		// 字符串和undefined相加可以把undefined转化
 		var str = 's' + obj.name;
 		console.log(str)     //sundefined
 		

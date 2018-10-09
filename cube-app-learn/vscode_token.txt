@@ -1,5 +1,10 @@
+user: kallsaver
 app: Settings Sync
 tokens: e073ed0cbe81e131f8bd121d52b68fdfd4069ac1
+gist: 9913c2a5c3c57ea7d795be6d849df058
+
+// token过期
+https://segmentfault.com/a/1190000011206401
 
 操作:
 ctrl + p 打开vscode命令窗口

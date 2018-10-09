@@ -25,24 +25,24 @@
   			};
 		//}
 	
-		var arr=[0,1,2,3,4]		
+		var arr = [0, 1, 2, 3, 4];	
 		//prev一开始是arr[0]的值 ,current是arr[1]的值  然后prev就是每一次迭代回调函数的返回值  迭代了length-1次
-		var a1=arr.reduce(function(prev,current,index,array){
+		var a1 = arr.reduce(function(prev, current, index, array) {
 			//console.log(prev)		//
-			return prev+current;
+			return prev + current;
 		});
 		
-		console.log(a1);
+		console.log('a1', a1);
 		
 		
 		//reduce降维:	
-		var b=[
-			[1,2],
-			[3,4],
-			[5,6]
-		]
+		var b = [
+			[1, 2],
+			[3, 4],
+			[5, 6]
+		];
 		
-		var c=b.reduce(function(prev,current){
+		var c = b.reduce(function (prev, current) {
 			return prev.concat(current);
 		})
 		console.log(c)
@@ -52,7 +52,7 @@
 		
 		//统计一个数组中有
 		
-		var str="add"
+		var str = "add"
 		console.log(str.indexOf("d","a")) 
 
 	</script>

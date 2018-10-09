@@ -1,13 +1,12 @@
 let obj = {
-    fn() {
-        console.log(this.name)
-    },
-    name: 'obj'
+  fn() {
+    console.log(this.name)
+  },
+  name: 'obj'
 }
 
-
 let relative = {
-    name: 'relative'
+  name: 'relative'
 }
 
 obj.fn.bind(relative)();

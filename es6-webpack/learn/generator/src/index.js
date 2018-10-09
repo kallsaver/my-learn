@@ -1,19 +1,3 @@
-import { isNative } from '../../../util/util.js';
-
-console.log(isNative(Promise))
-
-function* gen() {
-    yield 'first';
-    yield 'second';
-    return 'ending';
-}
-
-console.log(isNative(gen));
-
-let step = gen();
-
-console.log(step.next())
-
-export default {
-
-}
+import './modules/base.js'
+// import './modules/login-promise-retry.js'
+// import './modules/login-generator.js'

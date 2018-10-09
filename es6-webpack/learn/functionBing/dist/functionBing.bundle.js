@@ -60,24 +60,24 @@
 /******/ 	__webpack_require__.p = "F:\\my-learn\\es6-webpack\\learn";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 38);
+/******/ 	return __webpack_require__(__webpack_require__.s = 140);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 38:
+/***/ 140:
 /***/ (function(module, exports) {
 
 var obj = {
-    fn: function fn() {
-        console.log(this.name);
-    },
+  fn: function fn() {
+    console.log(this.name);
+  },
 
-    name: 'obj'
+  name: 'obj'
 };
 
 var relative = {
-    name: 'relative'
+  name: 'relative'
 };
 
 obj.fn.bind(relative)();

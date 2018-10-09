@@ -10,25 +10,6 @@
 		var str="0123456789"
 		
 		var a=str.charAt(1)
-		console.log(1)			//1
-		
-		var a = new Promise( function(resolve,reject){
-			setTimeout(function(){
-				resolve(111)
-			},5000)
-		})
-		
-		a.then(function(){
-			console.log('then1')
-			return new Promise( function(resolve,reject){
-				setTimeout(function(){
-					resolve(222)
-				},5000)
-			})
-		}).then(function(){
-			console.log('then2')
-		})
-		
 		
 	</script>
 </html>
