@@ -1,0 +1,16 @@
+{
+  "name": "svgtofont-learn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "font": "node font.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "glob-all": "^3.1.0",
+    "svgtofont": "^1.1.10"
+  }
+}
