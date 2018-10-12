@@ -20,7 +20,6 @@ const UIKIT_PREFIX = 'vi-'
 // 其他组件字体前缀
 const LOCAL_PREFIX = 'w-'
 
-
 let distRuler = new RegExp(`(.*\/)?${SVG_FOLDER}`, 'g')
 let fontNameRuler = new RegExp(`(.*\/)?(.*)?\/${SVG_FOLDER}`, 'g')
 
@@ -47,6 +46,7 @@ fontFiles.forEach((item) => {
     fontName,
     css: true,
     startNumber: 20000,
+    emptyDist: false
   }).then(() => {
     // console.log('done')
   }).catch((err) => {
