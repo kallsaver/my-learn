@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<svg xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <font id="common-icon" horiz-adv-x="200">
+    <font-face font-family="common-icon"
+      units-per-em="200" ascent="200"
+      descent="0" />
+    <missing-glyph horiz-adv-x="0" />
+    <glyph glyph-name="correct"
+      unicode="&#xEA01;"
+      horiz-adv-x="200" d="M79 71L43 106C40 110 33 110 29 106C25 102 25 96 29 92L71 50C75 46 81 46 85 50L170 135C174 139 174 145 170 149C166 153 160 153 156 149L79 71z" />
+  </font>
+</defs>
+</svg>
