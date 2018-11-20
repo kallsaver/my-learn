@@ -1,11 +1,12 @@
 <template>
-  <div class="base-page" :style="{'z-index': zIndex}">
-    <div class="base-page-header">
-      <div class="base-page-title">{{title}}</div>
-      <i class="base-page-back icon-back" @click="back"></i>
+  <div class="page" :style="{'z-index': zIndex}">
+    <div class="page-header">
+      <div class="page-title">{{title}}</div>
+      <i class="page-back w-page-icon-back-example" @click="back"></i>
+      <i class="page-option w-page-icon-option" @click="rightClick"></i>
     </div>
-    <div class="base-page-wrapper">
-      <div class="base-page-content">
+    <div class="page-wrapper">
+      <div class="page-content">
         <slot></slot>
       </div>
     </div>
@@ -13,8 +14,9 @@
 </template>
 
 <script>
+const COMPONENT_NAME = 'page'
 
-const COMPONENT_NAME = 'base-page'
+const EVENT_RIGHT_CLICK = 'right-click'
 
 export default {
   name: COMPONENT_NAME,
@@ -40,18 +42,21 @@ export default {
   created () {
   },
   methods: {
-    back () {
+    back() {
       this.$router.back()
+    },
+    rightClick() {
+      this.$emit(EVENT_RIGHT_CLICK)
     }
   }
 }
 </script>
 
 <style lang="stylus">
-@import "./style.css"
+@import "./fonts/w-page-icon.css"
 @import "~@/common/stylus/variable.styl"
 
-.base-page
+.page
   position: fixed
   z-index: 50
   top: 0
@@ -59,7 +64,7 @@ export default {
   width: 100%
   height: 100%
   background: #efeff4
-  .base-page-header
+  .page-header
     position: relative
     height: 44px
     line-height: 44px
@@ -68,7 +73,7 @@ export default {
     box-shadow: 0 1px 6px #ccc
     backface-visibility: hidden
     z-index: 99
-    .base-page-title
+    .page-title
       margin: 0
       font-size: 16px
       color: $color-main
@@ -80,13 +85,19 @@ export default {
     // color如果不生效是css的权重引起的
     // 下载解压的文件,引入style.css到全局中
     // font-size是量出图片的宽度,通过修改颜色,会有一个默认的颜色
-    .base-page-back
+    .page-back
+      position: absolute
+      top: 11px
+      left: 15px
+      font-size: 20px
+      line-height: 20px
+    .page-option
       position: absolute
       top: 9px
-      left: 15px
-      font-size: 26px
-      color: $color-main!important
-  .base-page-wrapper
+      right: 15px
+      font-size: 24px
+      line-height: 24px
+  .page-wrapper
     width: 100%
     display: flex
     flex-direction: column
@@ -95,7 +106,7 @@ export default {
     // 使用具有回弹效果的滚动,
     // 当手指从触摸屏上移开,内容会继续保持一段时间的滚动效果
     // -webkit-overflow-scrolling: touch;
-    .base-page-content
+    .page-content
       flex: 1
       position: relative
       margin: 0px 10px 10px 10px

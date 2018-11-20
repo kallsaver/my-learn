@@ -1,6 +1,6 @@
 <template>
   <div class="base">
-    <index-list :route-index="routeIndex" :title="title"></index-list>
+    <index-list :route-index="routeIndex" title="基础"></index-list>
   </div>
 </template>
 
@@ -8,15 +8,17 @@
 import IndexList from '@/components/index-list/index-list.vue'
 
 export default {
+  name: 'keep-alive',
   components: {
     IndexList
   },
-  data() {
-    return {
-      routeIndex: 0,
-      title: '基础'
-    }
-  }
+  computed: {
+    routeIndex() {
+      return this.$router.options.routes.findIndex((item) => {
+        return this.$route.path.indexOf(item.path) !== -1
+      })
+    },
+  },
 }
 </script>
 

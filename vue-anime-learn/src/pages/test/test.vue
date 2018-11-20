@@ -1,5 +1,5 @@
 <template>
-  <base-page>
+  <page>
     <div class="index">
       <div ref="bgWrapper" class="bg-wrapper">
         <div class="bg-cover"></div>
@@ -8,7 +8,7 @@
           :style="{'background-image': `url(${item.url})`}"></div>
       </div>
     </div>
-  </base-page>
+  </page>
 </template>
 
 <script>

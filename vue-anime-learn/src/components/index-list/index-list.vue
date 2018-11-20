@@ -36,7 +36,7 @@ export default {
       if (!this.$router.options.routes[this.routeIndex].children) {
         return
       }
-      let routes = this.$router.options.routes[0].children
+      let routes = this.$router.options.routes[this.routeIndex].children
       for (let i = 0; i < routes.length; i++) {
         let groupIndex = 0
         let passed = ListData.every((item, index) => {

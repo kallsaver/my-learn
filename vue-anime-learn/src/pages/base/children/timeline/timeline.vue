@@ -1,12 +1,14 @@
 <template>
-  <base-page
-    :title="$route.name">
+  <page
+    :title="$route.meta.title"
+    @right-click="start">
     <div class="timeline">
-      <div ref="circle" class="circle" :key="index"
-        v-for="(item, index) in circleList"></div>
-      <div class="button" @click="togglePlayStatus">{{playText}}</div>
+      <div class="demo demo1" v-if="demo === 0">
+        <div class="circle"></div>
+        <div class="triangle"></div>
+      </div>
     </div>
-  </base-page>
+  </page>
 </template>
 
 <script>
@@ -15,91 +17,60 @@ import anime from 'animejs'
 export default {
   data() {
     return {
-      rectList: [{name: 0}, {name: 1}],
-      circleList: [0, 1, 2],
-      playStatus: false,
-    }
-  },
-  computed: {
-    playText() {
-      return this.playStatus ? '暂停' : '开始'
+      demo: 0
     }
   },
   watch: {
-    playStatus(newVal) {
-      if (newVal) {
-        this.timeline.play()
-      } else {
-        this.timeline.pause()
-      }
-    }
   },
   mounted() {
-    anime({
-      targets: this.$refs.rect,
-      translateX: [
-        {
-          value: 100,
-          duration: 1200
-        },
-        {
-          value: 0,
-          duration: 800
-        }
-      ],
-      rotate: [
-        {
-          value: '1turn',
-          duration: 1200
-        },
-        {
-          value: '0turn',
-          duration: 800
-        }
-      ],
-      duration: Infinity,
-      loop: true,
-      delay(target, index) {
-        return index * 200
-      }
-    })
-
-    this.timeline = anime.timeline({
-      // ['normal', 'reverse', 'alternate']
-      direction: 'alternate',
-      duration: 1000,
-      loop: Infinity,
-      autoplay: this.playStatus
-    })
-
-    this.timeline.add({
-      targets: this.$refs.circle[0],
-      translateX: 100
-    }).add({
-      targets: this.$refs.circle[1],
-      translateX: 100,
-      offset: '-=600'
-    }).add({
-      targets: this.$refs.circle[2],
-      translateX: 100
-    })
+    this.showDemo(0)
   },
   methods: {
-    togglePlayStatus() {
-      this.playStatus = !this.playStatus
+    showDemo(index) {
+      this.demo = index
+    },
+    start() {
+      this[`demo${this.demo}`]()
+    },
+    demo0() {
+      // 基本的timeline
+      let timeline = anime.timeline()
+      // 通过add添加动画顺序
+      timeline.add({
+        targets: '.circle',
+        translateX: 250,
+        easing: 'easeOutExpo'
+      }).add({
+        targets: '.triangle',
+        translateX: 250,
+        easing: 'easeOutExpo'
+      })
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+.circle
+  width: 50px
+  height: 50px
+  background: red
+  border-radius: 50%
+
+.triangle
+  pointer-events: none
+  position: relative
+  width: 0
+  height: 0
+  border-style: solid
+  border-width: 0 28px 48px 28px
+  border-color: transparent transparent red transparent
+
 .timeline
   width: 100%
   height: 100vh
   padding: 50px
-  .circle
-    width: 50px
-    height: 50px
-    background: red
-    border-radius: 50%
+  .demo
+    width: 100%
+
 </style>

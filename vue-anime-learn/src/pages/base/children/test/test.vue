@@ -1,14 +1,14 @@
 <template>
-  <base-page
-    :title="$route.name">
+  <page
+    :title="$route.meta.title">
     <div class="index">
       <base-vhtml :context="context"></base-vhtml>
     </div>
-  </base-page>
+  </page>
 </template>
 
 <script>
-import BaseVhtml from '@/base-components/vhtml/vhtml.js'
+import BaseVhtml from '@/base/vhtml/vhtml.js'
 
 export default {
   components: {

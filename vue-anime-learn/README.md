@@ -1,4 +1,4 @@
-# my-resume
+# animejs-learn
 
 > A Vue.js project
 
