@@ -1,0 +1,19 @@
+.circle($size = 50px $background = red)
+  width: $size
+  height: $size
+  background: $background
+  border-radius: 50%
+
+.triangle($background = red)
+  pointer-events: none
+  position: relative
+  width: 0
+  height: 0
+  border-style: solid
+  border-width: 0 28px 48px 28px
+  border-color: transparent transparent $background transparent
+
+.square($size = 50px $background = red)
+  width: $size
+  height: $size
+  background: $background

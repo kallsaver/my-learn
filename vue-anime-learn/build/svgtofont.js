@@ -31,32 +31,63 @@ let fontFiles = glob.sync([
   resolve(`src/${APP_FOLDER}/**/${SVG_FOLDER}`),
   // resolve(`src/${UIKIT_FOLDER}/**/${SVG_FOLDER}`),
   resolve(`src/components/**/${SVG_FOLDER}`),
-  // resolve(`src/base-components/**/${SVG_FOLDER}`),
+  resolve(`src/pages/**/${SVG_FOLDER}`),
 ])
 
-fontFiles.forEach((item) => {
-  let dist = item.replace(distRuler, `$1${FONTS_FOLDER}`)
-  let fontName = ''
-  if (item.indexOf(APP_FOLDER) !== -1) {
-    fontName = APP_PREFIX
-  } else if (item.indexOf(UIKIT_FOLDER) !== -1) {
-    fontName = UIKIT_PREFIX + item.replace(fontNameRuler, `$2`) + '-icon'
-  } else {
-    fontName = LOCAL_PREFIX + item.replace(fontNameRuler, `$2`) + '-icon'
-  }
+// node没有换行自动;的功能
+;(async () => {
+  for (let i = 0; i < fontFiles.length; i++) {
+    let item = fontFiles[i]
+    await ((item) => {
+      let dist = item.replace(distRuler, `$1${FONTS_FOLDER}`)
+      let fontName = ''
+      if (item.indexOf(APP_FOLDER) !== -1) {
+        fontName = APP_PREFIX
+      } else if (item.indexOf(UIKIT_FOLDER) !== -1) {
+        fontName = UIKIT_PREFIX + item.replace(fontNameRuler, `$2`) + '-icon'
+      } else {
+        fontName = LOCAL_PREFIX + item.replace(fontNameRuler, `$2`) + '-icon'
+      }
 
-  svgtofont({
-    src: item,
-    dist,
-    fontName,
-    css: true,
-    startNumber: 20000,
-    emptyDist: false
-  }).then(() => {
-    // console.log('done')
-  }).catch((err) => {
-    // console.log(err)
-  })
-})
+      return svgtofont({
+        src: item,
+        dist,
+        fontName,
+        css: true,
+        startNumber: 20000,
+        emptyDist: false
+      }).then(() => {
+        // console.log('done')
+      }).catch((err) => {
+        // console.log(err)
+      })
+    })(item)
+  }
+})()
+
+// fontFiles.forEach((item) => {
+//   let dist = item.replace(distRuler, `$1${FONTS_FOLDER}`)
+//   let fontName = ''
+//   if (item.indexOf(APP_FOLDER) !== -1) {
+//     fontName = APP_PREFIX
+//   } else if (item.indexOf(UIKIT_FOLDER) !== -1) {
+//     fontName = UIKIT_PREFIX + item.replace(fontNameRuler, `$2`) + '-icon'
+//   } else {
+//     fontName = LOCAL_PREFIX + item.replace(fontNameRuler, `$2`) + '-icon'
+//   }
+
+//   svgtofont({
+//     src: item,
+//     dist,
+//     fontName,
+//     css: true,
+//     startNumber: 20000,
+//     emptyDist: false
+//   }).then(() => {
+//     // console.log('done')
+//   }).catch((err) => {
+//     // console.log(err)
+//   })
+// })
 
 

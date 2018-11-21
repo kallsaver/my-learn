@@ -6,6 +6,14 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/',
+      redirect: '/index'
+    },
+    {
+      path: '/index',
+      component: () => import('@/pages/index/index.vue'),
+    },
+    {
       path: '/base',
       component: () => import('@/pages/base/index.vue'),
       meta: {
@@ -13,19 +21,43 @@ export default new Router({
       },
       children: [
         {
-          path: 'test',
-          name: 'test',
-          component: () => import('@/pages/base/children/test/test.vue'),
-          meta: {
-            title: '测试',
-          },
-        },
-        {
           path: 'timeline',
           name: 'timeline',
           component: () => import('@/pages/base/children/timeline/timeline.vue'),
           meta: {
-            title: '时间',
+            title: '时间队列',
+          },
+        },
+        {
+          path: 'css-properties',
+          name: 'css-properties',
+          component: () => import('@/pages/base/children/css-properties/css-properties.vue'),
+          meta: {
+            title: 'css属性',
+          },
+        },
+        {
+          path: 'svg-properties',
+          name: 'svg-properties',
+          component: () => import('@/pages/base/children/svg-properties/svg-properties.vue'),
+          meta: {
+            title: 'svg属性',
+          },
+        },
+        {
+          path: 'value',
+          name: 'value',
+          component: () => import('@/pages/base/children/value/value.vue'),
+          meta: {
+            title: 'value的用法',
+          },
+        },
+        {
+          path: 'playback',
+          name: 'playback',
+          component: () => import('@/pages/base/children/playback/playback.vue'),
+          meta: {
+            title: 'playback',
           },
         },
       ]

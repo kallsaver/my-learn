@@ -1,6 +1,9 @@
 <template>
   <div class="action">
     <index-list :route-index="routeIndex" title="实战"></index-list>
+    <transition name="move">
+      <router-view class="view"></router-view>
+    </transition>
   </div>
 </template>
 
@@ -22,6 +25,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="stylus" scoped>
+.view
+  transition: all 0.3s
+  // tranform和fixed不能同时并存
+  // tranform会让fixed失效
+  transform: none
+  &.move-enter-active, &.move-leave-active
+    transform: translate3d(100%, 0, 0)
 </style>

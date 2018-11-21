@@ -1,3 +1,3 @@
 animejs
 ------------
-[animejs](http://animejs.com/documentation/#basicTimeline)
+[animejs文档](http://animejs.com/documentation/#basicTimeline)

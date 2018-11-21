@@ -2,12 +2,22 @@
   <div class="page" :style="{'z-index': zIndex}">
     <div class="page-header">
       <div class="page-title">{{title}}</div>
-      <i class="page-back w-page-icon-back-example" @click="back"></i>
-      <i class="page-option w-page-icon-option" @click="rightClick"></i>
+      <slot name="back" v-if="isShowBack">
+        <i class="page-back w-page-icon-back-example" @click="back"></i>
+      </slot>
+      <slot name="option" v-if="isShowOption">
+        <i class="page-option w-page-icon-option" @click="rightClick"></i>
+      </slot>
     </div>
     <div class="page-wrapper">
       <div class="page-content">
         <slot></slot>
+        <slot name="start" v-if="isShowStart">
+          <i class="page-start w-page-icon-start" @click="start"></i>
+        </slot>
+        <slot name="to-top" v-if="isShowToTop">
+          <i class="page-to-top w-page-icon-top"></i>
+        </slot>
       </div>
     </div>
   </div>
@@ -17,6 +27,8 @@
 const COMPONENT_NAME = 'page'
 
 const EVENT_RIGHT_CLICK = 'right-click'
+
+const EVENT_START = 'start'
 
 export default {
   name: COMPONENT_NAME,
@@ -37,6 +49,22 @@ export default {
     zIndex: {
       type: Number,
       default: 50
+    },
+    isShowBack: {
+      type: Boolean,
+      default: true
+    },
+    isShowOption: {
+      type: Boolean,
+      default: true
+    },
+    isShowStart: {
+      type: Boolean,
+      default: true
+    },
+    isShowToTop: {
+      type: Boolean,
+      default: true
     }
   },
   created () {
@@ -47,6 +75,9 @@ export default {
     },
     rightClick() {
       this.$emit(EVENT_RIGHT_CLICK)
+    },
+    start() {
+      this.$emit(EVENT_START)
     }
   }
 }
@@ -54,7 +85,6 @@ export default {
 
 <style lang="stylus">
 @import "./fonts/w-page-icon.css"
-@import "~@/common/stylus/variable.styl"
 
 .page
   position: fixed
@@ -110,4 +140,16 @@ export default {
       flex: 1
       position: relative
       margin: 0px 10px 10px 10px
+      .page-start
+        position: fixed
+        top: 50px
+        right: 15px
+        font-size: 26px
+        color: #666
+      .page-to-top
+        position: fixed
+        bottom: 20px
+        right: 15px
+        font-size: 26px
+        color: #666
 </style>
