@@ -27,7 +27,6 @@
 const COMPONENT_NAME = 'page'
 
 const EVENT_RIGHT_CLICK = 'right-click'
-
 const EVENT_START = 'start'
 
 export default {

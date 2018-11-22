@@ -1,8 +1,12 @@
 <template>
-  <page :title="$route.meta.title"
-    :is-show-start="false">
-    <div class="css-properties">
+  <page :title="$route.meta.title">
+    <template slot="start">
+      <i class="play" :class="playClass" @click="togglePlay"></i>
+    </template>
+    <div class="playback">
       <div class="demo" v-if="demo === 0">
+        <div class="el"></div>
+        <div class="el"></div>
         <div class="el"></div>
       </div>
       <div class="demo" v-if="demo === 1">
@@ -27,19 +31,37 @@ export default {
   data() {
     return {
       demo: 0,
+      playStatus: false
+    }
+  },
+  computed: {
+    playClass() {
+      return this.playStatus ? 'w-playback-icon-pause' : 'w-playback-icon-start'
     }
   },
   mounted() {
     this.demo = 0
   },
   methods: {
-    start() {
+    togglePlay() {
+      this.playStatus = !this.playStatus
       this[`demo${this.demo}`]()
     },
     demo0() {
-      anime({
-        targets: '.el'
-      })
+      if (!this.clickDemo0) {
+        this.clickDemo0 = true
+        this.playDemo0 = anime({
+          targets: '.el',
+          translateX: 250,
+          delay(el, i, length) {
+            return i * 100
+          },
+          direction: 'alternate',
+          loop: true,
+          autoplay: false
+        })
+      }
+      this.playStatus ? this.playDemo0.play() : this.playDemo0.pause()
     },
     demo1() {
     },
@@ -52,6 +74,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import './fonts/w-playback-icon.css'
 
 .el
   width: 20px
@@ -79,9 +102,17 @@ export default {
   height: 50px
   background: red
 
-.css-properties
+.play
+  position: fixed
+  top: 50px
+  right: 15px
+  font-size: 26px
+  color: #666
+
+.playback
   width: 100%
   height: 100vh
   padding: 50px
+  position: relative
 
 </style>
