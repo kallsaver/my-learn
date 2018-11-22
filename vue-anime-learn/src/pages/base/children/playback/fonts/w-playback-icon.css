@@ -1,11 +1,11 @@
 @font-face {
   font-family: "w-playback-icon";
-  src: url('w-playback-icon.eot?t=1542862517677'); /* IE9*/
-  src: url('w-playback-icon.eot?t=1542862517677#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url("w-playback-icon.woff2?t=1542862517677") format("woff2"),
-  url("w-playback-icon.woff?t=1542862517677") format("woff"),
-  url('w-playback-icon.ttf?t=1542862517677') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('w-playback-icon.svg?t=1542862517677#w-playback-icon') format('svg'); /* iOS 4.1- */
+  src: url('w-playback-icon.eot?t=1542866627461'); /* IE9*/
+  src: url('w-playback-icon.eot?t=1542866627461#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url("w-playback-icon.woff2?t=1542866627461") format("woff2"),
+  url("w-playback-icon.woff?t=1542866627461") format("woff"),
+  url('w-playback-icon.ttf?t=1542866627461') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('w-playback-icon.svg?t=1542866627461#w-playback-icon') format('svg'); /* iOS 4.1- */
 }
 
 [class^="w-playback-icon-"], [class*=" w-playback-icon-"] {
@@ -17,8 +17,5 @@
 }
 
 
-.w-playback-icon-back-example:before { content: "\ea01"; }
-.w-playback-icon-option:before { content: "\ea02"; }
-.w-playback-icon-start:before { content: "\ea06"; }
-.w-playback-icon-top:before { content: "\ea04"; }
-.w-playback-icon-pause:before { content: "\ea05"; }
+.w-playback-icon-pause:before { content: "\ea01"; }
+.w-playback-icon-start:before { content: "\ea02"; }

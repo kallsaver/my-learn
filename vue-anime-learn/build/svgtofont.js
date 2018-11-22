@@ -30,8 +30,8 @@ let fontNameRuler = new RegExp(`(.*\/)?(.*)?\/${SVG_FOLDER}`, 'g')
 let fontFiles = glob.sync([
   // resolve(`src/${APP_FOLDER}/**/${SVG_FOLDER}`),
   // resolve(`src/${UIKIT_FOLDER}/**/${SVG_FOLDER}`),
-  resolve(`src/components/**/${SVG_FOLDER}`),
   resolve(`src/pages/**/${SVG_FOLDER}`),
+  resolve(`src/components/**/${SVG_FOLDER}`),
 ])
 
 // node没有换行自动;的功能
