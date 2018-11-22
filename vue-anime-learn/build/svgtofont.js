@@ -28,7 +28,7 @@ let distRuler = new RegExp(`(.*\/)?${SVG_FOLDER}`, 'g')
 let fontNameRuler = new RegExp(`(.*\/)?(.*)?\/${SVG_FOLDER}`, 'g')
 
 let fontFiles = glob.sync([
-  resolve(`src/${APP_FOLDER}/**/${SVG_FOLDER}`),
+  // resolve(`src/${APP_FOLDER}/**/${SVG_FOLDER}`),
   // resolve(`src/${UIKIT_FOLDER}/**/${SVG_FOLDER}`),
   resolve(`src/components/**/${SVG_FOLDER}`),
   resolve(`src/pages/**/${SVG_FOLDER}`),
@@ -37,8 +37,9 @@ let fontFiles = glob.sync([
 // node没有换行自动;的功能
 ;(async () => {
   for (let i = 0; i < fontFiles.length; i++) {
-    let item = fontFiles[i]
-    await ((item) => {
+    await (() => {
+      console.log(i)
+      let item = fontFiles[i]
       return new Promise((resolve, reject) => {
         let dist = item.replace(distRuler, `$1${FONTS_FOLDER}`)
         let fontName = ''
@@ -54,15 +55,15 @@ let fontFiles = glob.sync([
           dist,
           fontName,
           css: true,
-          startNumber: 20000,
-          emptyDist: false,
+          emptyDist: true,
         }).then(() => {
+          console.log('done')
           resolve()
         }).catch((err) => {
           // console.log(err)
         })
       })
-    })(item)
+    })()
   }
 })()
 
