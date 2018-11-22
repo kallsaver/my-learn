@@ -60,6 +60,38 @@ export default new Router({
             title: 'playback',
           },
         },
+        {
+          path: 'callback',
+          name: 'callback',
+          component: () => import('@/pages/base/children/callback/callback.vue'),
+          meta: {
+            title: 'callback',
+          },
+        },
+        {
+          path: 'svg-path',
+          name: 'svg-path',
+          component: () => import('@/pages/base/children/svg-path/svg-path.vue'),
+          meta: {
+            title: 'svg-path',
+          },
+        },
+        {
+          path: 'svg-points',
+          name: 'svg-points',
+          component: () => import('@/pages/base/children/svg-points/svg-points.vue'),
+          meta: {
+            title: 'svg-points',
+          },
+        },
+        {
+          path: 'svg-stroke-dash-offset',
+          name: 'svg-stroke-dash-offset',
+          component: () => import('@/pages/base/children/svg-stroke-dash-offset/svg-stroke-dash-offset.vue'),
+          meta: {
+            title: 'svg-stroke-dash-offset',
+          },
+        },
       ]
     },
     {

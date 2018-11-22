@@ -55,7 +55,7 @@ let fontFiles = glob.sync([
           dist,
           fontName,
           css: true,
-          emptyDist: true,
+          emptyDist: false,
         }).then(() => {
           console.log('done')
           resolve()
@@ -66,30 +66,5 @@ let fontFiles = glob.sync([
     })()
   }
 })()
-
-// fontFiles.forEach((item) => {
-//   let dist = item.replace(distRuler, `$1${FONTS_FOLDER}`)
-//   let fontName = ''
-//   if (item.indexOf(APP_FOLDER) !== -1) {
-//     fontName = APP_PREFIX
-//   } else if (item.indexOf(UIKIT_FOLDER) !== -1) {
-//     fontName = UIKIT_PREFIX + item.replace(fontNameRuler, `$2`) + '-icon'
-//   } else {
-//     fontName = LOCAL_PREFIX + item.replace(fontNameRuler, `$2`) + '-icon'
-//   }
-
-//   svgtofont({
-//     src: item,
-//     dist,
-//     fontName,
-//     css: true,
-//     startNumber: 20000,
-//     emptyDist: false
-//   }).then(() => {
-//     console.log('done没有执行-----------------')
-//   }).catch((err) => {
-//     // console.log(err)
-//   })
-// })
 
 
