@@ -18,6 +18,7 @@ export default new Router({
       component: () => import('@/pages/base/index.vue'),
       meta: {
         title: '基础',
+        index: 1
       },
       children: [
         {

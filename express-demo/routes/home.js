@@ -11,13 +11,13 @@ router.use((req, res, next) => {
   next()
 })
 
+
 // 路由匹配
 router.get('/', (req, res, next) => {
   // request('http://www.tcl.com/api/html/footer', (error, response, body) => {
   //   res.send(body)
   // })
   res.send('aa')
-  next()
 })
 
 module.exports = router

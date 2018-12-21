@@ -26,12 +26,18 @@ router.use('/:id', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   console.log(req.name)
-  if (!req.id) {
-    res.render('404', { title: 'Express' })
-  } else {
-    res.send('id=' + req.params.id)
-  }
+  // if (!req.id) {
+  //   res.render('404', { title: 'Express' })
+  // } else {
+  //   res.send('id=' + req.params.id)
+  // }
+  res.render('usercenter/index.html', {
+    // 不使用layout默认模板
+    layout: false
+  })
 })
+
+router.use('/user', router)
 
 
 module.exports = router

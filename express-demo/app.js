@@ -29,6 +29,9 @@ const homeRouter = require('./routes/home')
 // 用户个人中心路由
 const userRouter = require('./routes/user')
 
+// 代理路由
+const proxyRouter = require('./routes/proxy')
+
 // 所有的应用程式都要走这个中间件
 app.use((req, res, next) => {
   console.log('所有的路由都要走这个中间件')
@@ -39,11 +42,12 @@ app.use((req, res, next) => {
 // 将路由套用至应用程式
 app.use('/home', homeRouter)
 app.use('/user', userRouter)
+app.use('/proxy', proxyRouter)
 
 // 默认跳转home
-app.use('/', (req, res, next) => {
-  res.redirect('/home')
-  next()
-})
+// app.use('/', (req, res, next) => {
+//   res.redirect('/home')
+// })
+
 
 module.exports = app
