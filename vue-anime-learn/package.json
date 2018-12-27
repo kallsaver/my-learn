@@ -5,7 +5,7 @@
   "author": "kallsave <415034609@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "npm run svg | webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
@@ -24,6 +24,7 @@
     "animejs": "^2.2.0",
     "cube-ui": "^1.12.5",
     "dynamics.js": "^1.1.5",
+    "jss": "^9.8.7",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

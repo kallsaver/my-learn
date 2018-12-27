@@ -93,6 +93,14 @@ export default new Router({
             title: 'svg-stroke-dash-offset',
           },
         },
+        {
+          path: 'upload',
+          name: 'upload',
+          component: () => import('@/pages/base/children/upload/upload.vue'),
+          meta: {
+            title: 'upload',
+          },
+        }
       ]
     },
     {

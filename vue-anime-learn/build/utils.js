@@ -22,7 +22,7 @@ exports.cssLoaders = function (options) {
   const cssLoader = {
     loader: 'css-loader',
     options: {
-      sourceMap: options.sourceMap
+      sourceMap: options.sourceMap,
     }
   }
 
@@ -101,5 +101,18 @@ exports.createNotifierCallback = () => {
       subtitle: filename || '',
       icon: path.join(__dirname, 'logo.png')
     })
+  }
+}
+
+exports.getIPAddress = () => {
+  let interfaces = require('os').networkInterfaces()
+  for (let devName in interfaces) {
+    let iface = interfaces[devName]
+    for (let i = 0; i < iface.length; i++) {
+      let alias = iface[i];
+      if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+        return alias.address;
+      }
+    }
   }
 }
