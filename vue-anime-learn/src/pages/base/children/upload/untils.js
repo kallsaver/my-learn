@@ -96,9 +96,9 @@ export function createURL(file) {
   return ''
 }
 
-export function prependChild(parent, newChild) {
+export function prependChild(parent, newChild, beforeChild) {
   if (parent.children[0]) {
-    parent.insertBefore(newChild, parent.firstChild)
+    parent.insertBefore(newChild, beforeChild)
   } else {
     parent.appendChild(newChild)
   }

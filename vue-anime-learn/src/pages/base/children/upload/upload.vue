@@ -33,12 +33,9 @@ export default {
     let upload = new ViUpload({
       el: '#content',
       // 上传文件的个数
-      max: 2,
+      max: 56,
       // 文件的最大
       maxSize: 30000,
-      // 是否自动上传
-      auto: true,
-      action: '',
       events: {
         // 添加图片成功后的回调
         // 这个函数不会对max, maxSize, auto处理
@@ -66,7 +63,6 @@ export default {
       const newFiles = []
       let i = 0
       let file = files[i]
-      console.log('file', file)
       while (newFiles.length < max && file) {
         if (!file.ignore) {
           newFiles.push(file)

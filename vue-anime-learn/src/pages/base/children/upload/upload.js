@@ -12,13 +12,10 @@ import {
 const DEFAULT_OPTIONS = {
   // 容器
   el: '',
-  customInput: false,
   // 上传文件的个数
   max: 1,
-  // 文件的最大
+  // 文件的最大存储
   maxSize: 0,
-  // 是否自动上传
-  auto: true,
 }
 
 const EVENT_ADD_FILES = 'addFiles'
@@ -28,28 +25,38 @@ const EVENT_REMOVE_FILES = 'removeFiles'
 export default class ViUpload {
   constructor(o) {
     this.options = mulitDeepClone({}, DEFAULT_OPTIONS, o)
+    this.checkType()
     this.init()
   }
   init() {
-    this.initWrapper()
+    let createSuccess = this.initWrapper()
+    if (!createSuccess) {
+      return
+    }
     this.initData()
     this.listenEvent()
     this.watch()
   }
   checkType() {
+    if (!/#.+/.test(this.options.el)) {
+      console.error(`type check failed for options "el". please use id selector`)
+    }
     if (typeof this.options.maxSize !== 'number') {
       console.error(`type check failed for options "maxSize".`)
+    }
+    if (typeof this.options.max !== 'number') {
+      console.error(`type check failed for options "max".`)
     }
   }
   initWrapper() {
     let elementName = this.options.el.slice(1)
     this.el = document.getElementById(elementName)
-    if (!this.options.el) {
-      console.warn('missing options el')
+    if (!this.el) {
+      console.error(`cannot find selector #${this.el}.`)
+      return false
     }
-    if (!this.options.customInput) {
-      this.createInput()
-    }
+    this.createInput()
+    return true
   }
   initData() {
     this.imgList = []
@@ -130,16 +137,15 @@ export default class ViUpload {
       }
       this.imgList.push(item)
       this.restImgLength = this.options.max - this.imgList.length
-      let url = createURL(item)
       let fileDom = document.createElement('div')
       addClass(fileDom, 'vi-upload-file')
       fileDom.innerHTML = `<div class="vi-upload-file-box">
-                            <i class="vi-upload-file-delete vi-upload-icon-close"></i>
+                            <i class="vi-upload-file-delete"></i>
                           </div>`
       let backgroundImageDom = fileDom.getElementsByClassName('vi-upload-file-box')[0]
-      backgroundImageDom.style.backgroundImage = `url(${url})`
+      backgroundImageDom.style.backgroundImage = `url(${item.url})`
       fileDom.appendChild(backgroundImageDom)
-      prependChild(this.el, fileDom)
+      prependChild(this.el, fileDom, this.inputWrapper)
       let icon = fileDom.getElementsByClassName('vi-upload-file-delete')[0]
       icon.onclick = (e) => {
         e.stopPropagation()
