@@ -8,7 +8,8 @@
         @file-submitted="fileSubmitted">
       </cube-upload>
       <div class="box" :style="style"></div>
-      <div id="content"></div>
+      <div id="content" class="clear"></div>
+      <div class="close"></div>
     </div>
   </page>
 </template>
@@ -84,10 +85,47 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.clear
+  &:after
+    content: ''
+    display: block
+    clear: both
+    width: 0
+    height: 0
+    line-height: 0
+    visibility: hidden
+
 .upload
   padding: 20px
   .box
     width: 80px
     height: 80px
     background: gold
+  .close
+    position: relative
+    width: 80px
+    height: 80px
+    background: #000
+    border-radius: 50%
+    transform: scale(0.25)
+    &:before
+      content: ''
+      position: absolute
+      width: 8px
+      height: 55px
+      top: 50%
+      left: 50%
+      border-radius: 8px
+      background-color: #fff
+      transform: translate(-50%, -50%) rotate(135deg)
+    &:after
+      content: ''
+      position: absolute
+      width: 8px
+      height: 55px
+      top: 50%
+      left: 50%
+      border-radius: 8px
+      background-color: #fff
+      transform: translate(-50%, -50%) rotate(-135deg)
 </style>

@@ -1,11 +1,11 @@
 @font-face {
   font-family: "w-playback-icon";
-  src: url('w-playback-icon.eot?t=1542880763600'); /* IE9*/
-  src: url('w-playback-icon.eot?t=1542880763600#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url("w-playback-icon.woff2?t=1542880763600") format("woff2"),
-  url("w-playback-icon.woff?t=1542880763600") format("woff"),
-  url('w-playback-icon.ttf?t=1542880763600') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('w-playback-icon.svg?t=1542880763600#w-playback-icon') format('svg'); /* iOS 4.1- */
+  src: url('w-playback-icon.eot?t=1546057266106'); /* IE9*/
+  src: url('w-playback-icon.eot?t=1546057266106#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url("w-playback-icon.woff2?t=1546057266106") format("woff2"),
+  url("w-playback-icon.woff?t=1546057266106") format("woff"),
+  url('w-playback-icon.ttf?t=1546057266106') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('w-playback-icon.svg?t=1546057266106#w-playback-icon') format('svg'); /* iOS 4.1- */
 }
 
 [class^="w-playback-icon-"], [class*=" w-playback-icon-"] {
