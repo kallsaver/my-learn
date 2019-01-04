@@ -2,9 +2,9 @@
 import { isNative } from '../../../util/util.js';
 
 function* gernerator() {
-    yield 'first';
-    yield 'second';
-    return 'ending';
+  yield 'first';
+  yield 'second';
+  return 'ending';
 }
 
 console.log('isNative', isNative(gernerator));

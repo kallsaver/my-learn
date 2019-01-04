@@ -29,6 +29,38 @@ export default new Router({
             title: '事件分发/自定义监听事件',
           },
         },
+        {
+          path: 'class',
+          name: 'class',
+          component: () => import('@/pages/base/children/class/class.vue'),
+          meta: {
+            title: 'es6的class',
+          },
+        },
+        {
+          path: 'async',
+          name: 'async',
+          component: () => import('@/pages/base/children/async/async.vue'),
+          meta: {
+            title: 'es6的async/await',
+          },
+        },
+        {
+          path: 'proxy',
+          name: 'proxy',
+          component: () => import('@/pages/base/children/proxy/proxy.vue'),
+          meta: {
+            title: 'es6的proxy',
+          },
+        },
+        {
+          path: 'Object.defineProperty',
+          name: 'Object.defineProperty',
+          component: () => import('@/pages/base/children/Object.defineProperty/Object.defineProperty.vue'),
+          meta: {
+            title: 'Object.defineProperty',
+          },
+        },
       ]
     },
     {
@@ -36,17 +68,6 @@ export default new Router({
       meta: {
         title: '实战',
       },
-      component: () => import('@/pages/action/index.vue'),
-      children: [
-        {
-          path: 'spray-paint',
-          name: 'spray-paint',
-          component: () => import('@/pages/action/children/spray-paint/spray-paint.vue'),
-          meta: {
-            title: 'twitter泼墨效果',
-          },
-        },
-      ]
     },
   ]
 })
