@@ -53,7 +53,7 @@ export default {
     demo3() {
       // 最佳实践
       let arr = [0, 1, 2]
-      ;(async() => {
+      ;(async () => {
         for (let i = 0; i < arr.length; i++) {
           await (() => {
             return new Promise((resolve, reject) => {
@@ -71,7 +71,7 @@ export default {
     },
     demo4() {
       // async的回调函数
-      async function getData (fn) {
+      async function getData(fn) {
         if (fn && typeof fn === 'function') {
           await fn(1)
           console.log('回调函数执行完毕')

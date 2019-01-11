@@ -66,7 +66,7 @@ export default {
       default: true
     }
   },
-  created () {
+  created() {
   },
   methods: {
     back() {

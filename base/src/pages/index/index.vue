@@ -10,6 +10,11 @@
         <router-link tag="div" to="/action">实战</router-link>
       </cube-button>
     </div>
+    <div class="button">
+      <cube-button>
+        <router-link tag="div" to="/vue">vue</router-link>
+      </cube-button>
+    </div>
   </div>
 </template>
 

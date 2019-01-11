@@ -65,9 +65,52 @@ export default new Router({
     },
     {
       path: '/action',
+      component: () => import('@/pages/action/index.vue'),
       meta: {
         title: '实战',
       },
+    },
+    {
+      path: '/vue',
+      component: () => import('@/pages/vue/index.vue'),
+      meta: {
+        title: 'vue',
+      },
+      children: [
+        {
+          path: 'vuex',
+          name: 'vuex',
+          component: () => import('@/pages/vue/children/vuex/vuex.vue'),
+          meta: {
+            title: 'vuex',
+          },
+        },
+        {
+          path: 'async-components',
+          name: 'async-components',
+          component: () => import('@/pages/vue/children/async-components/async-components.vue'),
+          meta: {
+            title: 'async-components',
+          },
+        }
+      ]
+    },
+    {
+      path: '/browser',
+      component: () => import('@/pages/browser/index.vue'),
+      meta: {
+        title: 'vue',
+      },
+      children: [
+        {
+          path: 'repaints',
+          name: 'repaints',
+          component: () => import('@/pages/browser/children/repaints/repaints.vue'),
+          meta: {
+            title: '重排',
+          },
+        },
+      ]
     },
   ]
 })

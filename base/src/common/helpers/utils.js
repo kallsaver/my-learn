@@ -1,5 +1,5 @@
 // 补零
-export function padZero (num, n = 2) {
+export function padZero(num, n = 2) {
   let len = num.toString().length
   while (len < n) {
     num = '0' + num
@@ -15,7 +15,7 @@ function getRandomInt(min, max) {
 }
 
 // 打乱一个数组
-export function shuffle (arr) {
+export function shuffle(arr) {
   let _arr = arr.slice()
   for (let i = 0; i < _arr.length; i++) {
     let j = getRandomInt(0, i)
@@ -26,7 +26,7 @@ export function shuffle (arr) {
   return _arr
 }
 
-export function isEmptyObject (obj) {
+export function isEmptyObject(obj) {
   for (let key in obj) {
     return false
   }
