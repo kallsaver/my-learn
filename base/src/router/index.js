@@ -110,6 +110,14 @@ export default new Router({
             title: '重排',
           },
         },
+        {
+          path: 'timeline',
+          name: 'timeline',
+          component: () => import('@/pages/browser/children/timeline/timeline.vue'),
+          meta: {
+            title: '谷歌浏览器的performance',
+          },
+        },
       ]
     },
   ]

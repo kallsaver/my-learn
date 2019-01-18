@@ -16,7 +16,7 @@
           <i class="page-start w-page-icon-start" @click="start"></i>
         </slot>
         <slot name="to-top" v-if="isShowToTop">
-          <i class="page-to-top w-page-icon-top"></i>
+          <i class="page-to-top w-page-icon-top" @click="toTop"></i>
         </slot>
       </div>
     </div>
@@ -28,6 +28,7 @@ const COMPONENT_NAME = 'page'
 
 const EVENT_RIGHT_CLICK = 'right-click'
 const EVENT_START = 'start'
+const EVENT_TO_TOP = 'to-top'
 
 export default {
   name: COMPONENT_NAME,
@@ -77,6 +78,9 @@ export default {
     },
     start() {
       this.$emit(EVENT_START)
+    },
+    toTop() {
+      this.$emit(EVENT_TO_TOP)
     }
   }
 }
