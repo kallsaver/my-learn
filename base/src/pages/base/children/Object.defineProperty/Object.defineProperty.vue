@@ -18,7 +18,6 @@ export default {
           enumerable: true,
           configurable: true,
           get() {
-            console.log('val', val)
             return val
           },
           set(newVal) {

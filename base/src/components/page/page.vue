@@ -90,7 +90,7 @@ export default {
 @import "./fonts/w-page-icon.css"
 
 .page
-  position: fixed
+  position: absolute
   z-index: 50
   top: 0
   left: 0

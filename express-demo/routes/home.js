@@ -1,7 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const http = require('http')
-const request  = require('request')
 
 // 需要注意的是在使用路由middleware时它的执行位置
 // 必须在routes之前,否则根本不会执行

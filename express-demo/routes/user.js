@@ -37,7 +37,4 @@ router.get('/:id', (req, res, next) => {
   })
 })
 
-router.use('/user', router)
-
-
 module.exports = router

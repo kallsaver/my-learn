@@ -46,7 +46,7 @@ app.use('/proxy', proxyRouter)
 
 // 默认跳转home
 // app.use('/', (req, res, next) => {
-//   res.redirect('/home')
+//   res.redirect('/proxy/home')
 // })
 
 

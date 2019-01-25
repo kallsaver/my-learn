@@ -14,7 +14,7 @@
 <script>
 import { addClass, removeClass } from '@/common/helpers/dom.js'
 export default {
-  data () {
+  data() {
     return {
       images: [
         {
@@ -30,11 +30,11 @@ export default {
       delay: 10000
     }
   },
-  mounted () {
+  mounted() {
     this.bgAnimmation()
   },
   methods: {
-    bgAnimmation () {
+    bgAnimmation() {
       const vh = window.innerHeight
       this.$refs.bgWrapper.style.height = `${vh}px`
       window.onresize = () => {
