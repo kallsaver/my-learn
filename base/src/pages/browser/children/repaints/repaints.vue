@@ -12,9 +12,35 @@ function fibonacci(n) {
 }
 export default {
   data() {
-    return {}
+    return {
+      list: [
+        {
+          content: '舒适型'
+        },
+        {
+          content: '七座商务'
+        },
+        {
+          content: '豪华型'
+        }
+      ],
+    }
   },
   mounted() {
+    this.sheet = this.$createActionSheet({
+      title: '我是标题~~~',
+      pickerStyle: true,
+      data: this.list,
+    }).show()
+    setTimeout(() => {
+      this.sheet.$updateProps({
+        data: [
+          {
+            content: '豪华型'
+          }
+        ]
+      })
+    }, 5000)
   },
   methods: {
   },

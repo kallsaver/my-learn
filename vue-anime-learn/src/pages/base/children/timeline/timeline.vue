@@ -85,10 +85,12 @@ export default {
       })
     },
     demo2() {
+      // 配置整个动画的参数
       let timeline = anime.timeline({
         direction: 'alternate',
         loop: true
       })
+      // 添加动画对象
       timeline.add({
         targets: '.square',
         // 动画帧 也可写成

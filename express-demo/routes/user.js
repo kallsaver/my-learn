@@ -11,6 +11,7 @@ router.param('id', (req, res, next, id) => {
     // express的传值通过这种方式
     req.name = 'pp'
     req.id = id
+    res.name = 'gg'
   }
   next()
 })
@@ -21,11 +22,13 @@ router.use('/:id', (req, res, next) => {
   console.log('触发user路由的use中间件')
   // 结束这个middleware中间件流程
   console.log(req.name)
+  console.log(res.name)
   next()
 })
 
 router.get('/:id', (req, res, next) => {
   console.log(req.name)
+  console.log(res.name)
   // if (!req.id) {
   //   res.render('404', { title: 'Express' })
   // } else {

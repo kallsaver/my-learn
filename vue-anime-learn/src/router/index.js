@@ -118,6 +118,14 @@ export default new Router({
             title: 'twitter泼墨效果',
           },
         },
+        {
+          path: 'twitter',
+          name: 'twitter',
+          component: () => import('@/pages/action/children/twitter/twitter.vue'),
+          meta: {
+            title: 'twitter泼墨效果',
+          },
+        },
       ]
     },
   ]

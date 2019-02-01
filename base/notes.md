@@ -19,6 +19,11 @@
   11. [美团2018技术年货-测试篇](http://dpurl.cn/wfKQqy)
   12. [美团2018技术年货-工程师成长篇](http://dpurl.cn/p5sPoKT)
   13. [美团2018文章合辑](http://dpurl.cn/iLGBtuS)
+  14. [听话的输入框](https://mp.weixin.qq.com/s/Oer8jzj_AK4qs7TnR9FIeQ)
 
 **博客类分享**
 1. [web-data-summary](https://github.com/hkdg/web-data-summary)
+2. [各种好用的库](https://github.com/jaywcjlove/handbook/blob/master/Javascript/%E8%BD%BB%E9%87%8F%E9%AB%98%E6%95%88%E7%9A%84%E5%BC%80%E6%BA%90JavaScript%E6%8F%92%E4%BB%B6%E5%92%8C%E5%BA%93.md#%E5%8A%A8%E7%94%BB)
+
+**源码类**
+1.

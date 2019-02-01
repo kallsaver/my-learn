@@ -1,6 +1,7 @@
 <template>
   <div class="action">
     <index-list :route-index="routeIndex" title="实战"></index-list>
+    <div>{{routeIndex}}</div>
     <transition name="move">
       <router-view class="view"></router-view>
     </transition>
@@ -18,7 +19,7 @@ export default {
   computed: {
     routeIndex() {
       return this.$router.options.routes.findIndex((item) => {
-        return this.$route.path.indexOf(item.path) !== -1
+        return this.$route.path.indexOf(item.path) !== -1 && item.path !== '/'
       })
     },
   },
