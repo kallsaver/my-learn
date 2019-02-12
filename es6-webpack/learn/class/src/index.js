@@ -12,8 +12,6 @@ class Man {
   }
 }
 
-
-
 class Student extends Man {
   constructor(age, name, sex) {
     // 调用父类的construtor

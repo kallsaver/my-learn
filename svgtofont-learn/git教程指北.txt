@@ -1,3 +1,0 @@
-1.登录github
-2.新建一个仓库(repositories)
-3.填写完仓库的信息后(不要勾选Initialize this repository with a README)

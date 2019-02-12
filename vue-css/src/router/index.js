@@ -6,20 +6,15 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/base',
-      component: () => import('@/pages/base/index.vue'),
+      path: '/visual',
+      component: () => import('@/pages/visual/index.vue'),
       children: [
         {
-          path: 'test',
-          name: 'test',
-          component: () => import('@/pages/base/children/test/test.vue')
+          path: '/visual/line-breaks',
+          name: 'line-breaks',
+          component: () => import('@/pages/visual/children/line-breaks/line-breaks.vue')
         },
-        {
-          path: 'timeline',
-          name: 'timeline',
-          component: () => import('@/pages/base/children/timeline/timeline.vue')
-        },
-      ]
+      ],
     },
   ]
 })

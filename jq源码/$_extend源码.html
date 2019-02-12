@@ -10,7 +10,7 @@
 	var jQuery = {
 		fn : {}
 	};
-	
+
 	jQuery.extend = jQuery.fn.extend = function() {
 	　　/*
 	　　*target被扩展的对象
@@ -22,33 +22,33 @@
 	　　　　i = 1,
 	　　　　length = arguments.length,
 	　　　　deep = false;
-	
+
 	　　// target为第一个参数，如果第一个参数是Boolean类型的值，则把target赋值给deep
 	　　// deep表示是否进行深层面的复制，当为true时，进行深度复制，否则只进行第一层扩展
 	　　// 然后把第二个参数赋值给target
 	　　if ( typeof target === "boolean" ) {
 	　　　　deep = target;
 	　　　　target = arguments[1] || {};
-	
+
 	　　　　// 将i赋值为2，跳过前两个参数
 	　　　　i = 2;
 	　　}
-	
+
 	　　// target既不是对象也不是函数则把target设置为空对象。
 	　　if ( typeof target !== "object" && !jQuery.isFunction(target) ) {
 	　　　　target = {};
 	　　}
-	
+
 	　　// 如果只有一个参数，则把jQuery对象赋值给target，即扩展到jQuery对象上
 	　　if ( length === i ) {
 	　　　　target = this;
-	
+
 	　　　　// i减1，指向被扩展对象
 	　　　　--i;
 	　　}
-	
+
 	　　// 开始遍历需要被扩展到target上的参数
-	
+
 	　　for ( ; i < length; i++ ) {
 	　　　　// 处理第i个被扩展的对象，即除去deep和target之外的对象
 	　　　　if ( (options = arguments[ i ]) != null ) {
@@ -58,12 +58,12 @@
 	　　　　　　　　src = target[ name ];
 	　　　　　　　　// 得到被扩展对象的值
 	　　　　　　　　copy = options[ name ];
-	
+
 	　　　　　　　　// 这里为什么是比较target和copy？不应该是比较src和copy吗？
 	　　　　　　　　if ( target === copy ) {
 	　　　　　　　　　　continue;
 	　　　　　　　　}
-	
+
 	　　　　　　　　// 当用户想要深度操作时，递归合并
 	　　　　　　　　// copy是纯对象或者是数组
 	　　　　　　　　if ( deep && copy && ( isPlainObject(copy) || (copyIsArray = Array.isArray(copy)) ) ) {
@@ -73,14 +73,14 @@
 	　　　　　　　　　　　　copyIsArray = false;
 	　　　　　　　　　　　　// 判断被扩展的对象中src是不是数组
 	　　　　　　　　　　　　clone = src && jQuery.isArray(src) ? src : [];
-	　　　　　　　　　　} else { 
+	　　　　　　　　　　} else {
 	　　　　　　　　　　　　// 判断被扩展的对象中src是不是纯对象
 	　　　　　　　　　　　　clone = src && jQuery.isPlainObject(src) ? src : {};
 	　　　　　　　　　　}
-	
+
 	　　　　　　　　　　// 递归调用extend方法，继续进行深度遍历
 	　　　　　　　　　　target[ name ] = jQuery.extend( deep, clone, copy );
-	
+
 	　　　　　　　　// 如果不需要深度复制，则直接把copy（第i个被扩展对象中被遍历的那个键的值）
 	　　　　　　　　} else if ( copy !== undefined ) {
 	　　　　　　　　　　target[ name ] = copy;
@@ -88,7 +88,7 @@
 	　　　　　　}
 	　　　　}
 	　　}
-	
+
 	function isPlainObject( obj ) {
 		var proto, Ctor;
 
@@ -97,7 +97,6 @@
 		if ( !obj || toString.call( obj ) !== "[object Object]" ) {
 			return false;
 		}
-
 		proto = getProto( obj );
 
 		// Objects with no prototype (e.g., `Object.create( null )`) are plain
@@ -109,30 +108,30 @@
 		Ctor = hasOwn.call( proto, "constructor" ) && proto.constructor;
 		return typeof Ctor === "function" && fnToString.call( Ctor ) === ObjectFunctionString;
 	};
-	
+
 	　　// 原对象被改变，因此如果不想改变原对象，target可传入{}
 	　　return target;
 	};
-		
+
 	</script>
-	
-	
+
+
 	<script>
 		var a = {
 			name : 'a'
 		}
-		
+
 		var b = {};
-		
+
 		jQuery.extend(true,b,a);
-		
+
 		console.log(b)
-		
+
 		function run(){
 			var a = 5;
 		}
-		
+
 		run()
-		
+
 	</script>
 </html>

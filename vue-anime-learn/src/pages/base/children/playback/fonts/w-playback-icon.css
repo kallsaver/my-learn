@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "w-playback-icon";
+  src: url('w-playback-icon.eot?t=1546080468095'); /* IE9*/
+  src: url('w-playback-icon.eot?t=1546080468095#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url("w-playback-icon.woff2?t=1546080468095") format("woff2"),
+  url("w-playback-icon.woff?t=1546080468095") format("woff"),
+  url('w-playback-icon.ttf?t=1546080468095') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('w-playback-icon.svg?t=1546080468095#w-playback-icon') format('svg'); /* iOS 4.1- */
+}
+
+[class^="w-playback-icon-"], [class*=" w-playback-icon-"] {
+  font-family: 'w-playback-icon' !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.w-playback-icon-pause:before { content: "\ea03"; }
+.w-playback-icon-start:before { content: "\ea06"; }
+.w-playback-icon-restart:before { content: "\ea04"; }
+.w-playback-icon-reverse:before { content: "\ea05"; }
