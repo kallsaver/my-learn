@@ -1,0 +1,7 @@
+https://blog.csdn.net/zyx19950825/article/details/52469813
+https://www.cnblogs.com/qq21270/p/6655583.html
+https://blog.csdn.net/zl5991/article/details/79578489
+
+2.查看pip安装了什么包: pip freeze
+3.查看包安装的位置:pip install xxx(xxx是已经安装的包),
+默认放在python安装目录下的lib/site-packages下
