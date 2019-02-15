@@ -112,6 +112,15 @@ export default new Router({
             title: 'async-components',
             index: 3
           },
+        },
+        {
+          path: 'swipe',
+          name: 'swipe',
+          component: () => import('@/pages/vue/children/swipe/swipe.vue'),
+          meta: {
+            title: 'swipe',
+            index: 3
+          },
         }
       ]
     },
