@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import { ENDED, LIVE, CONCERN } from '../common/config/tabs';
-import MatchList from '../components/match-list';
+import { ENDED, LIVE, CONCERN } from '../common/config/tabs'
+import MatchList from '../components/match-list'
 
 export default {
   name: 'home',
@@ -88,20 +88,20 @@ export default {
       scrollCount: 0,
       firstScrollY: 0,
       secondScrollY: 0,
-    };
+    }
   },
   created() {
-    console.log('App.vue created');
+    console.log('App.vue created')
 
     this.$Lazyload.config({
       // loading: 'http://covteam.u.qiniudn.com/test19.jpg',
       loading: require('../img/loading.png'),
-    });
+    })
 
     this.$Lazyload.$on('loaded', ({el, src}) => {
       // console.log(el, src);
       // console.table(this.$Lazyload.performance());
-    });
+    })
   },
   mounted() {
     this.picker = this.$createPicker({
@@ -109,34 +109,34 @@ export default {
       data: [this.pickerList],
       selectedIndex: [2],
       onSelect: () => {
-        this.toDown = false;
+        this.toDown = false
       },
       onCancel: () => {
-        this.toDown = false;
+        this.toDown = false
       },
       onValueChange: (selectedVal, selectIndex, selectText) => {
         // 参数都是数组格式
         // console.log(selectedVal[0]);
-        this.source = selectedVal[0];
+        this.source = selectedVal[0]
       }
-    });
+    })
     this.$nextTick(() => {
       // console.log(this.$refs.slide.slide);
-      this.slide = this.$refs.slide.slide;
-    });
+      this.slide = this.$refs.slide.slide
+    })
   },
   methods: {
     switchTab(index) {
-      this.currentPage = index;
+      this.currentPage = index
     },
     // cube-slide组件的change事件的参数是index
     slideChange(index) {
     // console.log(index);
-      this.currentPage = index;
+      this.currentPage = index
     },
     showPicker() {
-      this.toDown = true;
-      this.picker.show();
+      this.toDown = true
+      this.picker.show()
     },
     scroll(pos) {
       // console.log('slide');
@@ -148,7 +148,7 @@ export default {
   components: {
     MatchList
   }
-};
+}
 </script>
 
 <style lang="stylus">

@@ -34,22 +34,22 @@
 </template>
 
 <script>
-import { ENDED, LIVE, CONCERN } from '../common/config/tabs';
-import list from '../common/data/match-list';
-import { getRect } from '../common/js/dom.js';
-const UP = 'up';
-const DOWN = 'down';
+import { ENDED, LIVE, CONCERN } from '../common/config/tabs'
+import list from '../common/data/match-list'
+import { getRect } from '../common/js/dom.js'
+const UP = 'up'
+const DOWN = 'down'
 
 const typesMap = {
   [ENDED]: 0,
   [LIVE]: 1,
   [CONCERN]: 2
-};
+}
 
 // 根据数据结构过滤数据,有三个match-list组件,它们要渲染的数据不一样
 const getMatchList = (source, type) => {
-  return list[source][typesMap[type]];
-};
+  return list[source][typesMap[type]]
+}
 
 export default {
   name: 'match-list',
@@ -65,7 +65,7 @@ export default {
     slide: {
       type: Object,
       default() {
-        return {};
+        return {}
       }
     }
   },
@@ -90,9 +90,10 @@ export default {
         },
         // 下拉加载
         pullUpLoad: {
-          threshold: 100,
+          // 距离底部threshold触发下拉加载事件
+          threshold: -100,
           txt: {
-            more: '加载更多',
+            more: '上拉加载更多',
             noMore: '没有更多的比赛啦'
           }
         },
@@ -103,77 +104,76 @@ export default {
       // 新数据有限,只能拉三次
       matchListRefreshCount: 4,
       timer: null,
-    };
+    }
   },
     // picker会导致source的改变,也可以用computed实现
   watch: {
     source() {
-      console.log('watch');
-      this.matchList = getMatchList(this.source, this.type);
+      console.log('watch')
+      this.matchList = getMatchList(this.source, this.type)
     },
   },
 
   created() {
     this.subscribeDialog = this.$createSubscribeDialog({
       onShow() {
-        console.log('showwww');
+        console.log('showwww')
       },
       onHide() {
-        console.log('hideee');
+        console.log('hideee')
       }
-    });
+    })
   },
   mounted() {
     // console.log(getRect(this.$refs.scroll.$el).height);
     // console.log(getRect(this.$refs.scroll.$el.children[0]).height);
     // 可滚动的高度
     this.$nextTick(() => {
-      console.log(getRect(this.$refs.scroll.$el.children[0]).height - getRect(this.$refs.scroll.$el).height);
-    });
+      console.log(getRect(this.$refs.scroll.$el.children[0]).height - getRect(this.$refs.scroll.$el).height)
+    })
   },
   methods: {
     subscribe() {
-      this.subscribeDialog.show();
+      this.subscribeDialog.show()
     },
     onPullingDown() {
-      this.loadMatch('down');
+      this.loadMatch('down')
     },
     onPullingUp() {
-      this.loadMatch('up');
+      this.loadMatch('up')
     },
     loadMatch(type) {
-      this.matchListRefreshCount--;
+      this.matchListRefreshCount--
       // 假数据
       setTimeout(() => {
         if (this.matchListRefreshCount > 0) {
-          console.log(333);
           // 有新数据的情况
-          let match = [];
+          let match = []
           for (let index = 5; index > 0; index--) {
-            match.push(this.matchList[index]);
+            match.push(this.matchList[index])
           }
           // 如果是下拉刷新
           if (type === DOWN) {
-            this.matchList.unshift(...match);
+            this.matchList.unshift(...match)
           } else if (type === UP) {
-            this.matchList = this.matchList.concat(match);
-            console.log('开始给matchList添加数据');
+            this.matchList = this.matchList.concat(match)
+            console.log('开始给matchList添加数据')
           }
         } else {
-          console.log('没有更多数据');
+          console.log('没有更多数据')
           // 没有新数据的情况要forceUpdate,否则拉动loading一直在等待
           // 使用forceUpdate后,noMore的文案会展示
-          this.$refs.scroll.forceUpdate();
-          // if (type === UP) {
-          //     setTimeout(() => {
-          //         this.$refs.scroll.scroll.scrollBy(0, 64, 800);
-          //     }, 1000);
-          // }
+          this.$refs.scroll.forceUpdate()
+          if (type === UP) {
+            setTimeout(() => {
+              this.$refs.scroll.scroll.scrollBy(0, 64, 800)
+            }, 1000)
+          }
         }
-      }, 500);
+      }, 500)
     },
     beforeScrollStart(pos) {
-      console.log('beforeScrollStart');
+      console.log('beforeScrollStart')
     },
     scroll(pos) {
       // 交互的回调函数是I/O操作,会在Promise A+规范之后
@@ -197,10 +197,10 @@ export default {
   },
   updated() {
     this.$nextTick(() => {
-      console.log('updated $nextTick');
-    });
+      console.log('updated $nextTick')
+    })
   }
-};
+}
 </script>
 
 <style lang="stylus">

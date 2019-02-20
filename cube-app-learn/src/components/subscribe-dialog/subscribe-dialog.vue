@@ -29,30 +29,30 @@ export default {
           loading: require('../../img/loading.png')
         }
       ]
-    };
+    }
   },
   methods: {
     show() {
-      this.$refs.popup.show();
+      this.$refs.popup.show()
       // vue的底层就是一切都是编程式触发,不要被结构父组件子组件迷惑了
       // $emit就是订阅者模式,不一定说一定要写在结构上,
       // 而是作者把触发指针写在了结构上
-      this.$emit('show');
+      this.$emit('show')
     },
     hide() {
-      this.$refs.popup.hide();
-      this.$emit('hide');
+      this.$refs.popup.hide()
+      this.$emit('hide')
     },
     start() {
-      this.$refs.popup.hide();
+      this.$refs.popup.hide()
       this.$createToast({
         type: 'correct',
         txt: '开启成功',
         time: 1000
-      }).show();
+      }).show()
     }
   }
-};
+}
 </script>
 
 <style lang="stylus">

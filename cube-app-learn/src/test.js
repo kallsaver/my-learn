@@ -1,6 +1,6 @@
-import {a, b} from './original';
+import {a, b} from './original'
 
 export {
   a,
   b
-};
+}

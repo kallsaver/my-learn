@@ -1,8 +1,8 @@
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
-import Vue from 'vue';
-import VueLazyload from 'vue-lazyload';
-import router from './router/index';
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+import Vue from 'vue'
+import VueLazyload from 'vue-lazyload'
+import router from './router/index'
 
 // Style组件是基础的依赖样式文件
 import {
@@ -15,12 +15,12 @@ import {
   Popup,
   Toast,
   createAPI,
-} from 'cube-ui';
-import App from './App';
-import SubscribeDialog from './components/subscribe-dialog/subscribe-dialog';
+} from 'cube-ui'
+import App from './App'
+import SubscribeDialog from './components/subscribe-dialog/subscribe-dialog'
 
-NProgress.inc(0.2);
-NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false });
+NProgress.inc(0.2)
+NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
 
 // 并不是所有的图片都适合使用lazyload
 // 使用本地路径地址的图片,使用require
@@ -52,40 +52,40 @@ Vue.use(VueLazyload, {
   //         // console.log('error')
   //     }
   // },
-});
+})
 
 // 全局的路由跳转
 // 一般用于登录逻辑
 router.beforeEach((to, from, next) => {
-  NProgress.start();
-  next();
-});
+  NProgress.start()
+  next()
+})
 
 router.afterEach(() => {
-  NProgress.done();
-});
+  NProgress.done()
+})
 
-Vue.use(Button);
+Vue.use(Button)
 // Picker组件已经在install里面调用了createAPI
-Vue.use(Picker);
+Vue.use(Picker)
 // 滑块
-Vue.use(Slide);
+Vue.use(Slide)
 // 滚动条
-Vue.use(Scroll);
+Vue.use(Scroll)
 // 遮罩层
-Vue.use(Popup);
+Vue.use(Popup)
 // 提示弹窗
-Vue.use(Toast);
+Vue.use(Toast)
 
 // 组成body上的组件,需要有name
 // 参数是Vue,组件,组件上的自定义事件,生成的是否是单例
-createAPI(Vue, SubscribeDialog, ['show', 'hide'], true);
+createAPI(Vue, SubscribeDialog, ['show', 'hide'], true)
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   render: h => h(App)
-});
+})

@@ -8,20 +8,20 @@ export default {
   data() {
     return {
       showTest: true
-    };
+    }
   },
   created() {
-    console.log('test components create');
+    console.log('test components create')
   },
   methods: {
     show() {
-      this.showTest = true;
+      this.showTest = true
     },
     hide() {
-      this.showTest = false;
+      this.showTest = false
     }
   }
-};
+}
 </script>
 
 <style lang="stylus">
