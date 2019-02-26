@@ -4,6 +4,10 @@ const app = new Koa()
 // 每收到一个 http 请求
 // Koa都会调用通过app.use()注册的async函数
 // 这个async函数就是我们所说的中间件
+
+// 洋葱模型
+// 请求: 中间件1 => 中间件2 => 中间件3 => 中间件4
+// 响应: 中间件4 => 中间件3 => 中间件2 => 中间件1
 app.use(async (ctx, next) => {
   let stime = new Date().getTime()
   await next()
