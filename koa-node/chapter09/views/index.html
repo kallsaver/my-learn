@@ -1,1 +1,39 @@
-<h1>index</h1>
+<h1></h1>
+  <p>用户名</p>
+  <input id="userName" name="userName" />
+  <p>密码</p>
+  <input id="password" name="password" type="password">
+  <button id="btn">sumbit</button>
+<script src="/jquery.js"></script>
+<script>
+  $.ajax({
+    url: '/api/getName?type=5',
+    method: 'GET',
+    success: function (res) {
+      console.log(res)
+      if (res.code === 1) {
+        console.log(res.data)
+      } else {
+        console.log('参数错误')
+      }
+    }
+  })
+
+  $('#btn').on('click', function () {
+    let userName = $('#userName').val()
+    let password = $('#password').val()
+    $.ajax({
+      url: '/api/login',
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        userName: userName,
+        password: password
+      },
+      success: function (res) {
+        console.log(res)
+      }
+    })
+  })
+
+</script>

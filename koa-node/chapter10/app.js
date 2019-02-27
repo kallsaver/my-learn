@@ -4,6 +4,11 @@ const bodyParser = require('koa-bodyparser')
 const static = require('koa-static')
 const views = require('koa-views')
 const Router = require('koa-router')
+const { sign } = require('jsonwebtoken')
+
+// 设置密匙
+const secret = 'demo'
+const jwt = require('koa-jwt')({secret})
 
 const app = new Koa()
 const router = new Router()
@@ -21,50 +26,55 @@ router.get('/', async(ctx, next) => {
   next()
 })
 
-router.get('/api/getName', async (ctx, next) => {
-  ctx.response.status = 200
-  let query = ctx.request.query
-  console.log(query.type)
-  if (query.type !== undefined) {
-    ctx.body = {
-      code: 1,
-      msg: 'success',
-      data: {
-        name: 'a'
-      }
-    }
-  } else {
-    ctx.body = {
-      code: 0,
-      msg: 'error',
-    }
-  }
-})
-
 router.post('/api/login', async(ctx, next) => {
   ctx.response.status = 200
   // koa-bodyparser的处理
-  let postData = ctx.request.body
-  console.log(postData)
-  if (postData.userName === 'dd') {
+  let user = ctx.request.body
+  if (user && user.userName) {
+    let payload = {
+      username: user.userName
+    }
+    // 生成token
+    const token = sign(
+      payload,
+      secret,
+      {
+        // 以秒表示或描述时间跨度
+        expiresIn: 3
+      }
+    )
+
     ctx.body = {
       code: 1,
       msg: 'success',
-      data: {
-        count: 100
-      }
-    }
-  } else {
-    ctx.body = {
-      code: 0,
-      msg: 'error',
+      token: token
     }
   }
+})
 
+// 管理员中间件
+const admin = (() => {
+  return async (ctx, next) => {
+    // console.log(ctx.request)
+    next()
+  }
+})()
+
+
+router.get('/api/userInfo', jwt, async (ctx, next) => {
+  ctx.response.status = 200
+  // let query = ctx.request.query
+  // console.log(ctx.request)
+  ctx.body = {
+    code: 1,
+    msg: 'success',
+    data: {
+      name: 'a'
+    }
+  }
 })
 
 router.all('/*' ,async(ctx, next) => {
-  console.log('all')
   ctx.set('Access-Control-Allow-Origin', '*')
   next()
 })

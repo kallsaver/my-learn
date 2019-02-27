@@ -9,27 +9,22 @@ const app = new Koa()
 const router = new Router()
 
 // 模板引擎
-app.use(views(__dirname + '/views'), {
-
+app.use(views(path.join(__dirname + '/views')), {
 })
 
 // 静态资源
 app.use(static(path.join(__dirname, '/static')))
 
+
 router.get('/', async (ctx, next) => {
-  // ctx.render记得把await带上
   await ctx.render('index')
 })
 
-router.get('/user', async (ctx, next) => {
-  // ctx.render记得把await带上
-  ctx.body = '<div>user</div>'
+router.all('/*', async (ctx, next) => {
+  console.log('all')
+  ctx.set("Access-Control-Allow-Origin", "*")
 })
 
-router.post('/', async (ctx, next) => {
-  let postData = ctx.request.body
-  ctx.body = postData
-})
 
 app.use(bodyParser())
 app.use(router.routes())
