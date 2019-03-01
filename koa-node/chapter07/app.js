@@ -15,11 +15,8 @@ posts.get('/:pid', (ctx, next) => {
   ctx.response.body = `<div>posts ${ctx.request.url}</div>`
 })
 
-// posts是forums的子路由
-forums.use('/forums/:pid/posts', posts.routes(), posts.allowedMethods())
+forums.use('/forums/:fid/posts', posts.routes(), posts.allowedMethods())
 
-
-app.use(forums.routes())
 
 app.listen(3000, () => {
   console.log('server is running at http://localhost:3000')
