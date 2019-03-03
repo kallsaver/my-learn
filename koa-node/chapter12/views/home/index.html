@@ -1,19 +1,27 @@
-{# extends是引入一段模板 #}
+{# Numjucks文档:https://nunjucks.bootcss.com/templating.html #}
 
-{% extends "common/layout-home.html" %}
-
+{# extends是引入一段插槽模板 #}
 {# block相当于插槽slot, 他的名字是homeBanner #}
 {# extends可以默认插槽内容,block可以冲掉 #}
 
-{# 和extends/block对应的是Include/Import #}
 {# extends/block处理大体结构 #}
-{# Include/Import处理小组件 #}
+{# include,import处理小组件 #}
+{# include,import处理小组件 #}
+{# include比较简单, import可以选择和传参 #}
+
+{# macro是函数,实现模板传参,默认参数的功能 #}
+
+{% extends "common/layout-home.html" %}
+{% import "../common/import/right.html" as forms %}
 
 {% block homeBanner %}
+{% include "../common/include/left.html" %}
+{{ forms.label('Username', '哈哈哈') }}
+{{ forms.field('user') }}
 <div class="banner_box">
     <div class="banner_inner">
         <h2 class="slogan">汇聚天下英才</h2>
-        <p class="des">iKcamp由热爱原创和翻译的小伙伴发起，成立于2016年7月，"iK"代表布兰登·艾克（JavaScript之父）。<br>我们追随JavaScript这门语言所秉持的精神，为ITer提供完善的在线学习平台和知识体系</p>
+        <p class="des">iKcamp由热爱原创和翻译的小伙伴发起，成立于2016年7月，"iK"代表布兰登·艾克（JavaScript之父）。<br>我们追随JavaScript这门语言所秉持的精神，为iTer提供完善的在线学习平台和知识体系</p>
         <a href="/user" title="gogogo" class="btn" id="gogogo">进入战场</a>
     </div>
 </div>
