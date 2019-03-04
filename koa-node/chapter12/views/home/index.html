@@ -9,14 +9,14 @@
 {# include,import处理小组件 #}
 {# include比较简单, import可以选择和传参 #}
 
-{# macro是函数,实现模板传参,默认参数的功能 #}
+{# macro是函数,实现模板传参 #}
 
 {% extends "common/layout-home.html" %}
 {% import "../common/import/right.html" as forms %}
 
 {% block homeBanner %}
 {% include "../common/include/left.html" %}
-{{ forms.label('Username', '哈哈哈') }}
+{{ forms.label('Username', 'hahaha', 'button') }}
 {{ forms.field('user') }}
 <div class="banner_box">
     <div class="banner_inner">
