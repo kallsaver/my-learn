@@ -24,17 +24,34 @@ module.exports = (app) => {
     })
   })
 
-  router.post('/user/register', async (ctx, next) => {
+  router.get('/api/userInfo', async(ctx, next) => {
+    ctx.response.status = 200
+    ctx.body = {
+      code: 1,
+      msg: 'success',
+      data: {
+        count: 100
+      }
+    }
+  })
+
+  router.post('/api/user/register', async (ctx, next) => {
+    ctx.response.status = 200
     let params = ctx.request.body
-    let name = params.name
+    let userName = params.userName
     let password = params.password
-    let res = await HomeService.register(name, password)
-    if (res.status == "-1") {
-      await ctx.render("home/login", res.data)
+    let res = await HomeService.register(userName, password)
+    if (res.status === 1) {
+      ctx.body = {
+        code: 1,
+        msg: 'success',
+        data: res.data
+      }
     } else {
-      ctx.state.title = "个人中心"
-      console.log('res', res.data)
-      await ctx.render("home/success", res.data)
+      ctx.body = {
+        code: 0,
+        msg: 'error',
+      }
     }
   })
 

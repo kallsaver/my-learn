@@ -8,9 +8,6 @@
 <script src="/utils.js"></script>
 <script src="/axios.js"></script>
 <script>
-
-  var API_OK = 0
-
   var ajax = axios.create({
     validateStatus(status) {
       // 默认的status在200~300会Promise.resolve(res)

@@ -11,14 +11,62 @@
 {% block content %}
 <div class="hp-dialog">
   <div class="hp-box">
-    <form action="/user/register" method="post">
-      <h1>到达战场</h1>
-      <p class="error">{{content}}</p>
-      <input type="text" name="name" placeholder="请输入用户名：ikcamp">
-      <input type="password" name="password" placeholder="请输入密码：123456">
-      <button>{{btnName}}</button>
-    </form>
+    <h1>到达战场</h1>
+    <p class="error">{{content}}</p>
+    <input id="userName"
+      type="text"
+      name="name"
+      placeholder="请输入用户名：ikcamp">
+    <input id="password"
+      type="password"
+      name="password"
+      placeholder="请输入密码：123456">
+    <button id="btn">{{btnName}}</button>
   </div>
 </div>
 <div class="hp-overlay"></div>
+<script src="/jquery.js"></script>
+<script src="/utils.js"></script>
+<script src="/axios.js"></script>
+<script>
+  var ajax = axios.create({
+    validateStatus(status) {
+      // 默认的status在200~300会Promise.resolve(res)
+      // return status >= 200 && status < 300
+      // 但是这个方法只是针对statusCode,不能对自定义的code做处理
+      // 统一在instance.interceptors.response设置
+      return true
+    }
+  })
+
+  ajax.interceptors.response.use((response) => {
+    if (response.status === 200) {
+      return Promise.resolve(response)
+    } else {
+      // console.log(response)
+      return Promise.reject(response)
+    }
+  })
+
+  $('#btn').on('click', function () {
+    var userName = $('#userName').val()
+    var password = $('#password').val()
+    ajax({
+      url: '/api/user/register',
+      method: 'POST',
+      data: {
+        userName: userName,
+        password: password
+      }
+    }).then(function (res) {
+      console.log(res)
+      if (res.status === 200) {
+        if (res.data.code === 1) {
+          console.log(res)
+        }
+      }
+    })
+  })
+</script>
 {% endblock %}
+
