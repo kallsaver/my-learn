@@ -5,8 +5,8 @@ const router = new Router()
 
 module.exports = (app) => {
   router.get('/', async (ctx, next) => {
-    await ctx.render("home/index", {
-      title: "iKcamp欢迎您"
+    await ctx.render('home/index', {
+      title: 'iKcamp欢迎您'
     })
   })
 

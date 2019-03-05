@@ -1,6 +1,12 @@
 const Koa = require('koa')
 const app = new Koa()
 
+// 开发第三方中间件其实是开发一个函数
+
+app.use(function () {
+  console.log('执行')
+})
+
 // 每收到一个 http 请求
 // Koa都会调用通过app.use()注册的async函数
 // 这个async函数就是我们所说的中间件

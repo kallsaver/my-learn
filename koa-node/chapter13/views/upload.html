@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="/index.css">
+</head>
+<body>
+  <div class="row">
+    头像:
+    <a href="javascript:void(0)" class="file">
+      <form>
+        <input type="file" name="image" id="photo">上传文件
+
+      </form>
+    </a>
+  </div>
+  <div class="row">
+    进度:
+    <span id="progress">N/A</span>
+  </div>
+  <div class="row">
+    预览:
+    <br>
+    <img id="image" class="image" alt="N/A">
+  </div>
+  <!-- <div>
+    <span>选择图片：</span>
+    <input name="avatar" id='upfile' type='file' />
+    <input id="btn" type="button" value='提交' />
+  </div> -->
+</body>
+<script>
+  let file = document.getElementById('photo')
+  let image = document.getElementById('image')
+
+  file.addEventListener('change', function (event) {
+    let upfile = this.files
+    if (upfile.length == 0) {
+      return
+    }
+    uploadFile(upfile[0])
+    readAsDataURL(upfile[0], image)
+  }, false)
+
+  function readAsDataURL(file, image) {
+    let reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = function (e) {
+      image.src = this.result
+    }
+    image.style.display = 'block'
+  }
+
+  function uploadFile(file) {
+    let formData = new FormData()
+    formData.append('image', file)
+    console.log(formData.get('image'))
+    Ajax('POST', '/api/upload', formData, progress).then(function (data) {
+      console.log(`success: ${data}`)
+    }, function (data) {
+      console.log(`fail: ${data}`)
+    })
+  }
+
+  function Ajax(method, url, data, progress = null) {
+    return new Promise(function (resolve, reject) {
+      let xhr = new XMLHttpRequest()
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          try {
+            if (xhr.status >= 200 || xhr.status < 300 || xhr.status == 304) {
+              resolve(xhr.responseText)
+            } else {
+              reject(new Error(xhr.statusText))
+            }
+          } catch (error) {
+            reject(new Error('Time out!'))
+          }
+        }
+      }
+
+      if (progress !== null) {
+        xhr.upload.onprogress = function (event) {
+          progress.innerText = `uploaded ${event.loaded} of ${event.total} bytes. percent ${Math.floor(event.loaded / event.total * 100)}%`
+        }
+      }
+      xhr.timeout = 7000
+      xhr.ontimeout = function () {
+        alert('time out!')
+      }
+      method = method.toUpperCase()
+      if (method == 'GET') {
+        xhr.open("GET", url)
+        xhr.send()
+      } else if (method == 'POST') {
+        xhr.open("POST", url, true)
+        xhr.setRequestHeader('Content-Type', 'multipart/form-data')
+        xhr.send(data)
+      } else {
+        reject(new Error('method error'))
+      }
+    })
+  }
+
+</script>
+<script src="/jquery.js"></script>
+<script src="/axios.js"></script>
+<!-- <script>
+  var ajax = axios.create({
+    validateStatus(status) {
+      // 默认的status在200~300会Promise.resolve(res)
+      // return status >= 200 && status < 300
+      // 但是这个方法只是针对statusCode,不能对自定义的code做处理
+      // 统一在instance.interceptors.response设置
+      return true
+    }
+  })
+
+  ajax.interceptors.response.use((response) => {
+    if (response.status === 200) {
+      return Promise.resolve(response)
+    } else {
+      // console.log(response)
+      return Promise.reject(response)
+    }
+  })
+
+  $('#btn').on('click', function () {
+    var userName = $('#userName').val()
+    var password = $('#password').val()
+    ajax({
+      url: '/api/profile',
+      method: 'POST',
+    }).then(function (res) {
+      console.log(res)
+    })
+  })
+</script> -->
+
+</html>
