@@ -16,6 +16,7 @@
     "koa-nunjucks-2": "^3.0.2",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
-    "koa-views": "^6.1.5"
+    "koa-views": "^6.1.5",
+    "multer": "^1.4.1"
   }
 }

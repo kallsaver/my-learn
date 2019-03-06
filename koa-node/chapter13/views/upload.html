@@ -57,7 +57,8 @@
     formData.append('image', file)
     console.log(formData.get('image'))
     Ajax('POST', '/api/upload', formData, progress).then(function (data) {
-      console.log(`success: ${data}`)
+      console.log(typeof data)
+      console.log(data)
     }, function (data) {
       console.log(`fail: ${data}`)
     })
@@ -95,7 +96,7 @@
         xhr.send()
       } else if (method == 'POST') {
         xhr.open("POST", url, true)
-        xhr.setRequestHeader('Content-Type', 'multipart/form-data')
+        // xhr.setRequestHeader('Content-Type', 'multipart/form-data')
         xhr.send(data)
       } else {
         reject(new Error('method error'))

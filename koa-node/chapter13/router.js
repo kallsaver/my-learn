@@ -10,7 +10,8 @@ const upload = multer({
   dest: 'uploads/images'
 });
 
-const types = upload.single('avatar');
+// 和input的name一致
+const types = upload.single('image');
 
 module.exports = (app) => {
   router.get('/upload', async (ctx, next) => {
@@ -24,18 +25,40 @@ module.exports = (app) => {
     let originalname = file.originalname
     let out_path = file.path
     console.log(ctx.req.file)
+    let ext = path.parse(originalname).ext
+    let newName = out_path + ext
+    let err = fs.renameSync(out_path, newName)
+    if (err) {
+      ctx.response.status = 200
+      ctx.response.body = {
+        code: 0,
+        msg: 'File uploaded failed',
+      }
+    } else {
+      ctx.response.status = 200
+      ctx.response.body = {
+        code: 1,
+        msg: 'File uploaded successfully',
+        filename: newName
+      }
+    }
 
-    // let ext = path.parse(originalname).ext
-    // let newName = out_path + ext
-    // let err = fs.renameSync(out_path, newName)
-    // let result
-    // if (err) {
-    //   result = JSON.stringify(err)
-    // } else {
-    //   result = '<h1>upload success</h1>'
-    // }
-    ctx.response.status = 200
-    ctx.response.body = result
+    // console.log(ctx.req.file)
+    // var des_file = __dirname + "/" + ctx.req.file.originalname;
+    // fs.readFile(ctx.req.file.path, function (err, data) {
+    //   fs.writeFile(des_file, data, function (err) {
+    //     if (err) {
+    //       console.log(err);
+    //     } else {
+    //       response = {
+    //         message: 'File uploaded successfully',
+    //         filename: ctx.req.file.originalname
+    //       };
+    //       ctx.response.status = 200
+    //       ctx.response.body = response
+    //     }
+    //   });
+    // });
   })
 
   app.use(router.routes()).use(router.allowedMethods())
