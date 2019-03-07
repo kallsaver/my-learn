@@ -54,5 +54,5 @@ var exists = function (src, dst, callback) {
 };
 
 // 复制目录
-exists('./source', './mini', copy);
+// exists('./source', './mini', copy);
 

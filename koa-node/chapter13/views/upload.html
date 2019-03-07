@@ -10,8 +10,7 @@
     头像:
     <a href="javascript:void(0)" class="file">
       <form>
-        <input type="file" name="image" id="photo">上传文件
-
+        <input type="file" name="image" id="photo" multiple>上传文件
       </form>
     </a>
   </div>
@@ -31,37 +30,64 @@
   </div> -->
 </body>
 <script>
-  let file = document.getElementById('photo')
+  let input = document.getElementById('photo')
   let image = document.getElementById('image')
 
-  file.addEventListener('change', function (event) {
-    let upfile = this.files
-    if (upfile.length == 0) {
+  input.addEventListener('change', function (event) {
+    let files = this.files
+    if (files.length == 0) {
       return
     }
-    uploadFile(upfile[0])
-    readAsDataURL(upfile[0], image)
+    let i = 0
+    let arr = []
+    while (files[i]) {
+      arr.push(files[i])
+      i++
+    }
+    readAsDataURL(arr, image)
+    uploadFile(arr)
   }, false)
 
-  function readAsDataURL(file, image) {
+  function readAsDataURL(files, image) {
     let reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = function (e) {
-      image.src = this.result
-    }
-    image.style.display = 'block'
+
+    ; (async () => {
+      for (let i = 0; i < files.length; i++) {
+        let file = files[i]
+        await (() => {
+          return new Promise((resolve, reject) => {
+            reader.readAsDataURL(file)
+            reader.onload = function (e) {
+              resolve()
+              image.src = this.result
+              image.style.display = 'block'
+            }
+          })
+        })()
+      }
+    })()
   }
 
-  function uploadFile(file) {
-    let formData = new FormData()
-    formData.append('image', file)
-    console.log(formData.get('image'))
-    Ajax('POST', '/api/upload', formData, progress).then(function (data) {
-      console.log(typeof data)
-      console.log(data)
-    }, function (data) {
-      console.log(`fail: ${data}`)
-    })
+  function uploadFile(files) {
+    ; (async () => {
+      for (let i = 0; i < files.length; i++) {
+        let file = files[i]
+        await (() => {
+          return new Promise((resolve, reject) => {
+            let formData = new FormData()
+            // 给formData添加字段
+            formData.append('image', file)
+            // console.log(formData.get('image'))
+            Ajax('POST', '/api/upload', formData, progress).then(function (data) {
+              console.log(data)
+              resolve()
+            }, function (data) {
+              resolve()
+            })
+          })
+        })()
+      }
+    })()
   }
 
   function Ajax(method, url, data, progress = null) {
@@ -83,17 +109,18 @@
 
       if (progress !== null) {
         xhr.upload.onprogress = function (event) {
+          console.log(event.loaded)
           progress.innerText = `uploaded ${event.loaded} of ${event.total} bytes. percent ${Math.floor(event.loaded / event.total * 100)}%`
         }
       }
-      xhr.timeout = 7000
+      xhr.timeout = 70000
       xhr.ontimeout = function () {
         alert('time out!')
       }
       method = method.toUpperCase()
       if (method == 'GET') {
         xhr.open("GET", url)
-        xhr.send()
+        xhr.send(null)
       } else if (method == 'POST') {
         xhr.open("POST", url, true)
         // xhr.setRequestHeader('Content-Type', 'multipart/form-data')
@@ -107,7 +134,7 @@
 </script>
 <script src="/jquery.js"></script>
 <script src="/axios.js"></script>
-<!-- <script>
+<script>
   var ajax = axios.create({
     validateStatus(status) {
       // 默认的status在200~300会Promise.resolve(res)
@@ -127,16 +154,23 @@
     }
   })
 
-  $('#btn').on('click', function () {
-    var userName = $('#userName').val()
-    var password = $('#password').val()
-    ajax({
-      url: '/api/profile',
-      method: 'POST',
-    }).then(function (res) {
-      console.log(res)
-    })
-  })
-</script> -->
+  // ajax({
+  //   url: '/api/test',
+  //   method: 'GET'
+  // }).then(function (res) {
+  //   console.log(res)
+  // })
+
+  // $('#btn').on('click', function () {
+  //   var userName = $('#userName').val()
+  //   var password = $('#password').val()
+  //   ajax({
+  //     url: '/api/upload',
+  //     method: 'POST',
+  //   }).then(function (res) {
+  //     console.log(res)
+  //   })
+  // })
+</script>
 
 </html>

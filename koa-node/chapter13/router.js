@@ -10,7 +10,7 @@ const upload = multer({
   dest: 'uploads/images'
 });
 
-// 和input的name一致
+// 和formData一致
 const types = upload.single('image');
 
 module.exports = (app) => {
@@ -20,7 +20,29 @@ module.exports = (app) => {
     })
   })
 
-  router.post('/api/upload', types, async function cb(ctx, next) {
+  router.get('/api/test', async (ctx, next) => {
+    ctx.status = 200
+    ctx.body = {
+      code: 0,
+      msg: 'File uploaded failed',
+    }
+  })
+
+  // router.post('/api/upload', async (ctx, next) => {
+  //   ctx.response = 200
+  //   console.log(ctx.req)
+  // })
+
+  // 中间件的格式
+  const middle = (() => {
+    return async (ctx, next) => {
+      ctx.req.a = 'a'
+      next()
+    }
+  })()
+
+  router.post('/api/upload', types, middle, async (ctx, next) => {
+    console.log(ctx.req.a)
     let file = ctx.req.file
     let originalname = file.originalname
     let out_path = file.path
@@ -29,14 +51,14 @@ module.exports = (app) => {
     let newName = out_path + ext
     let err = fs.renameSync(out_path, newName)
     if (err) {
-      ctx.response.status = 200
-      ctx.response.body = {
+      ctx.status = 200
+      ctx.body = {
         code: 0,
         msg: 'File uploaded failed',
       }
     } else {
-      ctx.response.status = 200
-      ctx.response.body = {
+      ctx.status = 200
+      ctx.body = {
         code: 1,
         msg: 'File uploaded successfully',
         filename: newName
