@@ -19,9 +19,9 @@
 				})
 			}
 		}
-		
+
 		foo.eventBind();*/
-		
+
 		//用bind修正this
 		/*var foo={
 			bar:1,
@@ -33,9 +33,9 @@
 												 //所以这里的this是在eventBind环境中的this
 			}
 		}
-		
+
 		foo.eventBind();*/
-		
+
 		//用call方法修正this
 		/*var foo={
 			bar:1,
@@ -46,20 +46,20 @@
 				}.call(this))					  //call会马上执行
 			}
 		}
-		
+
 		foo.eventBind();*/
-		
-		
+
+
 		//案例2:
 		var bar1=function(){
 			console.log(this.x)
 		}
-		
+
 		var foo={x:3}
-		
+
 		var bar2=bar1.bind(foo)  	//bar2的调用者被设置为foo了
 		bar2()						//3
-		
+
 		//bind只有第一次有效(函数的this被绑定了,无法被修改)
 		var run=function(){
 			console.log(this.x)
@@ -69,16 +69,16 @@
 		var obj1={x:1}
 		var obj2={x:2}
 		var obj3={x:3}
-		
+
 		var run1=run.bind(obj1)
 		run1()				//1   //run1()函数被obj1永远绑定
 		run()               //run没有被bind绑定,它是先拿到函数体   如果是拿到的是被绑定的函数体的指针才会被绑定
-		
+
 		var run2=run1.bind(obj2)
 		run2()				//1
-		
+
 		run1.call(obj3)     //1
-					
+
 		//bind可以预定参数:
 		var obj = {
 			name : 'sven',
@@ -89,20 +89,21 @@
 		}.bind(obj,1,2)
 		//API使用者输入的是后两位参数
 		func(3,4)
-		
-		//bind的强大之处是不用函数体运行也能把外部的参数传入,永久绑定this,预定参数
-		
+
+		// bind的强大之处是不用函数体运行也能把外部的参数传入,永久绑定this,预定参数
+    // bind可以创造一个新的函数引用地址
+
 		// 要永久绑定一个参数,要在申明的时候绑定,申明之后使用bind相当于普通的传参
 		var dd = function(a,b,c,d,e,f){
 			console.log(a,b,c,d,e,f)
 		}
-		
+
 		dd.bind(obj,1)(2,3,4,5,6)
-		
+
 		dd(11,12,13,14,15)
-		
-		
-		
-		
+
+
+
+
 	</script>
 </html>

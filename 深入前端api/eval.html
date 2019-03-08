@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="box"></div>
+</body>
+<script>
+  let box = document.getElementById('box')
+
+  // eval的参数是一个字符串,可执行的语句
+  eval('var x = 5; var y = 5; box.innerHTML = x * 5')
+
+  function a (str) {
+    console.log('run')
+    console.log(str)
+  }
+
+  a('a')
+
+  let b = eval('(' + a.toString() + ')')
+
+  b('b')
+
+  let c = {
+    func: function (str) {
+      console.log('run')
+      console.log(str)
+    }
+  }
+
+  let d = {}
+
+  d.func = c.func.bind(d)
+
+  d.func('d')
+
+  console.log(c.func === d.func)
+
+</script>
+</html>

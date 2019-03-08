@@ -30,7 +30,27 @@
   </div> -->
 </body>
 <script src="/utils.js"></script>
+<script src="/axios.js"></script>
 <script>
+  var ajax = axios.create({
+    validateStatus(status) {
+      // 默认的status在200~300会Promise.resolve(res)
+      // return status >= 200 && status < 300
+      // 但是这个方法只是针对statusCode,不能对自定义的code做处理
+      // 统一在instance.interceptors.response设置
+      return true
+    }
+  })
+
+  ajax.interceptors.response.use((response) => {
+    if (response.status === 200) {
+      return Promise.resolve(response)
+    } else {
+      // console.log(response)
+      return Promise.reject(response)
+    }
+  })
+
   let input = document.getElementById('photo')
   let image = document.getElementById('image')
 
@@ -50,7 +70,6 @@
     }
     console.log(arr)
     readAsDataURL(arr, image)
-    // uploadFile(arr)
   }, false)
 
   function readAsDataURL(files, image) {
@@ -64,10 +83,17 @@
           return new Promise((resolve, reject) => {
             reader.readAsDataURL(file)
             reader.onload = function (e) {
-              resolve()
               image.src = this.result
-              console.log(this.result)
               image.style.display = 'block'
+              ajax({
+                method: 'POST',
+                url: '/api/base64',
+                data: {
+                  base64: this.result
+                },
+              }).then((res) => {
+                console.log(res)
+              })
             }
           })
         })()
@@ -75,27 +101,6 @@
     })()
   }
 
-  function uploadFile(files) {
-    ; (async () => {
-      for (let i = 0; i < files.length; i++) {
-        let file = files[i]
-        await (() => {
-          return new Promise((resolve, reject) => {
-            let formData = new FormData()
-            // 给formData添加字段
-            formData.append('image', file)
-            // console.log(formData.get('image'))
-            Ajax('POST', '/api/upload', formData, progress).then(function (data) {
-              console.log(data)
-              resolve()
-            }, function (data) {
-              resolve()
-            })
-          })
-        })()
-      }
-    })()
-  }
 
   function Ajax(method, url, data, progress = null) {
     return new Promise(function (resolve, reject) {
@@ -139,45 +144,4 @@
   }
 
 </script>
-<script src="/jquery.js"></script>
-<script src="/axios.js"></script>
-<script>
-  var ajax = axios.create({
-    validateStatus(status) {
-      // 默认的status在200~300会Promise.resolve(res)
-      // return status >= 200 && status < 300
-      // 但是这个方法只是针对statusCode,不能对自定义的code做处理
-      // 统一在instance.interceptors.response设置
-      return true
-    }
-  })
-
-  ajax.interceptors.response.use((response) => {
-    if (response.status === 200) {
-      return Promise.resolve(response)
-    } else {
-      // console.log(response)
-      return Promise.reject(response)
-    }
-  })
-
-  // ajax({
-  //   url: '/api/test',
-  //   method: 'GET'
-  // }).then(function (res) {
-  //   console.log(res)
-  // })
-
-  // $('#btn').on('click', function () {
-  //   var userName = $('#userName').val()
-  //   var password = $('#password').val()
-  //   ajax({
-  //     url: '/api/upload',
-  //     method: 'POST',
-  //   }).then(function (res) {
-  //     console.log(res)
-  //   })
-  // })
-</script>
-
 </html>
