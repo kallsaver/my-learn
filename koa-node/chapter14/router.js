@@ -20,6 +20,11 @@ module.exports = (app) => {
     let dataBuffer = new Buffer(base64, 'base64')
     let fileName = path.join(__dirname, './uploads/images/' + '1' + '.png')
 
+    // if (!fs.existsSync(fontsFolderPath)) {
+    //   fs.mkdirSync(fontsFolderPath)
+    // }
+
+    // fs.writeFileSyn创建文件时如果没有上层文件夹存在,则会创建失败
     try {
       fs.writeFileSync(fileName, dataBuffer, {
         encoding: 'utf8'
