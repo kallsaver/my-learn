@@ -11,6 +11,10 @@ module.exports = (app) => {
     })
   })
 
+  // 创建一个文件,传一个路径参数,如果路径
+  console.log(fs.existsSync(path.join(__dirname, './uploadss')))
+
+
   router.post('/api/base64', async (ctx, next) => {
     ctx.status = 200
     let postData = ctx.request.body
