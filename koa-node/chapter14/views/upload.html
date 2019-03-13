@@ -85,6 +85,7 @@
             reader.onload = function (e) {
               image.src = this.result
               console.log(this.result)
+              // console.log(this.result)
               console.log(this.result.replace(/^data:image\/\w+;base64,/, ''))
               image.style.display = 'block'
               ajax({

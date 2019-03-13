@@ -1,6 +1,7 @@
-const fs = require('fs');
-const path = require('path');
-const Router = require('koa-router');
+const fs = require('fs')
+const path = require('path')
+const Router = require('koa-router')
+const utils = require('./helpers/utils')
 
 const router = new Router()
 
@@ -18,15 +19,13 @@ module.exports = (app) => {
   router.post('/api/base64', async (ctx, next) => {
     ctx.status = 200
     let postData = ctx.request.body
-    // 去掉图片base64码前面部分data:image/png;base64
-    let base64 = postData.base64.replace(/^data:image\/\w+;base64,/, '');
+    // 去掉图片base64码前面部分data:image/pngbase64
+    let base64 = postData.base64.replace(/^data:image\/\w+;base64,/, '')
     // 把base64码转成buffer对象
     let dataBuffer = new Buffer(base64, 'base64')
-    let fileName = path.join(__dirname, './uploads/images/' + '1' + '.png')
+    let fileName = path.join(__dirname, './uploads/images/' + new Date().getTime() + '.png')
 
-    // if (!fs.existsSync(fontsFolderPath)) {
-    //   fs.mkdirSync(fontsFolderPath)
-    // }
+    utils.checkFileSync(fileName)
 
     // fs.writeFileSyn创建文件时如果没有上层文件夹存在,则会创建失败
     try {
