@@ -1,0 +1,17 @@
+{
+  "name": "chapter15",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "execa": "^1.0.0",
+    "resolve": "^1.10.0",
+    "wxdevtools-cli": "^1.1.3"
+  }
+}

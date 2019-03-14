@@ -1,10 +1,18 @@
-var utils = {
-  checkClass: function (o) {
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+      (global.utils = factory());
+}(this, (function () {
+
+  'use strict';
+
+  function checkClass (o) {
     return Object.prototype.toString.call(o).slice(8, -1)
-  },
-  deepClone: function (o) {
+  }
+
+  function deepClone (o) {
     let ret
-    let instance = this.checkClass(o)
+    let instance = checkClass(o)
     if (instance === 'Array') {
       ret = []
     } else if (instance === 'Object') {
@@ -19,21 +27,37 @@ var utils = {
     }
 
     return ret
-  },
-  deepAssign: function (to, from) {
+  }
+
+  function deepAssign (to, from) {
     for (let key in from) {
       if (!to[key] || typeof to[key] !== 'object') {
         to[key] = from[key]
       } else {
-        this.deepAssign(to[key], from[key])
+        deepAssign(to[key], from[key])
       }
     }
-  },
-   mulitDeepClone: function(target, ...rest) {
+  }
+
+  function mulitDeepClone (target, ...rest) {
     for (let i = 0; i < rest.length; i++) {
-      let source = this.deepClone(rest[i])
-      this.deepAssign(target, source)
+      let source = deepClone(rest[i])
+      deepAssign(target, source)
     }
     return target
   }
-}
+
+  let utils = {
+    checkClass: checkClass,
+    deepClone: deepClone,
+    deepAssign: deepAssign,
+    mulitDeepClone: mulitDeepClone
+  }
+
+  return utils
+
+})));
+
+
+
+

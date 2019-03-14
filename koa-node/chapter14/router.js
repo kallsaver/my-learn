@@ -1,7 +1,10 @@
 const fs = require('fs')
 const path = require('path')
 const Router = require('koa-router')
+const uuid = require('node-uuid')
+
 const utils = require('./helpers/utils')
+let formatDate = require('./helpers/format-date')
 
 const router = new Router()
 
@@ -12,18 +15,21 @@ module.exports = (app) => {
     })
   })
 
-  // 创建一个文件,传一个路径参数,如果路径
-  console.log(fs.existsSync(path.join(__dirname, './uploadss')))
+  router.get('/api/getImage', async (ctx, next) => {
 
+  })
 
   router.post('/api/base64', async (ctx, next) => {
     ctx.status = 200
     let postData = ctx.request.body
     // 去掉图片base64码前面部分data:image/pngbase64
-    let base64 = postData.base64.replace(/^data:image\/\w+;base64,/, '')
+    let base64 = postData.base64.replace(/^data:image\/.*?;base64,/, '')
+    let ext = postData.base64.replace(/^data:image\/(\w+)(\+.*)??;base64,.*/, '$1')
     // 把base64码转成buffer对象
     let dataBuffer = new Buffer(base64, 'base64')
-    let fileName = path.join(__dirname, './uploads/images/' + new Date().getTime() + '.png')
+    let uuidName = uuid(new Date().getTime() + '')
+    let fileName = path.join(__dirname, './uploads/images/' +
+      `${formatDate(new Date(), 'YYYY-MM-DD')}\\${uuidName}.${ext}`)
 
     utils.checkFileSync(fileName)
 
@@ -37,6 +43,7 @@ module.exports = (app) => {
         code: 1,
         msg: '写入图片成功'
       }
+
     } catch(err) {
       ctx.body = {
         code: 1,

@@ -50,7 +50,6 @@ var exists = function (src, dst, callback) {
       });
     }
   });
-
 };
 
 // 复制目录
