@@ -3,7 +3,7 @@ const path = require('path')
 const Router = require('koa-router')
 const uuid = require('node-uuid')
 
-const utils = require('./helpers/utils')
+const fsTools = require('./helpers/fs-tools')
 let formatDate = require('./helpers/format-date')
 
 const router = new Router()
@@ -26,12 +26,12 @@ module.exports = (app) => {
     let base64 = postData.base64.replace(/^data:image\/.*?;base64,/, '')
     let ext = postData.base64.replace(/^data:image\/(\w+)(\+.*)??;base64,.*/, '$1')
     // 把base64码转成buffer对象
-    let dataBuffer = new Buffer(base64, 'base64')
+    let dataBuffer = Buffer.from(base64, 'base64')
     let uuidName = uuid(new Date().getTime() + '')
     let fileName = path.join(__dirname, './uploads/images/' +
       `${formatDate(new Date(), 'YYYY-MM-DD')}\\${uuidName}.${ext}`)
 
-    utils.checkFileSync(fileName)
+    fsTools.checkFileSync(fileName)
 
     // fs.writeFileSyn创建文件时如果没有上层文件夹存在,则会创建失败
     try {

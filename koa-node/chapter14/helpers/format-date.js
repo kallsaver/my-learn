@@ -4,7 +4,6 @@ function formatDate(date, fmt) {
   if (/(Y+)/.test(fmt)) {
     // RegExp内存指向/(y+)/
     fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
-    console.log(fmt)
   }
 
   let o = {
