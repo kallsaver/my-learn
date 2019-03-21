@@ -34,22 +34,19 @@ module.exports = (app) => {
     fsTools.checkFileSync(fileName)
 
     // fs.writeFileSyn创建文件时如果没有上层文件夹存在,则会创建失败
-    try {
-      fs.writeFileSync(fileName, dataBuffer, {
-        encoding: 'utf8'
-      })
-
+    fsTools.writeFileSync(fileName, dataBuffer, {
+      encoding: 'utf8'
+    }).then((res) => {
       ctx.body = {
         code: 1,
         msg: '写入图片成功'
       }
-
-    } catch(err) {
+    }).catch((res) => {
       ctx.body = {
         code: 1,
         msg: '写入图片失败'
       }
-    }
+    })
   })
 
   app.use(router.routes()).use(router.allowedMethods())

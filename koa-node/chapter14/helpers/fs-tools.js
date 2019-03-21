@@ -28,8 +28,24 @@ function checkFileSync (fileName) {
   mkdirsSync(dirname)
 }
 
+function writeFileSync () {
+  return new Promise((resolve, reject) => {
+    let fileName = arguments[0]
+    let dirname = path.dirname(fileName)
+    mkdirsSync(dirname)
+    try {
+      fs.writeFileSync(...arguments)
+      resolve()
+    } catch (err) {
+      console.log(err)
+      reject()
+    }
+  })
+}
+
 module.exports = {
   existsSync,
   mkdirsSync,
   checkFileSync,
+  writeFileSync,
 }

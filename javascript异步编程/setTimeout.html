@@ -12,20 +12,25 @@
 				console.log(i)
 			},0)
 		}							//4,4,4*/
-		
-		
+
+
 		var start=new Date();
 		var ss=start.getTime();
 		while((new Date()).getTime() - ss <1){console.log("les")}
-		
+
 		setTimeout(function(){
 			var end=new Date();
 			var es=end.getTime()
 			console.log(es-ss)
 		},500)
-		
-		
+
+
 		while((new Date()).getTime() - ss <1){console.log("less")}
-		
-	</script>
+
+    setTimeout(function () {
+      console.log(66)
+    }, 0)
+
+  </script>
+  <script src="./js/test.js"></script>
 </html>
