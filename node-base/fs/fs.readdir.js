@@ -11,7 +11,6 @@ let src = path.join(__dirname, './source')
 //   console.log(paths)
 // })
 
-//
 fs.readdir(src, {
   // 默认utf8
   encoding: 'utf8'

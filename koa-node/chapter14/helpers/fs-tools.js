@@ -11,12 +11,12 @@ function existsSync(filePath) {
   }
 }
 
-// 创建一个目录,如果这个目录
-function mkdirsSync (dirname) {
+// 创建一个目录,如果这个目录没有则递归创建父目录
+function mkdirSync (dirname) {
   if (existsSync(dirname)) {
     return true
   } else {
-    if (mkdirsSync(path.dirname(dirname))) {
+    if (mkdirSync(path.dirname(dirname))) {
       fs.mkdirSync(dirname)
       return true
     }
@@ -25,14 +25,14 @@ function mkdirsSync (dirname) {
 
 function checkFileSync (fileName) {
   let dirname = path.dirname(fileName)
-  mkdirsSync(dirname)
+  mkdirSync(dirname)
 }
 
 function writeFileSync () {
   return new Promise((resolve, reject) => {
     let fileName = arguments[0]
     let dirname = path.dirname(fileName)
-    mkdirsSync(dirname)
+    mkdirSync(dirname)
     try {
       fs.writeFileSync(...arguments)
       resolve()
@@ -45,7 +45,7 @@ function writeFileSync () {
 
 module.exports = {
   existsSync,
-  mkdirsSync,
+  mkdirSync,
   checkFileSync,
   writeFileSync,
 }

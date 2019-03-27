@@ -1,5 +1,5 @@
 let fs = require("fs")
-let path = require("path")
+let path = require("path");
 
 let src = path.join(__dirname, './src/images/png/1.txt')
 

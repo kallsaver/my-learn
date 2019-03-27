@@ -9,11 +9,11 @@ function existsSync(filePath) {
   }
 }
 
-function mkdirsSync(dirname) {
+function mkdirSync(dirname) {
   if (existsSync(dirname)) {
     return true
   } else {
-    if (mkdirsSync(path.dirname(dirname))) {
+    if (mkdirSync(path.dirname(dirname))) {
       fs.mkdirSync(dirname)
       return true
     }
@@ -22,5 +22,5 @@ function mkdirsSync(dirname) {
 
 module.exports = {
   existsSync,
-  mkdirsSync
+  mkdirSync
 }

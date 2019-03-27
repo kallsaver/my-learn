@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script>
+</head>
+<body>
+  <button id='send'>发送消息到服务器</button>
+  <div>
+    <h3>来自服务端消息：</h3>
+    <div id="text"></div>
+  </div>
+</body>
+<script>
+  var socket = io.connect('http://localhost:3333');
+  var send = document.querySelector('#send');
+  var text = document.querySelector('#text');
+
+  socket.on('get message', function (data) {
+    console.log(data);
+    text.innerHTML = data;
+  });
+
+  send.onclick = function () {
+    socket.emit('send message', '666');
+  }
+</script>
+</html>
