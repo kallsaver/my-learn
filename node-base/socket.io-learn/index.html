@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script>
+</head>
+<body>
+  <div>66</div>
+</body>
+<script>
+  var socket = io();
+
+
+  socket.on('connect', function () {
+    console.log('connect');
+
+    socket.on('news', function (data) {
+      console.log(data);
+      socket.emit('my other event', { name: 'client' });
+    });
+  });
+
+  socket.on('reconnect', function () {
+    console.log('reconnect')
+  });
+
+</script>
+</html>

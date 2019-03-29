@@ -3,9 +3,7 @@ const router = new Router()
 
 module.exports = (app) => {
   router.get('/', async (ctx ,next) => {
-    await ctx.render('index', {
-      title: 'socket.io'
-    })
+    await ctx.render('index')
   })
   app.use(router.routes()).use(router.allowedMethods())
 }
