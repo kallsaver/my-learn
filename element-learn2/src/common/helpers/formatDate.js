@@ -1,6 +1,6 @@
 export function formatDate(date, fmt) {
-  // 如果有年份需求,可能是yyyy-MM-dd也可能是yy-MM-dd
-  if (/(y+)/.test(fmt)) {
+  // 如果有年份需求,可能是YYYY-MM-dd也可能是YY-MM-dd
+  if (/(Y+)/.test(fmt)) {
     fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
   }
 

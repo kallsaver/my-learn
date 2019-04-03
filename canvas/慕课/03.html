@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script src="./format-date.js"></script>
+<script src="./digit.js"></script>
+<script>
+  const requestAnimationFrame =
+  window.requestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  window.oRequestAnimationFrame ||
+  window.msRequestAnimationFrame ||
+  function (callback) {
+    window.setTimeout(callback, 1000 / 30)
+  }
+
+  // canvas画布宽度
+  const WIDTH = 1300
+  // canvas画布高度
+  const HEIGHT = 768
+  // 单位圆球的半径
+  const RADIUS = 8
+  // 第一个数字盒子距离画布顶部的距离
+  const MARGIN_TOP = 60
+  // 第一个数字盒子距离画布左侧的距离
+  const MARGIN_LEFT = 30
+  // 一个数字盒子的宽度能容纳的圆球的个数(取决于digit的二维数组的长度)
+  const X_VOLUME = digit[0][0].length
+  // 最终时间
+  const endDate = new Date('2019/04/04 11:03:56')
+
+  let lastSecond
+  let currentSecond
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  // 渲染整个canvas画布
+  function render(context) {
+    // canvas清屏
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height)
+    let secondsDifference = (endDate.getTime() - new Date().getTime()) / 1000 | 0
+    let endTimeFormat = getCountdownDHMS(secondsDifference).slice(3)
+    currentSecond = endTimeFormat.slice(6)
+
+    if (lastSecond !== currentSecond) {
+      lastSecond = currentSecond
+      console.log('变')
+    }
+
+    for (let i = 0; i < endTimeFormat.length; i++) {
+      let number = endTimeFormat[i] === ':' ? 10 : endTimeFormat[i] - 0
+      renderDigit(MARGIN_LEFT + i * (X_VOLUME + 1) * 2 * (RADIUS + 1), MARGIN_TOP, number, context)
+    }
+
+  }
+
+  // 渲染每个单位圆球
+  function renderDigit(x, y, number, context) {
+    context.fillStyle = 'rgb(0, 102, 153)'
+
+    for (let i = 0; i < digit[number].length; i++) {
+      for (let j = 0; j < digit[number][i].length; j++) {
+        if (digit[number][i][j]) {
+          context.beginPath()
+          context.arc(x + j * 2 * (RADIUS + 1) + (RADIUS + 1), y + i * 2 * (RADIUS + 1) + (RADIUS + 1), RADIUS, 0, 2 * Math.PI )
+          context.closePath()
+          context.fill()
+        }
+      }
+    }
+  }
+
+  function animation() {
+    render(context)
+    requestAnimationFrame(animation)
+  }
+
+  requestAnimationFrame(animation)
+
+</script>
+</html>

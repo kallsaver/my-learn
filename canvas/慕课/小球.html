@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .line {
+      position: absolute;
+      width: 100%;
+      top: 185px;
+      height: 5px;
+      background: red;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div id="line" class="line"></div>
+</body>
+<script src="./untils.js"></script>
+<script>
+  // http://jsrun.net/IChKp/edit
+
+  // canvas画布宽度
+  const WIDTH = document.body.clientWidth
+  // canvas画布高度
+  const HEIGHT = 1022
+  // 更新帧的时间(ms)
+  const REFRESH_TIME = 30
+  const YG = 9.8
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  // 矢量
+  // x轴坐标, y轴坐标, y轴加速度, x轴速度, y轴速度, 小球颜色, 小球半径
+  let initBall = {x: document.body.clientWidth - 100, y: 200, gy: 2, vx: -10, vy: 0, r: 10, color: '#005588'}
+
+  let ball = mulitDeepClone({}, initBall)
+
+  let line = document.getElementById('line')
+  line.style.top = `${ball.y - ball.r - line.clientHeight}px`
+
+  function render() {
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height)
+
+    context.fillStyle = ball.color
+    context.beginPath()
+    context.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI)
+    context.closePath()
+    context.fill()
+  }
+
+  function update() {
+
+    let oldVy = ball.vy
+    let newVy = ball.vy + ball.gy
+
+    let averageVy = (oldVy + newVy) / 2
+    // 加速度
+    ball.vy += ball.gy
+
+    ball.x += ball.vx
+    ball.y += averageVy
+
+    // 触碰底部,存在误差
+    if (ball.y + ball.r >= HEIGHT) {
+      ball.y = HEIGHT - ball.r
+      let disY = ball.y - initBall.y
+      // 物理公式: 末速度的平方 - 初速度的平方 = 2 * 加速度 * 位移
+      ball.vy = -Math.sqrt(2 * initBall.gy * disY + Math.pow(initBall.vy, 2))
+    }
+
+  }
+
+  function animation() {
+    render()
+    update()
+  }
+
+  window.setInterval(animation, 20)
+
+</script>
+</html>

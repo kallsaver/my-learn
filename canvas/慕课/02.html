@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  let canvas = document.getElementById('canvas')
+  canvas.width = 800
+  canvas.height = 800
+  let context = canvas.getContext('2d')
+
+  context.lineWidth = 5
+  context.strokeStyle = '#005588'
+
+  for (let i = 0; i < 10; i++) {
+    context.beginPath()
+    // 圆心x轴坐标,圆心y轴坐标,半径,开始弧度,弧长
+    context.arc(50 + i * 100, 60, 40, 0, (i + 1) / 10 * 2 * Math.PI)
+    context.closePath()
+    context.stroke()
+  }
+
+</script>
+</html>

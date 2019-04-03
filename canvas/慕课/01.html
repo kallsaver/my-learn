@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  let tangram = [
+    {
+      p: [
+        { x: 0, y: 0 }, { x: 800, y: 0 }, { x: 400, y: 400 },
+      ],
+      color: '#caff67'
+    },
+    {
+      p: [
+        { x: 0, y: 0 }, { x: 400, y: 400 }, { x: 0, y: 800 },
+      ],
+      color: '#67becf'
+    },
+    {
+      p: [
+        { x: 800, y: 0 }, { x: 800, y: 400 }, { x: 600, y: 600 }, { x: 600, y: 200 },
+      ],
+      color: '#ef3d61'
+    },
+    {
+      p: [
+        { x: 600, y: 200 }, { x: 600, y: 600 }, { x: 400, y: 400 },
+      ],
+      color: '#f9f51a'
+    },
+    {
+      p: [
+        { x: 400, y: 400 }, { x: 600, y: 600 }, { x: 400, y: 800 }, { x: 200, y: 600 },
+      ],
+      color: '#a594c0'
+    },
+    {
+      p: [
+        { x: 200, y: 600 }, { x: 400, y: 800 }, { x: 0, y: 800 },
+      ],
+      color: '#fa8ecc'
+    },
+    {
+      p: [
+        { x: 800, y: 400 }, { x: 800, y: 800 }, { x: 400, y: 800 },
+      ],
+      color: '#f6ca29'
+    },
+  ]
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = 800
+  canvas.height = 800
+  let context = canvas.getContext('2d')
+
+  for (let i = 0; i < tangram.length; i++) {
+    let item = tangram[i]
+    context.beginPath()
+    let startPosition = item.p[0]
+    context.moveTo(startPosition.x, startPosition.y)
+    for (let j = 1; j < item.p.length; j++) {
+      let position = item.p[j]
+      context.lineTo(position.x, position.y)
+    }
+    context.closePath()
+    context.fillStyle = item.color
+    context.fill()
+  }
+</script>
+</html>
