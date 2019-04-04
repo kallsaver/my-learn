@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script src="https://cdn.bootcss.com/ifvisible/1.0.6/ifvisible.js"></script>
+<script src="./format-date.js"></script>
+<script src="./digit.js"></script>
+<script>
+
+  const requestAnimationFrame =
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback) {
+      window.setTimeout(callback, 1000 / 30)
+    }
+
+  function padLeftZero(str) {
+    str = str + ''
+    return ('00' + str).substr(str.length)
+  }
+
+  // canvas画布宽度
+  const WIDTH = 1500
+  // canvas画布高度
+  const HEIGHT = 900
+  // 单位圆球的半径
+  const RADIUS = 8
+  // 第一个数字盒子距离画布顶部的距离
+  const MARGIN_TOP = 60
+  // 第一个数字盒子距离画布左侧的距离
+  const MARGIN_LEFT = 30
+  // 一个数字盒子的宽度能容纳的圆球的个数(取决于digit的二维数组的长度)
+  const X_VOLUME = digit[0][0].length
+  // 最终时间
+  const END_DATE = new Date(`${formatDate(new Date(), 'YYYY/MM/DD')} 17:50:00`)
+  // 最终时间距离1970年的毫秒
+  const END_DATE_MILLI_SECOND = END_DATE.getTime()
+
+  // 运动的小球
+  const ballList = []
+
+  // 运动小球的颜色区间
+  const COLORS = ["#33B5E5", "#0099CC", "#AA66CC", "#9933CC", "#99CC00", "#669900", "#FFBB33", "#FF8800", "#FF4444", "#CC0000"]
+
+  // 重力加速度
+  const GY = 1.5
+
+  // 地面摩擦系数
+  const FLOOR_FRICTION_FACTOR = 0.2
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+  let lastEndTimeFormat = getCurrentEndTimeFormat()
+
+  // 获得当前时间格式
+  function getCurrentEndTimeFormat() {
+    let secondsDifference = (END_DATE_MILLI_SECOND - new Date().getTime()) / 1000 | 0
+    let endTimeFormat = getCountDownDHMS(secondsDifference).slice(3)
+    return endTimeFormat
+  }
+
+  // 渲染整个canvas画布
+  function render() {
+    // canvas清屏
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height)
+    // 得到倒计时数字
+    let endTimeFormat = getCurrentEndTimeFormat()
+
+    for (let i = 0; i < endTimeFormat.length; i++) {
+      let number = endTimeFormat[i] === ':' ? 10 : endTimeFormat[i] - 0
+      renderDigit(MARGIN_LEFT + i * (X_VOLUME + 1) * 2 * (RADIUS + 1), MARGIN_TOP, number)
+    }
+
+    for (let i = 0; i < ballList.length; i++) {
+      context.fillStyle = ballList[i].color;
+      context.beginPath();
+      context.arc(ballList[i].x, ballList[i].y, RADIUS, 0, 2 * Math.PI);
+      context.closePath();
+      context.fill();
+    }
+
+  }
+
+  // 渲染倒计时的每个数字
+  // 数字的第一个盒子的x,数字的第一个盒子的y,数字
+  function renderDigit(x, y, number) {
+    context.fillStyle = 'rgb(0, 102, 153)'
+
+    for (let i = 0; i < digit[number].length; i++) {
+      for (let j = 0; j < digit[number][i].length; j++) {
+        if (digit[number][i][j]) {
+          context.beginPath()
+          context.arc(x + j * 2 * (RADIUS + 1) + (RADIUS + 1), y + i * 2 * (RADIUS + 1) + (RADIUS + 1), RADIUS, 0, 2 * Math.PI)
+          context.closePath()
+          context.fill()
+        }
+      }
+    }
+  }
+
+  function update() {
+    let endTimeFormat = getCurrentEndTimeFormat()
+
+    if (lastEndTimeFormat !== endTimeFormat) {
+      for (let i = 0; i < lastEndTimeFormat.length; i++) {
+        for (let j = 0; j < endTimeFormat.length; j++) {
+          if (i === j && lastEndTimeFormat[i] !== endTimeFormat[j]) {
+            let number = endTimeFormat[j] - 0
+            addBalls(MARGIN_LEFT + i * (X_VOLUME + 1) * 2 * (RADIUS + 1), MARGIN_TOP, number)
+          }
+        }
+      }
+
+      lastEndTimeFormat = endTimeFormat
+    }
+
+    updateBalls()
+  }
+
+  function addBalls(x, y, number) {
+    for (let i = 0; i < digit[number].length; i++) {
+      for (let j = 0; j < digit[number][i].length; j++) {
+        if (digit[number][i][j]) {
+          let ball = {
+            x: x + j * 2 * (RADIUS + 1) + (RADIUS + 1),
+            y: y + i * 2 * (RADIUS + 1) + (RADIUS + 1),
+            vx: -4,
+            vy: -5,
+            color: COLORS[Math.random() * COLORS.length | 0]
+          }
+          ballList.push(ball)
+        }
+      }
+    }
+  }
+
+  function updateBalls() {
+    for (var i = 0; i < ballList.length; i++) {
+
+      let ball = ballList[i]
+
+      let oldVy = ball.vy
+      let newVy = ball.vy + GY
+
+      let averageVy = (oldVy + newVy) / 2
+      ball.vy += GY
+
+      ball.x += ball.vx
+      ball.y += averageVy
+
+      if (ball.y + RADIUS >= HEIGHT) {
+        let diffY = ball.y + RADIUS - HEIGHT
+        let realVy = Math.sqrt(Math.pow(newVy, 2) - 2 * GY * diffY)
+        ball.vy = -(1 - FLOOR_FRICTION_FACTOR) * realVy
+        ball.y = HEIGHT - RADIUS
+      }
+
+      if (ball.x <= 0 || ball.x >= WIDTH) {
+        ballList.splice(i, 1)
+      }
+    }
+  }
+
+  function animation() {
+    render()
+    update()
+    requestAnimationFrame(animation)
+  }
+
+  animation()
+
+
+</script>
+
+</html>
