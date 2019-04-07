@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="600"></canvas>
+</body>
+<script>
+  // canvas有两种大小,一种是canvas元素大小,一种是画布大小
+  // 当canvas元素大小和画布大小不一样时,浏览器会缩放画布大小
+  let canvas = document.getElementById('canvas')
+  // canvas.width = 600
+  // canvas.height = 600
+  let context = canvas.getContext('2d')
+  context.fillStyle = '#000'
+  context.fillRect(0, 0, context.canvas.width, context.canvas.height)
+</script>
+</html>
