@@ -32,11 +32,6 @@
       window.setTimeout(callback, 1000 / 30)
     }
 
-  function padLeftZero(str) {
-    str = str + ''
-    return ('00' + str).substr(str.length)
-  }
-
   // canvas画布宽度
   const WIDTH = 1500
   // canvas画布高度
@@ -82,7 +77,6 @@
   function render() {
     // canvas清屏
     context.clearRect(0, 0, context.canvas.width, context.canvas.height)
-
     // 得到倒计时数字
     let endTimeFormat = getCurrentEndTimeFormat()
 
