@@ -41,28 +41,26 @@
   // 一个数字盒子的宽度能容纳的圆球的个数(取决于digit的二维数组的长度)
   const X_VOLUME = digit[0][0].length
   // 最终时间
-  const endDate = new Date('2019/04/04 11:03:56')
-
-  let lastSecond
-  let currentSecond
+  const END_DATE = new Date('2019/04/04 17:30:00')
+  // 最终时间距离1970年的毫秒
+  const END_DATE_MILLI_SECOND = END_DATE.getTime()
 
   let canvas = document.getElementById('canvas')
   canvas.width = WIDTH
   canvas.height = HEIGHT
   let context = canvas.getContext('2d')
 
+  function getCurrentEndTimeFormat() {
+    let secondsDifference = (END_DATE_MILLI_SECOND - new Date().getTime()) / 1000 | 0
+    let endTimeFormat = getCountDownDHMS(secondsDifference).slice(3)
+    return endTimeFormat
+  }
+
   // 渲染整个canvas画布
-  function render(context) {
+  function render() {
     // canvas清屏
     context.clearRect(0, 0, context.canvas.width, context.canvas.height)
-    let secondsDifference = (endDate.getTime() - new Date().getTime()) / 1000 | 0
-    let endTimeFormat = getCountdownDHMS(secondsDifference).slice(3)
-    currentSecond = endTimeFormat.slice(6)
-
-    if (lastSecond !== currentSecond) {
-      lastSecond = currentSecond
-      console.log('变')
-    }
+    let endTimeFormat = getCurrentEndTimeFormat()
 
     for (let i = 0; i < endTimeFormat.length; i++) {
       let number = endTimeFormat[i] === ':' ? 10 : endTimeFormat[i] - 0
@@ -71,8 +69,9 @@
 
   }
 
-  // 渲染每个单位圆球
-  function renderDigit(x, y, number, context) {
+  // 渲染倒计时的每个数字
+  // 数字的第一个盒子的x,数字的第一个盒子的y,数字
+  function renderDigit(x, y, number) {
     context.fillStyle = 'rgb(0, 102, 153)'
 
     for (let i = 0; i < digit[number].length; i++) {
@@ -88,11 +87,12 @@
   }
 
   function animation() {
-    render(context)
+    render()
+    update()
     requestAnimationFrame(animation)
   }
 
-  requestAnimationFrame(animation)
+  animation()
 
 </script>
 </html>

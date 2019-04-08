@@ -1,0 +1,38 @@
+// token过期
+https://segmentfault.com/a/1190000011206401
+
+app: Settings Sync
+操作:
+ctrl + p 打开vscode命令窗口
+
+1.重置配置
+ctrl + p 打开vscode命令窗口
+输入> Sync Reset Extension Settings
+
+2.上传(更新)配置token
+登录github账号,为下面存储token做准备
+ctrl + p 打开vscode命令窗口
+输入> Sync Update => https://github.com/settings/tokens
+网页上点击Generate new token => 填写token description:vscode-settings-sync
+gist选勾 => Generate token
+把生成的token输入到vscode的命令窗口中
+syncLocalSettings.json的token就会显示token的信息了
+
+3.查看token
+ctrl + p 打开vscode命令窗口
+输入> Sync => (Advanced Options)找到高级选项 => 编辑本地扩展设置 => 打开syncLocalSettings.json
+syncLocalSettings.json一般在:
+Win下：C:\Users\Administrator\AppData\Roaming\Code\User
+Mac下：~/Library/Application Support/Code/User/syncLocalSettings.json
+Linux下：~/.config/Code/User/syncLocalSettings.json
+
+4.查看gist
+vscode点击设置图标 => 设置 => 搜索sync
+token是账号,gist是密码的对应关系
+
+
+5.下载配置
+另外一台电脑vscode安装settings sync
+ctrl + p 打开vscode命令窗口
+输入> Sync Down => vscode要求输入token => vscode要求输入gist
+

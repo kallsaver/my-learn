@@ -195,8 +195,6 @@ export default {
           if (!this.scroll) {
             this.scroll = new BScroll(this.$refs.listContent, {click: true});
           } else {
-            // https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/api.html#refresh
-            // 当dom结构发生变化时重新计算
             this.scroll.refresh();
           }
         });

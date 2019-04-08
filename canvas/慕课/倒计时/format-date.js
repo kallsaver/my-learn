@@ -29,7 +29,7 @@ function padLeftZero(str) {
 }
 
 // 倒计时,最大时间单位:天
-function getCountdownDHMS(secondsDifference) {
+function getCountDownDHMS(secondsDifference) {
   if (secondsDifference < 0) {
     return '00:00:00:00'
   }

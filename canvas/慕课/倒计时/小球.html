@@ -27,13 +27,21 @@
 <script>
   // http://jsrun.net/IChKp/edit
 
+  // 物理公式: 末速度的平方 - 初速度的平方 = 2 * 加速度 * 位移
+
   // canvas画布宽度
   const WIDTH = document.body.clientWidth
   // canvas画布高度
-  const HEIGHT = 1022
+  const HEIGHT = 1200
   // 更新帧的时间(ms)
-  const REFRESH_TIME = 30
-  const YG = 9.8
+  const REFRESH_TIME = 20
+  // 地面摩擦系数
+  const FLOOR_FRICTION_FACTOR = 0.11
+  // 重力加速度
+  const GY = 2
+  // 碰撞的次数
+  let collisionTime = 0
+
 
   let canvas = document.getElementById('canvas')
   canvas.width = WIDTH
@@ -41,8 +49,8 @@
   let context = canvas.getContext('2d')
 
   // 矢量
-  // x轴坐标, y轴坐标, y轴加速度, x轴速度, y轴速度, 小球颜色, 小球半径
-  let initBall = {x: document.body.clientWidth - 100, y: 200, gy: 2, vx: -10, vy: 0, r: 10, color: '#005588'}
+  // x轴坐标, y轴坐标, x轴速度, y轴速度, 小球颜色, 小球半径
+  let initBall = {x: document.body.clientWidth - 100, y: 200, vx: -10, vy: 0, r: 10, color: '#005588'}
 
   let ball = mulitDeepClone({}, initBall)
 
@@ -62,21 +70,29 @@
   function update() {
 
     let oldVy = ball.vy
-    let newVy = ball.vy + ball.gy
+    let newVy = ball.vy + GY
 
     let averageVy = (oldVy + newVy) / 2
-    // 加速度
-    ball.vy += ball.gy
+    ball.vy += GY
 
     ball.x += ball.vx
     ball.y += averageVy
 
-    // 触碰底部,存在误差
+    // 解法1: 根据碰撞次数来计算损耗
+    // if (ball.y + ball.r >= HEIGHT) {
+    //   collisionTime++
+    //   ball.y = HEIGHT - ball.r
+    //   let disY = ball.y - initBall.y
+    //   ball.vy = -Math.sqrt(2 * GY * disY + Math.pow(initBall.vy, 2))
+    //   ball.vy *= Math.pow(1 - FLOOR_FRICTION_FACTOR, collisionTime)
+    // }
+
+    // 解法2: 根据偏差消除误差(推荐)
     if (ball.y + ball.r >= HEIGHT) {
+      let diffY = ball.y + ball.r - HEIGHT
+      let realVy = Math.sqrt(Math.pow(newVy, 2) - 2 * GY * diffY)
+      ball.vy = -(1 - FLOOR_FRICTION_FACTOR) * realVy
       ball.y = HEIGHT - ball.r
-      let disY = ball.y - initBall.y
-      // 物理公式: 末速度的平方 - 初速度的平方 = 2 * 加速度 * 位移
-      ball.vy = -Math.sqrt(2 * initBall.gy * disY + Math.pow(initBall.vy, 2))
     }
 
   }
@@ -86,7 +102,7 @@
     update()
   }
 
-  window.setInterval(animation, 20)
+  window.setInterval(animation, REFRESH_TIME)
 
 </script>
 </html>
