@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>rotate要注意的地方</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .div {
+      width: 200px;
+      height: 200px;
+      background: gold;
+      /* 先偏移400再放大 */
+      transform: translate(400px, 0px) scale(2);
+      /* 先偏移800再放大 */
+      transform: scale(2) translate(400px, 0px);
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <div id="div" class="div"></div>
+</body>
+<script>
+  let div = document.getElementById('div')
+
+  // rotate会对开始点坐标点,线宽都会处理
+  const WIDTH = 800
+  const HEIGHT = 800
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  // rotate的陷阱
+  context.save()
+  context.scale(1, 1)
+  context.lineWidth = 5
+  context.strokeRect(50, 50, 200, 200)
+  context.restore()
+
+  context.save()
+  context.scale(2, 2)
+  context.lineWidth = 5
+  context.strokeRect(50, 50, 200, 200)
+  context.restore()
+
+  // 避免陷阱: 先用translate做偏移,开始坐标使用(0, 0),
+  context.save()
+  context.lineWidth = 5
+  context.strokeStyle = 'gold'
+  context.translate(50, 50)
+  context.scale(2, 2)
+  context.strokeRect(0, 0, 200, 200)
+  context.restore()
+
+</script>
+
+</html>

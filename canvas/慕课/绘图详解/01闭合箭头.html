@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>闭合箭头</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  let canvas = document.getElementById('canvas')
+  canvas.width = 800
+  canvas.height = 800
+  let context = canvas.getContext('2d')
+
+  // 设置绘制颜色,宽度在beginPath之前写最好
+  context.lineWidth = 10
+  context.storkeStyle = '#058'
+  context.beginPath()
+  context.moveTo(100, 350)
+  context.lineTo(500, 350)
+  context.lineTo(500, 200)
+  context.lineTo(700, 400)
+  context.lineTo(500, 600)
+  context.lineTo(500, 450)
+  context.lineTo(100, 450)
+  context.closePath()
+
+  context.stroke()
+
+</script>
+</html>

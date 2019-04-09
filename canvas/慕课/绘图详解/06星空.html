@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>星空</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .canvas {
+      display: block;
+      width: 800px;
+      margin: 100px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" class="canvas"></canvas>
+</body>
+<script>
+  // 浏览器的y轴和数学的y轴是相反的
+
+  const WIDTH = 800
+  const HEIGHT = 800
+
+  const B_RADIUS = 300
+  const S_RADIUS = 150
+
+  // 弧度制
+  const RADIAN = 180 / Math.PI
+
+  // 画一个五角星
+  // context,五角星中心点x坐标,五角星中心点y坐标,五角星大圆半径,五角星小圆半径,顺时针旋转角
+  function drawStar(context, x, y, innerRadius, outerRadius, rotate = 0) {
+    const RADIAN = 180 / Math.PI
+    context.beginPath()
+    for (let i = 0; i < 5; i++) {
+      context.lineTo(
+        // 原点坐标移动到画布中心
+        x + Math.cos((18 + i * 72 - rotate) / RADIAN) * innerRadius,
+        y - Math.sin((18 + i * 72 - rotate) / RADIAN) * innerRadius,
+      )
+
+      context.lineTo(
+        // 原点坐标移动到画布中心
+        x + Math.cos((54 + i * 72 - rotate) / RADIAN) * outerRadius,
+        y - Math.sin((54 + i * 72 - rotate) / RADIAN) * outerRadius,
+      )
+    }
+
+    context.closePath()
+    context.fill()
+  }
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  context.fillStyle = '#000'
+  context.fillRect(0, 0, context.canvas.width, context.canvas.height)
+
+  context.fillStyle = 'gold'
+  for (let i = 0; i < 200; i++) {
+    let x = Math.random() * context.canvas.width
+    let y = Math.random() * context.canvas.height
+    let innerRadius = Math.random() * 10 + 10
+    let outerRadius = innerRadius / 2
+    let rotate = Math.random() * 360
+    drawStar(context, x, y, innerRadius, outerRadius, rotate)
+  }
+
+
+
+
+</script>
+
+</html>

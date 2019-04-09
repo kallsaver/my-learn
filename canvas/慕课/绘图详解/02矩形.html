@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>矩形</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  // context.rect(参数) + context.stroke() = context.strokeRect(参数)
+  // context.rect(参数) + context.fill() = context.fillRect(参数)
+  let canvas = document.getElementById('canvas')
+  canvas.width = 800
+  canvas.height = 800
+  let context = canvas.getContext('2d')
+
+  context.fillStyle = 'red'
+  // fillRect使用当前的fillStyle
+  context.fillRect(100, 200, 300, 300)
+</script>
+
+</html>

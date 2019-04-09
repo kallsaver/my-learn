@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>图形变换实战</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  const WIDTH = 800
+  const HEIGHT = 800
+  // 弧度制
+  const RADIAN = 180 / Math.PI
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+  context.fillStyle = '#000'
+  context.fillRect(0, 0, WIDTH, HEIGHT)
+  draw(context, WIDTH / 2, HEIGHT / 2, 10, 30)
+
+  function draw(context, x, y, r, rotate) {
+    context.save()
+    context.translate(x, y)
+    context.rotate(rotate / 180)
+    context.scale(r, r)
+    drawStarPath(context)
+
+    context.fillStyle = '#fb3'
+    context.fill()
+    context.restore()
+  }
+
+  // 画一个标准的五角星
+  function drawStarPath(context) {
+    const RADIAN = 180 / Math.PI
+    const outerRadius = 1
+    const innerRadius = outerRadius / 2
+    context.beginPath()
+    for (let i = 0; i < 5; i++) {
+      context.lineTo(
+        Math.cos((18 + i * 72) / RADIAN) * innerRadius,
+        Math.sin((18 + i * 72) / RADIAN) * innerRadius,
+      )
+
+      context.lineTo(
+        Math.cos((54 + i * 72) / RADIAN) * outerRadius,
+        Math.sin((54 + i * 72) / RADIAN) * outerRadius,
+      )
+    }
+
+    context.closePath()
+  }
+
+</script>
+
+</html>

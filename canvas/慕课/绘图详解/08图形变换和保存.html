@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>图形变换</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  const WIDTH = 800
+  const HEIGHT = 800
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  // save和restore总是成对出现
+  // save和restore之间可以随意对canvas做变换而不影响后面
+  context.fillStyle = 'green'
+
+  context.save()
+  context.fillStyle = 'red'
+  // 原点迁移了(并且多次使用会叠加)
+  context.translate(100, 100)
+  context.fillRect(0, 0, 400, 400)
+  context.restore()
+
+  context.save()
+  context.translate(300, 300)
+  // fillStyle是'green'
+  context.fillRect(0, 0, 400, 400)
+  context.restore()
+
+</script>
+
+</html>

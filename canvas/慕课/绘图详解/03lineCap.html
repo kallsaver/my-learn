@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>线段的帽子</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  let canvas = document.getElementById('canvas')
+  canvas.width = 800
+  canvas.height = 800
+  let context = canvas.getContext('2d')
+
+  context.lineWidth = 50
+  context.strokeStyle = '#005588'
+
+  context.beginPath()
+  context.moveTo(100, 200)
+  context.lineTo(700, 200)
+  // 默认
+  context.lineCap = 'butt'
+  context.stroke()
+
+  context.beginPath()
+  context.moveTo(100, 400)
+  context.lineTo(700, 400)
+  // 圆角帽子
+  context.lineCap = 'round'
+  context.stroke()
+
+  context.beginPath()
+  context.moveTo(100, 600)
+  context.lineTo(700, 600)
+  // 方形
+  context.lineCap = 'square'
+  context.stroke()
+
+  context.lineWidth = 1
+  context.strokeStyle = '#27a'
+  context.beginPath()
+  context.moveTo(100, 100)
+  context.lineTo(100, 700)
+  context.moveTo(700, 100)
+  context.lineTo(700, 700)
+  context.stroke()
+
+
+
+</script>
+
+</html>

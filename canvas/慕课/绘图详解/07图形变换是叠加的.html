@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>图形变换是叠加的</title>
   <style>
     * {
       margin: 0;
@@ -12,28 +13,28 @@
     }
   </style>
 </head>
+
 <body>
   <canvas id="canvas"></canvas>
 </body>
 <script>
+  const WIDTH = 800
+  const HEIGHT = 800
+
   let canvas = document.getElementById('canvas')
-  canvas.width = 800
-  canvas.height = 800
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
   let context = canvas.getContext('2d')
 
-  context.beginPath()
-  context.moveTo(100, 350)
-  context.lineTo(500, 350)
-  context.lineTo(500, 200)
-  context.lineTo(700, 400)
-  context.lineTo(500, 600)
-  context.lineTo(500, 450)
-  context.lineTo(100, 450)
-  context.closePath()
+  context.fillStyle = 'red'
+  // 原点迁移了(并且多次使用会叠加)
+  context.translate(100, 100)
+  context.fillRect(0, 0, 400, 400)
 
-  context.lineWidth = 10
-  context.storkeStyle = '#058'
-  context.stroke()
+  context.fillStyle = 'green'
+  context.translate(300, 300)
+  context.fillRect(0, 0, 400, 400)
 
 </script>
+
 </html>
