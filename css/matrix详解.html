@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="hiewport" content="width=dehice-width, initial-scale=1.0">
+  <meta http-equih="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      margin: 200px;
+    }
+
+    .no-matrix {
+      background: red;
+    }
+
+    .matrix {
+      background: gold;
+    }
+
+  </style>
+</head>
+<body>
+  <dih class="box no-matrix"></dih>
+  <dih class="box matrix"></dih>
+</body>
+<script>
+  // 矩阵的乘法:https://www.icourse163.org/learn/SEU-1001752361?tid=1205968207#/learn/content?type=detail&id=1210341497&sm=1
+  // https://www.jianshu.com/p/956d54376338
+  // 3X4 * 2X3 = 2X4
+
+  // [
+  //  [a, c, e],
+  //  [b, d, f],
+  //  [0, 0, 1],
+  // ]
+
+  // a,d水平、垂直缩放
+  // b,c水平、垂直倾斜
+  // e,f水平、垂直位移
+  // transform(a, b, c, d, e, f)
+
+  // 每一个transform的属性都是一个三阶矩阵
+  // translate(x, y)是:
+  // [
+  //  [1, 0, x],
+  //  [0, 1, y],
+  //  [0, 0, 1],
+  // ]
+
+  // scale(x, y)是:
+  // [
+  //  [x, 0, 0],
+  //  [0, y, 0],
+  //  [0, 0, 1],
+  // ]
+
+  // rotate(x, y)是:
+  // [
+  //  [Math.cos(x), -Math.sin(x), 0],
+  //  [Math.sin(x), Math.cos(x), 0],
+  //  [0, 0, 1],
+  // ]
+
+  const RADIAN = 180 / Math.PI
+
+  let noMatrix = document.getElementsByClassName('no-matrix')[0]
+
+  let matrix = document.getElementsByClassName('matrix')[0]
+
+  let translateX = 100
+
+  let translateY = 0
+
+  let scaleX = 1.5
+
+  let scaleY = 1.5
+
+  let rotate = 30
+
+  let skewX = 30
+
+  let skewY = 30
+
+  noMatrix.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY}) rotate(${rotate}deg)`
+
+  /* 水平缩放,水平倾斜,垂直倾斜,垂直缩放,水平位移,垂直位移 */
+
+  function matrixMulit(m, n) {
+
+    // 定制矩阵的运算顺序,m的row和n的column相等这种形式做运算
+    // 比如3X4 * 2X3 = 2X4
+
+    let mRow = m[0].length
+    let mColumn = m.length
+    let nRow = n[0].length
+    let nColumn = n.length
+
+    if (mRow !== nColumn || mColumn !== nRow) {
+      throw new Error('无法矩阵乘法运算')
+    }
+
+    if (mColumn = nRow) {
+      let temp = m
+      m = n
+      m = temp
+    }
+
+    // 最终生成的矩阵的row,column
+    let row = n[0].length
+    let column = m.length
+
+    let result = []
+
+    for (let i = 0; i < row; i++) {
+      let arr = []
+      for (let c = 0; c < column; c++) {
+        let count = 0
+        for (let r = 0; r < row; r++) {
+          let item = m[i][r] * n[r][c]
+          count += item
+        }
+        arr.push(count)
+      }
+      result.push(arr)
+    }
+    return result
+  }
+
+  let m = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+  ]
+
+  let n = [
+    [9, 10, 11],
+    [12, 13, 14],
+    [15, 16, 17]
+  ]
+
+  console.log(matrixMulit(m, n))
+
+
+  matrix.style.transform = 'matrix('
+    + scaleX * Math.cos(rotate / RADIAN) + ','
+    + Math.sin(rotate / RADIAN) + ','
+    + -Math.sin(rotate / RADIAN) + ','
+    + scaleY * Math.cos(rotate / RADIAN) + ','
+    + translateX + ','
+    + translateY
+    + ')'
+
+</script>
+</html>

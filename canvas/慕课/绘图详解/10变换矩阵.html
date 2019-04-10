@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>变换矩阵</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .canvas {
+      display: block;
+      width: 1500px;
+      margin: 100px auto;
+      border: 1px solid #cccccc;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" class="canvas"></canvas>
+</body>
+<script>
+  // [
+  //  [a, c, e],
+  //  [b, d, f],
+  //  [0, 0, 1],
+  // ]
+
+  // a,d水平、垂直缩放
+  // b,c水平、垂直倾斜
+  // e,f水平、垂直位移
+  // transform(a, b, c, d, e, f)
+
+  const WIDTH = 1500
+  const HEIGHT = 800
+  // 弧度制
+  const RADIAN = 180 / Math.PI
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  context.strokeStyle = 'red'
+  context.fillStyle = '#058'
+  context.lineWidth = 5
+
+  context.save()
+  context.transform(2, 0.2, 0.2, 1.5, 50, 100)
+  context.fillRect(50, 50, 300, 300)
+  context.strokeRect(50, 50, 300, 300)
+  context.restore()
+
+
+
+</script>
+
+</html>
