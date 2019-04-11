@@ -17,20 +17,21 @@
       margin: 200px;
     }
 
-    .no-matrix {
+    .no-use-matrix {
       background: red;
     }
 
-    .matrix {
+    .use-matrix {
       background: gold;
     }
 
   </style>
 </head>
 <body>
-  <dih class="box no-matrix"></dih>
-  <dih class="box matrix"></dih>
+  <div class="box no-use-matrix"></div>
+  <div class="box use-matrix"></div>
 </body>
+<script src="./matrix.js"></script>
 <script>
   // 矩阵的乘法:https://www.icourse163.org/learn/SEU-1001752361?tid=1205968207#/learn/content?type=detail&id=1210341497&sm=1
   // https://www.jianshu.com/p/956d54376338
@@ -62,7 +63,7 @@
   //  [0, 0, 1],
   // ]
 
-  // rotate(x, y)是:
+  // rotate(x)是:
   // [
   //  [Math.cos(x), -Math.sin(x), 0],
   //  [Math.sin(x), Math.cos(x), 0],
@@ -71,92 +72,36 @@
 
   const RADIAN = 180 / Math.PI
 
-  let noMatrix = document.getElementsByClassName('no-matrix')[0]
+  let noUseMatrix = document.getElementsByClassName('no-use-matrix')[0]
 
-  let matrix = document.getElementsByClassName('matrix')[0]
+  let useMatrix = document.getElementsByClassName('use-matrix')[0]
 
   let translateX = 100
 
-  let translateY = 0
+  let translateY = 10
 
   let scaleX = 1.5
 
-  let scaleY = 1.5
+  let scaleY = 1
 
-  let rotate = 30
+  let skewX = 0
 
-  let skewX = 30
+  let skewY = 10
 
-  let skewY = 30
+  let rotate = 300
 
-  noMatrix.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY}) rotate(${rotate}deg)`
+  noUseMatrix.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY}) rotate(${rotate}deg) skew(${skewX}deg, ${skewY}deg)`
 
-  /* 水平缩放,水平倾斜,垂直倾斜,垂直缩放,水平位移,垂直位移 */
+  let translateMatrix = cssTransformKeyToMatrix('translate', translateX, translateY)
+  let rotateMatrix = cssTransformKeyToMatrix('rotate', rotate / RADIAN)
+  let skewMatrix = cssTransformKeyToMatrix('skew', skewX / RADIAN, skewY / RADIAN)
+  let scaleMatrix = cssTransformKeyToMatrix('scale', scaleX, scaleY)
 
-  function matrixMulit(m, n) {
+  let finalMatrix = mulitMatrix(translateMatrix, scaleMatrix, rotateMatrix, skewMatrix)
 
-    // 定制矩阵的运算顺序,m的row和n的column相等这种形式做运算
-    // 比如3X4 * 2X3 = 2X4
+  let finalMatrixString = matrixToTransform(finalMatrix)
 
-    let mRow = m[0].length
-    let mColumn = m.length
-    let nRow = n[0].length
-    let nColumn = n.length
-
-    if (mRow !== nColumn || mColumn !== nRow) {
-      throw new Error('无法矩阵乘法运算')
-    }
-
-    if (mColumn = nRow) {
-      let temp = m
-      m = n
-      m = temp
-    }
-
-    // 最终生成的矩阵的row,column
-    let row = n[0].length
-    let column = m.length
-
-    let result = []
-
-    for (let i = 0; i < row; i++) {
-      let arr = []
-      for (let c = 0; c < column; c++) {
-        let count = 0
-        for (let r = 0; r < row; r++) {
-          let item = m[i][r] * n[r][c]
-          count += item
-        }
-        arr.push(count)
-      }
-      result.push(arr)
-    }
-    return result
-  }
-
-  let m = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-  ]
-
-  let n = [
-    [9, 10, 11],
-    [12, 13, 14],
-    [15, 16, 17]
-  ]
-
-  console.log(matrixMulit(m, n))
-
-
-  matrix.style.transform = 'matrix('
-    + scaleX * Math.cos(rotate / RADIAN) + ','
-    + Math.sin(rotate / RADIAN) + ','
-    + -Math.sin(rotate / RADIAN) + ','
-    + scaleY * Math.cos(rotate / RADIAN) + ','
-    + translateX + ','
-    + translateY
-    + ')'
+  useMatrix.style.transform = `matrix(${finalMatrixString})`
 
 </script>
 </html>

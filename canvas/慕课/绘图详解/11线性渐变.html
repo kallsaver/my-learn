@@ -11,6 +11,7 @@
       margin: 0;
       padding: 0;
     }
+
     .canvas {
       display: block;
       width: 1500px;
@@ -24,17 +25,6 @@
   <canvas id="canvas" class="canvas"></canvas>
 </body>
 <script>
-  // [
-  //  [a, c, e],
-  //  [b, d, f],
-  //  [0, 0, 1],
-  // ]
-
-  // a,d水平、垂直缩放
-  // b,c水平、垂直倾斜
-  // e,f水平、垂直位移
-  // transform(a, b, c, d, e, f)
-
   const WIDTH = 1500
   const HEIGHT = 800
   // 弧度制
@@ -45,18 +35,23 @@
   canvas.height = HEIGHT
   let context = canvas.getContext('2d')
 
-  context.strokeStyle = 'red'
-  context.fillStyle = '#058'
-  context.lineWidth = 5
+  let xStart = 0
+  let yStart = 0
+  let xEnd = 800
+  let yEnd = 800
 
-  context.save()
-  context.transform(2, 0.2, 0.2, 1.5, 50, 100)
-  // canvas的transform是叠加的,如果不想叠加,使用setTransform
-  // context.transform(1, 0, 0, 1, 50, 0)
-  context.setTransform(1, 0, 0, 1, 50, 0)
-  context.fillRect(50, 50, 300, 300)
-  context.strokeRect(50, 50, 300, 300)
-  context.restore()
+  let stop1 = 0.0
+  let color1 = 'red'
+
+  let stop2 = 1.0
+  let color2 = 'peru'
+
+  let linearGradient = context.createLinearGradient(xStart, yStart, xEnd, yEnd)
+  linearGradient.addColorStop(stop1, color1)
+  linearGradient.addColorStop(stop2, color2)
+  context.fillStyle = linearGradient
+  context.fillRect(0, 0, 800, 800)
+
 
 </script>
 
