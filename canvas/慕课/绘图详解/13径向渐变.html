@@ -35,35 +35,30 @@
   canvas.height = HEIGHT
   let context = canvas.getContext('2d')
 
-  let x1 = 0
-  let y1 = 0
-  let x2 = 0
-  let y2 = HEIGHT
+  let x1 = 400
+  let y1 = 400
+  let r1 = 0
+
+  let x2 = 400
+  let y2 = 400
+  let r2 = 300
 
   let stop1 = 0
-  let color1 = 'red'
+  let color1 = 'blue'
 
-  let stop2 = 0.25
-  let color2 = 'peru'
+  let stop2 = 1
+  let color2 = 'black'
 
-  let stop3 = 0.5
-  let color3 = 'yellow'
 
-  let stop4 = 0.75
-  let color4 = 'gold'
+  let radialGradient = context.createRadialGradient(
+    x1, y1, r1,
+    x2, x2, r2
+  )
 
-  let stop5 = 1
-  let color5 = '#ffffff'
-
-  let linearGradient = context.createLinearGradient(x1, y1, x2, y2)
-  linearGradient.addColorStop(stop1, color1)
-  linearGradient.addColorStop(stop2, color2)
-  linearGradient.addColorStop(stop3, color3)
-  linearGradient.addColorStop(stop4, color4)
-  linearGradient.addColorStop(stop5, color5)
-  context.fillStyle = linearGradient
+  radialGradient.addColorStop(stop1, color1)
+  radialGradient.addColorStop(stop2, color2)
+  context.fillStyle = radialGradient
   context.fillRect(0, 0, WIDTH, HEIGHT)
-
 
 </script>
 

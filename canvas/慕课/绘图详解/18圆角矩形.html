@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas里嵌套canvas</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .canvas {
+      display: block;
+      width: 1500px;
+      margin: 100px auto;
+      border: 1px solid #cccccc;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" class="canvas"></canvas>
+</body>
+<script>
+  const WIDTH = 800
+  const HEIGHT = 800
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  context.lineWidth = 5
+  context.strokeStyle = '#005588'
+
+  function drawRoundRect(context, x, y, width, height, radius) {
+    context.save()
+    context.translate(x, y)
+    context.strokeStyle = 'black'
+    context.stroke()
+    context.restore()
+  }
+
+  function pathRoundRect() {
+    context.beginPath()
+  }
+
+</script>
+
+</html>

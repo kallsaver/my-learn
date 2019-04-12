@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>变换矩阵</title>
+  <title>图片</title>
   <style>
     * {
       margin: 0;
@@ -35,34 +35,15 @@
   canvas.height = HEIGHT
   let context = canvas.getContext('2d')
 
-  let x1 = 0
-  let y1 = 0
-  let x2 = 0
-  let y2 = HEIGHT
+  let backgroundImage = new Image()
+  backgroundImage.src = './images/1.jpg'
 
-  let stop1 = 0
-  let color1 = 'red'
-
-  let stop2 = 0.25
-  let color2 = 'peru'
-
-  let stop3 = 0.5
-  let color3 = 'yellow'
-
-  let stop4 = 0.75
-  let color4 = 'gold'
-
-  let stop5 = 1
-  let color5 = '#ffffff'
-
-  let linearGradient = context.createLinearGradient(x1, y1, x2, y2)
-  linearGradient.addColorStop(stop1, color1)
-  linearGradient.addColorStop(stop2, color2)
-  linearGradient.addColorStop(stop3, color3)
-  linearGradient.addColorStop(stop4, color4)
-  linearGradient.addColorStop(stop5, color5)
-  context.fillStyle = linearGradient
-  context.fillRect(0, 0, WIDTH, HEIGHT)
+  backgroundImage.onload = function () {
+    let pattern = context.createPattern(backgroundImage, 'repeat')
+    // fillStyle可以是color,gradient,image,canvas,video
+    context.fillStyle = pattern
+    context.fillRect(0, 0, WIDTH, HEIGHT)
+  }
 
 
 </script>

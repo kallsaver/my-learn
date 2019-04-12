@@ -70,6 +70,7 @@
     let item = tangram[i]
     context.beginPath()
     let startPosition = item.p[0]
+    // lineTo也可以
     context.moveTo(startPosition.x, startPosition.y)
     for (let j = 1; j < item.p.length; j++) {
       let position = item.p[j]
