@@ -298,9 +298,7 @@ export default {
       let ball = this.dropBalls.shift();
       if (ball) {
         // console.trace(2);
-        // 不知道为啥ball.show在这种情况下无法关联视图,
         // setTimeout在transitionDuration秒后使用done可以
-        ball.show = false;
         el.style.display = 'none';
         this.scale = true;
         // keep-alive对组件缓存时,元素从无到有,会触发class上的animation

@@ -73,7 +73,7 @@
     return getCountDownDHMS(secondsDifference).slice(3)
   }
 
-  // 渲染整个canvas画布
+  // 整个canvas画布渲染层更新
   function render() {
     // canvas清屏
     context.clearRect(0, 0, context.canvas.width, context.canvas.height)
@@ -111,6 +111,7 @@
     }
   }
 
+  // 整个canvas画布数据层更新
   function update() {
     let endTimeFormat = getCurrentEndTimeFormat()
 

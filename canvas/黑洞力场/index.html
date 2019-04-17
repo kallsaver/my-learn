@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      overflow: hidden;
+    }
+    canvas {
+      cursor: none;
+    }
+  </style>
+</head>
+<body>
+  <canvas id=canvas></canvas>
+</body>
+<script>
+  const requestAnimationFrame =
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback) {
+      window.setTimeout(callback, 1000 / 30)
+    }
+
+  let canvas = document.getElementById('canvas')
+  let context = canvas.getContext('2d')
+
+  // 是否处于mousedown状态
+  let isInMousedown = false
+  // 是否处于mouseover状态
+  let isInMouseover = false
+
+  // 粒子
+  const particleList = []
+
+  // 粒子的数量
+  const PARTICLE_COUNT = 2000
+
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+
+  let cursorX = window.innerWidth / 2
+  let cursorY = window.innerHeight / 2
+
+  function getRandom(min, max) {
+    if (min - max > 0) {
+      var temp = min
+      min = max
+      max = temp
+    }
+    return Math.random() * (max - min) + min
+  }
+
+  function getRandomInt(min, max) {
+    if (min - max > 0) {
+      var temp = min
+      min = max
+      max = temp
+    }
+    // Math.random()不包括1,有缺陷
+    return Math.random() * (max - min + 1) + min | 0
+  }
+
+  class Particle {
+    constructor(x, y, vx, vy, r, color) {
+      this.x = x
+      this.y = y
+      this.vx = vx
+      this.vy = vy
+      this.r = r
+      this.color = color
+    }
+    render() {
+      context.fillStyle = this.color
+      context.beginPath()
+      context.arc(this.x, this.y, this.r, 0, 2 * Math.PI)
+      context.closePath()
+      context.fill()
+    }
+    update() {
+      this.x += this.vx
+      this.y += this.vy
+
+      if (isInMouseover) {
+        this.attract()
+      }
+
+      this.bounce()
+
+      // 最终会停止
+      this.vx *= 0.975
+      this.vy *= 0.975
+    }
+    attract() {
+      let distX = this.x - cursorX
+      let distY = this.y - cursorY
+      let dist = Math.sqrt(distX ** 2 + distY ** 2)
+      let angle = Math.atan2(distY, distX)
+
+      if (dist > 10 && dist < 300) {
+        if (!isInMousedown) {
+          // 往某个点聚拢的算法,画坐标系理解下聚拢的速度方向
+          // 然后dist距离越小,速度越大,所以dist是反相关的(倒数)
+          // 加入粒子的密度一样,半径大的质量大,越难被加速,所以r也是反相关的(倒数)
+          // 20是速度的增加系数
+          this.vx -= (20 / (this.r * dist)) * Math.cos(angle)
+          this.vy -= (20 / (this.r * dist)) * Math.sin(angle)
+        } else {
+          this.vx += (250 / (this.r * dist)) * Math.cos(angle)
+          this.vy += (250 / (this.r * dist)) * Math.sin(angle)
+        }
+      }
+    }
+    bounce() {
+      if (this.x < this.r) {
+        this.x = this.r
+        this.vx = -this.vx
+      }
+
+      if (this.x > canvas.width - this.r) {
+        this.x = canvas.width - this.r
+        this.vx = -this.vx
+      }
+
+      if (this.y < this.r) {
+        this.y = this.r
+        this.vy = -this.vy
+      }
+
+      if (this.y > canvas.height - this.r) {
+        this.y = canvas.height - this.r
+        this.vy = -this.vy
+      }
+    }
+  }
+
+  function init() {
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      let x = getRandom(0, canvas.width)
+      let y = getRandom(0, canvas.height)
+      let vx = 0
+      let vy = 0
+      let r = getRandom(1, 2)
+      let red = getRandomInt(150, 200)
+      let green = getRandomInt(100, 255)
+      let blue = getRandomInt(180, 255)
+      let color = `rgb(${red}, ${green}, ${blue})`
+
+      let partical = new Particle(x, y, vx, vy, r, color)
+      particleList.push(partical)
+    }
+  }
+
+  function fillBackground() {
+    context.fillStyle = 'rgb(25, 25, 30)'
+    context.fillRect(0, 0, canvas.width, canvas.height)
+  }
+
+  function drawPaticle() {
+    for (let i = 0; i < particleList.length; i++) {
+      let partical = particleList[i]
+      partical.render()
+      partical.update()
+    }
+  }
+
+  function renderCursor() {
+    context.save()
+    context.lineWidth = 1
+    context.strokeStyle = isInMousedown ? 'rgb(255,0,0)' : 'rgb(255,255,255)'
+    context.beginPath()
+    context.moveTo(cursorX, cursorY - 10)
+    context.lineTo(cursorX, cursorY + 10)
+    context.moveTo(cursorX - 10, cursorY)
+    context.lineTo(cursorX + 10, cursorY)
+    context.stroke()
+    context.restore()
+  }
+
+  function loop() {
+    fillBackground()
+    renderCursor()
+    drawPaticle()
+    requestAnimationFrame(loop)
+  }
+
+  function windowAddEventLister() {
+    window.onmousemove = function (e) {
+      cursorX = e.clientX
+      cursorY = e.clientY
+    }
+
+    window.onmousedown = function () {
+      isInMousedown = true
+    }
+
+    window.onmouseup = function () {
+      isInMousedown = false
+    }
+
+    window.onmouseover = function () {
+      isInMouseover = true
+    }
+
+    window.onmouseout = function () {
+      isInMouseover = false
+    }
+
+    window.onresize = function () {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+      cursorX = window.innerWidth / 2
+      cursorY = window.innerHeight / 2
+    }
+  }
+
+  windowAddEventLister()
+  init()
+  loop()
+
+</script>
+</html>

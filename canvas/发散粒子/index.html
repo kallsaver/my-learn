@@ -19,6 +19,12 @@
 		// 0开头表示8进制
 		console.log(010);
 
+    // ox开头表示16进制
+    console.log(0x10);
+
+    // 1.3 * 15
+    console.log(1.3 * 0xf);
+
 		// 如果是写成2进制   // 1000
 		console.log(010.toString(2));
 
@@ -27,13 +33,6 @@
 
 		// 如果是写成16进制  // 8
 		console.log(010.toString(16));
-
-		// ox开头表示16进制
-		console.log(0x10);
-
-		// 1.3 * 15
-    console.log(1.3 * 0xf);
-
 
     function getRandomInt(min, max) {
       if (min - max > 0) {
@@ -95,19 +94,8 @@
 			particles[particleIndex] = this;
 		}
 
-    // 画一个粒子
-		Particle.prototype.draw = function() {
-
-			this.x += this.vx;
-			this.y += this.vy;
-
-			this.size += this.growth;
-
-			// 如果粒子到达画布边缘,将会被删除
-			if (this.x > canvas.width || this.y > canvas.height) {
-				// 采用哈希表管理数据更好
-				delete particles[this.id];
-      }
+    // 粒子的渲染层更新
+		Particle.prototype.render = function() {
 
       // 画笔的填充颜色
       ctx.fillStyle = this.color;
@@ -122,11 +110,29 @@
 			ctx.fill();
 		}
 
-		function animate() {
+    // 粒子的数据层更新
+    Particle.prototype.update = function () {
+      this.x += this.vx;
+      this.y += this.vy;
 
+      this.size += this.growth;
+
+      // 如果粒子到达画布边缘,将会被删除
+      if (this.x > canvas.width || this.y > canvas.height) {
+        // 采用哈希表管理数据更好
+        delete particles[this.id];
+      }
+    }
+
+    function fillBackground() {
       ctx.fillStyle = "#000";
       // 和clearRect作用差不多,clearRect是白色的
       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    }
+
+		function loop() {
+
+      fillBackground()
 
 			// 如果随机数大于0.2,产生一个新的球
 			if (Math.random() > particleNum) {
@@ -134,16 +140,15 @@
 			}
 
 			for(var i in particles) {
-				particles[i].draw();
+				particles[i].render();
+        particles[i].update();
       }
 
       // 按照浏览器频率递归
-      requestAnimationFrame(animate);
+      requestAnimationFrame(loop);
     }
 
-    animate();
-
+    loop();
 
 	</script>
-
 </html>
