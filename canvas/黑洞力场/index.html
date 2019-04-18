@@ -113,11 +113,11 @@
           // 然后dist距离越小,速度越大,所以dist是反相关的(倒数)
           // 加入粒子的密度一样,半径大的质量大,越难被加速,所以r也是反相关的(倒数)
           // 20是速度的增加系数
-          this.vx -= (20 / (this.r * dist)) * Math.cos(angle)
-          this.vy -= (20 / (this.r * dist)) * Math.sin(angle)
+          this.vx -= (20 / dist) * Math.cos(angle)
+          this.vy -= (20 / dist) * Math.sin(angle)
         } else {
-          this.vx += (250 / (this.r * dist)) * Math.cos(angle)
-          this.vy += (250 / (this.r * dist)) * Math.sin(angle)
+          this.vx += (250 / dist) * Math.cos(angle)
+          this.vy += (250 / dist) * Math.sin(angle)
         }
       }
     }

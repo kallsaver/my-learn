@@ -50,15 +50,15 @@
       return '#' + (getRandomInt(0, 0xffffff)).toString(16);
     }
 
-		window.requestAnimationFrame =
-    window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
-    function(callback) {
-      window.setTimeout(callback, 1000 / 30);
-    };
+		var requestAnimationFrame =
+      window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.oRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function (callback) {
+        window.setTimeout(callback, 1000 / 30)
+      }
 
 		var canvas = document.getElementById('motion');
 		var ctx = canvas.getContext('2d');
@@ -77,7 +77,7 @@
       this.y = canvas.height / 2;
 
       // 粒子的大小
-      this.size = Math.random() * 1;
+      this.r = Math.random() * 1;
 
       // 粒子的位移速度
       this.vx = Math.random() * 6 - 3;
@@ -103,8 +103,8 @@
 			// 开始一个新的绘画
       ctx.beginPath();
 
-			// 圆心x轴坐标,圆心y轴坐标,园的半径,开始的角度,结束的角度
-			ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+			// 圆心x轴坐标,圆心y轴坐标,圆的半径,开始的角度,结束的角度
+			ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
 
 			// 填充
 			ctx.fill();
@@ -115,7 +115,7 @@
       this.x += this.vx;
       this.y += this.vy;
 
-      this.size += this.growth;
+      this.r += this.growth;
 
       // 如果粒子到达画布边缘,将会被删除
       if (this.x > canvas.width || this.y > canvas.height) {

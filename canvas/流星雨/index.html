@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  const requestAnimationFrame =
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback) {
+      window.setTimeout(callback, 1000 / 30)
+    }
+
+  let canvas = document.getElementById('canvas')
+  let context = canvas.getContext('2d')
+
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+
+  let starCount = 100
+  let starList = []
+
+  class Star {
+    constructor(r = 1) {
+      this.r = r
+    }
+    init() {
+      this.x = Math.random() * window.innerWidth
+      this.y = Math.random() * window.innerHeight
+      this.flash()
+    }
+    render() {
+      context.save()
+      context.fillStyle = this.color
+      context.arc(x, y, r, 0, Math.PI)
+    }
+    update() {
+      this.flash()
+    }
+    draw() {
+      this.render()
+      this.update()
+    }
+    flash() {
+      if (Math.randow() < 0.5) {
+        this.color = '#333'
+      } else {
+        this.color = '#fff'
+      }
+    }
+  }
+
+  function init() {
+    for (let i = 0; i < starCount; i++) {
+      let star = new Star()
+      starList.push(star)
+    }
+  }
+
+  function draw() {
+    for (let i = 0; i < starList.length; i++) {
+      let star = starList[i]
+      star.draw()
+    }
+  }
+
+  init()
+
+  function fillBackground() {
+    context.save()
+    context.fillStyle = '#000'
+    context.fillRect(0, 0, canvas.width, canvas.height)
+  }
+
+  function loop() {
+    fillBackground()
+    draw()
+    requestAnimationFrame(loop)
+  }
+
+  loop()
+
+</script>
+</html>
