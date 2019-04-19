@@ -35,11 +35,6 @@
 		console.log(010.toString(16));
 
     function getRandomInt(min, max) {
-      if (min - max > 0) {
-        var temp = min
-        min = max
-        max = temp
-      }
       return (Math.random() * (max - min + 1) + min) | 0
     }
 

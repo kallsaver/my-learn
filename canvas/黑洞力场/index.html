@@ -19,9 +19,58 @@
   </style>
 </head>
 <body>
-  <canvas id=canvas></canvas>
+  <canvas id="canvas"></canvas>
 </body>
 <script>
+  class Throttle {
+    constructor(timeSlice = DEFAULT_TIME_SLICE, firstStartTime) {
+      this.timeSlice = timeSlice
+      this.firstStartTime = firstStartTime
+      this.init()
+    }
+    init() {
+      this.state = true
+    }
+    run(func, overload) {
+      if (!this.state) {
+        return
+      }
+      if (this.firstStartTime && !this.first) {
+        this.waitFirst = true
+        this.firstStartTimer = window.setTimeout(() => {
+          this.first = true
+          this.waitFirst = false
+          let currentTime = new Date().getTime()
+          if (!this.lastTime || currentTime - this.lastTime > this.timeSlice) {
+            this.lastTime = currentTime
+            func()
+          }
+        }, this.firstStartTime)
+        return
+      }
+      if (this.waitFirst) {
+        return
+      }
+      let currentTime = new Date().getTime()
+      if (!this.lastTime || currentTime - this.lastTime > this.timeSlice) {
+        this.lastTime = currentTime
+        func()
+      }
+    }
+    restart() {
+      this.state = true
+    }
+    stop() {
+      this.state = false
+    }
+    destroy() {
+      this.timeSlice = null
+      this.lastTime = null
+      window.clearTimeout(this.firstStartTimer)
+      this.firstStartTimer = null
+    }
+  }
+
   const requestAnimationFrame =
     window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
@@ -31,26 +80,6 @@
     function (callback) {
       window.setTimeout(callback, 1000 / 30)
     }
-
-  let canvas = document.getElementById('canvas')
-  let context = canvas.getContext('2d')
-
-  // 是否处于mousedown状态
-  let isInMousedown = false
-  // 是否处于mouseover状态
-  let isInMouseover = false
-
-  // 粒子
-  const particleList = []
-
-  // 粒子的数量
-  const PARTICLE_COUNT = 2000
-
-  canvas.width = window.innerWidth
-  canvas.height = window.innerHeight
-
-  let cursorX = window.innerWidth / 2
-  let cursorY = window.innerHeight / 2
 
   function getRandom(min, max) {
     if (min - max > 0) {
@@ -62,30 +91,76 @@
   }
 
   function getRandomInt(min, max) {
-    if (min - max > 0) {
-      var temp = min
-      min = max
-      max = temp
-    }
     // Math.random()不包括1,有缺陷
     return Math.random() * (max - min + 1) + min | 0
   }
 
+  let canvas = document.getElementById('canvas')
+  let context = canvas.getContext('2d')
+
+
+  // 粒子
+  const particleList = []
+
+  // 粒子的数量
+  const PARTICLE_COUNT = 5000
+
+  const attractParticleMap = {}
+
+  // 粒子的密度
+  const PARTICLE_DENSITY = 0.002
+
+  // 粒子的大小范围
+  const SIZE_RANG = [1, 2]
+
+  // 黑洞的原始质量
+  const MASS_SOURCE = 20
+
+  // 黑洞的实时质量
+  let mass = MASS_SOURCE
+
+  // 黑洞的大小
+  const KERNEL = 10
+
+  // 是否处于mousedown状态
+  let isInMousedown = false
+  // 是否处于mouseover状态
+  let isInMouseover = false
+
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+
+  let cursorX = window.innerWidth / 2
+  let cursorY = window.innerHeight / 2
+
   class Particle {
-    constructor(x, y, vx, vy, r, color) {
+    constructor(x, y, vx, vy, r, color, id) {
       this.x = x
       this.y = y
       this.vx = vx
       this.vy = vy
       this.r = r
       this.color = color
+      this.id = this.id
+      this.init()
+    }
+    init() {
+      // 星星颜色持续的时间
+      this.throttle = new Throttle(200)
+      this.fillStyle = this.color
+      let distX = this.x - cursorX
+      let distY = this.y - cursorY
+      let dist = Math.sqrt(distX ** 2 + distY ** 2)
+      this.dist = dist
     }
     render() {
-      context.fillStyle = this.color
+      context.save()
+      context.fillStyle = this.fillStyle
       context.beginPath()
-      context.arc(this.x, this.y, this.r, 0, 2 * Math.PI)
+      context.arc(this.x, this.y, this.r, 0, 1.8 * Math.PI, false)
       context.closePath()
       context.fill()
+      context.restore()
     }
     update() {
       this.x += this.vx
@@ -95,11 +170,13 @@
         this.attract()
       }
 
-      this.bounce()
-
       // 最终会停止
       this.vx *= 0.975
       this.vy *= 0.975
+      this.throttle.run(() => {
+        this.flash()
+      })
+      this.bounce()
     }
     attract() {
       let distX = this.x - cursorX
@@ -107,7 +184,7 @@
       let dist = Math.sqrt(distX ** 2 + distY ** 2)
       let angle = Math.atan2(distY, distX)
 
-      if (dist > 10 && dist < 300) {
+      if (dist > KERNEL && dist < mass * 0.002 + 300) {
         if (!isInMousedown) {
           // 往某个点聚拢的算法,画坐标系理解下聚拢的速度方向
           // 然后dist距离越小,速度越大,所以dist是反相关的(倒数)
@@ -116,10 +193,26 @@
           this.vx -= (20 / dist) * Math.cos(angle)
           this.vy -= (20 / dist) * Math.sin(angle)
         } else {
-          this.vx += (250 / dist) * Math.cos(angle)
-          this.vy += (250 / dist) * Math.sin(angle)
+          this.throttle.restart()
+          this.vx += (300 / dist) * Math.cos(angle)
+          this.vy += (300 / dist) * Math.sin(angle)
         }
       }
+
+      if (dist <= KERNEL) {
+        this.throttle.stop()
+        this.fillStyle = 'transparent'
+        attractParticleMap[this.id] = this
+      }
+
+      if (dist <= KERNEL && this.dist > KERNEL) {
+        let particleMass = this.r ** 3 * PARTICLE_DENSITY
+        mass += particleMass
+      } else if (dist > KERNEL && this.dist <= KERNEL) {
+        let particleMass = this.r ** 3 * PARTICLE_DENSITY
+        mass -= particleMass
+      }
+
     }
     bounce() {
       if (this.x < this.r) {
@@ -142,6 +235,13 @@
         this.vy = -this.vy
       }
     }
+    flash() {
+      if (Math.random() < 0.99) {
+        this.fillStyle = this.color
+      } else {
+        this.fillStyle = '#fff'
+      }
+    }
   }
 
   function init() {
@@ -150,19 +250,22 @@
       let y = getRandom(0, canvas.height)
       let vx = 0
       let vy = 0
-      let r = getRandom(1, 2)
+      let r = getRandom(SIZE_RANG[0], SIZE_RANG[1])
+      let distX = this.x - cursorX
+      let distY = this.y - cursorY
+      let dist = Math.sqrt(distX ** 2 + distY ** 2)
       let red = getRandomInt(150, 200)
       let green = getRandomInt(100, 255)
       let blue = getRandomInt(180, 255)
       let color = `rgb(${red}, ${green}, ${blue})`
 
-      let partical = new Particle(x, y, vx, vy, r, color)
+      let partical = new Particle(x, y, vx, vy, r, color, dist, i)
       particleList.push(partical)
     }
   }
 
   function fillBackground() {
-    context.fillStyle = 'rgb(25, 25, 30)'
+    context.fillStyle = '#000'
     context.fillRect(0, 0, canvas.width, canvas.height)
   }
 

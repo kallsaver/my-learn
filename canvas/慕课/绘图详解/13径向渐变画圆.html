@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>径向渐变</title>
+  <title>径向画圆</title>
   <style>
     * {
       margin: 0;
@@ -35,30 +35,37 @@
   canvas.height = HEIGHT
   let context = canvas.getContext('2d')
 
-  let x1 = WIDTH / 2
-  let y1 = WIDTH / 2
-  let r1 = 0
 
-  let x2 = WIDTH / 2
-  let y2 = WIDTH / 2
-  let r2 = 300
+  function drawGradientArc(x, y, r, color, bgColor) {
+    let x1 = x
+    let y1 = y
+    let r1 = 0
 
-  let stop1 = 0
-  let color1 = 'blue'
+    let x2 = x
+    let y2 = y
+    let r2 = r * 2
 
-  let stop2 = 1
-  let color2 = 'black'
+    let stop1 = 0.0
 
+    let stop2 = 1.0
 
-  let radialGradient = context.createRadialGradient(
-    x1, y1, r1,
-    x2, x2, r2
-  )
+    let radialGradient = context.createRadialGradient(
+      x1, y1, r1,
+      x2, x2, r2
+    )
 
-  radialGradient.addColorStop(stop1, color1)
-  radialGradient.addColorStop(stop2, color2)
-  context.fillStyle = radialGradient
+    radialGradient.addColorStop(stop1, color)
+    radialGradient.addColorStop(stop2, bgColor)
+    context.fillStyle = radialGradient
+    context.beginPath()
+    context.arc(x, y, r, 0, 2 * Math.PI)
+    context.closePath()
+    context.fill()
+  }
+
+  context.fillStyle = '#000'
   context.fillRect(0, 0, WIDTH, HEIGHT)
+  drawGradientArc(WIDTH / 2, HEIGHT / 2, 10, 'blue', '#fff')
 
 </script>
 

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+
+  let canvas = document.getElementById('canvas')
+  let context = canvas.getContext('2d')
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+
+
+  context.fillStyle = '#000'
+  context.fillRect(0, 0, canvas.width, canvas.height)
+
+  context.fillStyle = 'blue'
+  context.shadowBlur = 200
+  context.shadowColor = '#fff'
+  context.beginPath()
+  context.arc(canvas.width / 2, canvas.height / 2, 200, 0, 2 * Math.PI)
+  context.fill()
+
+</script>
+</html>

@@ -16,6 +16,55 @@
   <canvas id="canvas"></canvas>
 </body>
 <script>
+  class Throttle {
+    constructor(timeSlice = DEFAULT_TIME_SLICE, firstStartTime) {
+      this.timeSlice = timeSlice
+      this.firstStartTime = firstStartTime
+      this.init()
+    }
+    init() {
+      this.state = true
+    }
+    run(func, overload) {
+      if (!this.state) {
+        return
+      }
+      if (this.firstStartTime && !this.first) {
+        this.waitFirst = true
+        this.firstStartTimer = window.setTimeout(() => {
+          this.first = true
+          this.waitFirst = false
+          let currentTime = new Date().getTime()
+          if (!this.lastTime || currentTime - this.lastTime > this.timeSlice) {
+            this.lastTime = currentTime
+            func()
+          }
+        }, this.firstStartTime)
+        return
+      }
+      if (this.waitFirst) {
+        return
+      }
+      let currentTime = new Date().getTime()
+      if (!this.lastTime || currentTime - this.lastTime > this.timeSlice) {
+        this.lastTime = currentTime
+        func()
+      }
+    }
+    restart() {
+      this.state = true
+    }
+    stop() {
+      this.state = false
+    }
+    destroy() {
+      this.timeSlice = null
+      this.lastTime = null
+      window.clearTimeout(this.firstStartTimer)
+      this.firstStartTimer = null
+    }
+  }
+
   const requestAnimationFrame =
     window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
@@ -26,74 +75,179 @@
       window.setTimeout(callback, 1000 / 30)
     }
 
+  function getRandomInt(min, max) {
+    return Math.random() * (max - min + 1) + min | 0
+  }
+
+  const meteorList = []
+
   let canvas = document.getElementById('canvas')
   let context = canvas.getContext('2d')
 
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
 
-  let starCount = 100
-  let starList = []
+  let backgroundImage = new Image()
+  backgroundImage.src = './banner_pc.jpg'
 
-  class Star {
-    constructor(r = 1) {
-      this.r = r
+  class Meteor {
+    constructor(x, y, length, angle, speed) {
+      this.x = x
+      this.y = y
+      this.length = length
+      this.angle = angle / 180 * Math.PI
+      this.speed = speed
+      this.init()
     }
     init() {
-      this.x = Math.random() * window.innerWidth
-      this.y = Math.random() * window.innerHeight
-      this.flash()
+      this.width = this.length * Math.cos(this.angle)
+      this.height = this.length * Math.sin(this.angle)
+      this.vx = -this.speed * Math.cos(this.angle)
+      this.vy = this.speed * Math.sin(this.angle)
+      this.alpha =  1
+      this.distX = getRandomInt(200, 300)
+      this.distY = getRandomInt(canvas.height - 500, canvas.height - 600)
+      this.state = true
+      this.lineWidth = getRandomInt(2, 3)
+
+      this.colorsStopList = [
+        {
+          s: 0,
+          r: getRandomInt(220, 230),
+          g: getRandomInt(88, 90),
+          b: getRandomInt(220, 230),
+          a: 1
+        },
+        {
+          s: 0.3,
+          r: getRandomInt(200, 180),
+          g: getRandomInt(10, 12),
+          b: getRandomInt(200, 180),
+          a: 0.6
+        },
+        {
+          s: 0.8,
+          r: getRandomInt(150, 130),
+          g: getRandomInt(0, 10),
+          b: getRandomInt(150, 130),
+          a: 0.2
+        },
+      ]
     }
     render() {
       context.save()
-      context.fillStyle = this.color
-      context.arc(x, y, r, 0, Math.PI)
+      context.lineWidth = this.lineWidth
+
+      let startX = this.x
+      let endX = this.x + this.width
+      let startY = this.y
+      let endY = this.y - this.height
+
+      let linear = context.createLinearGradient(
+        startX, startY,
+        endX, endY
+      )
+
+      for (let i = 0; i < this.colorsStopList.length; i++) {
+        let item = this.colorsStopList[i]
+        let stop = item.s
+        let color = `rgba(${item.r}, ${item.g}, ${item.b}, ${item.a})`
+        linear.addColorStop(stop, color)
+      }
+
+      context.strokeStyle = linear
+      context.globalAlpha = this.alpha
+
+      context.beginPath()
+      context.moveTo(startX, startY)
+      context.lineTo(endX, endY)
+      context.closePath()
+      context.stroke()
+      context.restore()
     }
     update() {
-      this.flash()
+      if (this.x < this.distX || this.y > this.distY) {
+        this.destroy()
+      }
+
+      this.x += this.vx
+      this.y += this.vy
+
+      this.flowAway()
+    }
+    flowAway() {
+      if (this.x - this.distX < 20 || this.distY - this.y < 20) {
+        this.alpha -= 0.3
+      }
+      if (this.alpha < 0) {
+        this.alpha = 0
+      }
     }
     draw() {
-      this.render()
-      this.update()
-    }
-    flash() {
-      if (Math.randow() < 0.5) {
-        this.color = '#333'
-      } else {
-        this.color = '#fff'
+      if (this.state) {
+        this.render()
+        this.update()
       }
+    }
+    destroy() {
+      this.state = false
     }
   }
 
-  function init() {
-    for (let i = 0; i < starCount; i++) {
-      let star = new Star()
-      starList.push(star)
-    }
+  function createMeteor() {
+    let x = getRandomInt(200, canvas.width - 200)
+    let y = getRandomInt(10, 100)
+    let length = 60 + Math.random() * 30
+    let angle = 40 + Math.random() * 5
+    let speed = Math.random() + 10
+    let meteor = new Meteor(x, y, length, angle, speed)
+    meteorList.push(meteor)
   }
 
   function draw() {
-    for (let i = 0; i < starList.length; i++) {
-      let star = starList[i]
-      star.draw()
+    for (let i = 0; i < meteorList.length; i++) {
+      let meteor = meteorList[i]
+      meteor.draw()
     }
   }
 
-  init()
+  function update() {
+    window.throttle.run(() => {
+      if (Math.random() > 0.5) {
+        let count = getRandomInt(1, 6)
+        for (let i = 0; i < count; i++) {
+          createMeteor()
+        }
+      }
+    })
+  }
 
   function fillBackground() {
     context.save()
-    context.fillStyle = '#000'
+    context.fillStyle = 'rgba(0,0,0,0.2)'
     context.fillRect(0, 0, canvas.width, canvas.height)
+    let pattern = context.createPattern(backgroundImage, 'no-repeat')
+    // fillStyle可以是color,gradient,image,canvas,video
+    context.fillStyle = pattern
+    context.fillRect(0, 0, canvas.width, canvas.height)
+    context.restore()
   }
 
   function loop() {
     fillBackground()
     draw()
+    update()
     requestAnimationFrame(loop)
   }
 
-  loop()
+  function init() {
+    window.throttle = new Throttle(1000)
+  }
+
+  backgroundImage.onload = () => {
+    init()
+    loop()
+  }
 
 </script>
 </html>
