@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>三次贝塞尔曲线</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  // http://blogs.sitepointstatic.com/examples/tech/canvas-curves/bezier-curve.html
+  // https://www.cnblogs.com/wxydigua/p/4204254.html
+
+  // 贝塞尔二次曲线是不能绘制波浪状的曲线,它只能是一个方向
+  // 贝塞尔三次曲线开始点和结束点都是圆弧的切点
+
+  let canvas = document.getElementById('canvas')
+  let context = canvas.getContext('2d')
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+
+  context.strokeStyle = '#333'
+
+  context.beginPath()
+  context.moveTo(100, 260)
+  context.bezierCurveTo(148, 400, 290, 55, 400, 250)
+  context.stroke()
+
+</script>
+
+</html>

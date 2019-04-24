@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>一角弯月</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  // arcTo的起点由外部moveTo提供,可以封装一个函数,传入三个控制点的坐标和半径
+
+  let canvas = document.getElementById('canvas')
+  let context = canvas.getContext('2d')
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+
+  // context.lineWidth = 1
+  // context.strokeStyle = '#000'
+  // let r = calculateR(300, 800)
+  // context.beginPath()
+  // context.arc(400, 400, 300, Math.PI * 1 / 2, Math.PI * 3 / 2, true)
+  // context.moveTo(400, 100)
+  // context.arcTo(1200, 400, 400, 700, r)
+  // context.stroke()
+
+  // 一个底为2x,高为y的等腰三角形,以底边两个角为切点的圆的计算公式
+  function calculateR(x, y) {
+    return (Math.sqrt((x ** 2) + (y ** 2))) * x / y
+  }
+
+  fillMoon(context, 800, 400, 100, 300, 30, '#000', 1)
+
+  function fillMoon(context, d, x, y, r, rotate, fillStyle, lineWidth) {
+    context.save()
+    context.translate(x, y)
+    context.rotate(rotate / 180 * Math.PI)
+    context.scale(r, r)
+
+    context.lineWidth = lineWidth / r || 1 / r
+    context.fillStyle = fillStyle
+
+    pathMoon(context, d / r)
+
+    context.fill()
+    context.restore()
+  }
+
+  // 绘制单位月弧(外圆的半径为1)
+  function pathMoon(context, d) {
+    let r = calculateR(1, d)
+    // 画路径时注意如果使用context.fill(),线段的绘制轨迹要连贯
+    context.beginPath()
+    context.arc(0, 1, 1, Math.PI * 1 / 2, Math.PI * 3 / 2, true)
+    context.moveTo(0, 0)
+    context.arcTo(d, 1, 0, 2, r)
+  }
+
+
+</script>
+
+</html>

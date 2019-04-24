@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>黑洞力场</title>
   <style>
     * {
       margin: 0;
@@ -57,10 +57,10 @@
         func()
       }
     }
-    restart() {
+    enable() {
       this.state = true
     }
-    stop() {
+    disable() {
       this.state = false
     }
     destroy() {
@@ -103,7 +103,7 @@
   const particleList = []
 
   // 粒子的数量
-  const PARTICLE_COUNT = 5000
+  const PARTICLE_COUNT = 2000
 
   const attractParticleMap = {}
 
@@ -193,14 +193,14 @@
           this.vx -= (20 / dist) * Math.cos(angle)
           this.vy -= (20 / dist) * Math.sin(angle)
         } else {
-          this.throttle.restart()
+          this.throttle.enable()
           this.vx += (300 / dist) * Math.cos(angle)
           this.vy += (300 / dist) * Math.sin(angle)
         }
       }
 
       if (dist <= KERNEL) {
-        this.throttle.stop()
+        this.throttle.disable()
         this.fillStyle = 'transparent'
         attractParticleMap[this.id] = this
       }

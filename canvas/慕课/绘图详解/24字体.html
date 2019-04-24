@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>线性渐变</title>
+  <title>字体</title>
   <style>
     * {
       margin: 0;
@@ -15,11 +15,11 @@
 </head>
 
 <body>
-  <canvas id="canvas" class="canvas"></canvas>
+  <canvas id="canvas"></canvas>
 </body>
 <script>
-  const WIDTH = 400
-  const HEIGHT = 400
+  const WIDTH = 1500
+  const HEIGHT = 1000
   // 弧度制
   const RADIAN = 180 / Math.PI
 
@@ -28,10 +28,18 @@
   canvas.height = HEIGHT
   let context = canvas.getContext('2d')
 
-  let x1 = 0
-  let y1 = 0
-  let x2 = 0
-  let y2 = HEIGHT
+  context.font = 'bold 40px Arial'
+  context.fillStyle = '#058'
+
+  context.beginPath()
+  context.arc(50, 50, 50, 0, 2 * Math.PI)
+  context.fill()
+
+  context.fillText('666', 0, 200)
+
+  context.lineWidth = 1
+  context.strokeStyle = '#058'
+  context.strokeText('666', 0, 300)
 
   let stop1 = 0
   let color1 = 'red'
@@ -48,16 +56,29 @@
   let stop5 = 1
   let color5 = '#ffffff'
 
-  // x, y是相对于context原点的
-  let linearGradient = context.createLinearGradient(x1, y1, x2, y2)
+  let linearGradient = context.createLinearGradient(
+    0, 0,
+    WIDTH, 0
+  )
   linearGradient.addColorStop(stop1, color1)
   linearGradient.addColorStop(stop2, color2)
   linearGradient.addColorStop(stop3, color3)
   linearGradient.addColorStop(stop4, color4)
   linearGradient.addColorStop(stop5, color5)
-  context.fillStyle = linearGradient
-  context.fillRect(0, 0, WIDTH, HEIGHT)
 
+  context.fillStyle = linearGradient
+  context.font = 'bold 100px Arial'
+  context.fillText('Canvas', 50, 400)
+
+  let backgroundImage = new Image()
+  backgroundImage.src = './images/1.jpg'
+
+  backgroundImage.onload = () => {
+    let pattern = context.createPattern(backgroundImage, 'repeat')
+    context.fillStyle = pattern
+    context.font = 'bold 100px Arial'
+    context.fillText('Canvas', 50, 500)
+  }
 
 </script>
 

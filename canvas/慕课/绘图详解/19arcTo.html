@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>arcTo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  // arcTo的起点由外部moveTo提供,可以封装一个函数,传入三个控制点的坐标和半径
+
+  let canvas = document.getElementById('canvas')
+  let context = canvas.getContext('2d')
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+
+  context.lineWidth = 5
+  context.strokeStyle = 'peru'
+
+  context.beginPath()
+  context.moveTo(150, 150)
+  // (150, 150), (650, 150)直线和(650, 150), (650, 650)直线相切的半径为300的圆弧
+  // 绘制的曲线必然经过起点(150, 150),但不一定经过控制点3(650, 650)
+  context.arcTo(650, 150, 650, 650, 100)
+
+  context.stroke()
+
+  // 辅助线
+  context.lineWidth = 1
+  context.strokeStyle = '#000'
+
+  context.beginPath()
+  context.moveTo(150, 150)
+  context.lineTo(650, 150)
+  context.lineTo(650, 650)
+
+  context.stroke()
+
+
+  function pathArc(context, x0, y0, x1, y1, x2, y2, r) {
+    context.beginPath()
+    context.moveTo(x0, y0)
+    context.arcTo(x1, y1, x2, y2, r)
+    context.stroke()
+  }
+
+</script>
+</html>

@@ -4,18 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>流星雨</title>
   <style>
     * {
       margin: 0;
       padding: 0;
     }
+    /* .bg {
+      background-image: url("./banner_pc.jpg");
+      background-size: cover;
+    } */
   </style>
 </head>
 <body>
-  <canvas id="canvas"></canvas>
+  <div class="bg">
+    <canvas id="canvas"></canvas>
+  </div>
 </body>
 <script>
+  // dev: 整理代码
+  // 合成树木图片
+
   class Throttle {
     constructor(timeSlice = DEFAULT_TIME_SLICE, firstStartTime) {
       this.timeSlice = timeSlice
@@ -25,7 +34,7 @@
     init() {
       this.state = true
     }
-    run(func, overload) {
+    run(func) {
       if (!this.state) {
         return
       }
@@ -51,10 +60,10 @@
         func()
       }
     }
-    restart() {
+    enable() {
       this.state = true
     }
-    stop() {
+    disable() {
       this.state = false
     }
     destroy() {
@@ -79,6 +88,39 @@
     return Math.random() * (max - min + 1) + min | 0
   }
 
+  function canvasImageCoverPosition(imgNaturalWidth, imgNaturalHeight, canvasWidth, canvasHeight, offsetLeft, offsetTop) {
+    let A1, A2, A3, B1, B2, B3, dA, dB
+    offsetLeft = offsetLeft || 0.5
+    offsetTop = offsetTop || 0.5
+    A1 = imgNaturalWidth
+    A2 = canvasWidth
+    dA = A2 - A1
+    B1 = imgNaturalHeight
+    B2 = canvasHeight
+    dB = B2 - B1
+    if (dA < dB) {
+      B3 = B2
+      A3 = A1 + (A1 * ((dB * 100) / B1)) / 100
+    }
+    else {
+      A3 = A2;
+      B3 = B1 + (B1 * ((dA * 100) / A1)) / 100
+    }
+    return {
+      width: A3,
+      height: B3,
+      offsetLeft: round((A2 - A3) * offsetLeft),
+      offsetTop: round((B2 - B3) * offsetTop)
+    }
+    function round(v) {
+      return (+(v >= 0) || -1) * Math.round(Math.abs(v))
+    }
+  }
+
+  function getRandom(min, max) {
+    return Math.random() * (max - min + 1) + min
+  }
+
   const meteorList = []
 
   let canvas = document.getElementById('canvas')
@@ -89,61 +131,86 @@
 
   let backgroundImage = new Image()
   backgroundImage.src = './banner_pc.jpg'
+  let backgroundCanvas = document.createElement('canvas')
+
+  backgroundImage.onload = () => {
+    backgroundCanvas.width = canvas.width
+    backgroundCanvas.height = canvas.height
+    let sourceWidth = backgroundImage.width
+    let sourceHeight = backgroundImage.height
+    let imagePosition = canvasImageCoverPosition(
+      sourceWidth,
+      sourceHeight,
+      canvas.width,
+      canvas.height,
+    )
+    backgroundCanvas.getContext('2d').drawImage(
+      backgroundImage,
+      imagePosition.offsetLeft,
+      imagePosition.offsetTop,
+      imagePosition.width,
+      imagePosition.height
+    )
+    init()
+    loop()
+  }
 
   class Meteor {
-    constructor(x, y, length, angle, speed) {
+    constructor(x, y, length, angle, speed, size) {
       this.x = x
       this.y = y
       this.length = length
       this.angle = angle / 180 * Math.PI
       this.speed = speed
+      this.size = size || this.length * getRandom(0.004, 0.006)
       this.init()
     }
     init() {
-      this.width = this.length * Math.cos(this.angle)
-      this.height = this.length * Math.sin(this.angle)
       this.vx = -this.speed * Math.cos(this.angle)
       this.vy = this.speed * Math.sin(this.angle)
       this.alpha =  1
       this.distX = getRandomInt(200, 300)
       this.distY = getRandomInt(canvas.height - 500, canvas.height - 600)
       this.state = true
-      this.lineWidth = getRandomInt(2, 3)
+      this.lineWidth = this.size * 0.5
+      this.headerRadius = this.length * this.size / 100
 
       this.colorsStopList = [
         {
           s: 0,
-          r: getRandomInt(220, 230),
-          g: getRandomInt(88, 90),
-          b: getRandomInt(220, 230),
-          a: 1
+          r: getRandomInt(192, 195),
+          g: getRandomInt(60, 70),
+          b: getRandomInt(192, 195),
+          a: 0.9
         },
         {
-          s: 0.3,
-          r: getRandomInt(200, 180),
-          g: getRandomInt(10, 12),
-          b: getRandomInt(200, 180),
+          s: this.headerRadius / this.length,
+          r: getRandomInt(160, 170),
+          g: getRandomInt(40, 50),
+          b: getRandomInt(160, 170),
+          a: 0.75
+        },
+        {
+          s: this.headerRadius / this.length + 0.75,
+          r: getRandomInt(60, 80),
+          g: getRandomInt(30, 20),
+          b: getRandomInt(60, 80),
           a: 0.6
-        },
-        {
-          s: 0.8,
-          r: getRandomInt(150, 130),
-          g: getRandomInt(0, 10),
-          b: getRandomInt(150, 130),
-          a: 0.2
         },
       ]
     }
     render() {
       context.save()
-      context.lineWidth = this.lineWidth
 
-      let startX = this.x
-      let endX = this.x + this.width
-      let startY = this.y
-      let endY = this.y - this.height
+      context.translate(this.x, this.y)
+      context.rotate(-this.angle)
 
-      let linear = context.createLinearGradient(
+      let startX = 0
+      let startY = 0
+      let endX = this.length
+      let endY = 0
+
+      let linearStyle = context.createLinearGradient(
         startX, startY,
         endX, endY
       )
@@ -152,23 +219,27 @@
         let item = this.colorsStopList[i]
         let stop = item.s
         let color = `rgba(${item.r}, ${item.g}, ${item.b}, ${item.a})`
-        linear.addColorStop(stop, color)
+        linearStyle.addColorStop(stop, color)
       }
 
-      context.strokeStyle = linear
+      context.fillStyle = linearStyle
+      // context.lineWidth = this.lineWidth
+      // context.strokeStyle = `rgba(255, 255, 255, 0.1)`
       context.globalAlpha = this.alpha
-
       context.beginPath()
-      context.moveTo(startX, startY)
-      context.lineTo(endX, endY)
+      context.arc(this.headerRadius, this.headerRadius, this.headerRadius, Math.PI / 2, Math.PI / 2 * 3)
+      context.lineTo(this.length, this.headerRadius)
       context.closePath()
-      context.stroke()
+      // context.stroke()
+      context.fill()
+
       context.restore()
+
     }
     update() {
-      if (this.x < this.distX || this.y > this.distY) {
-        this.destroy()
-      }
+      // if (this.x < this.distX || this.y > this.distY) {
+      //   this.destroy()
+      // }
 
       this.x += this.vx
       this.y += this.vy
@@ -176,9 +247,7 @@
       this.flowAway()
     }
     flowAway() {
-      if (this.x - this.distX < 20 || this.distY - this.y < 20) {
-        this.alpha -= 0.3
-      }
+      this.alpha -= 0.008
       if (this.alpha < 0) {
         this.alpha = 0
       }
@@ -197,10 +266,11 @@
   function createMeteor() {
     let x = getRandomInt(200, canvas.width - 200)
     let y = getRandomInt(10, 100)
-    let length = 60 + Math.random() * 30
-    let angle = 40 + Math.random() * 5
-    let speed = Math.random() + 10
-    let meteor = new Meteor(x, y, length, angle, speed)
+    let length = getRandom(80, 100)
+    let angle = getRandom(40, 50)
+    let speed = getRandom(12, 15)
+    let size = getRandom(3, 4)
+    let meteor = new Meteor(x, y, length, angle, speed, size)
     meteorList.push(meteor)
   }
 
@@ -213,8 +283,9 @@
 
   function update() {
     window.throttle.run(() => {
-      if (Math.random() > 0.5) {
-        let count = getRandomInt(1, 6)
+      let randow = Math.random()
+      if (randow > 0.5) {
+        let count = getRandomInt(0, randow * 10)
         for (let i = 0; i < count; i++) {
           createMeteor()
         }
@@ -224,10 +295,9 @@
 
   function fillBackground() {
     context.save()
-    context.fillStyle = 'rgba(0,0,0,0.2)'
+    context.fillStyle = 'rgba(0, 0, 0, 0.1)'
     context.fillRect(0, 0, canvas.width, canvas.height)
-    let pattern = context.createPattern(backgroundImage, 'no-repeat')
-    // fillStyle可以是color,gradient,image,canvas,video
+    let pattern = context.createPattern(backgroundCanvas, 'no-repeat')
     context.fillStyle = pattern
     context.fillRect(0, 0, canvas.width, canvas.height)
     context.restore()
@@ -241,12 +311,7 @@
   }
 
   function init() {
-    window.throttle = new Throttle(1000)
-  }
-
-  backgroundImage.onload = () => {
-    init()
-    loop()
+    window.throttle = new Throttle(2000)
   }
 
 </script>

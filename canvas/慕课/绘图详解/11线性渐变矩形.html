@@ -60,7 +60,7 @@
 
       let linearGradient = context.createLinearGradient(
         this.x, this.y,
-        this.x + this.size, this.y + this.size
+        this.x + this.size, this.y
       )
       linearGradient.addColorStop(stop1, color1)
       linearGradient.addColorStop(stop2, color2)
@@ -89,7 +89,7 @@
   context.fillStyle = '#000'
   context.fillRect(0, 0, WIDTH, HEIGHT)
 
-  let rect = new LinerRect(20, 100, 300)
+  let rect = new LinerRect(0, 100, 300)
   rect.draw()
 
 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>字体</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  const WIDTH = 1500
+  const HEIGHT = 1000
+  // 弧度制
+  const RADIAN = 180 / Math.PI
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  context.fillStyle = '#058'
+  context.font = 'bold 40px sans-serif'
+
+  // 字体对齐水平是相对于x坐标的
+
+  context.textAlign = 'left'
+  context.fillText('textAlign = left', 400, 100)
+
+  context.textAlign = 'center'
+  context.fillText('textAlign = center', 400, 200)
+
+  context.textAlign = 'right'
+  context.fillText('textAlign = right', 400, 300)
+
+  context.strokeStyle = '#888'
+  context.moveTo(400, 0)
+  context.lineTo(400, 800)
+  context.stroke()
+
+</script>
+
+</html>

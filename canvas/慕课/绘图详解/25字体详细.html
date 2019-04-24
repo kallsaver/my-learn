@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>字体</title>
   <style>
     * {
       margin: 0;
@@ -12,26 +13,30 @@
     }
   </style>
 </head>
+
 <body>
   <canvas id="canvas"></canvas>
 </body>
 <script>
+  const WIDTH = 1500
+  const HEIGHT = 1000
+  // 弧度制
+  const RADIAN = 180 / Math.PI
 
   let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
   let context = canvas.getContext('2d')
-  canvas.width = window.innerWidth
-  canvas.height = window.innerHeight
 
+  // canvas的字体默认是normal 20px sans-serif
 
-  context.fillStyle = '#000'
-  context.fillRect(0, 0, canvas.width, canvas.height)
+  // font-style font-variant font-weight font-size font-family
 
-  context.fillStyle = 'blue'
-  context.shadowBlur = 200
-  context.shadowColor = '#fff'
-  context.beginPath()
-  context.arc(canvas.width / 2, canvas.height / 2, 200, 0, 2 * Math.PI)
-  context.fill()
+  // font-style: normal italic oblique
+  // font-variant: normal small-caps(英文小写字母)
+
+  context.fillStyle = '#058'
 
 </script>
+
 </html>

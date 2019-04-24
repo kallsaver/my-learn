@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>canvas里嵌套canvas</title>
+  <title>圆角矩形</title>
   <style>
     * {
       margin: 0;
@@ -33,19 +33,35 @@
   canvas.height = HEIGHT
   let context = canvas.getContext('2d')
 
-  context.lineWidth = 5
-  context.strokeStyle = '#005588'
+  context.lineWidth = 1
+  context.strokeStyle = '#000'
+  context.fillStyle = 'peru'
+
+  drawRoundRect(context, 100, 100, 200, 200, 10)
+  context.stroke()
+  context.fill()
 
   function drawRoundRect(context, x, y, width, height, radius) {
+    if (2 * radius > x || 2 * radius > y) {
+      return
+    }
+
     context.save()
     context.translate(x, y)
-    context.strokeStyle = 'black'
-    context.stroke()
+    pathRoundRect(context, width, height, radius)
     context.restore()
   }
 
-  function pathRoundRect() {
+  function pathRoundRect(context, width, height, radius) {
     context.beginPath()
+    context.arc(radius, radius, radius, Math.PI, Math.PI * 3 / 2)
+    context.lineTo(width - radius, 0)
+    context.arc(width - radius, radius, radius, Math.PI * 3 / 2, 0)
+    context.lineTo(width, height - radius)
+    context.arc(width - radius, height - radius, radius, 0, Math.PI * 1 / 2)
+    context.lineTo(radius, height)
+    context.arc(radius, height - radius, radius, Math.PI * 1 / 2, Math.PI)
+    context.closePath()
   }
 
 </script>

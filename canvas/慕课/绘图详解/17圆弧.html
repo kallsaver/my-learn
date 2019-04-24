@@ -38,7 +38,7 @@
 
   for (let i = 0; i < 10; i++) {
     context.beginPath()
-    // 圆心x轴坐标,圆心y轴坐标,半径,开始弧度,弧长,顺时针(false)
+    // 圆心x轴坐标,圆心y轴坐标,半径,开始弧度,结束弧度,顺时针(false)
     context.arc(50 + i * 100, 60, 40, 0, (i + 1) / 10 * 2 * Math.PI, false)
     context.closePath()
     context.stroke()
