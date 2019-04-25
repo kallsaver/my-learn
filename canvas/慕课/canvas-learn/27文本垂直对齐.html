@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>文本垂直对齐</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  const WIDTH = 1500
+  const HEIGHT = 1000
+  // 弧度制
+  const RADIAN = 180 / Math.PI
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  context.fillStyle = '#058'
+  context.font = 'bold 40px sans-serif'
+
+  // 字体垂直水平是相对于y坐标的
+
+  context.textBaseline = 'top'
+  context.fillText('textAlign = left', 40, 100)
+  drawBaseline(context, 100)
+
+  context.textBaseline = 'middle'
+  context.fillText('textAlign = middle', 40, 200)
+  drawBaseline(context, 200)
+
+  context.textBaseline = 'bottom'
+  context.fillText('textAlign = bottom', 40, 300)
+  drawBaseline(context, 300)
+
+  function drawBaseline(context, h) {
+    let width = context.canvas.width
+    context.save()
+    context.strokeStyle = '#888'
+    context.lineWidth = 2
+    context.moveTo(0 , h)
+    context.lineTo(width, h)
+    context.stroke()
+    context.restore()
+  }
+
+</script>
+
+</html>

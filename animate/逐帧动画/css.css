@@ -1,0 +1,107 @@
+/* -----------------------------------------------------
+   created with https://www.codeandweb.com/texturepacker 
+   -----------------------------------------------------
+   $TexturePacker:SmartUpdate:4a26ed890c0f26210930ec1d12960901:3cc2816a4cb3ad2820cbec443ca70a97:f7febb4d7eee8134d4984d95486ac5de$
+   -----------------------------------------------------
+
+   usage: <span class="{-spritename-} sprite"></span>
+
+   replace {-spritename-} with the sprite you like to use
+
+*/
+.sprite {display:inline-block; overflow:hidden; background-repeat: no-repeat;width:212px; height:245px; 
+    background-image: url('./css.png');
+   animation: playX 0.3s steps(9) infinite, playY 2.7s steps(9) infinite;
+}
+
+@keyframes playX {
+  0% {background-position-x: 0;}
+  100% {background-position-x: -1926px;}
+}
+@keyframes playY {
+  0% {background-position-y: 0;}
+  100% {background-position-y: -2223px;}
+}
+
+
+.qingzhu_00 {width:212px; height:245px; background-position: -1px -1px}
+.qingzhu_01 {width:212px; height:245px; background-position: -215px -1px}
+.qingzhu_02 {width:212px; height:245px; background-position: -429px -1px}
+.qingzhu_03 {width:212px; height:245px; background-position: -643px -1px}
+.qingzhu_04 {width:212px; height:245px; background-position: -857px -1px}
+.qingzhu_05 {width:212px; height:245px; background-position: -1071px -1px}
+.qingzhu_06 {width:212px; height:245px; background-position: -1285px -1px}
+.qingzhu_07 {width:212px; height:245px; background-position: -1499px -1px}
+.qingzhu_08 {width:212px; height:245px; background-position: -1713px -1px}
+.qingzhu_09 {width:212px; height:245px; background-position: -1px -248px}
+.qingzhu_10 {width:212px; height:245px; background-position: -215px -248px}
+.qingzhu_11 {width:212px; height:245px; background-position: -429px -248px}
+.qingzhu_12 {width:212px; height:245px; background-position: -643px -248px}
+.qingzhu_13 {width:212px; height:245px; background-position: -857px -248px}
+.qingzhu_14 {width:212px; height:245px; background-position: -1071px -248px}
+.qingzhu_15 {width:212px; height:245px; background-position: -1285px -248px}
+.qingzhu_16 {width:212px; height:245px; background-position: -1499px -248px}
+.qingzhu_17 {width:212px; height:245px; background-position: -1713px -248px}
+.qingzhu_18 {width:212px; height:245px; background-position: -1px -495px}
+.qingzhu_19 {width:212px; height:245px; background-position: -215px -495px}
+.qingzhu_20 {width:212px; height:245px; background-position: -429px -495px}
+.qingzhu_21 {width:212px; height:245px; background-position: -643px -495px}
+.qingzhu_22 {width:212px; height:245px; background-position: -857px -495px}
+.qingzhu_23 {width:212px; height:245px; background-position: -1071px -495px}
+.qingzhu_24 {width:212px; height:245px; background-position: -1285px -495px}
+.qingzhu_25 {width:212px; height:245px; background-position: -1499px -495px}
+.qingzhu_26 {width:212px; height:245px; background-position: -1713px -495px}
+.qingzhu_27 {width:212px; height:245px; background-position: -1px -742px}
+.qingzhu_28 {width:212px; height:245px; background-position: -215px -742px}
+.qingzhu_29 {width:212px; height:245px; background-position: -429px -742px}
+.qingzhu_30 {width:212px; height:245px; background-position: -643px -742px}
+.qingzhu_31 {width:212px; height:245px; background-position: -857px -742px}
+.qingzhu_32 {width:212px; height:245px; background-position: -1071px -742px}
+.qingzhu_33 {width:212px; height:245px; background-position: -1285px -742px}
+.qingzhu_34 {width:212px; height:245px; background-position: -1499px -742px}
+.qingzhu_35 {width:212px; height:245px; background-position: -1713px -742px}
+.qingzhu_36 {width:212px; height:245px; background-position: -1px -989px}
+.qingzhu_37 {width:212px; height:245px; background-position: -215px -989px}
+.qingzhu_38 {width:212px; height:245px; background-position: -429px -989px}
+.qingzhu_39 {width:212px; height:245px; background-position: -643px -989px}
+.qingzhu_40 {width:212px; height:245px; background-position: -857px -989px}
+.qingzhu_41 {width:212px; height:245px; background-position: -1071px -989px}
+.qingzhu_42 {width:212px; height:245px; background-position: -1285px -989px}
+.qingzhu_43 {width:212px; height:245px; background-position: -1499px -989px}
+.qingzhu_44 {width:212px; height:245px; background-position: -1713px -989px}
+.qingzhu_45 {width:212px; height:245px; background-position: -1px -1236px}
+.qingzhu_46 {width:212px; height:245px; background-position: -215px -1236px}
+.qingzhu_47 {width:212px; height:245px; background-position: -429px -1236px}
+.qingzhu_48 {width:212px; height:245px; background-position: -643px -1236px}
+.qingzhu_49 {width:212px; height:245px; background-position: -857px -1236px}
+.qingzhu_50 {width:212px; height:245px; background-position: -1071px -1236px}
+.qingzhu_51 {width:212px; height:245px; background-position: -1285px -1236px}
+.qingzhu_52 {width:212px; height:245px; background-position: -1499px -1236px}
+.qingzhu_53 {width:212px; height:245px; background-position: -1713px -1236px}
+.qingzhu_54 {width:212px; height:245px; background-position: -1px -1483px}
+.qingzhu_55 {width:212px; height:245px; background-position: -215px -1483px}
+.qingzhu_56 {width:212px; height:245px; background-position: -429px -1483px}
+.qingzhu_57 {width:212px; height:245px; background-position: -643px -1483px}
+.qingzhu_58 {width:212px; height:245px; background-position: -857px -1483px}
+.qingzhu_59 {width:212px; height:245px; background-position: -1071px -1483px}
+.qingzhu_60 {width:212px; height:245px; background-position: -1285px -1483px}
+.qingzhu_61 {width:212px; height:245px; background-position: -1499px -1483px}
+.qingzhu_62 {width:212px; height:245px; background-position: -1713px -1483px}
+.qingzhu_63 {width:212px; height:245px; background-position: -1px -1730px}
+.qingzhu_64 {width:212px; height:245px; background-position: -215px -1730px}
+.qingzhu_65 {width:212px; height:245px; background-position: -429px -1730px}
+.qingzhu_66 {width:212px; height:245px; background-position: -643px -1730px}
+.qingzhu_67 {width:212px; height:245px; background-position: -857px -1730px}
+.qingzhu_68 {width:212px; height:245px; background-position: -1071px -1730px}
+.qingzhu_69 {width:212px; height:245px; background-position: -1285px -1730px}
+.qingzhu_70 {width:212px; height:245px; background-position: -1499px -1730px}
+.qingzhu_71 {width:212px; height:245px; background-position: -1713px -1730px}
+.qingzhu_72 {width:212px; height:245px; background-position: -1px -1977px}
+.qingzhu_73 {width:212px; height:245px; background-position: -215px -1977px}
+.qingzhu_74 {width:212px; height:245px; background-position: -429px -1977px}
+.qingzhu_75 {width:212px; height:245px; background-position: -643px -1977px}
+.qingzhu_76 {width:212px; height:245px; background-position: -857px -1977px}
+.qingzhu_77 {width:212px; height:245px; background-position: -1071px -1977px}
+.qingzhu_78 {width:212px; height:245px; background-position: -1285px -1977px}
+.qingzhu_79 {width:212px; height:245px; background-position: -1499px -1977px}
+.qingzhu_80 {width:212px; height:245px; background-position: -1713px -1977px}

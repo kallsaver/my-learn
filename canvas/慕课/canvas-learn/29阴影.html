@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>阴影</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  const WIDTH = 1500
+  const HEIGHT = 1500
+  // 弧度制
+  const RADIAN = 180 / Math.PI
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  context.fillStyle = '#058'
+  context.shadowColor = 'gray'
+  context.shadowBlur = 5
+  context.shadowOffsetX = 20
+  context.shadowOffsetY = 20
+
+  context.fillRect(100, 100, 400, 400)
+
+  context.fillRect(200, 600, 400, 400)
+
+</script>
+
+</html>

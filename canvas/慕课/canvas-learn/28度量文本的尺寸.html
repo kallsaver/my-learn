@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>度量文本的尺寸</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  const WIDTH = 1500
+  const HEIGHT = 1000
+  // 弧度制
+  const RADIAN = 180 / Math.PI
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  context.fillStyle = '#058'
+  context.font = 'bold 40px sans-serif'
+
+  context.textBaseline = 'middle'
+  let text = 'canvas'
+  context.fillText('canvas', 40, 200)
+
+  let textWidth = context.measureText(text).width
+
+  console.log(textWidth)
+
+</script>
+
+</html>

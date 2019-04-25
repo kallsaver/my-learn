@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="box">
+
+			<div class="in"></div>
+		</div>
+	</body>
+	<style>
+		.box{
+			width: 800px;
+			height: 800px;
+			margin: 100px;
+			border: 1px solid red;
+			position: relative;
+		}
+
+		.in{
+			position: absolute;
+			width: 80px;
+			height: 80px;
+			background: gray;
+			animation: playX 8s steps(10) infinite, playY 80s steps(10) infinite;
+		}
+		
+		@keyframes playX {
+		  0% {left: 0;}
+		  100% {left: 800px;}
+		}
+		@keyframes playY {
+		  0% {top: 0;}
+		  100% {top: 800px;}
+		}
+	</style>
+</html>
