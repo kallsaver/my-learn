@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>drawImage参数</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+
+  // context.drawImage参数:
+  // 参数格式1:
+  // dx:被绘制出来的canvas图像的起点x坐标, dy:被绘制出来的canvas图像的起点y坐标
+  // context.drawImage(image, dx, dy)
+
+  // 参数格式2:
+  // dx:被绘制出来的canvas图像的起点x坐标, dy:被绘制出来的canvas图像的起点y坐标
+  // dw:被绘制出来的canvas图像的宽度, dh:被绘制出来的canvas图像的高度
+  // 如果源图的width像素大于dw,将被收缩,小于dw,将被扩张,dy和dh也同理
+  // context.drawImage(image, dx, dy, dw, dh)
+
+  // 参数格式3:
+  // sx:源图片的起点x坐标, sy:源图片的起点y坐标
+  // sw:源图片将被canvas截取的宽度, sh:源图片将被canvas截取的高度
+  // dx:被绘制出来的canvas图像的起点x坐标, dy:被绘制出来的canvas图像的起点y坐标
+  // dw:被绘制出来的canvas图像的宽度, dh:被绘制出来的canvas图像的高度
+  // 如果源图的width像素大于dw,将被收缩,小于dw,将被扩张,dy和dh也同理
+  // context.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh)
+
+  let image = new Image()
+  image.src = './images/1.jpg'
+
+  image.onload = () => {
+
+    function sourceSize() {
+      // 100%还原原图
+      context.drawImage(image, 0, 0, width, height)
+    }
+
+    function shrinkSize() {
+      // 将1200*800图片全部的像素渲染到1100*800的矩形的1200*800的canvas画布上
+      // 1200收缩到1100,像素被压缩,所有的像素都被展示
+      context.drawImage(image, 0, 0, width - 100, height)
+    }
+
+    function expandSize() {
+      // 将1200*800图片全部的像素渲染到1300*800的矩形的1200*800的canvas画布上
+      // 1200拉长到1300,像素被模糊,并且由于矩形超出了画布,100*1200的像素不会被渲染出来
+      context.drawImage(image, 0, 0, width + 100, height)
+    }
+
+    function clipImage() {
+      // 把源图从x轴0截取到1100像素位置,渲染到1200像素点的矩形上
+      // 1100拉长到1200,像素被模糊,截取部分的像素不会展示
+      context.drawImage(
+        image,
+        0, 0, width - 100, height,
+        0, 0, width, height
+      )
+    }
+
+    let width = image.width
+    let height = image.height
+    let canvas = document.getElementById('canvas')
+    canvas.width = width
+    canvas.height = height
+
+    let context = canvas.getContext('2d')
+
+    context.fillStyle = '#000'
+    context.fillRect(0, 0, canvas.width, canvas.height)
+
+    // sourceSize()
+    // shrinkSize()
+    // expandSize()
+    clipImage()
+
+  }
+
+</script>
+</html>

@@ -1,5 +1,5 @@
 /* -----------------------------------------------------
-   created with https://www.codeandweb.com/texturepacker 
+   created with https://www.codeandweb.com/texturepacker
    -----------------------------------------------------
    $TexturePacker:SmartUpdate:4a26ed890c0f26210930ec1d12960901:3cc2816a4cb3ad2820cbec443ca70a97:f7febb4d7eee8134d4984d95486ac5de$
    -----------------------------------------------------
@@ -9,7 +9,7 @@
    replace {-spritename-} with the sprite you like to use
 
 */
-.sprite {display:inline-block; overflow:hidden; background-repeat: no-repeat;width:212px; height:245px; 
+.sprite {display:inline-block; overflow:hidden; background-repeat: no-repeat;width:212px; height:245px;
     background-image: url('./css.png');
    animation: playX 0.3s steps(9) infinite, playY 2.7s steps(9) infinite;
 }
@@ -24,7 +24,7 @@
 }
 
 
-.qingzhu_00 {width:212px; height:245px; background-position: -1px -1px}
+/* .qingzhu_00 {width:212px; height:245px; background-position: -1px -1px}
 .qingzhu_01 {width:212px; height:245px; background-position: -215px -1px}
 .qingzhu_02 {width:212px; height:245px; background-position: -429px -1px}
 .qingzhu_03 {width:212px; height:245px; background-position: -643px -1px}
@@ -104,4 +104,4 @@
 .qingzhu_77 {width:212px; height:245px; background-position: -1071px -1977px}
 .qingzhu_78 {width:212px; height:245px; background-position: -1285px -1977px}
 .qingzhu_79 {width:212px; height:245px; background-position: -1499px -1977px}
-.qingzhu_80 {width:212px; height:245px; background-position: -1713px -1977px}
+.qingzhu_80 {width:212px; height:245px; background-position: -1713px -1977px} */

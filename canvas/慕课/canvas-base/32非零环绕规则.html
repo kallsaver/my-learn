@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>非零环绕规则</title>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  // 非零环绕规则
+  // https://blog.csdn.net/freshforiphone/article/details/8273023
+  // https://www.jianshu.com/p/f1590d4fb5c5
+
+  // 从内部(注意是内部)任意一个点向一个方向延伸一条矢量直线
+  // 这条矢量直线看做x轴
+  // x轴和图形的路径的矢量有N个交点
+  // 交点上做弧线的切线和x轴的夹角是正方向的+1,反方向-1
+  // 最终的值做绝对值,非零在里面
+
+  const WIDTH = 800
+  const HEIGHT = 800
+  // 弧度制
+  const RADIAN = 180 / Math.PI
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  let innerR = 150
+  let outerR = 300
+
+  context.beginPath()
+  context.arc(400, 400, 300, 0, 2 * Math.PI, false)
+  context.arc(400, 400, 150, 0, Math.PI * 2, true)
+  context.closePath()
+
+  context.fillStyle = '#058'
+  context.shadowColor = 'gray'
+  context.shadowOffsetX = 10
+  context.shadowOffsetY = 10
+  context.shadowBlur = 10
+  context.fill()
+
+</script>
+</html>

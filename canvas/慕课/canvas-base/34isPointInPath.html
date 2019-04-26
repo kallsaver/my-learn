@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>isPointInPath</title>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+
+  const WIDTH = 800
+  const HEIGHT = 800
+  // 弧度制
+  const RADIAN = 180 / Math.PI
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  let ballList = []
+
+  for (let i = 0; i < 10; i++) {
+    let ball = {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 20 + 20
+    }
+    ballList.push(ball)
+  }
+
+  for (let i = 0; i < ballList.length; i++) {
+    let ball = ballList[i]
+    context.beginPath()
+    context.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI)
+    context.fillStyle = '#058'
+    context.fill()
+  }
+
+  canvas.addEventListener('mouseup', (event) => {
+    // 得出点击点到canvas坐标原定的距离
+    let x = event.clientX - canvas.getBoundingClientRect().left
+    let y = event.clientY - canvas.getBoundingClientRect().top
+
+    context.clearRect(0, 0, canvas.width, canvas.height)
+
+    for (let i = 0; i < ballList.length; i++) {
+      let ball = ballList[i]
+      context.beginPath()
+      context.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI)
+      // 是否在当前路径内部()
+      if (context.isPointInPath(x, y)) {
+        context.fillStyle = 'red'
+        context.fill()
+      } else {
+        context.fillStyle = '#058'
+        context.fill()
+      }
+    }
+  })
+
+</script>
+
+</html>

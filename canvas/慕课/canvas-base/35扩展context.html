@@ -1,33 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>clip</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
-    canvas {
-      margin: 0 auto;
-      display: block;
-    }
-  </style>
+  <title>Document</title>
 </head>
-
 <body>
   <canvas id="canvas"></canvas>
 </body>
 <script>
-
-  // 非零环绕规则
-  // https://blog.csdn.net/freshforiphone/article/details/8273023
-  // https://www.jianshu.com/p/f1590d4fb5c5
-
   const WIDTH = 800
   const HEIGHT = 800
   // 弧度制
@@ -38,9 +20,6 @@
   canvas.height = HEIGHT
   let context = canvas.getContext('2d')
 
-
-
-
+  console.log(context.__proto__ === CanvasRenderingContext2D.prototype)
 </script>
-
 </html>

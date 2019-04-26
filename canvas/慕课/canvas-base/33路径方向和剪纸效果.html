@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>剪纸效果</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    canvas {
+      margin: 0 auto;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+
+  // 非零环绕规则
+  // https://blog.csdn.net/freshforiphone/article/details/8273023
+  // https://www.jianshu.com/p/f1590d4fb5c5
+
+  const WIDTH = 800
+  const HEIGHT = 800
+  // 弧度制
+  const RADIAN = 180 / Math.PI
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  pathCard()
+  context.fillStyle = '#058'
+  context.fill()
+
+  canvas.addEventListener('mouseup', (event) => {
+    // 得出点击点到canvas坐标原定的距离
+    let x = event.clientX - canvas.getBoundingClientRect().left
+    let y = event.clientY - canvas.getBoundingClientRect().top
+
+    context.clearRect(0, 0, canvas.width, canvas.height)
+
+    pathCard()
+    if (context.isPointInPath(x, y)) {
+      context.fillStyle = 'red'
+    } else {
+      context.fillStyle = '#058'
+    }
+    context.fill()
+  })
+
+
+  // 逆时针的矩形绘制函数(context.rect是顺时针)
+  function pathRect(context, x, y, width, height) {
+    context.moveTo(x, y)
+    context.lineTo(x, y + height)
+    context.lineTo(x + width, y + height)
+    context.lineTo(x + width, y)
+    context.lineTo(x, y)
+  }
+
+  function pathTriangle(context, x1, y1, x2, y2, x3, y3) {
+    context.moveTo(x1, y1)
+    context.lineTo(x2, y2)
+    context.lineTo(x3, y3)
+  }
+
+  function pathCard() {
+    context.beginPath()
+    context.rect(100, 100, 600, 600)
+    pathRect(context, 200, 200, 400, 200)
+    pathTriangle(context, 300, 450, 150, 650, 450, 650)
+    context.arc(550, 550, 100, 0, 2 * Math.PI, true)
+    context.closePath()
+
+    context.shadowColor = 'gray'
+    context.shadowOffsetX = 10
+    context.shadowOffsetY = 10
+    context.shadowBlur = 10
+  }
+
+</script>
+
+</html>
