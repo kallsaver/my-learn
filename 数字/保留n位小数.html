@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  function round(number, place = 2, isPad = true) {
+    let temp = 10 ** place
+    return Math.round(number * temp) / temp
+  }
+
+  console.log(round(3.668))
+
+  // 需要把3转成3.00再用toFixed(2)
+
+</script>
+</html>

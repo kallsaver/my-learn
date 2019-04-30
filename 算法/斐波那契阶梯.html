@@ -7,14 +7,14 @@
 	<body>
 	</body>
 	<script>
-		
+
 		// 已知规律   step(n) = step(n-1) + step(n-2);
 		// step(1) = 1 , step(2) = 2
 		// 求step(100)
-		
+
 		function step(n){
 			if( n < 0 ){
-				return 0;
+				return 0
 			}
 			else if( n > 2 ){
 				return arguments.callee(n-2) + arguments.callee(n-1)
@@ -24,10 +24,10 @@
 				return 1
 			}
 		}
-		
-		var result = step(3);
+
+		var result = step(3)
 		console.log(result)
-	
-		
+
+
 	</script>
 </html>

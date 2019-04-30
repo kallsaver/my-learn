@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div {
+      width: 100px;
+      height: 100px;
+      background: peru;
+      color: #fff;
+      text-align: center;
+      line-height: 100px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="div"></div>
+</body>
+<script>
+  // 利用web worker做计算密集型处理,比如canvas的像素处理,数学计算
+  // js线程执行时,会卡死I/O线程,UI渲染线程
+
+  let count = 38
+  let isUseWorker = true
+  let person = {
+    name: 'a',
+    count: 38,
+    city: {
+      name: ''
+    }
+  }
+
+  function fibonacci(n) {
+    return n < 2 ? n : arguments.callee(n - 1) + arguments.callee(n - 2);
+  }
+
+  let startTime = new Date().getTime()
+  let div = document.getElementById('div')
+  div.addEventListener('click', function () {
+    console.log('click')
+  }, false)
+
+  if (Worker && isUseWorker) {
+    let worker = new Worker('worker.js')
+
+    worker.addEventListener('message', function (event) {
+      console.log(event.data)
+      console.log(person.city.name)
+      // worker会占用内存,使用完毕后把worker关闭
+      worker.terminate()
+    })
+
+    worker.addEventListener('error', function (event) {
+      console.log(event.filename, event.lineno, event.message)
+      worker.terminate()
+    }, false)
+    // 传递参数给worker.js
+    // 参数可以是各种数据类型,但是层级不能太深
+    worker.postMessage(person)
+  } else {
+    fibonacci(38)
+  }
+
+  div.style.background = 'gold'
+  div.innerHTML = 'finish'
+
+  let endTime = new Date().getTime()
+  console.log(endTime - startTime)
+
+</script>
+</html>

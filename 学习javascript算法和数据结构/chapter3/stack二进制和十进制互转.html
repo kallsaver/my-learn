@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+
+  class Stack {
+    constructor(options) {
+      this.init()
+    }
+    init() {
+      this.list = []
+    }
+    push(item) {
+      this.list.push(item)
+    }
+    pop() {
+      return this.list.pop()
+    }
+    peek() {
+      return this.list[this.list.length - 1]
+    }
+    size() {
+      return this.length
+    }
+    clear() {
+      this.list.length = 0
+    }
+    isEmpty() {
+      return this.list.length === 0
+    }
+  }
+
+  function parse0b(number, radix) {
+    let remStack = new Stack()
+    let result = ''
+
+    while (number > 0) {
+      let rem = (number % radix)
+      number = number / radix | 0
+      remStack.push(rem)
+    }
+
+    while (!remStack.isEmpty()) {
+      result += remStack.pop()
+    }
+
+    return result
+  }
+
+  console.log(parse0b(10, 8))
+</script>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .wrapper div {
+      width: 20px;
+      height: 20px;
+      background: peru;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrapper" class="wrapper"></div>
+</body>
+<script>
+  // 并没有啥用
+
+  let count = 100000
+  let wrapper = document.getElementById('wrapper')
+
+  function appendChildByCreateElement() {
+    let startTime = new Date().getTime()
+    for (let i = 0; i < count; i++) {
+      let div = document.createElement('div')
+      wrapper.appendChild(div)
+    }
+    let endTime = new Date().getTime()
+    console.log(endTime - startTime)
+  }
+
+  function appendChildByInnerHtml() {
+    let startTime = new Date().getTime()
+    let str = ''
+    for (let i = 0; i < count; i++) {
+      str += '<div></div>'
+    }
+    wrapper.innerHTML = str
+    let endTime = new Date().getTime()
+    console.log(endTime - startTime)
+  }
+
+  function appendChildByFragment() {
+    let startTime = new Date().getTime()
+    let offlineDom = document.createDocumentFragment()
+    for (let i = 0; i < count; i++) {
+      let div = document.createElement('div')
+      offlineDom.appendChild(div)
+    }
+    wrapper.appendChild(offlineDom)
+    let endTime = new Date().getTime()
+    console.log(endTime - startTime)
+  }
+
+  appendChildByInnerHtml()
+  appendChildByCreateElement()
+  appendChildByFragment()
+
+
+</script>
+</html>
