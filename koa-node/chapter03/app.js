@@ -3,17 +3,18 @@ const app = new Koa()
 
 // 在新的命令面板上输入:
 // curl -d "param1=value1&param2=value2" http://localhost:3000
+// 或者打开postman
 
 app.use(async (ctx, next) => {
   console.log(ctx.request.method)
-  let postdata = ''
+  let postData = ''
   // post请求的参数获取方式
   ctx.req.on('data', (data) => {
     console.log(data)
-    postdata += data
+    postData += data
   })
   ctx.req.on('end', () => {
-    console.log(postdata)
+    console.log(postData)
   })
 })
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>获取图像像素</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas {
+      display:block;
+      margin: 50px auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas-a"></canvas>
+  <canvas id="canvas-b"></canvas>
+</body>
+<script>
+
+  let canvasA = document.getElementById('canvas-a')
+  let contextA = canvasA.getContext('2d')
+
+  let canvasB = document.getElementById('canvas-b')
+  let contextB = canvasB.getContext('2d')
+
+  let image = new Image()
+  image.src = './images/autumn.jpg'
+
+  image.onload = () => {
+
+    canvasA.width = image.width
+    canvasA.height = image.height
+
+    canvasB.width = image.width
+    canvasB.height = image.height
+
+    contextA.drawImage(image, 0, 0)
+    filter()
+  }
+
+  function filter() {
+    let imageData = contextA.getImageData(0, 0, canvasA.width, canvasA.height)
+    contextB.putImageData(imageData, 0, 0)
+  }
+
+</script>
+
+</html>

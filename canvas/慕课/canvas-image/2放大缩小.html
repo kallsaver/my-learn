@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>drawImage参数</title>
+  <title>放大缩小</title>
   <style>
     * {
       margin: 0;
       padding: 0;
     }
+    body {
+      background: black
+    }
+    canvas {
+      display: block;
+      margin: 200px auto;
+    }
   </style>
 </head>
+
 <body>
   <canvas id="canvas"></canvas>
+  <input type="range" id="range" step="0.01" min="0" max="2.0"
+    value="1.0"
+    style="margin: 20px auto; display: block; width: 500px;" />
 </body>
 <script>
 
@@ -41,50 +53,30 @@
 
   image.onload = () => {
 
-    function sourceSize() {
-      // 100%还原原图
-      context.drawImage(image, 0, 0, width, height)
-    }
-
-    function shrinkSize() {
-      // 将1200*800图片全部的像素渲染到1100*800的矩形的1200*800的canvas画布上
-      // 1200收缩到1100,像素被压缩,所有的像素都被展示
-      context.drawImage(image, 0, 0, width - 100, height)
-    }
-
-    function expandSize() {
-      // 将1200*800图片全部的像素渲染到1300*800的矩形的1200*800的canvas画布上
-      // 1200拉长到1300,像素被模糊,并且由于矩形超出了画布,100*1200的像素不会被渲染出来
-      context.drawImage(image, 0, 0, width + 100, height)
-    }
-
-    function clipImage() {
-      // 把源图从x轴0截取到1100像素位置,渲染到1200像素点的矩形上
-      // 1100拉长到1200,像素被模糊,截取部分的像素不会展示
-      context.drawImage(
-        image,
-        0, 0, width - 100, height,
-        0, 0, width, height
-      )
-    }
-
-    let width = image.width
-    let height = image.height
+    let imageWidth = image.width
+    let imageHeight = image.height
     let canvas = document.getElementById('canvas')
-    canvas.width = width
-    canvas.height = height
+    let rangeController = document.getElementById('range')
 
+    canvas.width =  imageWidth / 2
+    canvas.height = imageHeight / 2
     let context = canvas.getContext('2d')
 
-    context.fillStyle = '#000'
-    context.fillRect(0, 0, canvas.width, canvas.height)
+    drawImageByScale(1)
 
-    // sourceSize()
-    // shrinkSize()
-    // expandSize()
-    clipImage()
+    rangeController.onmousemove = (event) => {
+      drawImageByScale(event.target.value)
+    }
 
+    function drawImageByScale(scale) {
+      context.clearRect(0, 0, canvas.width, canvas.height)
+      let dw = scale * imageWidth
+      let dh = scale * imageHeight
+      let dx = (canvas.width - dw) / 2
+      let dy = (canvas.height - imageHeight) / 2
+      context.drawImage(image, dx, dy, dw, dh)
+    }
   }
-
 </script>
+
 </html>
