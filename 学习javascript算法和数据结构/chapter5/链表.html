@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>链表</title>
+</head>
+<body>
+
+</body>
+<script>
+  // 链表和数组的不同是数组可以通过下标直接找到元素
+  // 链表只能通过上一个元素找到下一个元素,也就是只能通过第一个元素开始找
+
+  class LinkedList {
+    constructor() {
+      this.init()
+    }
+    init() {
+      this.head = null
+      this.length = 0
+      class Node {
+        constructor(element) {
+          this.element = element
+          this.next = null
+        }
+      }
+      this.__proto__.Node = Node
+    }
+    append(element) {
+      let node = new this.Node(element)
+      let current
+      if (!this.head) {
+        this.head = node
+      } else {
+        current = this.head
+
+        while(current.next) {
+          current = current.next
+        }
+
+        current.next = node
+      }
+      this.length++
+    }
+    insert(position, element) {
+      if (position > -1 && position <= this.length) {
+        let current = this.head
+        let index = 0
+        let previous
+        let node = new this.Node(element)
+        if (position === 0) {
+          this.head = node
+          node.next = current
+        } else {
+          while (index++ < position) {
+            previous = current
+            current = current.next
+          }
+          previous.next = node
+          node.next = current
+        }
+        this.length++
+        return true
+      } else {
+        return false
+      }
+    }
+    removeAt(position) {
+      if (position > -1 && position < this.length) {
+        let current = this.head
+        let index = 0
+        let previous
+
+        if (position === 0) {
+          this.head = current.next
+        } else {
+          while (index++ < position) {
+            previous = current
+            current = current.next
+          }
+          // 讲previous和current的下一项链接在一起,跳过current,从而移除它
+          previous.next = current.next
+
+        }
+
+        this.length--
+        return current.element
+
+      } else {
+        return null
+      }
+    }
+    indexOf(element) {
+      let current = this.head
+      let index = 0
+
+      while (current) {
+        if (element === current.element) {
+          return index
+        }
+        index++
+        current = current.next
+      }
+
+      return -1
+    }
+    remove(element) {
+      let index = this.indexOf(element)
+      return this.removeAt(index)
+    }
+    isEmpty() {
+      return this.length === 0
+    }
+    size() {
+      return this.length
+    }
+    getHead() {
+      return this.head
+    }
+  }
+
+  let link = new LinkedList()
+
+  link.append(0)
+  link.append(1)
+  link.append(2)
+  console.log(link.remove(1))
+  console.log(link)
+</script>
+</html>

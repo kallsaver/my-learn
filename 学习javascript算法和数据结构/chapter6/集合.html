@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  class Set {
+    constructor() {
+     this.init()
+    }
+    init() {
+      this.map = {}
+    }
+    has(value) {
+      return value in this.map
+    }
+    add(value) {
+      if (!this.has(value)) {
+        this.map[value] = value
+        return true
+      }
+      return false
+    }
+    remove(value) {
+      if (!this.has(value)) {
+        delete this.map[value]
+        return true
+      }
+      return false
+    }
+    clear() {
+      this.map = {}
+    }
+    size() {
+      return Object.keys(this.map).length
+    }
+  }
+
+  let set = new Set()
+
+  set.add(0)
+  set.add(1)
+
+  console.log(set.size())
+
+
+</script>
+</html>

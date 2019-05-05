@@ -1,9 +1,25 @@
 const http = require('http')
+const portfinder = require('portfinder')
+
 
 const PORT = 8000
-const serverHandle = require('../app')
+const serverHandler = require('../app')
 
-const server = http.createServer(serverHandle)
-server.listen(PORT)
+const server = http.createServer(serverHandler)
 
-console.log('listen in localhost:8000 port')
+let findPort = new Promise((resolve, reject) => {
+  portfinder.basePort = 8000
+  portfinder.getPort((err, port) => {
+    if (err) {
+      reject(err)
+    } else {
+      resolve(port)
+    }
+  })
+})
+
+findPort.then((port) => {
+  server.listen(port)
+  console.log(`listen in localhost:${port} port`)
+})
+

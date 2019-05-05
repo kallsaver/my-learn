@@ -1,6 +1,8 @@
 const http = require('http')
 const querystring = require('querystring')
 
+const PORT = 8000
+
 const server = http.createServer((req, res) => {
   const method = req.method
   const url = req.url
@@ -29,21 +31,19 @@ const server = http.createServer((req, res) => {
     req.on('data', (chunk) => {
       // Buffer数据格式
       data += chunk.toString()
-      console.log(chunk)
+      // console.log(chunk)
     })
     req.on('end', () => {
       // 去掉空格符,转义符等等
       let postData = JSON.parse(data)
       resData.postData = postData
       // 返回
-      res.end(
-        JSON.stringify(resData)
-      )
+      res.end(JSON.stringify(resData))
     })
   }
 
 })
 
-server.listen(8000)
+server.listen(PORT)
 
-console.log('listen in localhost:8000 port')
+console.log(`listen in localhost:${PORT} port`)
