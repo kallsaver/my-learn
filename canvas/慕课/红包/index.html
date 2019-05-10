@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .wrapper {
+      box-sizing: content-box;
+      width: 800px;
+      position: relative;
+      margin: 0 auto;
+      margin-top: 200px;
+    }
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 0;
+      filter: blur(10px);
+      -webkit-filter: blur(10px);
+    }
+    .canvas {
+      display: block;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 0;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrapper" class="wrapper">
+    <canvas id="canvas" class="canvas"></canvas>
+  </div>
+</body>
+<script>
+  let wrapper = document.getElementById('wrapper')
+
+
+  let image = new Image()
+  image.src = './images/1.jpg'
+
+  image.onload = function () {
+    wrapper.style.width = image.width + 'px'
+    wrapper.style.height = image.height + 'px'
+    wrapper.appendChild(image)
+    let canvas = document.getElementById('canvas')
+    let context = canvas.getContext('2d')
+    canvas.width = image.width
+    canvas.height = image.height
+
+
+
+    function draw(context, image, clippingRegion) {
+      context.clearRect(0, 0, canvas.width, canvas.height)
+    }
+
+    function setClippingRegion(clippingRegion) {
+      context.beginPath()
+      context.arc(clippingRegion.x, clippingRegion.y ,clippingRegion.r, 0, 2 * Math * PI)
+      context.clip()
+    }
+
+  }
+
+</script>
+</html>

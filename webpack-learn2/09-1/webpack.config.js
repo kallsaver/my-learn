@@ -2,12 +2,11 @@ var webpack = require('webpack');
 var path = require('path');
 var htmlWebpackPlugin = require('html-webpack-plugin');
 var consola = require('consola');
-var chalk = require('chalk');
-var net = require('net');
 var treeify = require('treeify');
 
 process.env.NODE_ENV = 'production from node not from DefinePlugin';
 
+let I = `'${process.env.PLATFORM}'`
 
 var obj = {
     name: "'obj'"
@@ -77,7 +76,7 @@ function parseDefinePlugin (obj) {
     }else{
         return obj;
     }
-    
+
     for(var key in obj){
         var copy = obj[key];
         if(checkClass(copy) === 'Array'){
@@ -87,7 +86,7 @@ function parseDefinePlugin (obj) {
             result[key] = parseDefinePlugin(copy);
         }else if(checkClass(copy) === 'Function'){
             var str = copy.toString();
-            // 提取函数体 
+            // 提取函数体
             // node环境用/s不能代表空格换成万能的.*
             var body = str.replace(/^function.*?\(.*?\).*?\{(.*)/g,'$1').slice(0, -1);
             // 如果是没有参数的函数
@@ -119,8 +118,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname,'./dist'),
         publicPath: './',
-        filename: '[name].[chunkhash:5].bundle.js',
-        chunkFilename: '[name].[chunkhash:5].chunk.js',
+        filename: 'js/[name].[chunkhash:5].bundle.js',
+        chunkFilename: 'js/[name].[chunkhash:5].chunk.js',
     },
     resolve: {
         // import后缀省略
@@ -164,7 +163,8 @@ module.exports = {
                 consola.info('__filename',__filename)
                 return JSON.stringify(__filename)
             })(),
-            "realObj": parseDefinePlugin(realObj) 
+            "realObj": parseDefinePlugin(realObj),
+            "I": I,
         }),
 
 
@@ -226,7 +226,7 @@ module.exports = {
         global: true,
         __filename: true,
         // 设置了path: false,在客户端使用require('path')是没作用的
-        path: true,  
+        path: true,
         // 客户端只能拿到的是没有任何赋值的process模块
         // 赋值的只能通过webpack.DefinePlugin去传值
         process: true

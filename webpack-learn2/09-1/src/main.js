@@ -13,11 +13,11 @@ var c = require('./CommonJs/c');
 
 //console.log(process.env)
 
-console.log(A);
+console.log('A', A);
 console.log(A1);
 console.log(A2);
-console.log(B);
-console.log(B1)
+console.log(B, 'B');
+console.log('B1', B1);
 console.log(C);
 console.log(D);
 console.log(E);
@@ -25,9 +25,11 @@ console.log(F.env.name);
 console.log(G);
 console.log(H);
 console.log(F);
+console.log('I', I);
 console.log(__filename);
-console.log(path)
-console.log(process)
+console.log(path);
+console.log(process);
+
 
 function checkClass(o){
     return Object.prototype.toString.call(o).slice(8,-1)
@@ -45,7 +47,7 @@ function parseRealArray(obj){
     }else{
         return obj
     }
-    
+
     for(var key in obj){
         var copy = obj[key]
         if(checkClass(copy) === 'Object' && copy.hasOwnProperty('Length')){

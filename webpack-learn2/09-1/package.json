@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env PLATFORM=tlink webpack"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "babel-preset-stage-2": "^6.22.0",
     "chalk": "^2.4.1",
     "consola": "^1.3.0",
+    "cross-env": "^5.2.0",
     "html-webpack-plugin": "^3.2.0",
     "rimraf": "^2.6.2",
     "rimraf-promise": "^2.0.0",
