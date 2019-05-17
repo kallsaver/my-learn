@@ -1,6 +1,8 @@
 const http = require('http')
 const querystring = require('querystring')
 
+const env = process.env.NODE_ENV
+
 const PORT = 8000
 
 const server = http.createServer((req, res) => {
@@ -41,7 +43,6 @@ const server = http.createServer((req, res) => {
       res.end(JSON.stringify(resData))
     })
   }
-
 })
 
 server.listen(PORT)

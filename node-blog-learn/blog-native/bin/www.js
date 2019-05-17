@@ -1,8 +1,6 @@
 const http = require('http')
 const portfinder = require('portfinder')
 
-
-const PORT = 8000
 const serverHandler = require('../app')
 
 const server = http.createServer(serverHandler)
@@ -20,6 +18,6 @@ let findPort = new Promise((resolve, reject) => {
 
 findPort.then((port) => {
   server.listen(port)
-  console.log(`listen in localhost:${port} port`)
+  console.log(`listen in localhost:${port}`)
 })
 
