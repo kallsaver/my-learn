@@ -47,11 +47,40 @@
     return target
   }
 
+  function hasClass(el, className) {
+    const reg = new RegExp('(^|\\s)' + className + '(\\s|$)')
+    return reg.test(el.className)
+  }
+
+  function addClass(el, className) {
+    /* istanbul ignore if */
+    if (hasClass(el, className)) {
+      return
+    }
+
+    const newClass = el.className.split(' ')
+    newClass.push(className)
+    el.className = newClass.join(' ')
+  }
+
+  function removeClass(el, className) {
+    /* istanbul ignore if */
+    if (!hasClass(el, className)) {
+      return
+    }
+
+    const reg = new RegExp('(^|\\s)' + className + '(\\s|$)', 'g')
+    el.className = el.className.replace(reg, ' ')
+  }
+
   let utils = {
     checkClass: checkClass,
     deepClone: deepClone,
     deepAssign: deepAssign,
-    mulitDeepClone: mulitDeepClone
+    mulitDeepClone: mulitDeepClone,
+    hasClass: hasClass,
+    addClass: addClass,
+    removeClass: removeClass
   }
 
   return utils

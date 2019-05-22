@@ -9,6 +9,15 @@ let formatDate = require('./helpers/format-date')
 const router = new Router()
 
 module.exports = (app) => {
+  app.use(async (ctx, next) => {
+    ctx.set('Access-Control-Allow-Origin', '*')
+    // if (ctx.method == 'OPTIONS') {
+    //   ctx.body = 200
+    // } else {
+    //   await next()
+    // }
+    await next()
+  })
   router.get('/upload', async (ctx, next) => {
     await ctx.render('upload', {
       title: '图片上传'
@@ -22,14 +31,13 @@ module.exports = (app) => {
   router.post('/api/base64', async (ctx, next) => {
     ctx.status = 200
     let postData = ctx.request.body
-    // 去掉图片base64码前面部分data:image/pngbase64
-    let base64 = postData.base64.replace(/^data:image\/.*?;base64,/, '')
-    let ext = postData.base64.replace(/^data:image\/(\w+)(\+.*)??;base64,.*/, '$1')
-    // 把base64码转成buffer对象
-    let dataBuffer = Buffer.from(base64, 'base64')
+    // 提取base的数据码
+    let base64Data = postData.base64.replace(/^data:.*?\/.*?base64/, '')
+    let ext = postData.base64.replace(/^data:.*?\/.*?(\w+)?;base64,.*/, '$1')
+    // 把base64的数据码转成buffer对象
+    let dataBuffer = Buffer.from(base64Data, 'base64')
     let uuidName = uuid(new Date().getTime() + '')
-    let fileName = path.join(__dirname, './uploads/images/' +
-      `${formatDate(new Date(), 'YYYY-MM-DD')}\\${uuidName}.${ext}`)
+    let fileName = path.join(__dirname, `./uploads/${formatDate(new Date(), 'YYYY-MM-DD')}/${uuidName}.${ext}`)
 
     fsTools.checkFileSync(fileName)
 

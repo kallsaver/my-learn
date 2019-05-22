@@ -22,7 +22,21 @@ export default new Router({
           name: 'test',
           component: () => import('@/pages/filepond/children/test/test.vue'),
           meta: {
-            title: '时间队列',
+            title: 'test',
+          },
+        }
+      ]
+    },
+    {
+      path: '/cube-ui',
+      component: () => import('@/pages/cube-ui/index.vue'),
+      children: [
+        {
+          path: '/cube-ui/upload',
+          name: 'upload',
+          component: () => import('@/pages/cube-ui/children/upload/upload.vue'),
+          meta: {
+            title: 'upload',
           },
         }
       ]

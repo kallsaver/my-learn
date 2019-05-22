@@ -3,36 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="/index.css">
+  <style>
+    .button {
+      width: 80px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      position: relative;
+      background: #DDEEFF;
+      color: #1E88C7;
+      border: 1px solid black;
+      border-radius: 4px;
+      padding: 4px 12px;
+      text-decoration: none;
+      overflow: hidden;
+      margin-bottom: 100px;
+    }
+    .button input {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+    }
+    .content {
+      margin-bottom: 100px;
+    }
+    .content .thumbnail {
+      width: 300px;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-  <div class="row">
-    头像:
-    <a href="javascript:void(0)" class="file">
-      <form>
-        <input type="file" name="image" id="photo" multiple>上传文件
-      </form>
-    </a>
+  <div class="button">
+    <div>选择文件</div>
+    <input id="upload-input" type="file" multiple>
   </div>
-  <div class="row">
-    进度:
-    <span id="progress">N/A</span>
-  </div>
-  <div class="row">
-    预览:
-    <br>
-    <img id="image" class="image" alt="N/A">
-  </div>
-  <!-- <div>
-    <span>选择图片：</span>
-    <input name="avatar" id='upfile' type='file' />
-    <input id="btn" type="button" value='提交' />
-  </div> -->
+  <div id="content" class="content"></div>
+  <div class="button">开始上传</div>
 </body>
 <script src="/utils.js"></script>
 <script src="/axios.js"></script>
 <script src="/compress.js"></script>
 <script>
+  // click事件传递机制: 父元素捕获 => 事件源捕获 => 事件源冒泡 => 父元素冒泡
+  // load事件传递机制: 父元素捕获 => 事件源img捕获 => 事件源冒泡
+  // window.load的冒泡回调只会执行一次(因为触发这个冒泡回调只能是window自己的load)
+  // 如果元素本身没有像load这种事件的,冒泡阶段不会执行,但是会执行捕获阶段(子元素的load触发)
+
   let isUsecompress = true
 
   let ajax = axios.create({
@@ -54,8 +72,28 @@
     }
   })
 
-  let input = document.getElementById('photo')
-  let image = document.getElementById('image')
+  let input = document.getElementById('upload-input')
+  let content = document.getElementById('content')
+
+  content.addEventListener('load', function () {
+    console.log('content')
+  }, true)
+
+  content.addEventListener('click', function () {
+    console.log('content true')
+  }, true)
+
+  window.addEventListener('click', function () {
+    console.log('window true')
+  }, true)
+
+  content.addEventListener('click', function () {
+    console.log('content false')
+  }, false)
+
+  window.addEventListener('click', function () {
+    console.log('window false')
+  }, false)
 
   input.addEventListener('change', function (event) {
     console.log(event.currentTarget.files === this.files)
@@ -71,30 +109,50 @@
       arr.push(files[i])
       i++
     }
-    console.log(arr)
-    readAsDataURL(arr, image)
+    readAsDataURL(arr)
   }, false)
 
-  function readAsDataURL(files, image) {
+  function readAsDataURL(files) {
     let reader = new FileReader()
 
     ; (async () => {
       for (let i = 0; i < files.length; i++) {
         let file = files[i]
+
         await (() => {
           return new Promise((resolve, reject) => {
-            if (isUsecompress) {
-              // 生成的图片是base64
-              compress(file, {
-                compress: {
-                  width: 1600,
-                  height: 1600,
-                  quality: 0.5
+            reader.readAsDataURL(file)
+            reader.onload = function () {
+              let base64 = this.result
+              let ext = base64.replace(/^data:.*?\/.*?(\w+)?;base64,.*/, '$1')
+              let thumbnail = new Image()
+              utils.addClass(thumbnail, 'thumbnail')
+              thumbnail.src = base64
+              thumbnail.addEventListener('load', function () {
+                console.log('thumbnail')
+              }, true)
+              content.appendChild(thumbnail)
+
+              let compressPromise = new Promise((resolve) => {
+                const imageExt = ['png', 'jpg', 'jpeg']
+                if (isUsecompress && imageExt.indexOf(ext) !== -1) {
+                  // 生成的图片是base64
+                  compress(file, {
+                    compress: {
+                      width: 1600,
+                      height: 1600,
+                      quality: 0.5
+                    }
+                  }, function (file) {
+                    base64 = file.base64
+                    resolve(base64)
+                  })
+                } else {
+                  resolve(base64)
                 }
-              }, function (file) {
-                let base64 = file.base64
-                image.src = base64
-                image.style.display = 'block'
+              })
+
+              compressPromise.then((base64) => {
                 ajax({
                   method: 'POST',
                   url: '/api/base64',
@@ -108,80 +166,14 @@
                     console.log(res.data.msg)
                   } else {
                     console.log(res.data.msg)
-                    alert(1)
                   }
                 })
               })
-            } else {
-              reader.readAsDataURL(file)
-              reader.onload = function (e) {
-                let base64 = this.result
-                image.src = base64
-                image.style.display = 'block'
-                ajax({
-                  method: 'POST',
-                  url: '/api/base64',
-                  data: {
-                    base64: base64
-                  },
-                }).then((res) => {
-                  console.log(res)
-                  resolve()
-                  if (res.data.code === 1) {
-                    console.log(res.data.msg)
-                  } else {
-                    console.log(res.data.msg)
-                    alert(1)
-                  }
-                })
-              }
             }
           })
         })()
       }
     })()
   }
-
-  function Ajax(method, url, data, progress = null) {
-    return new Promise(function (resolve, reject) {
-      let xhr = new XMLHttpRequest()
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          try {
-            if (xhr.status >= 200 || xhr.status < 300 || xhr.status == 304) {
-              resolve(xhr.responseText)
-            } else {
-              reject(new Error(xhr.statusText))
-            }
-          } catch (error) {
-            reject(new Error('Time out!'))
-          }
-        }
-      }
-
-      if (progress !== null) {
-        xhr.upload.onprogress = function (event) {
-          console.log(event.loaded)
-          progress.innerText = `uploaded ${event.loaded} of ${event.total} bytes. percent ${Math.floor(event.loaded / event.total * 100)}%`
-        }
-      }
-      xhr.timeout = 70000
-      xhr.ontimeout = function () {
-        alert('time out!')
-      }
-      method = method.toUpperCase()
-      if (method == 'GET') {
-        xhr.open("GET", url)
-        xhr.send(null)
-      } else if (method == 'POST') {
-        xhr.open("POST", url, true)
-        // xhr.setRequestHeader('Content-Type', 'multipart/form-data')
-        xhr.send(data)
-      } else {
-        reject(new Error('method error'))
-      }
-    })
-  }
-
 </script>
 </html>

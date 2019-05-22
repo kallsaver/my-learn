@@ -5,6 +5,11 @@
         <router-link tag="div" to="/filepond">filepond</router-link>
       </cube-button>
     </div>
+    <div class="button">
+      <cube-button>
+        <router-link tag="div" to="/cube-ui">cube-ui</router-link>
+      </cube-button>
+    </div>
   </div>
 </template>
 
