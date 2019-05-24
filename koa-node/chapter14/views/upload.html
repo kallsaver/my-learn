@@ -46,10 +46,6 @@
 <script src="/axios.js"></script>
 <script src="/compress.js"></script>
 <script>
-  // click事件传递机制: 父元素捕获 => 事件源捕获 => 事件源冒泡 => 父元素冒泡
-  // load事件传递机制: 父元素捕获 => 事件源img捕获 => 事件源冒泡
-  // window.load的冒泡回调只会执行一次(因为触发这个冒泡回调只能是window自己的load)
-  // 如果元素本身没有像load这种事件的,冒泡阶段不会执行,但是会执行捕获阶段(子元素的load触发)
 
   let isUsecompress = true
 
@@ -75,26 +71,6 @@
   let input = document.getElementById('upload-input')
   let content = document.getElementById('content')
 
-  content.addEventListener('load', function () {
-    console.log('content')
-  }, true)
-
-  content.addEventListener('click', function () {
-    console.log('content true')
-  }, true)
-
-  window.addEventListener('click', function () {
-    console.log('window true')
-  }, true)
-
-  content.addEventListener('click', function () {
-    console.log('content false')
-  }, false)
-
-  window.addEventListener('click', function () {
-    console.log('window false')
-  }, false)
-
   input.addEventListener('change', function (event) {
     console.log(event.currentTarget.files === this.files)
     console.log(this === event.currentTarget)
@@ -112,6 +88,21 @@
     readAsDataURL(arr)
   }, false)
 
+  // .md .vue这种文件无法识别,最好的做法是通过接口传ext或者文件名
+  function parseExt(ext) {
+    const map = {
+      'svg+xml': 'svg',
+      'x-m4a': 'm4a',
+      'javascript': 'js'
+    }
+
+    if (map[ext]) {
+      return map[ext]
+    } else {
+      return ext
+    }
+  }
+
   function readAsDataURL(files) {
     let reader = new FileReader()
 
@@ -124,13 +115,13 @@
             reader.readAsDataURL(file)
             reader.onload = function () {
               let base64 = this.result
-              let ext = base64.replace(/^data:.*?\/.*?(\w+)?;base64,.*/, '$1')
+              let name = file.name
+              let ext = name.replace(/.*\.(.*)$/, '$1')
+              // let ext = base64.replace(/^data:.*?\/(.*)?;base64,.*/, '$1')
+              // console.log(ext)
               let thumbnail = new Image()
               utils.addClass(thumbnail, 'thumbnail')
               thumbnail.src = base64
-              thumbnail.addEventListener('load', function () {
-                console.log('thumbnail')
-              }, true)
               content.appendChild(thumbnail)
 
               let compressPromise = new Promise((resolve) => {
@@ -145,19 +136,26 @@
                     }
                   }, function (file) {
                     base64 = file.base64
-                    resolve(base64)
+                    resolve({
+                      base64,
+                      name
+                    })
                   })
                 } else {
-                  resolve(base64)
+                  resolve({
+                    base64,
+                    name
+                  })
                 }
               })
 
-              compressPromise.then((base64) => {
+              compressPromise.then(({base64, name}) => {
                 ajax({
                   method: 'POST',
                   url: '/api/base64',
                   data: {
-                    base64: base64
+                    base64: base64,
+                    name: name
                   },
                 }).then((res) => {
                   console.log(res)

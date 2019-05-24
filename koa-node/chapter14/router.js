@@ -31,13 +31,30 @@ module.exports = (app) => {
   router.post('/api/base64', async (ctx, next) => {
     ctx.status = 200
     let postData = ctx.request.body
+
+    if (!postData.base64) {
+      ctx.body = {
+        code: 0,
+        msg: '缺少base64参数'
+      }
+    }
+
+    if (!postData.name) {
+      ctx.body = {
+        code: 0,
+        msg: '缺少name参数'
+      }
+    }
+
     // 提取base的数据码
     let base64Data = postData.base64.replace(/^data:.*?\/.*?base64/, '')
-    let ext = postData.base64.replace(/^data:.*?\/.*?(\w+)?;base64,.*/, '$1')
+
+    let name = postData.name
+
     // 把base64的数据码转成buffer对象
     let dataBuffer = Buffer.from(base64Data, 'base64')
     let uuidName = uuid(new Date().getTime() + '')
-    let fileName = path.join(__dirname, `./uploads/${formatDate(new Date(), 'YYYY-MM-DD')}/${uuidName}.${ext}`)
+    let fileName = path.join(__dirname, `./uploads/${name}`)
 
     fsTools.checkFileSync(fileName)
 

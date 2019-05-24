@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+
+
+</script>
+<script>
+  function observeProperty(obj, key, fn) {
+    var val = obj[key]
+    Object.defineProperty(obj, key, {
+      enumerable: true,
+      configurable: true,
+      get() {
+        return val
+      },
+      set(newVal) {
+        if (val === newVal) {
+          return
+        }
+        val = newVal
+        if (typeof fn === 'function') {
+          fn()
+        }
+      }
+    })
+  }
+
+  class WaterWave {
+    constructor(options) {
+      this.options = options
+      this.init()
+    }
+    init() {
+      observeProperty(this, 'options', function () {
+        console.log('set')
+      })
+    }
+  }
+
+  let w = new WaterWave({
+    width: 100
+  })
+
+  w.options = {
+    height: 100
+  }
+
+  console.log(w.options)
+
+
+</script>
+</html>
