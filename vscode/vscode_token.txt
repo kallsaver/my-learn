@@ -23,7 +23,7 @@ ctrl + p 打开vscode命令窗口
 输入> Sync => (Advanced Options)找到高级选项 => 编辑本地扩展设置 => 打开syncLocalSettings.json
 syncLocalSettings.json一般在:
 Win下：C:\Users\Administrator\AppData\Roaming\Code\User
-Mac下：~/Library/Application Support/Code/User/syncLocalSettings.json
+Mac下：~/Library/Application\ Support/Code/User/syncLocalSettings.json
 Linux下：~/.config/Code/User/syncLocalSettings.json
 
 4.查看gist
