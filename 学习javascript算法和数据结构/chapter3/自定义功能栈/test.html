@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script src="./stack.js"></script>
+<script>
+
+  let keepAlive = new Stack(6)
+  const arr = keepAlive.getList()
+
+  keepAlive.add(0, 1, 2, 3)
+  // keepAlive.clearExclude(1, 2)
+  keepAlive.backToByIndex(5)
+  console.log(keepAlive.getList())
+
+
+</script>
+</html>

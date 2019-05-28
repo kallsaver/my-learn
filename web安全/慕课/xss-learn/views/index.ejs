@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <textarea id="textarea" row="8" cols="80"></textarea>
+
+    <button type="button" id="post">评论</button>
+    <button type="button" id="get">获取评论</button>
+  </body>
+  <script>
+    var get = document.getElementById('get')
+    var post = document.getElementById('post')
+    var textarea = document.getElementById('textarea')
+
+    get.addEventListener('click', function () {
+      var xhr = new XMLHttpRequest();
+      var url = '/getComment'
+      xhr.open('GET', url, true)
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            console.log(xhr.responseText)
+            console.log('提交成功')
+          } else {
+            console.log('提交失败')
+          }
+        }
+      }
+      xhr.send(null)
+    }, false)
+
+    post.addEventListener('click', function () {
+      var xhr = new XMLHttpRequest();
+      var url = '/postComment'
+      xhr.open('POST', url, true)
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            console.log(xhr.responseText)
+            console.log('提交成功')
+          } else {
+            console.log('提交失败')
+          }
+        }
+      }
+      let data = {
+        comments: textarea.value
+      }
+
+      xhr.send(JSON.stringify(data))
+    }, false)
+
+
+  </script>
+</html>
