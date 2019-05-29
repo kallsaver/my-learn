@@ -21,19 +21,24 @@ router.get('/404', async (ctx, next) => {
 // 一个路由对应多个中间件
 router.get(
   '/users/:id',
-  function (ctx, next) {
+  async (ctx, next) => {
     ctx.user = { id: 17, name: "Alex" }
-    next()
+    console.log(1)
+    await next()
+    console.log(4)
   },
-  function (ctx) {
+  async (ctx, next) => {
+    console.log(2)
     console.log(ctx.user)
     ctx.response.body = `<div>${ctx.user.name}</div>`
+    await next()
+    console.log(3)
   }
 );
 
 // 调用路由中间件
 app.use(router.routes())
 
-app.listen(3000, () => {
-  console.log('server is running at http://localhost:3000')
+app.listen(3001, () => {
+  console.log('server is running at http://localhost:3001')
 })

@@ -10,6 +10,7 @@ const router = new Router()
 
 module.exports = (app) => {
   app.use(async (ctx, next) => {
+    console.log('Allow-Origin start')
     ctx.set('Access-Control-Allow-Origin', '*')
     // if (ctx.method == 'OPTIONS') {
     //   ctx.body = 200
@@ -17,11 +18,14 @@ module.exports = (app) => {
     //   await next()
     // }
     await next()
+    console.log('Allow-Origin end')
   })
   router.get('/upload', async (ctx, next) => {
+    console.log('router upload start')
     await ctx.render('upload', {
       title: '图片上传'
     })
+    console.log('router upload end')
   })
 
   router.get('/api/getImage', async (ctx, next) => {

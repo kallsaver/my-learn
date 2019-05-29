@@ -14,6 +14,8 @@ app.use(function () {
 // 洋葱模型
 // 请求: 中间件1 => 中间件2 => 中间件3 => 中间件4
 // 响应: 中间件4 => 中间件3 => 中间件2 => 中间件1
+// 原理: 利用了async/awit, next就是下一个中间件
+
 app.use(async (ctx, next) => {
   let stime = new Date().getTime()
   await next()

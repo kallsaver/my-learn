@@ -5,11 +5,11 @@ const middleware = require('./middleware/index')
 const router = require('./router')
 
 const HOST = 'http://localhost:'
-const PORT = 3000
+const PORT = 3002
 
 middleware(app)
 router(app)
-app.listen(3000, () => {
+app.listen(PORT, () => {
   let url = HOST + PORT + '/upload'
   console.log(`server is running at ${url}`)
 })
