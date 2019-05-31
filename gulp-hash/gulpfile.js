@@ -11,6 +11,8 @@ var app = {
 	distPath : 'app/dist/',
 }
 
+console.log(process.env.PLATFORM)
+
 gulp.task('less',function(){
 	return gulp.src( app.srcPath + 'less/*.less')
 	.pipe(plumber({
