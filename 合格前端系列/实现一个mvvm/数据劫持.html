@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  function defineReactive(data) {
+    if (typeof data !== 'object') {
+      return
+    }
+    Object.keys(data).forEach((key) => {
+      let val = data[key]
+      observeProperty(data, key, val)
+    })
+  }
+
+  function observeProperty(obj, key, val) {
+    defineReactive(val)
+    Object.defineProperty(obj, key, {
+      // 可枚举
+      enumerable: true,
+      // 可重新定义
+      configurable: true,
+      get: function () {
+        console.log(val)
+        return val
+      },
+      set: function (newVal) {
+        if (newVal === val) {
+          return
+        }
+        console.log(newVal)
+        val = newVal
+      }
+    })
+  }
+
+  let obj = {
+    map: {
+      'a': '0',
+      'b': '1'
+    },
+    name: 'a'
+  }
+
+  defineReactive(obj)
+
+  console.log(obj.map.a)
+  obj.map.a = '100'
+  console.log(obj.map)
+
+
+</script>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  function defineReactive(data, key, val) {
+    Object.defineProperty(data, key, {
+      // 为true时才能被枚举,false是不可以被for in 枚举的
+      enumerable: true,
+      configurable: true,
+      get: function () {
+        console.log(val)
+        return val
+      },
+      set: function (newVal) {
+        if (val === newVal) {
+          return
+        }
+        console.log(newVal)
+        val = newVal
+      }
+    })
+  }
+
+  let obj = {
+    name: 'a'
+  }
+
+  defineReactive(obj, 'name', obj.name)
+  console.log(obj.name)
+  obj.name = 'b'
+</script>
+</html>
