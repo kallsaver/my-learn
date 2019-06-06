@@ -41,5 +41,19 @@ export default new Router({
         }
       ]
     },
+    {
+      path: '/animation',
+      component: () => import('@/pages/animation/index.vue'),
+      children: [
+        {
+          path: '/animation/list',
+          name: 'list',
+          component: () => import('@/pages/animation/children/list/list.vue'),
+          meta: {
+            title: 'list',
+          },
+        }
+      ]
+    },
   ]
 })

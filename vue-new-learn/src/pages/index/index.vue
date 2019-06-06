@@ -10,6 +10,11 @@
         <router-link tag="div" to="/cube-ui">cube-ui</router-link>
       </cube-button>
     </div>
+    <div class="button">
+      <cube-button>
+        <router-link tag="div" to="/animation">animation</router-link>
+      </cube-button>
+    </div>
   </div>
 </template>
 

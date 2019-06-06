@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .small {
+      position: relative;
+      z-index: 100;
+      width: 50px;
+      height: 50px;
+      background: gold;
+    }
+    .big {
+      position: fixed;
+      box-sizing: border-box;
+      width: 80%;
+      padding-top: 80%;
+      background: peru;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%)
+    }
+  </style>
+</head>
+<body>
+  <div id="small" class="small"></div>
+  <div id="big" class="big"></div>
+</body>
+<script src="./js/css-animations.js"></script>
+<script>
+  const small = document.getElementById('small')
+  const big = document.getElementById('big')
+
+  const bigWidth = big.clientWidth
+  const bigHeight = big.clientHeight
+  const bigX = big.getBoundingClientRect().left + bigWidth / 2
+  const bigY = big.getBoundingClientRect().top + bigHeight / 2
+
+  const smallWidth = small.clientWidth
+  const smallHeight = small.clientHeight
+  const smallX = small.getBoundingClientRect().left + smallWidth / 2
+  const smallY = small.getBoundingClientRect().top + smallHeight / 2
+  const x = bigX - smallX
+  const y = bigY - smallY
+  const scale = bigWidth / smallWidth
+
+  let isScale = false
+
+  small.addEventListener('click', () => {
+    if (!isScale) {
+      let animation = CSSAnimations.create('scale', {
+        '0%': {
+          transform: `translate(${0}px, ${0}px) scale(1)`
+        },
+        '100%': {
+          transform: `translate(${x}px, ${y}px) scale(${scale})`
+        }
+      })
+      small.style.animationName = 'scale'
+      small.style.animationDuration = '400ms'
+      small.style.animationFillMode = 'forwards'
+      small.style.animationTimingFunction = 'cubic-bezier(.2,0,0,1)'
+    } else {
+      let animation = CSSAnimations.create('reset', {
+        '0%': {
+          transform: `translate(${x}px, ${y}px) scale(${scale})`
+        },
+        '100%': {
+          transform: `translate(${0}px, ${0}px) scale(1)`
+        }
+      })
+      small.style.animationName = 'reset'
+      small.style.animationDuration = '400ms'
+      small.style.animationFillMode = 'forwards'
+      small.style.animationTimingFunction = 'cubic-bezier(.2,0,0,1)'
+    }
+    isScale = !isScale
+
+  }, false)
+
+</script>
+</html>

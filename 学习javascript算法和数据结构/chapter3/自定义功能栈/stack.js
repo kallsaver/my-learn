@@ -99,8 +99,8 @@ class Stack {
   getHeader() {
     return this.list[0]
   }
-  getSecond() {
-    return this.list[1]
+  getByIndex(index) {
+    return this.list[index]
   }
   getFooter() {
     return this.list[this.list.length - 1]
@@ -110,5 +110,11 @@ class Stack {
   }
   getList() {
     return this.list
+  }
+  has(element) {
+    const index = this.list.findIndex((item) => {
+      return item === element
+    })
+    return index !== -1
   }
 }

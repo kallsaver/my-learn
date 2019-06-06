@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .sudoku {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-content: space-around;
+      height: 400px;
+    }
+
+    .item {
+      width: 100px;
+      height: 100px;
+      border-radius: 6px;
+      background: peru;
+    }
+  </style>
+</head>
+<body>
+  <div class="sudoku">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+  </div>
+</body>
+<script src="./js/css-animations.js"></script>
+<script>
+  function getRandomInt(min, max) {
+    return (Math.random() * (max - min + 1) + min) | 0
+  }
+
+  function getRandomColor() {
+    return '#' + (getRandomInt(0, 0xffffff)).toString(16)
+  }
+
+  let sudoku = document.getElementsByClassName('sudoku')[0]
+
+  let itemList = sudoku.getElementsByClassName('item')
+  for (let i = 0; i < itemList.length; i++) {
+    let item = itemList[i]
+    item.style.background = getRandomColor()
+  }
+
+  function ramjet() {
+
+  }
+
+</script>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .list {
+      padding-top: 20px;
+    }
+    .item {
+      margin: 0 10px 10px 10px;
+      height: 150px;
+      background: peru;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="list">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+  </div>
+</body>
+<script src="./js/css-animations.js"></script>
+<script>
+  function getRandomInt(min, max) {
+    return (Math.random() * (max - min + 1) + min) | 0
+  }
+
+  function getRandomColor() {
+    return '#' + (getRandomInt(0, 0xffffff)).toString(16)
+  }
+
+  function defineReactive(data, key, fn) {
+    let val = data[key]
+    Object.defineProperty(data, key, {
+      enumerable: true,
+      configurable: true,
+      get: function () {
+        console.log('get', val)
+        return val
+      },
+      set: function (newVal) {
+        if (val === newVal) {
+          return
+        }
+        val = newVal
+        fn(val)
+      }
+    })
+  }
+
+  let list = document.getElementsByClassName('list')[0]
+
+  let itemList = list.getElementsByClassName('item')
+  for (let i = 0; i < itemList.length; i++) {
+    let item = itemList[i]
+    item.style.background = getRandomColor()
+  }
+
+  let data = {
+    isShow: false
+  }
+
+  let animation = CSSAnimations.create(`load`, {
+    '0%': {
+      transform: `translateY(100px)`
+    },
+    '100%': {
+      transform: `translateY(0)`
+    }
+  })
+  defineReactive(data, 'isShow', function (val) {
+    if (val) {
+      list.style.display = ''
+      for (let i = 0; i < itemList.length; i++) {
+        let item = itemList[i]
+        item.style.animation = `load ${i * 200 + 400}ms`
+      }
+    } else {
+      list.style.display = 'none'
+    }
+  })
+
+  data.isShow = true
+
+  list.addEventListener('click', function (e) {
+    if (e.target.className === 'item') {
+      data.isShow = false
+      window.setTimeout(() => {
+        data.isShow = true
+      }, 1000)
+    }
+  }, true)
+
+  list.addEventListener('animationend', function (e) {
+    if (e.target.className === 'item') {
+      e.target.style.animation = ''
+    }
+  }, true)
+
+
+</script>
+</html>
