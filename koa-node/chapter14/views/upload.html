@@ -74,8 +74,7 @@
   input.addEventListener('change', function (event) {
     console.log(event.currentTarget.files === this.files)
     console.log(this === event.currentTarget)
-    let persistedCurrentTarget = utils.mulitDeepClone({}, event.currentTarget)
-    let files = persistedCurrentTarget.files
+    let files = event.currentTarget.files
     if (files.length == 0) {
       return
     }
@@ -87,21 +86,6 @@
     }
     readAsDataURL(arr)
   }, false)
-
-  // .md .vue这种文件无法识别,最好的做法是通过接口传ext或者文件名
-  function parseExt(ext) {
-    const map = {
-      'svg+xml': 'svg',
-      'x-m4a': 'm4a',
-      'javascript': 'js'
-    }
-
-    if (map[ext]) {
-      return map[ext]
-    } else {
-      return ext
-    }
-  }
 
   function readAsDataURL(files) {
     // 可以只使用一个reader

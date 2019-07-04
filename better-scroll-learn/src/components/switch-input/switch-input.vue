@@ -69,7 +69,7 @@ export default {
     left: 0;
     height: 34px;
     width: 54px;
-    background-color: $color-white;
+    background-color: #04BE02;
     // border-radius的生效值是元素高度和宽度的最大值
     border-radius: 1000px;
     opacity: 0;
