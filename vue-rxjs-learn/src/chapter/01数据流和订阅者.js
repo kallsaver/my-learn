@@ -50,7 +50,7 @@ const theObserver = {
   error(err) {
     if (err.name === 'b') {
       console.log('err === b', err === b);
-    }else {
+    } else {
       console.log(err)
     }
   },
