@@ -1,23 +1,32 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  mounted() {
+    this.addEventListenerPopstate()
+  },
+  watch: {
+    $route: {
+      handler(newVal, oldVal) {
+        console.log(newVal)
+        console.log(window.history.length)
+      },
+      immediate: true
+    }
+  },
+  methods: {
+    addEventListenerPopstate() {
+      window.addEventListener('popstate', (e) => {
+        console.log(e.state)
+        console.log(this.$route.name)
+      })
+    }
+  },
+
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

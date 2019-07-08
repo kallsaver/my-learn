@@ -10,7 +10,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
-const HOST = process.env.HOST
+// const HOST = process.env.HOST
+// 增加这里,获得本地IP地址,让webpack服务器支持本地远程访问
+const HOST = process.env.HOST || utils.getIPAddress()
 const PORT = process.env.PORT && Number(process.env.PORT)
 
 const devWebpackConfig = merge(baseWebpackConfig, {
