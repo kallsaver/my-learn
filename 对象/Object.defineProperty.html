@@ -24,13 +24,12 @@
 				set: function(newVal) {
 					// newVal接受的是外界给obj[key]赋值的内存
 					if (val === newVal) {
-                        return;
-                    }
-
+              return;
+          }
 					console.log('更新啦 ', val, '=>', newVal);
 					val = newVal;
 					// 回调
-					if(typeof fn == 'function') {
+					if (typeof fn == 'function') {
 						//console.log('数据更新啦');
 						fn(obj);
 					}

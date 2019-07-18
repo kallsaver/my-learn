@@ -22,9 +22,9 @@
 					// newVal接受的是外界给obj[key]赋值的内存
 					console.log('setter');
 					if (val === newVal) {
-                        return;
-                    }
-					
+              return;
+          }
+
 					console.log('更新啦 ', val, '=>', newVal);
 					val = newVal;
 					// 回调
@@ -35,18 +35,18 @@
 				}
 			});
 		};
-		
+
 		var obj = {
 			name: 'obj'
 		}
-		
+
 		observeProperty(obj, 'name');
-		
+
 		var a = obj.name;
 		console.log(a);
-		
-		
-		
-		
+
+
+
+
 	</script>
 </html>

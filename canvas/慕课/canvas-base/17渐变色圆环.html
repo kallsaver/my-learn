@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas里嵌套canvas</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .canvas {
+      display: block;
+      width: 1500px;
+      margin: 100px auto;
+      border: 1px solid #cccccc;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" class="canvas"></canvas>
+</body>
+<script>
+  const WIDTH = 800
+  const HEIGHT = 800
+
+  let canvas = document.getElementById('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  let context = canvas.getContext('2d')
+
+  context.lineWidth = 5
+
+  function stroke(context, radius, r) {
+    let stop1 = 0
+    let color1 = 'red'
+
+    let stop2 = 0.25
+    let color2 = 'peru'
+
+    let stop3 = 0.5
+    let color3 = 'yellow'
+
+    let stop4 = 0.75
+    let color4 = 'gold'
+
+    let stop5 = 1
+    let color5 = '#ffffff'
+
+    let linearGradient = context.createLinearGradient(
+      0, 0,
+      0, radius * r
+    )
+    linearGradient.addColorStop(stop1, color1)
+    linearGradient.addColorStop(stop2, color2)
+    linearGradient.addColorStop(stop3, color3)
+    linearGradient.addColorStop(stop4, color4)
+    linearGradient.addColorStop(stop5, color5)
+    context.strokeStyle = linearGradient
+    context.stroke()
+  }
+
+  for (let i = 0; i < 10; i++) {
+    let r = 600
+    context.beginPath()
+    // 圆心x轴坐标,圆心y轴坐标,半径,开始弧度,结束弧度,顺时针(false)
+    context.arc(50 + i * 100, r, 40, 0, (i + 1) / 10 * 2 * Math.PI, false)
+    stroke(context, (i + 1) / 10 * 2 * Math.PI, r)
+  }
+
+</script>
+
+</html>

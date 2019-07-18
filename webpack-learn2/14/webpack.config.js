@@ -36,7 +36,7 @@ module.exports = {
                                 //minimize: true,
                                 modules: true,
                                 sourceMap: true,
-                                //localIdentName: '[path][name]-[local]-[hash:base64:5]',
+                                // localIdentName: '[path][name]-[local]-[hash:base64:5]',
                                 localIdentName: '[local]'
                             }
                         },
@@ -55,7 +55,7 @@ module.exports = {
                         {
                             loader: 'less-loader'
                         }
-                    ] 
+                    ]
                 })
             },
         ]

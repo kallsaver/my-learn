@@ -7,11 +7,11 @@
 	<body>
 	</body>
 	<script>
-		
+
 		var defaultConfig = {
 			name: 'obj'
 		}
-		
+
 		// 以下是默认配置
 		Object.defineProperty(defaultConfig, 'name' ,{
 			// 设置为false,属性也不能被delete删除,属性描述符啥的不懂
@@ -24,14 +24,14 @@
 			// 为true时value才能赋值语句修改
 			writable: false
 		});
-		
-		
-		
+
+
+
 		function getStatic(name) {
 			var static = {
 				count: 1,
 			}
-			
+
 			Object.defineProperty(static, 'name', {
 				configuable: false,
 				enumerable: false,
@@ -40,19 +40,19 @@
 			});
 			return static
 		}
-		
+
 		var static = getStatic('static');
-		
+
 		static.name = 'a';
-		
+
 		// static
 		console.log(static.name);
-		
-		
+
+
 		var dynamic = {
-			
+
 		}
-		
+
 		function observeProperty(obj, key) {
 			var value = obj[key];
 			Object.defineProperty(obj, key, {
@@ -66,30 +66,30 @@
 					if (value === newValue || newValue === 'config') {
 						return;
 					}
-					
+
 					value =  newValue;
 				}
 			});
 		}
-		
+
 		observeProperty(dynamic, name);
-		
+
 		dynamic.name = 'a';
-		
+
 		// a
 		console.log(dynamic.name);
-		
+
 		dynamic.name = 'config';
-		
+
 		// a
 		console.log(dynamic.name);
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
 	</script>
 </html>
