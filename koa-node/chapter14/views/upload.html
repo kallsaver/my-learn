@@ -72,8 +72,8 @@
   let content = document.getElementById('content')
 
   input.addEventListener('change', function (event) {
-    console.log(event.currentTarget.files === this.files)
-    console.log(this === event.currentTarget)
+    // console.log(event.currentTarget.files === this.files)
+    // console.log(this === event.currentTarget)
     let files = event.currentTarget.files
     if (files.length == 0) {
       return
@@ -143,12 +143,31 @@
                     name: name
                   },
                 }).then((res) => {
-                  console.log(res)
+                  let data = res.data
                   resolve()
-                  if (res.data.code === 1) {
-                    console.log(res.data.msg)
+                  if (data.code === 1) {
+                    console.log(data.msg)
+                    console.log(data.data)
+                    let image = new Image()
+                    image.src = data.data
+                    image.width = 50
+                    image.height = 50
+                    document.body.appendChild(image)
+                    image.onclick = function () {
+                      let link = document.createElement('a')
+                      link.style.display = 'none'
+                      link.href = image.src
+                      document.body.appendChild(link)
+                      if ('download' in link) {
+                        link.download = data.data
+                      } else {
+                        link.target = "_blank"
+                      }
+                      link.click()
+                      document.body.removeChild(link)
+                    }
                   } else {
-                    console.log(res.data.msg)
+                    console.log(data.msg)
                   }
                 })
               })

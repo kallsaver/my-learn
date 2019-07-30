@@ -58,8 +58,8 @@ module.exports = (app) => {
     // 把base64的数据码转成buffer对象
     let dataBuffer = Buffer.from(base64Data, 'base64')
     let uuidName = uuid(new Date().getTime() + '')
-    let fileName = path.join(__dirname, `./uploads/${name}`)
-
+    // let fileName = path.join(__dirname, `./uploads/${name}`)
+    let fileName = path.join(__dirname, `./public/uploads/${name}`)
     fsTools.checkFileSync(fileName)
 
     // fs.writeFileSyn创建文件时如果没有上层文件夹存在,则会创建失败
@@ -68,7 +68,8 @@ module.exports = (app) => {
     }).then((res) => {
       ctx.body = {
         code: 1,
-        msg: '写入图片成功'
+        msg: '写入图片成功',
+        data: `/uploads/${name}`,
       }
     }).catch((res) => {
       ctx.body = {

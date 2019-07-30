@@ -28,7 +28,7 @@ gulp.task('less',function(){
         console.log('Error: ',err.message);
     })
     .pipe(autoprefixer())
-    .pipe(concat('all.css')) 
+    .pipe(concat('all.css'))
     .pipe(minifycss({
         // 默认true,是否开启高级优化(合并选择器)
         //advanced: false,
@@ -39,7 +39,7 @@ gulp.task('less',function(){
     .pipe(rename(function(path){
         path.basename += '.min';
     }))
-    .pipe(gulp.dest('dist/css'))   
+    .pipe(gulp.dest('dist/css'))
 });
 
 gulp.task('js',function(){
@@ -49,12 +49,12 @@ gulp.task('js',function(){
     .pipe(rename(function(path){
         path.basename += '.min';
     }))
-    .pipe(gulp.dest('dist/js')) 
+    .pipe(gulp.dest('dist/js'))
 });
 
 // yahoo出品的图片压缩工具,对png的优化不高,对jpg的可以压缩60%
 gulp.task('smushit', function () {
-    return gulp.src('src/images/*.{png,jpg}')
+    return gulp.src('src/images/*.{jpg,jpeg}')
     .pipe(plumber({
         errorHandler : function(){
             this.emit('end');
@@ -71,14 +71,14 @@ gulp.task('smushit', function () {
 
 // 另一款图片压缩工具,对png可以压缩一点点,对jpg压缩率不高
 gulp.task('imagemin', function () {
-    gulp.src('src/images/*.{png,jpg,gif,ico}')
+    gulp.src('src/images/*.png')
         .pipe(imagemin({
             optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
             progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
             interlaced: true, //类型：Boolean 默认：false 隔行扫描gif进行渲染
             multipass: true //类型：Boolean 默认：false 多次优化svg直到完全优化
         }))
-        .pipe(gulp.dest('dist/img'));
+        .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('build',function(){
@@ -106,7 +106,7 @@ gulp.task('serve',['less','js'],function() {
     gulp.watch('dist/js/**/*').on('change', browserSync.reload);
     gulp.watch('dist/css/**/*').on('change', browserSync.reload);
     gulp.watch("views/**").on('change', browserSync.reload);
-    
+
 });
 
 
