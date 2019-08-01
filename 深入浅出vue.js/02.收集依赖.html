@@ -14,10 +14,56 @@
     constructor() {
       this.list = []
     }
-    add(item) {
-      this.list.push(item)
+    add(element) {
+      this.list.push(element)
+    }
+    remove(element) {
+      let index = this.list.findIndex((item) => {
+        return element === item
+      })
+      if (index !== -1) {
+        this.list.splice(index, 1)
+      }
+    }
+    depend() {
+
+    }
+    notify() {
+      let list = this.list.slice()
     }
   }
+
+  function defineReactive(data, key, val) {
+
+    //
+    let dep = new Dep()
+
+    Object.defineProperty(data, key, {
+      // 为true时才能被枚举,false是不可以被for in 枚举的
+      enumerable: true,
+      configurable: true,
+      get: function () {
+        // 在getter中收集依赖
+        return val
+      },
+      set: function (newVal) {
+        if (val === newVal) {
+          return
+        }
+        console.log(newVal)
+        val = newVal
+      }
+    })
+  }
+
+
+  class Watcher {
+    constructor() {
+
+    }
+    get
+  }
+
 
 </script>
 </html>

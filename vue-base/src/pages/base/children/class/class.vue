@@ -14,58 +14,55 @@ export default {
     }
   },
   mounted() {
-    // 不同点:
-    // class内部的属性是不可枚举的,通过prototype添加的属性是可以枚举的
-    this.demo1()
+    // this.demo1()
     // this.demo2()
     // this.demo3()
     // this.demo4()
+    this.demo5()
   },
   methods: {
     // class和prototype比较
     demo1() {
       class Man {
-        constructor(sex) {
+        constructor() {
           // console.log(sex)
         }
         // es7的静态属性
         static target = null
-        static grow() {
-          console.log('grow')
+        static staticGrow() {
+          console.log('Man staticGrow')
         }
         talk() {
-          console.log('talk')
+          console.log('Man talk')
         }
       }
       // es6的静态属性
-      Man.can = 'man'
+      Man.sex = 'man'
 
-      let a = new Man('男')
+      let a = new Man()
       // a.talk()
       // a.constructor === Man.prototype.constructor
       // class类的内部所有定义的方法，都是不可枚举的
       for (let i in a) {
-        console.log(i)
+        console.log('Man key', i)
       }
       // 静态方法
-      Man.grow()
+      Man.staticGrow()
       // 静态属性
       console.log(Man.target)
-      console.log(Man.can)
+      console.log(Man.sex)
     },
     // class和prototype比较
     demo2() {
-      function Man(sex) {
-        // console.log(sex)
-      }
-      Man.grow = function () {
-        console.log('grow')
+      function Woman() {}
+      Woman.StaticGrow = function () {
+        console.log('Woman StaticGrow')
       }
       // 所有实例
-      Man.prototype.talk = function () {
-        console.log('talk')
+      Woman.prototype.talk = function () {
+        console.log('Woman talk')
       }
-      let a = new Man('男')
+      let a = new Woman()
       // a.talk()
       /* eslint no-proto: "off" */
       // console.log(Man.prototype === a.__proto__)
@@ -76,9 +73,9 @@ export default {
       // console.log(a.constructor === Man.prototype.constructor === Man)
       // prototype加的方法是可以枚举的
       for (let i in a) {
-        console.log(i)
+        console.log('Woman key', i)
       }
-      Man.grow()
+      Woman.StaticGrow()
     },
     demo3() {
       // 继承
@@ -166,6 +163,27 @@ export default {
       a.age = 100
       console.log(a.age)
     },
+    demo5() {
+      // 内置了getter和setter
+      class MyClass {
+        constructor(number) {
+          this._number = number
+        }
+        get number() {
+          console.log('getter')
+          return this._number + 'px'
+        }
+        set number(value) {
+          this._number = value
+          console.log('setter value', value)
+        }
+      }
+
+      let inst = new MyClass(1)
+      inst.number = 2
+
+      console.log('inst.number', inst.number)
+    }
   },
 }
 </script>

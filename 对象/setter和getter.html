@@ -8,7 +8,7 @@
 	</body>
 	<script>
 		function observeProperty(obj, key, fn) {
-			// val是一个闭包,setter被触发时,它会改变,如果getter也依赖它,所以getter依赖setter
+			// val是一个中间变量,通常在setter中val = newVal,然后getter中调用
 			var val = obj[key];
 			Object.defineProperty(obj, key, {
 				enumerable: true, // 可枚举
