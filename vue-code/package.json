@@ -1,10 +1,11 @@
 {
   "name": "vue-code",
-  "version": "1.0.0",
+  "version": "2.6.10",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "rollup -w -c scripts/config.js --environment TARGET:web-full-dev"
+    "dev": "rollup -w -c scripts/config.js --environment TARGET:web-full-dev",
+    "dev:esm": "rollup -w -c scripts/config.js --environment TARGET:web-runtime-esm"
   },
   "keywords": [],
   "author": "",

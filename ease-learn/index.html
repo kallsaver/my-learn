@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .box {
+      width: 100px;
+      height: 100px;
+      background: peru;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+  <div class="box"></div>
+</body>
+<script>
+  function easeInOutQuad(t, b, c, d) {
+    t /= d / 2
+    if (t < 1) return c / 2 * t * t + b
+    t--
+    return -c / 2 * (t * (t - 2) - 1) + b
+  }
+
+  let _setTimeoutFrameTimeStart
+
+  const setTimeoutFrame = function (cb) {
+    window.setTimeout(() => {
+      let timeCurrent = new Date().getTime()
+      if (!_setTimeoutFrameTimeStart) {
+        _setTimeoutFrameTimeStart = timeCurrent
+      }
+      let timeElapsed = timeCurrent - _setTimeoutFrameTimeStart
+      cb(timeElapsed)
+    }, 100 / 6)
+  }
+
+  class Move {
+    constructor(target, options = {}) {
+      this.init(target, options)
+    }
+    init(target, options) {
+      this.target = target
+      this.start = 0
+      this.offset = options.offset || {}
+      this.duration = options.duration || 1000
+      this.easing = options.easing || easeInOutQuad
+      this.done = options.done
+      window.requestAnimationFrame((timeCurrent) => {
+        this.timeStart = timeCurrent
+        this.loop(timeCurrent)
+      })
+    }
+    update(timeCurrent) {
+      this.timeElapsed = timeCurrent - this.timeStart
+    }
+    requestAnimationFrame(timeCurrent) {
+      this.transform(true)
+      window.requestAnimationFrame((timeCurrent) => {
+        this.loop(timeCurrent)
+      })
+    }
+    loop(timeCurrent) {
+      this.update(timeCurrent)
+      this.timeElapsed < this.duration
+        ? this.requestAnimationFrame()
+        : this.doneCallback()
+    }
+    transform(isUseEase) {
+      let transform = ''
+
+      for (let key in this.offset) {
+        // 时间刻度,开始的位置,要运动的距离,动画持续的时间
+        // 时间刻度是变化的,其它不变
+        let distance = this.offset[key]
+        if (isUseEase) {
+          let next = this.easing(this.timeElapsed, this.start, distance, this.duration)
+          transform += `${key}(${next}px) `
+        } else {
+          transform += `${key}(${distance}px) `
+        }
+      }
+
+      this.target.style.transform = transform
+    }
+    doneCallback() {
+      this.transform(false)
+      if (typeof this.done === 'function') {
+        this.done()
+      }
+    }
+    destroyed() {
+
+    }
+  }
+
+  function move(target, options) {
+    let o = new Move(target, options)
+  }
+</script>
+<script>
+  let box = document.getElementsByClassName('box')
+
+  for (let i = 0; i < box.length; i++) {
+    let item = box[i]
+    item.addEventListener('click', () => {
+      move(item, {
+        duration: 3000,
+        offset: {
+          translateY: 1000,
+          translateX: 1000,
+        },
+        done: () => {
+          console.log('done')
+        }
+      })
+    }, false)
+  }
+
+
+
+  // function loop(timeElapsed) {
+  //   console.log(timeElapsed)
+  //   window.requestAnimationFrame(loop)
+  // }
+
+  // window.requestAnimationFrame(loop)
+
+  // function run(timeElapsed) {
+  //   console.log(timeElapsed)
+  //   setTimeoutFrame(run)
+  // }
+
+  // setTimeoutFrame(run)
+
+</script>
+</html>
