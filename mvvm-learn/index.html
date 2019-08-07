@@ -7,9 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-
+  <div id="app">
+    <div class="box"></div>
+  </div>
 </body>
+<script src="./index.js"></script>
 <script>
-
+  let app = document.querySelector('#app')
+  console.log(app)
+  let compile = new Compile(app)
 </script>
 </html>

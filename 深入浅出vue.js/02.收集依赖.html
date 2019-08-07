@@ -10,60 +10,143 @@
 
 </body>
 <script>
+
+  class MVVM {
+    constructor({data} = {}) {
+      this.data = data
+      this.deepObserve(data)
+    }
+    deepObserve(obj) {
+      if (!obj || typeof obj !== 'object') {
+        return
+      }
+      Object.keys(obj).forEach(key => {
+        this.observeProperty(obj, key, obj[key])
+      })
+    }
+    observeProperty(obj, key, val) {
+      let dep = new Dep()
+      // val闭包
+      this.deepObserve(val)
+      Object.defineProperty(obj, key, {
+        enumerable: true,
+        configurable: true,
+        get: function () {
+          console.log('getter')
+          if (window.currentWatch) {
+            dep.depend()
+          }
+          return val
+        },
+        set: function (newVal) {
+          console.log('setter')
+          if (val === newVal) {
+            return
+          }
+          console.log('数据更新啦 ', val, '=>', newVal)
+          val = newVal
+          dep.notify()
+        }
+      })
+    }
+    watch() {
+      new Watcher(...arguments)
+    }
+  }
+
+  let uid = 0
+  // MVVM里面每一个属性都有一个Dep实例
+  // 每一个Dep会存储这个属性所有的watch的依赖
   class Dep {
     constructor() {
-      this.list = []
+      this.id = uid++
+      this.subs = []
     }
-    add(element) {
-      this.list.push(element)
+    // 一个属性每有一个watch就push一个sub
+    addSub(sub) {
+      this.subs.push(sub)
     }
-    remove(element) {
-      let index = this.list.findIndex((item) => {
-        return element === item
-      })
+    removeSub(sub) {
+      let index = this.subs.indexOf(sub)
       if (index !== -1) {
-        this.list.splice(index, 1)
+        this.subs.splice(index, 1)
       }
     }
     depend() {
-
+      // Watch的实例addDep(Dep的实例)
+      window.currentWatch.addDep(this)
     }
     notify() {
-      let list = this.list.slice()
+      this.subs.forEach(sub => {
+        // 执行watch实例的update更新函数
+        sub.update()
+      })
     }
   }
-
-  function defineReactive(data, key, val) {
-
-    //
-    let dep = new Dep()
-
-    Object.defineProperty(data, key, {
-      // 为true时才能被枚举,false是不可以被for in 枚举的
-      enumerable: true,
-      configurable: true,
-      get: function () {
-        // 在getter中收集依赖
-        return val
-      },
-      set: function (newVal) {
-        if (val === newVal) {
-          return
-        }
-        console.log(newVal)
-        val = newVal
-      }
-    })
-  }
-
 
   class Watcher {
-    constructor() {
-
+    constructor(vm, expOrFn, cb) {
+      this.depMap = {}
+      this.vm = vm
+      this.getter = this.parsePath(expOrFn)
+      this.value = this.get()
+      this.cb = cb
     }
-    get
+    get() {
+      // window.currentWatch这个全局变量起到指针的作用
+      window.currentWatch = this
+      let value = this.getter.call(this.vm, this.vm)
+      window.currentWatch = null
+      return value
+    }
+    update() {
+      let newVal = this.get()
+      let oldVal = this.value
+      if (newVal === oldVal) {
+        return
+      }
+      this.value = newVal
+      // 将newVal, oldVal挂载到MVVM实例上
+      this.cb.call(this.vm, newVal, oldVal)
+    }
+    addDep(dep) {
+      if (!this.depMap.hasOwnProperty(dep.id)) {
+        // 存watch
+        dep.addSub(this)
+        this.depMap[dep.id] = dep
+      }
+    }
+    parsePath(exp) {
+      if (/[^\w.$]/.test(exp)) {
+        return
+      }
+
+      let exps = exp.split('.')
+
+      return function (obj) {
+        for (let i = 0, len = exps.length; i < len; i++) {
+          if (!obj) {
+            return
+          }
+          // 申明的时候触发了getter
+          obj = obj[exps[i]]
+        }
+        return obj
+      }
+    }
   }
 
+  let vm = new MVVM({
+    data: {
+      name: 'name'
+    }
+  })
+
+  vm.watch(vm, 'data.name', function (newVal, oldVal) {
+    console.log(newVal)
+  })
+
+  vm.data.name = 's'
 
 </script>
 </html>
