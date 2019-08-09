@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  let obj = {
+    fn: function () {
+      return 1
+    }
+  }
+
+  // 属性是一个函数是,val就是函数
+  Object.defineProperty(obj, 'fn', {
+    value: function() {
+      // 这个this是obj
+      console.log(this)
+      return 2
+    }
+  })
+
+  console.log(obj.fn())
+
+</script>
+</html>

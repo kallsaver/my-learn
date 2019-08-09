@@ -7,16 +7,17 @@
 	<body>
 		<div id="box" class="box d"></div>
 	</body>
-	
+
 	<script>
-		
+
 		var box = document.getElementById('box');
 		console.log(box.classList)
-		
+
 		function observeProperty(obj, key, fn) {
 			var val = obj[key];
 			Object.defineProperty(obj, key, {
 				get: function(){
+          console.log('this', this)
 					return val;
 				},
 				set: function(newVal){
@@ -29,7 +30,7 @@
 				}
 			});
 		}
-		
+
 		function observerAllProperty(obj, fn) {
 			Object.keys(obj).forEach(function(item){
 				observeProperty(obj, item, function(item){
@@ -38,26 +39,27 @@
 				});
 			});
 		}
-		
+
 		var obj = {
 			name: 'obj',
 			count: 0,
 		}
-		
-		observerAllProperty(obj ,function(item){
+
+		observerAllProperty(obj ,function(item) {
 			console.log(item)
 		});
-		
+
 		obj.name = 'new obj';
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+    console.log(obj.name)
+
+
+
+
+
+
+
+
+
 	</script>
 </html>

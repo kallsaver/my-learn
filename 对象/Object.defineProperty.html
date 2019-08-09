@@ -12,17 +12,16 @@
 
 
 		function observeProperty(obj, key, fn) {
-			// val是一个闭包,setter被触发时,它会改变,如果getter也依赖它,所以getter依赖setter
-			var val = obj[key];
+      var val = obj[key];
+      // Object.defineProperty配置里面的函数的this都是obj
 			Object.defineProperty(obj, key, {
 				enumerable: true, // 可枚举
 				configurable: true, // 可重新定义
 				get: function() {
-					// 这里的return值很重要,return的内存就是obj[key]的内存
+          console.log('this', this)
 					return val;
 				},
 				set: function(newVal) {
-					// newVal接受的是外界给obj[key]赋值的内存
 					if (val === newVal) {
               return;
           }

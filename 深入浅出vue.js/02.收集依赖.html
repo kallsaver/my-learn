@@ -7,51 +7,53 @@
   <title>Document</title>
 </head>
 <body>
-
+  <div id="app"></div>
 </body>
 <script>
 
-  class MVVM {
-    constructor({data} = {}) {
-      this.data = data
-      this.deepObserve(data)
+  // 总结: vue申明的data的时候,data下申明的每一个属性都配备一个了Dep订阅/发布者
+  // 当这个属性被watch了,会先读取这个属性的值作为这个属性的oldVal存在watch实例上
+  // 并且Dep就会添加这个watch实例到订阅收集器里
+  // 这个过程中,watch中读取这个属性的值(发生在watch的作用域)会触发getter(发生在别的作用域)
+  // Dep收集的watch实例用一个全局指针衔接上下文(通常getter/setter不是自上到下传参都有这个问题)
+  // 当这个属性被修改,这个属性修改新值后会触发setter,订阅收集器就会发布oldVal,newVal出去
+
+  // 没有提前在data申明的数据没被deepObserve应用到,无法检测
+  // 数组的长度无法预见,不可能提前申明
+
+  function observeAllProperty(obj) {
+    if (!obj || typeof obj !== 'object') {
+      return
     }
-    deepObserve(obj) {
-      if (!obj || typeof obj !== 'object') {
-        return
-      }
-      Object.keys(obj).forEach(key => {
-        this.observeProperty(obj, key, obj[key])
-      })
-    }
-    observeProperty(obj, key, val) {
-      let dep = new Dep()
-      // val闭包
-      this.deepObserve(val)
-      Object.defineProperty(obj, key, {
-        enumerable: true,
-        configurable: true,
-        get: function () {
-          console.log('getter')
-          if (window.currentWatch) {
-            dep.depend()
-          }
-          return val
-        },
-        set: function (newVal) {
-          console.log('setter')
-          if (val === newVal) {
-            return
-          }
-          console.log('数据更新啦 ', val, '=>', newVal)
-          val = newVal
-          dep.notify()
+    Object.keys(obj).forEach(key => {
+      deepObserveAllProperty(obj, key, obj[key])
+    })
+  }
+
+  function deepObserveAllProperty(obj, key, val) {
+    let dep = new Dep()
+    // val闭包
+    observeAllProperty(val)
+    Object.defineProperty(obj, key, {
+      enumerable: true,
+      configurable: true,
+      get: function () {
+        console.log('getter')
+        if (window.currentWatch) {
+          dep.depend()
         }
-      })
-    }
-    watch() {
-      new Watcher(...arguments)
-    }
+        return val
+      },
+      set: function (newVal) {
+        console.log('setter')
+        if (val === newVal) {
+          return
+        }
+        console.log('数据更新啦 ', val, '=>', newVal)
+        val = newVal
+        dep.notify()
+      }
+    })
   }
 
   let uid = 0
@@ -136,9 +138,20 @@
     }
   }
 
+  class MVVM {
+    constructor({ data } = {}) {
+      this.data = data
+      observeAllProperty(data)
+    }
+    watch() {
+      new Watcher(...arguments)
+    }
+  }
+
   let vm = new MVVM({
     data: {
-      name: 'name'
+      name: 'name',
+      list: [0]
     }
   })
 
@@ -146,7 +159,27 @@
     console.log(newVal)
   })
 
-  vm.data.name = 's'
+  vm.watch(vm, 'data.count', function (newVal, oldVal) {
+    console.log(newVal)
+  })
+
+  vm.watch(vm, 'list.0', function (newVal, oldVal) {
+    console.log(newVal)
+  })
+
+  vm.watch(vm, 'list', function (newVal, oldVal) {
+    console.log(newVal)
+  })
+
+  vm.data.name = 'newName'
+  // 可以看出没有提前在data申明的数据没被deepObserve应用到,无法检测
+  vm.data.count = 100
+
+  // 已经申明的数组元素可以检测
+  vm.data.list[0] = 1000
+
+  // 数组改变元素无法通过到list
+  vm.data.list.push(1)
 
 </script>
 </html>
