@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+
+  // Object.defineProperty同时监听了父节点和子节点
+  // 但父节点指针变化,不会触发子节点的setter,因为子节点是依赖另一个指针
+
+  let obj = {
+    people: {
+      name: 'a'
+    }
+  }
+
+  function observeProperty(obj, key, fn) {
+
+    let val = obj[key]
+
+    // 获得这个属性的Object.defineProperty的配置
+    const property = Object.getOwnPropertyDescriptor(obj, key)
+
+    console.log('property', property)
+
+    Object.defineProperty(obj, key, {
+      get: function () {
+        return val
+      },
+      set: function (newVal) {
+        if (val === newVal) {
+          return
+        }
+        val = newVal
+        typeof fn  === 'function' && fn(newVal)
+      }
+    })
+  }
+
+  observeProperty(obj, 'people', function (newVal) {
+    console.log('people', newVal)
+  })
+
+  observeProperty(obj.people, 'name', function (newVal) {
+    console.log('name', newVal)
+  })
+
+  let tmp = obj.people
+  obj.people = {}
+  obj.people.name = 'b'
+  tmp.name = 'c'
+</script>
+</html>

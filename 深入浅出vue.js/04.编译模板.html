@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h2 x-html="a"></h2>
+    <p>{{ a }}</p>
+  </div>
+</body>
+</html>
+<script>
+
+  class Compile {
+    constructor() {
+      this.$val = value
+      this.$el = this.isElementNode(el) ? el : document.querySelector(el)
+    }
+    compileElement() {
+
+    }
+    isElementNode(node) {
+      return node.nodeType === 1
+    }
+  }
+
+
+  let data = {
+    a: 'test',
+    people: {
+      name: 'name',
+      age: 20,
+      thing: {
+        box: {
+          size: 3
+        }
+      },
+      cityList: [
+        {
+          cityName: '深圳'
+        }
+      ]
+    },
+  }
+  new Compile('#app', data)
+</script>

@@ -7,37 +7,36 @@
 	<body>
 		<div id="box" class="box d"></div>
 	</body>
-
 	<script>
 
-		var box = document.getElementById('box');
+		var box = document.getElementById('box')
 		console.log(box.classList)
 
 		function observeProperty(obj, key, fn) {
-			var val = obj[key];
+			var val = obj[key]
 			Object.defineProperty(obj, key, {
 				get: function(){
           console.log('this', this)
-					return val;
+					return val
 				},
 				set: function(newVal){
 					if (val === newVal) {
-						return;
+						return
 					}
-					val = newVal;
-					console.log('数据更新', val + ' => ' + newVal);
-					(typeof fn === 'function') && fn(key);
+					val = newVal
+					console.log('数据更新', val + ' => ' + newVal)
+					(typeof fn === 'function') && fn(key)
 				}
-			});
+			})
 		}
 
 		function observerAllProperty(obj, fn) {
 			Object.keys(obj).forEach(function(item){
 				observeProperty(obj, item, function(item){
-					console.log(item + '改变了');
-					(typeof fn === 'function') && fn(item);
-				});
-			});
+					console.log(item + '改变了')
+					(typeof fn === 'function') && fn(item)
+				})
+			})
 		}
 
 		var obj = {
@@ -47,19 +46,11 @@
 
 		observerAllProperty(obj ,function(item) {
 			console.log(item)
-		});
+		})
 
-		obj.name = 'new obj';
+		obj.name = 'new obj'
 
     console.log(obj.name)
-
-
-
-
-
-
-
-
 
 	</script>
 </html>

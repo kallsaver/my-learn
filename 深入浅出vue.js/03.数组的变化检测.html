@@ -22,12 +22,14 @@
 
   // 没有提前在data申明的数据没被deepObserve应用到,无法检测
   // Object.defineProperty的特性,属性改变只能触发属性的getter/setter,不能触发父节点的getter/setter
-  // 数组的长度无法预见,不可能提前申明
+  // 数组的元素改变不会触发数组的getter/setter,需要做代理和动态添加
+
+  // 对于数组的处理,给数组的原型链加一层代理层,这个代理层重写了数组能改变数组元素的7个方法
+  //
 
   function isObject(obj) {
     return obj !== null && typeof obj === 'object'
   }
-
 
   // 定义一个属性
   function def(obj, key, val, enumerable) {
@@ -40,45 +42,41 @@
   }
 
   // 响应式函数,内置订阅/发布者
-  // 只做对对象的处理,不做对数组的处理
+  // 只做对对象的处理,不做对数组的处理(obj是一个对象)
   function defineReactive(obj, key, val, shallow) {
-    // 不管是什么类型(非数组对象的类型)的属性都有一个Dep
+    // 这个Dep是给val属性的,所有类型的val都会有这种Dep,属于指针类收集器
     let dep = new Dep()
+
+    // const property = Object.getOwnPropertyDescriptor(obj, key)
+
     // 深度监听
-    // 返回子节点的dep
     let childOb = !shallow && observe(val)
     Object.defineProperty(obj, key, {
       enumerable: true,
       configurable: true,
       get: function () {
+        // 说明被watch了并且在watch的get函数上下文中
         if (window.currentWatch) {
           dep.depend()
+          // 数组的元素或者对象的属性变化深度watch所用到的Dep
           if (childOb) {
-            // 当父节点被收集的时候,子节点也会被收集
-            // 用于watch数组,数组的元素也被watch
+            // 数组指针变化用到上一个dep
+            // 数组元素变化用到childOb.dep
             childOb.dep.depend()
           }
         }
         return val
       },
       set: function (newVal) {
-        if (newVal === value || (newVal !== newVal && value !== value)) {
+        // NaN === NaN为false
+        if (newVal === val || (newVal !== newVal && val !== val)) {
           return
         }
         val = newVal
+        // childOb = !shallow && observe(newVal)
         dep.notify()
       }
     })
-  }
-
-  // 返回一个Observer类
-  // 可以对数组和对象处理
-  function observe(obj) {
-    if (!obj || typeof obj !== 'object') {
-      return
-    }
-    let ob = new Observer(obj)
-    return ob
   }
 
   // 判断当前环境是否可以使用 __proto__
@@ -103,8 +101,9 @@
 
   methodsToPatch.forEach((method) => {
     const original = arrayProto[method]
-    def(arrayMethods, method, function () {
 
+    // 定义数组代理层方法
+    def(arrayMethods, method, function () {
       let args = []
       Array.prototype.push.apply(args, arguments)
 
@@ -112,7 +111,8 @@
       const result = original.apply(this, args)
 
       // 拿到Dep
-      // this本来应该是arrayMethods,但是被代理后this是原数组
+      // this本来应该是arrayMethods,但是被继承给data里面的数组后this是原数组
+      // 所以Object.defineProperty定义一个方法中的this是调用者
       let ob = this.__ob__
       // 存放新增数组元素
       let inserted
@@ -130,37 +130,54 @@
           break
       }
       if (inserted) {
-        // 动态去添加observe
+        // 动态去添加新增元素的observe
         ob.observeArray(inserted)
       }
+      // 数组元素改变触发数组的发布消息
       ob.dep.notify()
       return result
     })
   })
 
-  class Observer {
-    constructor(obj) {
-      // 导致一个对象数组属性有两个Dep
-      this.dep = new Dep()
-      // 对象数组属性有.__ob__属性,并且不可遍历
-      def(obj, '__ob__', this)
+  // 返回一个Observer类
+  // 可以对数组和对象处理
+  function observe(obj) {
+    if (!obj || typeof obj !== 'object') {
+      return
+    }
+    let ob = new Observer(obj)
+    return ob
+  }
 
-      if (Array.isArray(obj)) {
-        // 如果浏览器支持__proto__,把原型补上,否则在arrayMethods写入不可枚举的方法
+  class Observer {
+    constructor(value) {
+
+      this.value = value
+      // 这个Dep是订阅数组元素变化,对象深度监听属性用的
+      this.dep = new Dep()
+
+      // 定义对象数组属性__ob__属性,并且不可遍历
+      // 作为已经被放入Dep的标识
+      def(value, '__ob__', this)
+
+      // 数组的响应式
+      if (Array.isArray(value)) {
+        // 如果浏览器支持__proto__,把原型赋给arrayMethods,否则在obj写入不可枚举的方法
         if (hasProto) {
-          obj.__proto__ = arrayMethods
+          // 数组实例调用的是arrayMethods上的方法
+          value.__proto__ = arrayMethods
         } else {
           for (let i = 0; i < methodsToPatch.length; i++) {
             let methodKey = methodsToPatch[i]
             let val = arrayMethods[methodKey]
-            // 代理数组,val中的this是原数组
-            def(obj, methodKey, val)
+            // 重写方法
+            def(value, methodKey, val)
           }
         }
-        this.observeArray(obj)
+        this.observeArray(value)
       } else {
         // 对象的响应式
-        this.walk(obj)
+        this.walk(value)
       }
     }
     walk(obj) {
@@ -200,10 +217,11 @@
     // 收集
     depend() {
       // Watch的实例addDep(Dep的实例)
+      // 实际上是Dep的实例的addSubs(window.currentWatch),收集watch
       window.currentWatch.addDep(this)
     }
     notify() {
-      this.subs.forEach(sub => {
+      this.subs.forEach((sub) => {
         // 执行watch实例的update更新函数
         sub.update()
       })
@@ -222,18 +240,25 @@
       // window.currentWatch这个全局变量起到指针的作用
       window.currentWatch = this
       let value = this.getter.call(this.vm, this.vm)
+      // 对象属性变化深度watch,这个递归函数会触发属性getter
+      // 并且window.currentWatch = this是激活状态,表明正在收集依赖(当前watch)
+      // 对象属性下面递归的属性的Dep都开始收集(当前watch)
+      // 但下面递归的属性变化时,触发各自的setter触发Dep.notify触发watch执行cb回调
+      traverse(value)
       window.currentWatch = null
       return value
     }
     update() {
       let newVal = this.get()
       let oldVal = this.value
-      if (newVal !== oldVal || isObject(newVal)) {
-        this.value = newVal
-        // 将newVal, oldVal挂载到MVVM实例上
-        this.cb.call(this.vm, newVal, oldVal)
-      }
-
+      // 数组的修改元素可以触发update,但是数组的引用没有发生变化
+      // 这个判断有没有都没所谓,上流判断过了
+      // if (newVal !== oldVal || isObject(newVal)) {
+      //   this.value = newVal
+      //   this.cb.call(this.vm, newVal, oldVal)
+      // }
+      this.value = newVal
+      this.cb.call(this.vm, newVal, oldVal)
     }
     addDep(dep) {
       if (!this.depMap.hasOwnProperty(dep.id)) {
@@ -250,6 +275,7 @@
       let exps = exp.split('.')
 
       return function (obj) {
+        // 递归了点语法,拿到位于最后的属性值
         for (let i = 0, len = exps.length; i < len; i++) {
           if (!obj) {
             return
@@ -259,6 +285,39 @@
         }
         return obj
       }
+    }
+  }
+
+  const seenObjects = new Set()
+
+  // 处理深度watch
+  function traverse(val) {
+    _traverse(val, seenObjects)
+    seenObjects.clear()
+  }
+
+  function _traverse(val, seen) {
+    let i, keys
+    // 数组不需要深度watch,做了元素增减触发watch
+    const isA = Array.isArray(val)
+    if (!isA && !isObject(val)) {
+      return
+    }
+    if (val.__ob__) {
+      const depId = val.__ob__.dep.id
+      if (seen.has(depId)) {
+        // 如果有depId,结束递归
+        return
+      }
+      seen.add(depId)
+    }
+    if (isA) {
+      i = val.length
+      while (i--) _traverse(val[i], seen)
+    } else {
+      keys = Object.keys(val)
+      i = keys.length
+      while (i--) _traverse(val[keys[i]], seen)
     }
   }
 
@@ -275,8 +334,8 @@
   let vm = new MVVM({
     data: {
       people: {
-        // name: 'name',
-        // age: 20,
+        name: 'name',
+        age: 20,
         thing: {
           box: {
             size: 3
@@ -298,32 +357,34 @@
   })
 
   // vm.watch(vm, 'data.people.name', function (newVal, oldVal) {
-  //   console.log(newVal)
+  //   console.log('watch name',newVal)
   // })
 
-  // vm.watch(vm, 'data.people.thing.box', function (newVal, oldVal) {
-  //   console.log('newVal', newVal)
-  // })
+  // vm.data.people.name = 'ssg'
+
+  vm.watch(vm, 'data.people.thing.box', function (newVal, oldVal) {
+    console.log('watch box', newVal)
+  })
 
   // vm.watch(vm, 'data.people.thing.box.size', function (newVal, oldVal) {
-  //   console.log('newVal', newVal)
+  //   console.log('watch size', newVal)
   // })
 
-  // vm.data.people.thing.box.size = 1
+  // vm.data.people.thing.box = {}
 
-  vm.watch(vm, 'data.cityOptions', function (newVal, oldVal) {
-    console.log('watch', newVal)
-  })
+  vm.data.people.thing.box.size = 4
 
-  vm.data.cityOptions.push({
-    name: '杭州'
-  })
+  window.setTimeout(() => {
+    // vm.watch(vm, 'data.cityOptions', function (newVal, oldVal) {
+    //   console.log('watch cityOptions', newVal)
+    // })
+    // vm.data.cityOptions.push({
+    //   name: '杭州'
+    // })
+  }, 1000)
 
-  console.log(vm.data.cityOptions)
 
   // console.log(vm.data.list)
-
-
 </script>
 
 </html>

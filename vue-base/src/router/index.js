@@ -68,6 +68,15 @@ export default new Router({
             index: 3
           },
         },
+        {
+          path: 'Set',
+          name: 'Set',
+          component: () => import('@/pages/base/children/set/set.vue'),
+          meta: {
+            title: 'Set',
+            index: 3
+          },
+        },
       ]
     },
     {

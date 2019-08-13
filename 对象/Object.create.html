@@ -22,6 +22,7 @@
 
   Object.defineProperty(obj, 'speak', {
     value: function () {
+      // Object.defineProperty定义一个方法中的this是调用者
       console.log('this', this)
     }
   })
