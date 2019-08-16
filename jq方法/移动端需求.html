@@ -21,9 +21,9 @@
 		<div id="button"></div>
 	</body>
 	<script>
-		
+
 		var timer;
-		
+
 		$('#button').on('click',function(event){
 
 			if( $('.box').length === 0){
@@ -31,7 +31,7 @@
 			}
 			$('<div>').addClass('box1').text('1').appendTo($('body'));
 
-			
+
 			clearTimeout(timer);
 			timer = setTimeout(function(){
 				console.log(1);
@@ -39,6 +39,14 @@
 				$('.box1').remove();
 			},500)
 		})
-		
+
+    $.ajax({
+      method: 'GET',
+      url: 'http://localhost:3000/proxy/ajax/invoice/ordinary/edit?_=0.40809899165859265',
+      success: function (res) {
+        console.log(res)
+      }
+    })
+
 	</script>
 </html>

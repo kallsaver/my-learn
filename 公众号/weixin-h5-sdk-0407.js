@@ -74,7 +74,8 @@
          */
 
         wxInit: function (appid) {
-            var url = window.location.href.split('#')[0];
+            // var url = window.location.href.split('#')[0];
+            var url = window.location.href;
             var mm = {};
             mm.url = url;
             mm.appid = appid;

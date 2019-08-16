@@ -25,6 +25,8 @@
   // dev: 整理代码
   // 合成树木图片
 
+  const DEFAULT_TIME_SLICE = 1000
+
   class Throttle {
     constructor(timeSlice = DEFAULT_TIME_SLICE, firstStartTime) {
       this.timeSlice = timeSlice
@@ -59,12 +61,6 @@
         this.lastTime = currentTime
         func()
       }
-    }
-    enable() {
-      this.state = true
-    }
-    disable() {
-      this.state = false
     }
     destroy() {
       this.timeSlice = null
@@ -103,7 +99,7 @@
       A3 = A1 + (A1 * ((dB * 100) / B1)) / 100
     }
     else {
-      A3 = A2;
+      A3 = A2
       B3 = B1 + (B1 * ((dA * 100) / A1)) / 100
     }
     return {
@@ -121,7 +117,7 @@
     return Math.random() * (max - min + 1) + min
   }
 
-  const meteorList = []
+  const meteorMap = {}
 
   let canvas = document.getElementById('canvas')
   let context = canvas.getContext('2d')
@@ -156,7 +152,8 @@
   }
 
   class Meteor {
-    constructor(x, y, length, angle, speed, size) {
+    constructor(id, x, y, length, angle, speed, size) {
+      this.id = id
       this.x = x
       this.y = y
       this.length = length
@@ -166,12 +163,12 @@
       this.init()
     }
     init() {
+      this.state = true
       this.vx = -this.speed * Math.cos(this.angle)
       this.vy = this.speed * Math.sin(this.angle)
       this.alpha =  1
       this.distX = getRandomInt(200, 300)
       this.distY = getRandomInt(canvas.height - 500, canvas.height - 600)
-      this.state = true
       this.lineWidth = this.size * 0.5
       this.headerRadius = this.length * this.size / 100
 
@@ -179,21 +176,21 @@
         {
           s: 0,
           r: getRandomInt(192, 195),
-          g: getRandomInt(60, 70),
+          g: getRandomInt(90, 100),
           b: getRandomInt(192, 195),
-          a: 0.9
+          a: 1
         },
         {
           s: this.headerRadius / this.length,
           r: getRandomInt(160, 170),
-          g: getRandomInt(40, 50),
+          g: getRandomInt(90, 100),
           b: getRandomInt(160, 170),
-          a: 0.75
+          a: 0.9
         },
         {
-          s: this.headerRadius / this.length + 0.75,
-          r: getRandomInt(60, 80),
-          g: getRandomInt(30, 20),
+          s: this.headerRadius / this.length + 0.6,
+          r: getRandomInt(70, 80),
+          g: getRandomInt(30, 40),
           b: getRandomInt(60, 80),
           a: 0.6
         },
@@ -244,6 +241,9 @@
       this.x += this.vx
       this.y += this.vy
 
+      // this.vx -= 0.15
+      // this.vy += 0.15
+
       this.flowAway()
     }
     flowAway() {
@@ -260,23 +260,27 @@
     }
     destroy() {
       this.state = false
+      delete meteorMap[this.id]
     }
   }
 
+  let n = 0
+
   function createMeteor() {
+    n++
     let x = getRandomInt(200, canvas.width - 200)
     let y = getRandomInt(10, 100)
-    let length = getRandom(80, 100)
-    let angle = getRandom(40, 50)
-    let speed = getRandom(12, 15)
-    let size = getRandom(3, 4)
-    let meteor = new Meteor(x, y, length, angle, speed, size)
-    meteorList.push(meteor)
+    let length = getRandom(100, 120)
+    let angle = getRandom(50, 60)
+    let speed = getRandom(10, 12)
+    let size = getRandom(1, 2)
+    let meteor = new Meteor(n, x, y, length, angle, speed, size)
+    meteorMap[n] = meteor
   }
 
   function draw() {
-    for (let i = 0; i < meteorList.length; i++) {
-      let meteor = meteorList[i]
+    for (let n in meteorMap) {
+      let meteor = meteorMap[n]
       meteor.draw()
     }
   }
@@ -285,7 +289,7 @@
     window.throttle.run(() => {
       let randow = Math.random()
       if (randow > 0.5) {
-        let count = getRandomInt(0, randow * 10)
+        let count = getRandomInt(3, randow * 5)
         for (let i = 0; i < count; i++) {
           createMeteor()
         }

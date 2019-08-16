@@ -18,37 +18,67 @@
   </style>
 </head>
 <body>
-  <canvas id="canvas-a"></canvas>
-  <canvas id="canvas-b"></canvas>
+  <canvas id="canvas-source"></canvas>
+  <canvas id="canvas-draw"></canvas>
 </body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+
+<script>
+  $.ajax({
+    method: 'GET',
+    url: 'http://localhost:3000/proxy/ajax/invoice/ordinary/edit?_=0.40809899165859265',
+    success: function (res) {
+      console.log(res)
+    }
+  })
+</script>
 <script>
 
-  let canvasA = document.getElementById('canvas-a')
-  let contextA = canvasA.getContext('2d')
+  let canvasSource = document.getElementById('canvas-source')
+  let contextSource = canvasSource.getContext('2d')
 
-  let canvasB = document.getElementById('canvas-b')
-  let contextB = canvasB.getContext('2d')
+  let canvasDraw = document.getElementById('canvas-draw')
+  let contextDraw = canvasDraw.getContext('2d')
 
   let image = new Image()
-  image.src = './images/autumn.jpg'
+  image.src = './images/starry-sky.jpg'
 
   image.onload = () => {
 
-    canvasA.width = image.width
-    canvasA.height = image.height
+    canvasSource.width = image.width
+    canvasSource.height = image.height
 
-    canvasB.width = image.width
-    canvasB.height = image.height
+    canvasDraw.width = image.width
+    canvasDraw.height = image.height
 
-    contextA.drawImage(image, 0, 0)
-    filter()
+    let imageData = contextSource.drawImage(image, 0, 0)
+
+    filter(image.width, image.height)
   }
 
-  function filter() {
-    let imageData = contextA.getImageData(0, 0, canvasA.width, canvasA.height)
-    contextB.putImageData(imageData, 0, 0)
+  function filter(width, height) {
+    let imageData = contextSource.getImageData(0, 0, canvasSource.width, canvasSource.height)
+
+    let worker = new Worker('./worker.js')
+
+    // 传递参数给worker.js
+    worker.postMessage({
+      width: width,
+      height: height,
+      imageData: imageData
+    })
+
+    worker.onmessage = function (event) {
+      let data = event.data
+      let imageData = data.imageData
+      contextDraw.putImageData(imageData, 0, 0)
+    }
+
+    worker.onerror = function (event) {
+      console.log(event.filename, event.lineno, event.message)
+    }
+
   }
 
 </script>
-
 </html>

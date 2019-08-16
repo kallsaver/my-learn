@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas的background-size: cover算法</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* .bg {
+      width: 100%;
+      height: 100%;
+      background-image: url("./banner_pc.jpg");
+      background-size: cover;
+    } */
+  </style>
+</head>
+<body>
+  <div class="bg">
+    <canvas id="canvas"></canvas>
+  </div>
+</body>
+<script>
+  function canvasImageCoverPosition(imgNaturalWidth, imgNaturalHeight, canvasWidth, canvasHeight, offsetLeft, offsetTop) {
+    let A1, A2, A3, B1, B2, B3, dA, dB
+    offsetLeft = offsetLeft || 0.5
+    offsetTop = offsetTop || 0.5
+    A1 = imgNaturalWidth
+    A2 = canvasWidth
+    dA = A2 - A1
+    B1 = imgNaturalHeight
+    B2 = canvasHeight
+    dB = B2 - B1
+    if (dA < dB) {
+      B3 = B2
+      A3 = A1 + (A1 * ((dB * 100) / B1)) / 100
+    }
+    else {
+      A3 = A2
+      B3 = B1 + (B1 * ((dA * 100) / A1)) / 100
+    }
+    return {
+      width: A3,
+      height: B3,
+      offsetLeft: round((A2 - A3) * offsetLeft),
+      offsetTop: round((B2 - B3) * offsetTop)
+    }
+    function round(v) {
+      return (+(v >= 0) || -1) * Math.round(Math.abs(v))
+    }
+  }
+
+  let canvas = document.getElementById('canvas')
+  let context = canvas.getContext('2d')
+
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+
+  let backgroundImage = new Image()
+  backgroundImage.src = './banner_pc.jpg'
+  let backgroundCanvas = document.createElement('canvas')
+
+  backgroundImage.onload = () => {
+
+    let backgroundContext = backgroundCanvas.getContext('2d')
+    backgroundCanvas.width = canvas.width
+    backgroundCanvas.height = canvas.height
+    let sourceWidth = backgroundImage.width
+    let sourceHeight = backgroundImage.height
+
+    //
+    // backgroundContext.drawImage(
+    //   backgroundImage,
+    //   0,
+    //   0,
+    //   sourceWidth,
+    //   sourceHeight,
+    //   0,
+    //   0,
+    //   backgroundCanvas.width,
+    //   backgroundCanvas.height
+    // )
+
+    let imagePosition = canvasImageCoverPosition(
+      sourceWidth,
+      sourceHeight,
+      canvas.width,
+      canvas.height,
+    )
+    backgroundContext.drawImage(
+      backgroundImage,
+      imagePosition.offsetLeft,
+      imagePosition.offsetTop,
+      imagePosition.width,
+      imagePosition.height
+    )
+
+    let pattern = context.createPattern(backgroundCanvas, 'no-repeat')
+    context.fillStyle = pattern
+    context.fillRect(0, 0, canvas.width, canvas.height)
+  }
+
+</script>
+</html>
