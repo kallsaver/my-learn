@@ -21,17 +21,6 @@
   <canvas id="canvas-source"></canvas>
   <canvas id="canvas-draw"></canvas>
 </body>
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
-
-<script>
-  $.ajax({
-    method: 'GET',
-    url: 'http://localhost:3000/proxy/ajax/invoice/ordinary/edit?_=0.40809899165859265',
-    success: function (res) {
-      console.log(res)
-    }
-  })
-</script>
 <script>
 
   let canvasSource = document.getElementById('canvas-source')
@@ -51,12 +40,12 @@
     canvasDraw.width = image.width
     canvasDraw.height = image.height
 
-    let imageData = contextSource.drawImage(image, 0, 0)
-
     filter(image.width, image.height)
   }
 
   function filter(width, height) {
+    contextSource.drawImage(image, 0, 0)
+
     let imageData = contextSource.getImageData(0, 0, canvasSource.width, canvasSource.height)
 
     let worker = new Worker('./worker.js')

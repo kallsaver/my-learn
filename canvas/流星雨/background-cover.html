@@ -13,8 +13,10 @@
 
     /* .bg {
       width: 100%;
-      height: 100%;
-      background-image: url("./banner_pc.jpg");
+      height: 100vh;
+      width: 900px;
+      height: 900px;
+      background-image: url("./images/starry-sky.jpg");
       background-size: cover;
     } */
   </style>
@@ -54,25 +56,53 @@
     }
   }
 
+  // 改进版
+  function canvasImageCoverPosition(contentWidth, contentHeight, containerWidth, containerHeight, offsetLeft, offsetTop) {
+    // 源图w/h
+    let contentRatio = contentWidth / contentHeight
+    // 容器(canvas)w/h
+    let containerRatio = containerWidth / containerHeight
+    let resultHeight
+    let resultWidth
+
+    if (contentRatio > containerRatio) {
+      // 如果不处理, w要压缩
+      resultHeight = containerHeight
+      resultWidth = containerHeight * contentRatio
+    } else {
+      // 如果不处理, h要压缩
+      resultWidth = containerWidth
+      resultHeight = containerWidth / contentRatio
+    }
+    return {
+      width: resultWidth,
+      height: resultHeight,
+    }
+  }
+
   let canvas = document.getElementById('canvas')
   let context = canvas.getContext('2d')
 
-  canvas.width = window.innerWidth
-  canvas.height = window.innerHeight
+  let backgroundCanvas = document.createElement('canvas')
+  let backgroundContext = backgroundCanvas.getContext('2d')
 
   let backgroundImage = new Image()
-  backgroundImage.src = './banner_pc.jpg'
-  let backgroundCanvas = document.createElement('canvas')
+  backgroundImage.src = './images/starry-sky.jpg'
 
   backgroundImage.onload = () => {
 
-    let backgroundContext = backgroundCanvas.getContext('2d')
-    backgroundCanvas.width = canvas.width
-    backgroundCanvas.height = canvas.height
     let sourceWidth = backgroundImage.width
     let sourceHeight = backgroundImage.height
 
-    //
+    // canvas.width = window.innerWidth > backgroundImage.width ? window.innerWidth : sourceWidth
+    // canvas.height = window.innerHeight > backgroundImage.height ? window.innerHeight : sourceHeight
+
+    canvas.width = 900
+    canvas.height = 900
+
+    backgroundCanvas.width = canvas.width
+    backgroundCanvas.height = canvas.height
+
     // backgroundContext.drawImage(
     //   backgroundImage,
     //   0,
@@ -90,11 +120,14 @@
       sourceHeight,
       canvas.width,
       canvas.height,
+      0,
+      0
     )
+
     backgroundContext.drawImage(
       backgroundImage,
-      imagePosition.offsetLeft,
-      imagePosition.offsetTop,
+      0,
+      0,
       imagePosition.width,
       imagePosition.height
     )

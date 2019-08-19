@@ -11,7 +11,7 @@
       padding: 0;
     }
     /* .bg {
-      background-image: url("./banner_pc.jpg");
+      background-image: url("./images/starry-sky.jpg");
       background-size: cover;
     } */
   </style>
@@ -22,9 +22,6 @@
   </div>
 </body>
 <script>
-  // dev: 整理代码
-  // 合成树木图片
-
   const DEFAULT_TIME_SLICE = 1000
 
   class Throttle {
@@ -84,32 +81,27 @@
     return Math.random() * (max - min + 1) + min | 0
   }
 
-  function canvasImageCoverPosition(imgNaturalWidth, imgNaturalHeight, canvasWidth, canvasHeight, offsetLeft, offsetTop) {
-    let A1, A2, A3, B1, B2, B3, dA, dB
-    offsetLeft = offsetLeft || 0.5
-    offsetTop = offsetTop || 0.5
-    A1 = imgNaturalWidth
-    A2 = canvasWidth
-    dA = A2 - A1
-    B1 = imgNaturalHeight
-    B2 = canvasHeight
-    dB = B2 - B1
-    if (dA < dB) {
-      B3 = B2
-      A3 = A1 + (A1 * ((dB * 100) / B1)) / 100
-    }
-    else {
-      A3 = A2
-      B3 = B1 + (B1 * ((dA * 100) / A1)) / 100
+  // canvas background-size: cover的效果
+  function canvasImageCoverPosition(contentWidth, contentHeight, containerWidth, containerHeight, offsetLeft, offsetTop) {
+    // 源图w/h
+    let contentRatio = contentWidth / contentHeight
+    // 容器(canvas)w/h
+    let containerRatio = containerWidth / containerHeight
+    let resultHeight
+    let resultWidth
+
+    if (contentRatio > containerRatio) {
+      // 如果不处理, w要压缩
+      resultHeight = containerHeight
+      resultWidth = containerHeight * contentRatio
+    } else {
+      // 如果不处理, h要压缩
+      resultWidth = containerWidth
+      resultHeight = containerWidth / contentRatio
     }
     return {
-      width: A3,
-      height: B3,
-      offsetLeft: round((A2 - A3) * offsetLeft),
-      offsetTop: round((B2 - B3) * offsetTop)
-    }
-    function round(v) {
-      return (+(v >= 0) || -1) * Math.round(Math.abs(v))
+      width: resultWidth,
+      height: resultHeight,
     }
   }
 
@@ -119,40 +111,86 @@
 
   const meteorMap = {}
 
+  let backgroundImage = new Image()
+  backgroundImage.src = './images/starry-sky.jpg'
+
+  const WIDTH = window.innerWidth
+  const HEIGHT = window.innerHeight
+
   let canvas = document.getElementById('canvas')
   let context = canvas.getContext('2d')
 
-  canvas.width = window.innerWidth
-  canvas.height = window.innerHeight
-
-  let backgroundImage = new Image()
-  backgroundImage.src = './banner_pc.jpg'
   let backgroundCanvas = document.createElement('canvas')
+  let backgroundContext = backgroundCanvas.getContext('2d')
+
+  let coverCanvas = document.createElement('canvas')
+  let coverContext = coverCanvas.getContext('2d')
+
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+
+  backgroundCanvas.width = WIDTH
+  backgroundCanvas.height = HEIGHT
+
+  coverCanvas.width = WIDTH
+  coverCanvas.height = HEIGHT
+
+  window.throttle = new Throttle(2000)
 
   backgroundImage.onload = () => {
-    backgroundCanvas.width = canvas.width
-    backgroundCanvas.height = canvas.height
+
     let sourceWidth = backgroundImage.width
     let sourceHeight = backgroundImage.height
+
     let imagePosition = canvasImageCoverPosition(
       sourceWidth,
       sourceHeight,
-      canvas.width,
-      canvas.height,
+      WIDTH,
+      HEIGHT,
     )
-    backgroundCanvas.getContext('2d').drawImage(
+
+    backgroundContext.drawImage(
       backgroundImage,
-      imagePosition.offsetLeft,
-      imagePosition.offsetTop,
+      0,
+      0,
       imagePosition.width,
       imagePosition.height
     )
-    init()
-    loop()
+
+    coverContext.drawImage(
+      backgroundImage,
+      0,
+      0,
+      imagePosition.width,
+      imagePosition.height
+    )
+
+    let imageData = coverContext.getImageData(0, 0, WIDTH, HEIGHT)
+
+    let worker = new Worker('./worker.js')
+
+    // 传递参数给worker.js
+    worker.postMessage({
+      width: WIDTH,
+      height: HEIGHT,
+      imageData: imageData
+    })
+
+    worker.onmessage = function (event) {
+      let data = event.data
+      let imageData = data.imageData
+      coverContext.putImageData(imageData, 0, 0)
+      loop()
+    }
+
+    worker.onerror = function (event) {
+      console.log(event.filename, event.lineno, event.message)
+    }
+
   }
 
   class Meteor {
-    constructor(id, x, y, length, angle, speed, size) {
+    constructor({id, x, y, length, angle, speed, size} = {}) {
       this.id = id
       this.x = x
       this.y = y
@@ -167,8 +205,6 @@
       this.vx = -this.speed * Math.cos(this.angle)
       this.vy = this.speed * Math.sin(this.angle)
       this.alpha =  1
-      this.distX = getRandomInt(200, 300)
-      this.distY = getRandomInt(canvas.height - 500, canvas.height - 600)
       this.lineWidth = this.size * 0.5
       this.headerRadius = this.length * this.size / 100
 
@@ -197,8 +233,8 @@
       ]
     }
     render() {
-      context.save()
 
+      context.save()
       context.translate(this.x, this.y)
       context.rotate(-this.angle)
 
@@ -220,23 +256,20 @@
       }
 
       context.fillStyle = linearStyle
-      // context.lineWidth = this.lineWidth
-      // context.strokeStyle = `rgba(255, 255, 255, 0.1)`
       context.globalAlpha = this.alpha
       context.beginPath()
       context.arc(this.headerRadius, this.headerRadius, this.headerRadius, Math.PI / 2, Math.PI / 2 * 3)
       context.lineTo(this.length, this.headerRadius)
       context.closePath()
-      // context.stroke()
       context.fill()
-
       context.restore()
 
     }
     update() {
-      // if (this.x < this.distX || this.y > this.distY) {
-      //   this.destroy()
-      // }
+      // 超出视图范围销毁掉
+      if (this.x < 0 || this.y > HEIGHT) {
+        this.destroy()
+      }
 
       this.x += this.vx
       this.y += this.vy
@@ -268,28 +301,28 @@
 
   function createMeteor() {
     n++
-    let x = getRandomInt(200, canvas.width - 200)
+    let x = getRandomInt(500, WIDTH)
     let y = getRandomInt(10, 100)
     let length = getRandom(100, 120)
     let angle = getRandom(50, 60)
-    let speed = getRandom(10, 12)
+    let speed = getRandom(15, 20)
     let size = getRandom(1, 2)
-    let meteor = new Meteor(n, x, y, length, angle, speed, size)
+    let meteor = new Meteor({n, x, y, length, angle, speed, size})
     meteorMap[n] = meteor
   }
 
-  function draw() {
+  function drawMeteor() {
     for (let n in meteorMap) {
       let meteor = meteorMap[n]
       meteor.draw()
     }
   }
 
-  function update() {
+  function updateMeteor() {
     window.throttle.run(() => {
       let randow = Math.random()
       if (randow > 0.5) {
-        let count = getRandomInt(3, randow * 5)
+        let count = getRandomInt(3, 7)
         for (let i = 0; i < count; i++) {
           createMeteor()
         }
@@ -299,23 +332,30 @@
 
   function fillBackground() {
     context.save()
-    context.fillStyle = 'rgba(0, 0, 0, 0.1)'
-    context.fillRect(0, 0, canvas.width, canvas.height)
     let pattern = context.createPattern(backgroundCanvas, 'no-repeat')
     context.fillStyle = pattern
     context.fillRect(0, 0, canvas.width, canvas.height)
     context.restore()
   }
 
-  function loop() {
-    fillBackground()
-    draw()
-    update()
-    requestAnimationFrame(loop)
+  function fillCover() {
+    context.save()
+    let pattern = context.createPattern(coverCanvas, 'no-repeat')
+    context.fillStyle = pattern
+    context.fillRect(0, 0, canvas.width, canvas.height)
+    context.restore()
   }
 
-  function init() {
-    window.throttle = new Throttle(2000)
+  function loop() {
+    // 绘制背景
+    fillBackground()
+    // 绘制流星
+    drawMeteor()
+    // 绘制覆盖层(树木)
+    fillCover()
+    // 产生新的流星
+    updateMeteor()
+    requestAnimationFrame(loop)
   }
 
 </script>
