@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  // 同一个窗口会共享sessionStorage(a=>b没有打开新标签页,b会拷贝a的sessionStorage)
+  // sessionStorage不同之处在于localStorage里面存储的数据没有过期时间设置
+  // 而存储在sessionStorage里面的数据在页面会话结束时会被清除。页面会话在浏览器打开期间一直保持
+  // 并且重新加载或恢复页面仍会保持原来的页面会话。在新标签或窗口打开一个页面时会在顶级浏览上下文中初始化一个新的会话，这点和 session cookies 的运行方式不同。
+
+  // sessionStorage合适移动端,localStorage适合pc端
+  // 但是sessionStorage也有域的概念,不同域是不能共享的
+  // 如果移动端要跳转到别的域回来时还要记住一些storage,那用localStorage
+  // 如果一些storage需要在关闭页面清除,用sessionStorage
+  console.log(window.sessionStorage.getItem('test'))
+</script>
+</html>

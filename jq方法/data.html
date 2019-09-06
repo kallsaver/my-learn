@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test" data-title="1"></div>
+</body>
+<script>
+  function getData(el, name) {
+    const prefix = 'data-'
+    return el.getAttribute(prefix + name)
+  }
+
+  function setData(el, value) {
+    const prefix = 'data-'
+    el.setAttribute(prefix + name, value)
+  }
+
+  let test = document.getElementById('test')
+
+  console.log(getData(test, 'title'))
+</script>
+</html>

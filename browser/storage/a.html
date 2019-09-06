@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .a {
+      width: 100px;
+      height: 100px;
+      background: #356956;
+    }
+  </style>
+</head>
+<body>
+  <div class="a"></div>
+</body>
+<script>
+  window.sessionStorage.setItem('test', 'test')
+
+  let a = document.getElementsByClassName('a')[0]
+
+  a.addEventListener('click', () => {
+    // window.location.href = './b.html'
+    window.location.href = 'http://10.120.41.25:8012/#/fiba2019/enter?channel=tv'
+  }, false)
+</script>
+</html>
