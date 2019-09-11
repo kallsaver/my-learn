@@ -42,7 +42,7 @@ gulp.task('less',function(){
     .pipe(gulp.dest('dist/css'))
 });
 
-gulp.task('js',function(){
+gulp.task('js', function(){
     return gulp.src('src/js/**/*')
     .pipe(concat('all.js'))
     .pipe(uglify())
@@ -107,6 +107,15 @@ gulp.task('serve',['less','js'],function() {
     gulp.watch('dist/css/**/*').on('change', browserSync.reload);
     gulp.watch("views/**").on('change', browserSync.reload);
 
+});
+
+gulp.task('jsmin', function () {
+  return gulp.src('src/js/**/*')
+    .pipe(uglify())
+    .pipe(rename(function (path) {
+      path.basename += '.min';
+    }))
+    .pipe(gulp.dest('dist/js'))
 });
 
 gulp.task('image', ['smushit', 'imagemin'])
