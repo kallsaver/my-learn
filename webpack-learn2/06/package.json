@@ -16,6 +16,7 @@
     "babel-loader": "^8.0.0-beta.0"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.42"
+    "@babel/runtime": "^7.0.0-beta.42",
+    "webpack": "^3.10.0"
   }
 }
