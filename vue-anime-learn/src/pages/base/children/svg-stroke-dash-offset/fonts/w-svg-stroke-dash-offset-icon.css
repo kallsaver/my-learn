@@ -1,11 +1,11 @@
 @font-face {
   font-family: "w-svg-stroke-dash-offset-icon";
-  src: url('w-svg-stroke-dash-offset-icon.eot?t=1546080468281'); /* IE9*/
-  src: url('w-svg-stroke-dash-offset-icon.eot?t=1546080468281#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url("w-svg-stroke-dash-offset-icon.woff2?t=1546080468281") format("woff2"),
-  url("w-svg-stroke-dash-offset-icon.woff?t=1546080468281") format("woff"),
-  url('w-svg-stroke-dash-offset-icon.ttf?t=1546080468281') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('w-svg-stroke-dash-offset-icon.svg?t=1546080468281#w-svg-stroke-dash-offset-icon') format('svg'); /* iOS 4.1- */
+  src: url('w-svg-stroke-dash-offset-icon.eot?t=1568622476349'); /* IE9*/
+  src: url('w-svg-stroke-dash-offset-icon.eot?t=1568622476349#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url("w-svg-stroke-dash-offset-icon.woff2?t=1568622476349") format("woff2"),
+  url("w-svg-stroke-dash-offset-icon.woff?t=1568622476349") format("woff"),
+  url('w-svg-stroke-dash-offset-icon.ttf?t=1568622476349') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('w-svg-stroke-dash-offset-icon.svg?t=1568622476349#w-svg-stroke-dash-offset-icon') format('svg'); /* iOS 4.1- */
 }
 
 [class^="w-svg-stroke-dash-offset-icon-"], [class*=" w-svg-stroke-dash-offset-icon-"] {
@@ -17,8 +17,4 @@
 }
 
 
-.w-svg-stroke-dash-offset-icon-pause:before { content: "\ea03"; }
-.w-svg-stroke-dash-offset-icon-start:before { content: "\ea06"; }
-.w-svg-stroke-dash-offset-icon-restart:before { content: "\ea04"; }
-.w-svg-stroke-dash-offset-icon-reverse:before { content: "\ea05"; }
 .w-svg-stroke-dash-offset-icon-vmware:before { content: "\ea07"; }
