@@ -12,10 +12,11 @@ export default {
     return {}
   },
   mounted() {
-    this.demo4()
+    this.demo2()
   },
   methods: {
     demo1() {
+      // async可以脱离await,await不能脱离async
       // async函数内部return语句返回的值
       // 会成为then方法回调函数的参数
       // 而async函数的返回值是Promise对象
@@ -36,21 +37,33 @@ export default {
         console.warn(error)
       })
     },
+    // await的return值
     demo2() {
-      // await的return值
+      function run() {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(1)
+          }, 1000)
+        })
+      }
       async function getData() {
-        let a = await (() => {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              resolve(1)
-            }, 1000)
-          })
-        })()
-        console.log(a)
+        let result = await run()
+        console.log(result)
       }
       getData()
     },
+    // await的return值
     demo3() {
+      function run() {
+        return 'run'
+      }
+      async function getData() {
+        let result = await run()
+        console.log(result)
+      }
+      getData()
+    },
+    demo4() {
       // 最佳实践
       let arr = [0, 1, 2]
       ;(async () => {
@@ -69,7 +82,7 @@ export default {
         })()
       })()
     },
-    demo4() {
+    demo5() {
       // async的回调函数
       async function getData(fn) {
         if (fn && typeof fn === 'function') {
