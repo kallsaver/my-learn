@@ -9,6 +9,7 @@ let formatDate = require('./helpers/format-date')
 const router = new Router()
 
 module.exports = (app) => {
+  app.use(router.routes()).use(router.allowedMethods())
   app.use(async (ctx, next) => {
     console.log('Allow-Origin start')
     ctx.set('Access-Control-Allow-Origin', '*')
@@ -78,6 +79,4 @@ module.exports = (app) => {
       }
     })
   })
-
-  app.use(router.routes()).use(router.allowedMethods())
 }

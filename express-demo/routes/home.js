@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
+const PROXY = require('express-http-proxy')
+
 // 需要注意的是在使用路由middleware时它的执行位置
 // 必须在routes之前,否则根本不会执行
 router.use((req, res, next) => {
@@ -11,11 +13,11 @@ router.use((req, res, next) => {
 
 
 // 路由匹配
-router.get('/', (req, res, next) => {
-  // request('http://www.tcl.com/api/html/footer', (error, response, body) => {
-  //   res.send(body)
-  // })
-  res.send('aa')
-})
+// router.get('/', (req, res, next) => {
+//   // request('http://www.tcl.com/api/html/footer', (error, response, body) => {
+//   //   res.send(body)
+//   // })
+//   res.send('aa')
+// })
 
 module.exports = router

@@ -9,6 +9,7 @@ const PORT = 3002
 
 middleware(app)
 router(app)
+
 app.listen(PORT, () => {
   let url = HOST + PORT + '/upload'
   console.log(`server is running at ${url}`)

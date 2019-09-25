@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    .button {
+      width: 80px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      position: relative;
+      background: #DDEEFF;
+      color: #1E88C7;
+      border: 1px solid black;
+      border-radius: 4px;
+      padding: 4px 12px;
+      text-decoration: none;
+      overflow: hidden;
+      margin-bottom: 100px;
+    }
+    .button input {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+    }
+    .content {
+      margin-bottom: 100px;
+    }
+    .content .thumbnail {
+      width: 300px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="button">
+    <div>选择文件</div>
+    <input id="upload-input" type="file" multiple>
+  </div>
+  <div id="content" class="content"></div>
+  <div class="button">开始上传</div>
+</body>
+<script src="/utils.js"></script>
+<script src="/axios.js"></script>
+<script src="/compress.js"></script>
+<script>
+
+  let isUsecompress = true
+
+  let ajax = axios.create({
+    validateStatus(status) {
+      // 默认的status在200~300会Promise.resolve(res)
+      // return status >= 200 && status < 300
+      // 但是这个方法只是针对statusCode,不能对自定义的code做处理
+      // 统一在instance.interceptors.response设置
+      return true
+    }
+  })
+
+  ajax.interceptors.response.use((response) => {
+    if (response.status === 200) {
+      return Promise.resolve(response)
+    } else {
+      // console.log(response)
+      return Promise.reject(response)
+    }
+  })
+
+  let input = document.getElementById('upload-input')
+  let content = document.getElementById('content')
+
+  input.addEventListener('change', function (event) {
+    // console.log(event.currentTarget.files === this.files)
+    // console.log(this === event.currentTarget)
+    let files = event.currentTarget.files
+    if (files.length == 0) {
+      return
+    }
+    let i = 0
+    let arr = []
+    while (files[i]) {
+      arr.push(files[i])
+      i++
+    }
+    readAsDataURL(arr)
+  }, false)
+
+  function readAsDataURL(files) {
+    // 可以只使用一个reader
+    let reader = new FileReader()
+    ; (async () => {
+      for (let i = 0; i < files.length; i++) {
+        let file = files[i]
+        await (() => {
+          return new Promise((resolve, reject) => {
+            reader.readAsDataURL(file)
+            reader.onload = function () {
+              let base64 = this.result
+              let name = file.name
+              let ext = name.replace(/.*\.(.*)$/, '$1')
+              // let ext = base64.replace(/^data:.*?\/(.*?);base64,.*/, '$1')
+              // console.log(ext)
+              let thumbnail = new Image()
+              utils.addClass(thumbnail, 'thumbnail')
+              thumbnail.src = base64
+              content.appendChild(thumbnail)
+
+              let compressPromise = new Promise((resolve) => {
+                const imageExt = ['png', 'jpg', 'jpeg']
+                if (isUsecompress && imageExt.indexOf(ext) !== -1) {
+                  // 生成的图片是base64
+                  compress(file, {
+                    compress: {
+                      width: 1600,
+                      height: 1600,
+                      quality: 0.5
+                    }
+                  }, function (file) {
+                    base64 = file.base64
+                    resolve({
+                      base64,
+                      name
+                    })
+                  })
+                } else {
+                  resolve({
+                    base64,
+                    name
+                  })
+                }
+              })
+
+              compressPromise.then(({ base64, name }) => {
+                ajax({
+                  method: 'POST',
+                  url: '/api/base64',
+                  data: {
+                    base64: base64,
+                    name: name
+                  },
+                }).then((res) => {
+                  let data = res.data
+                  resolve()
+                  if (data.code === 1) {
+                    console.log(data.msg)
+                    console.log(data.data)
+                    let image = new Image()
+                    image.src = data.data
+                    image.width = 50
+                    image.height = 50
+                    document.body.appendChild(image)
+                    image.onclick = function () {
+                      let link = document.createElement('a')
+                      link.style.display = 'none'
+                      link.href = image.src
+                      document.body.appendChild(link)
+                      if ('download' in link) {
+                        link.download = data.data
+                      } else {
+                        link.target = "_blank"
+                      }
+                      link.click()
+                      document.body.removeChild(link)
+                    }
+                  } else {
+                    console.log(data.msg)
+                  }
+                })
+              })
+            }
+          })
+        })()
+      }
+    })()
+  }
+</script>
+
+</html>
