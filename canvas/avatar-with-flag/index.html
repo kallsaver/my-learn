@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <title>avatar-with-flag</title>
+    <script>
+      var designWidth = 375;
+      var rem2px = 100;
+      var maxWidth = 640;
+      function setRemFontSize() {
+        var innerWidth = window.innerWidth > maxWidth ? maxWidth : window.innerWidth
+        var remFontSize = innerWidth / designWidth * rem2px;
+        document.documentElement.style.fontSize = remFontSize + 'px';
+      }
+      setRemFontSize()
+      window.addEventListener('resize', setRemFontSize, false)
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
