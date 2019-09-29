@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div>有A、B、C、D四个人要从同一个方向过一座独木桥.</div>
+  <div>这四个人有一个手电筒,过桥须手电筒,过桥须用手电筒,且一次只能有两个同时过桥.</div>
+  <div>A单独过桥的世界是1分钟,B是2分钟,C是5分钟,D是10分钟</div>
+  <div>问这四个人过桥用的最短时间是多少</div>
+</body>
+
+<script>
+  // 左边桥
+  let left = [1, 2, 5, 10]
+
+  // 右边桥
+  let right = []
+
+  // 每次过两人
+  let every = 2
+
+
+  // 所有可能
+  let map = {}
+
+  function getEvenyCount(length, every) {
+    if (length - every <= 0) {
+      return 1
+    } else {
+      let nextLength = length - every + 1
+      return 2 + getEvenyCount(nextLength, every)
+    }
+  }
+
+  // 先算出来回的次数
+  // let count = getEvenyCount(left.length, every)
+
+  // 数学公式-阶乘
+  function factorial(n) {
+    if (n === 1) {
+      return 1
+    } else {
+      return n * arguments.callee(n - 1)
+    }
+  }
+
+  // 数学公式-排列
+  function A(m, n) {
+    return factorial(n) / factorial(n - m)
+  }
+
+  // 数学公式-组合
+  function C(m, n) {
+    return factorial(n) / factorial(n - m) / factorial(m)
+  }
+
+  let a = 3
+  let b = 2
+  let c = 8
+
+  console.log(a - b, c - b)
+  console.log(C(a, c))
+  console.log(C(b, c))
+  console.log(C(a - b, c - b))
+
+  // 排出一个数组的m组合
+  function CArr(arr, m) {
+    let result
+    for (let i = 0; i < arr.length; i++) {
+      let item = arr[i]
+      let restArr = arr.slice().splice(i, 1)
+      for (let j = 0; j < restArr.length; i++) {
+        result.push([item])
+      }
+    }
+  }
+
+  // 左边的,右边的,每次过去的人数,递归的层数
+  function run(left, right, every, level) {
+    if (left.length - every <= 0) {
+      Array.prototype.push.apply(right, left)
+    } else {
+      let nextLevel = level + 1
+      // 从left挑出every个组合,产生分歧,有C(left.length, every)种可能
+
+
+    }
+  }
+
+  // run(left, right, every, 0)
+
+  //
+  function CArr(arr, m) {
+
+  }
+
+
+</script>
+</html>
