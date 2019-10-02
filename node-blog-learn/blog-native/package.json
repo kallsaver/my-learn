@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "//dev": "cross-env NODE_ENV=development gulp server",
-    "dev": "cross-env NODE_ENV=development gulp dev & nodemon ./bin/www.js",
+    "dev": "cross-env NODE_ENV=development gulp server",
     "prod": "cross-env NODE_ENV=prodution nodemon ./bin/www.js"
   },
   "keywords": [],
