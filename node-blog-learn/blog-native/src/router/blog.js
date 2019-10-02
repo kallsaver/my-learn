@@ -4,7 +4,6 @@ const handleBlogRouter = (req, res) => {
   const path = url.split('?')[0]
 
   // api接口
-
   if (method === 'GET') {
     if (path === '/api/blog/list') {
       return {

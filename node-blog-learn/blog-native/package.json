@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cross-env NODE_ENV=development nodemon ./bin/www.js",
+    "//dev": "cross-env NODE_ENV=development gulp server",
+    "dev": "cross-env NODE_ENV=development gulp dev & nodemon ./bin/www.js",
     "prod": "cross-env NODE_ENV=prodution nodemon ./bin/www.js"
   },
   "keywords": [],
@@ -14,7 +15,11 @@
   "devDependencies": {
     "cross-env": "^5.2.0",
     "nodemon": "^1.19.0",
-    "portfinder": "^1.0.20"
+    "portfinder": "^1.0.20",
+    "browser-sync": "^2.26.3",
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.4.2",
+    "gulp-plumber": "^1.2.1"
   },
   "dependencies": {
     "querystring": "^0.2.0"
