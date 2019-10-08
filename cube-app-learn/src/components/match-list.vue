@@ -106,14 +106,13 @@ export default {
       timer: null,
     }
   },
-    // picker会导致source的改变,也可以用computed实现
+  // picker会导致source的改变,也可以用computed实现
   watch: {
     source() {
       console.log('watch')
       this.matchList = getMatchList(this.source, this.type)
     },
   },
-
   created() {
     this.subscribeDialog = this.$createSubscribeDialog({
       onShow() {
