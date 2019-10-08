@@ -2,7 +2,7 @@ const gulp = require('gulp')
 const nodemon = require('gulp-nodemon')
 const browserSync = require('browser-sync').create()
 
-const DELAY = 5000
+const DELAY_TIME = 5000
 
 const nodemonWatch = ['src/router', 'app.js', 'bin/www.js']
 
@@ -12,7 +12,7 @@ function Debounce(timeSlice = DEFAULT_TIME_SLICE)  {
   this.timeSlice = timeSlice
 }
 
-Debounce.prototype.run = function (func) {
+Debounce.prototype.run = (func) => {
   if (typeof func === 'function') {
     if (this.timer) {
       clearTimeout(this.timer)
@@ -23,8 +23,8 @@ Debounce.prototype.run = function (func) {
 
 let debounce = new Debounce()
 
-const reload = function (time) {
-  time = time || 0
+const reload = (time) => {
+  time = typeof time === 'number' && time || 0
   setTimeout(() => {
     browserSync.reload()
   }, time)
@@ -42,7 +42,7 @@ gulp.task('nodemon', (cb) => {
     }
   }).on('restart', () => {
     debounce.run(() => {
-      reload(DELAY)
+      reload(DELAY_TIME)
     })
   })
 })
@@ -56,12 +56,8 @@ gulp.task('server', ['nodemon'], () => {
     proxy: `http://localhost:8067/`,
     notify: false,
   })
-  gulp.watch('src/**/*.js').on('change', () => {
-    reload()
-  })
-  gulp.watch('src/views/*.html').on('change', () => {
-    reload()
-  })
+  gulp.watch('src/**/*.js').on('change', reload)
+  gulp.watch('src/views/*.html').on('change', reload)
 })
 
 gulp.task('default', () => {

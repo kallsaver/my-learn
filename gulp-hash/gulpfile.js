@@ -38,8 +38,8 @@ gulp.task('serve',['less'],function() {
         notify : false
     });
 
-    gulp.watch( app.srcPath + 'less/*.less' ,['less']);
-    gulp.watch( app.distPath + 'css/*.css' ).on('change', browserSync.reload);
+    gulp.watch(app.srcPath + 'less/*.less' ,['less']);
+    gulp.watch(app.distPath + 'css/*.css' ).on('change', browserSync.reload);
     gulp.watch("app/views/*.html").on('change', browserSync.reload);
 });
 

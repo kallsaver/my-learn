@@ -5,6 +5,7 @@ const gulp = require('gulp')
 const smushit = require('gulp-smushit')
 const imagemin = require('gulp-imagemin')
 const plumber = require('gulp-plumber')
+const merge = require('merge-stream')
 
 function existsSync(filePath) {
   try {
@@ -19,7 +20,7 @@ const ALL = '**'
 
 let target = process.argv[3] ? process.argv[3].slice(1) : ALL
 
-let taskList = ['smushit', 'imagemin']
+let taskList = []
 
 if (target !== ALL) {
   let isExists = existsSync(path.join(__dirname, `./src/images/${target}`))
@@ -30,28 +31,26 @@ if (target !== ALL) {
 
 let dest = target === ALL ? `dist/images/` : `dist/images/${target}`
 
-// yahoo出品的图片压缩工具,对png的优化不高,对jpg的可以压缩60%
-gulp.task('smushit', function () {
-  return gulp.src(`src/images/${target}/*.{jpg,jpeg}`)
+gulp.task('image', taskList, () => {
+  // yahoo出品的图片压缩工具,对png的优化不高,对jpg,jpeg的可以压缩60%
+  let jpgmini = gulp.src([`src/images/${target}/**/*`, `!src/images/${target}/**/*.png`])
     .pipe(plumber({
-      errorHandler: function () {
+      errorHandler: () => {
         this.emit('end')
       }
     }))
     .pipe(smushit({
       verbose: true
     }))
-    .on('error', function (err) {
+    .on('error', (err) => {
       console.log('Error: ', err.message)
     })
     .pipe(gulp.dest(dest))
-})
 
-// 另一款图片压缩工具,对png可以压缩一点点,对jpg压缩率不高
-gulp.task('imagemin', function () {
-  gulp.src(`src/images/${target}/*.png`)
+  // 另一款图片压缩工具, 对png可以压缩一点点, 对jpg压缩率不高
+  let pngmini = gulp.src([`src/images/${target}/**/*.png`])
     .pipe(plumber({
-      errorHandler: function () {
+      errorHandler: () => {
         this.emit('end')
       }
     }))
@@ -66,10 +65,10 @@ gulp.task('imagemin', function () {
       multipass: true
     }))
     .pipe(gulp.dest(dest))
+
+  return merge(jpgmini, pngmini)
 })
 
-gulp.task('error', function () {
+gulp.task('error', () => {
   console.log(`目录 src/images/${target}不存在!`)
 })
-
-gulp.task('image', taskList)
