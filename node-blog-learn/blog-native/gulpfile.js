@@ -11,6 +11,7 @@ const DEFAULT_TIME_SLICE = 400
 function Debounce(timeSlice = DEFAULT_TIME_SLICE)  {
   this.timeSlice = timeSlice
 }
+
 Debounce.prototype.run = function (func) {
   if (typeof func === 'function') {
     if (this.timer) {
@@ -41,7 +42,6 @@ gulp.task('nodemon', (cb) => {
     }
   }).on('restart', () => {
     debounce.run(() => {
-      console.log('restart')
       reload(DELAY)
     })
   })
@@ -51,7 +51,7 @@ gulp.task('nodemon', (cb) => {
 gulp.task('server', ['nodemon'], () => {
   browserSync.init({
     // 以ip地址的方式打开
-    // open: 'external',
+    open: 'external',
     port: 4006,
     proxy: `http://localhost:8067/`,
     notify: false,

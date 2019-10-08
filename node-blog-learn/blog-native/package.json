@@ -20,7 +20,5 @@
     "gulp-nodemon": "^2.4.2",
     "gulp-plumber": "^1.2.1"
   },
-  "dependencies": {
-    "querystring": "^0.2.0"
-  }
+  "dependencies": {}
 }
