@@ -33,7 +33,7 @@ let dest = target === ALL ? `dist/images/` : `dist/images/${target}`
 
 gulp.task('image', taskList, () => {
   // yahoo出品的图片压缩工具,对png的优化不高,对jpg,jpeg的可以压缩60%
-  let jpgmini = gulp.src([`src/images/${target}/**/*`, `!src/images/${target}/**/*.png`])
+  let miniJpg = gulp.src([`src/images/${target}/**/*`, `!src/images/${target}/**/*.png`])
     .pipe(plumber({
       errorHandler: () => {
         this.emit('end')
@@ -48,25 +48,25 @@ gulp.task('image', taskList, () => {
     .pipe(gulp.dest(dest))
 
   // 另一款图片压缩工具, 对png可以压缩一点点, 对jpg压缩率不高
-  let pngmini = gulp.src([`src/images/${target}/**/*.png`])
+  let miniPng = gulp.src([`src/images/${target}/**/*.png`])
     .pipe(plumber({
       errorHandler: () => {
         this.emit('end')
       }
     }))
     .pipe(imagemin({
-      // 类型：Number  默认：3  取值范围：0-7（优化等级）
+      // Number,默认3,取值范围0-7(优化等级)
       optimizationLevel: 5,
-      // 类型：Boolean 默认：false 无损压缩jpg图片
+      // Boolean,默认false,无损压缩jpg图片
       progressive: true,
-      // 类型：Boolean 默认：false 隔行扫描gif进行渲染
+      // Boolean,默认false,隔行扫描gif进行渲染
       interlaced: true,
-      // 类型：Boolean 默认：false 多次优化svg直到完全优化
+      // Boolean,默认false,多次优化svg直到完全优化
       multipass: true
     }))
     .pipe(gulp.dest(dest))
 
-  return merge(jpgmini, pngmini)
+  return merge(miniJpg, miniPng)
 })
 
 gulp.task('error', () => {
