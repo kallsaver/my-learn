@@ -1,6 +1,7 @@
 const querystring = require('querystring')
 const blogRouterHandler = require('./src/router/blog')
 const userRouterHandler = require('./src/router/user')
+const testRouterHandler = require('./src/router/test')
 
 // 获取post请求的data
 const getPostData = (req) => {
@@ -27,12 +28,12 @@ const getPostData = (req) => {
 
 const serverHandler = (req, res) => {
   const url = req.url
-  const path = url.split('?')[0]
+  const reqPath = url.split('?')[0]
   const paramPath = url.split('?')[1]
 
   // node通过req,res来传参
   // 这样做其实很不好,混淆和原先存在的属性和扩展的属性
-  req.path = path
+  req.reqPath = reqPath
   req.query = querystring.parse(paramPath)
 
   getPostData(req).then((postData) => {
@@ -40,7 +41,6 @@ const serverHandler = (req, res) => {
     req.body = postData
 
     const blogData = blogRouterHandler(req, res)
-
     if (blogData) {
       // 设置响应头
       res.setHeader('content-type', 'application/json')
@@ -50,12 +50,30 @@ const serverHandler = (req, res) => {
     }
 
     const userData = userRouterHandler(req, res)
-
     if (userData) {
       // 设置响应头
       res.setHeader('content-type', 'application/json')
       // http只能传输字符串
       res.end(JSON.stringify(userData))
+      return
+    }
+
+    const testData = testRouterHandler(req, res)
+    if (testData) {
+      if (testData instanceof Promise) {
+        testData.then((result) => {
+          console.log(66)
+          // 设置响应头
+          res.setHeader('content-type', 'application/json')
+          // http只能传输字符串
+          res.end(JSON.stringify(result))
+        })
+      } else {
+        // 设置响应头
+        res.setHeader('content-type', 'application/json')
+        // http只能传输字符串
+        res.end(JSON.stringify(testData))
+      }
       return
     }
 

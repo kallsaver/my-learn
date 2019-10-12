@@ -9,9 +9,9 @@ const {
 
 const userRouterHandler = (req, res) => {
   const method = req.method
-  const path = req.path
+  const reqPath = req.reqPath
   if (method === 'POST') {
-    if (path === '/api/user/login') {
+    if (reqPath === '/api/user/login') {
       const { username, password } = req.body
       const result = loginCheck(username, password)
       if (result) {

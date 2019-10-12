@@ -12,10 +12,9 @@ module.exports = (app) => {
     await next()
     console.log('Allow-Origin end')
   })
-  console.log('use')
   router.get('/upload', async (ctx, next) => {
     console.log('router upload start')
-    await ctx.render('upload', {
+    await ctx.render('index/upload/upload', {
       title: '图片上传'
     })
     console.log('router upload end')

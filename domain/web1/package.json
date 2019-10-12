@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/app.js"
+    "dev": "cross-env NODE_ENV=TEST gulp server"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +18,17 @@
     "koa-views": "^6.1.5"
   },
   "devDependencies": {
-    "nodemon": "^1.19.0",
-    "opn": "^6.0.0"
+    "browser-sync": "^2.26.3",
+    "cross-env": "6.0.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-less": "^3.3.0",
+    "gulp-nodemon": "^2.4.2",
+    "gulp-plumber": "^1.2.1",
+    "gulp-smushit": "^1.2.0",
+    "gulp-uglify": "^2.0.1",
+    "merge-stream": "^1.0.1",
+    "portfinder": "^1.0.24"
   }
 }

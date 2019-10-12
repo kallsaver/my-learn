@@ -1,10 +1,9 @@
 const gulp = require('gulp')
 const nodemon = require('gulp-nodemon')
 const browserSync = require('browser-sync').create()
+const { HOST, PORT } = require('./config/index')
 
 const DELAY_TIME = 5000
-
-const nodemonWatch = ['src/router', 'app.js', 'bin/www.js']
 
 const DEFAULT_TIME_SLICE = 400
 
@@ -24,7 +23,7 @@ Debounce.prototype.run = (func) => {
 let debounce = new Debounce()
 
 const reload = (time) => {
-  time = typeof time === 'number' && time || 0
+  time = time && typeof time === 'number' || 0
   setTimeout(() => {
     browserSync.reload()
   }, time)
@@ -34,7 +33,12 @@ gulp.task('nodemon', (cb) => {
   let isStart = false
   return nodemon({
     script: 'bin/www.js',
-    watch: nodemonWatch,
+    ignore: [
+      'node_modules/',
+      'src/public/**/*',
+      'src/views/**/*',
+      'gulpfile.js'
+    ],
   }).on('start', () => {
     if (!isStart) {
       cb()
@@ -53,7 +57,7 @@ gulp.task('server', ['nodemon'], () => {
     // 以ip地址的方式打开
     open: 'external',
     port: 4006,
-    proxy: `http://localhost:8067/`,
+    proxy: `${HOST}${PORT}`,
     notify: false,
   })
   gulp.watch('src/**/*.js').on('change', reload)
