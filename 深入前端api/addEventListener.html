@@ -10,16 +10,59 @@
       margin: 0;
       padding: 0;
     }
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
     .content {
-      width: 200px;
-      height: 200px;
-      margin-bottom: 100px;
+      height: auto;
+      font-size: 0;
+      margin-bottom: 500px;
+    }
+    img {
+      width: 100%;
+    }
+    .wrapper {
+      height: 200%;
+    }
+    .btn {
+      width: 100px;
+      height: 100px;
+      background: goldenrod;
+    }
+    .popup {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    .popup .popup-mask {
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+    }
+    .popup .popup-content {
+      position: absolute;
+      width: 300px;
+      height: 500px;
+      top: 50%;
+      left: 50%;;
+      background: peru;
+      transform: translate(-50%, -50%);
     }
   </style>
 </head>
 <body>
-  <div id="content" class="content">
-    <img id="thumbnail" src="./images/1.jpg" />
+  <div class="wrapper">
+    <div id="content" class="content">
+      <img id="thumbnail" src="./images/1.jpg" />
+    </div>
+    <div id="btn" class="btn"></div>
+  </div>
+  <div id="popup" class="popup" style="display: none">
+    <div class="popup-mask"></div>
+    <div class="popup-content"></div>
   </div>
 </body>
 <script>
@@ -30,22 +73,8 @@
 
   let content = document.getElementById('content')
   let thumbnail = document.getElementById('thumbnail')
-
-  content.addEventListener('click', function () {
-    console.log('content click true')
-  }, true)
-
-  content.addEventListener('click', function () {
-    console.log('content click false')
-  }, false)
-
-  window.addEventListener('click', function () {
-    console.log('window click true')
-  }, true)
-
-  window.addEventListener('click', function () {
-    console.log('window click false')
-  }, false)
+  let btn = document.getElementById('btn')
+  let popup = document.getElementById('popup')
 
   content.addEventListener('load', function () {
     console.log('content load true')
@@ -63,5 +92,39 @@
   thumbnail.addEventListener('load', function () {
     console.log('thumbnail load false')
   }, false)
+
+  window.addEventListener('click', function () {
+    console.log('window click true')
+  }, true)
+
+  window.addEventListener('click', function () {
+    console.log('window click false')
+  }, false)
+
+  content.addEventListener('click', function () {
+    console.log('content click true')
+  }, true)
+
+  content.addEventListener('click', function () {
+    console.log('content click false')
+  }, false)
+
+  btn.addEventListener('click', function () {
+    popup.style.display = 'block'
+  }, false)
+
+  // 第三个参数是对象的情况
+  popup.addEventListener('touchmove', function (e) {
+    e.preventDefault()
+    console.log('touchmove: false, passive: false')
+  }, {
+    // 等价于之前的useCapture参数,是否在捕获阶段执行,默认false
+    capture: false,
+    // 是否单次监听,默认false
+    once: false,
+    // 是否让阻止默认行为e.preventDefault()失效,默认false
+    passive: false
+  })
+
 </script>
 </html>

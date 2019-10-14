@@ -3,10 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>元宵节</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+  <link rel="stylesheet" href="css/swiper.min.css">
+  <link rel="stylesheet" href="css/animate.min.css">
+  <style>
+    *{
+      margin:0;
+      padding:0;
+    }
+    html,body{
+      height:100%;
+    }
+    body{
+      font-family:"microsoft yahei";
+    }
+    .swiper-container {
+      width: 100%;
+      height: 100%;
+      background:#fff;
+    }
+    .swiper-slide{
+      width:100%;
+      height:100%;
+      background:url(upload/bg.jpg) no-repeat left top;
+      background-size:100% 100%;
+    }
+    img{
+      display:block;
+    }
+    .txt {
+      position:absolute;
+    }
+    .s1-t2 {
+      position:absolute;
+      width:100px;
+      height:110px;
+      left:70px;top:185px;
+      z-index:3;
+    }
+    .s1-t1 {
+      position:absolute;
+      width:60px;
+      height:110px;
+      left:220px;
+      top:185px;
+      z-index:3;
+    }
+    .flower {
+      position:absolute;
+      width:180px;
+      height:220px;
+      left:0;
+      top:0;
+      z-index:2;
+    }
+    .s1 {
+      position:absolute;
+      width:320px;
+      height:200px;
+      left:0px;
+      top:140px;
+      z-index:1;
+    }
+  </style>
 </head>
 <body>
-
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <section class="swiper-slide">
+        <img src="upload/s1-t2.png"
+          class="s1-t2 resize ani"
+          swiper-animate-effect="fadeIn"
+          swiper-animate-duration="0.5s"
+          swiper-animate-delay="1.5s">
+        <img src="upload/s1-t1.png"
+          class="s1-t1 resize ani"
+          swiper-animate-effect="bounceIn"
+          swiper-animate-duration="0.5s"
+          swiper-animate-delay="1s">
+        <img src="upload/flower.png"
+          class="flower resize ani"
+          swiper-animate-effect="fadeInLeft"
+          swiper-animate-duration="0.5s"
+          swiper-animate-delay="0s">
+        <img src="upload/s1.png"
+          class="s1 resize ani"
+          swiper-animate-effect="fadeIn"
+          swiper-animate-duration="0.5s"
+          swiper-animate-delay="0.5s">
+      </section>
+    </div>
+  </div>
 </body>
+<script src="js/swiper.min.js"></script>
+<script src="js/swiper.animate.min.js"></script>
+<script>
+  var mySwiper = new Swiper('.swiper-container', {
+    direction: 'vertical',
+    pagination: '.swiper-pagination',
+    mousewheelControl: true,
+    onInit: function (swiper) {
+      swiperAnimateCache(swiper);
+      swiperAnimate(swiper);
+    },
+    onSlideChangeEnd: function (swiper) {
+      swiperAnimate(swiper);
+    }
+  })
+</script>
 </html>

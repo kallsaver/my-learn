@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  <title>better-scroll</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body, html {
+      width: 100%;
+      height: 100%;
+    }
+    .wrapper {
+      width: 100%;
+      height: 100%;
+    }
+    .content {
+      width: 100%;
+      position: relative;
+    }
+    li {
+      width: 100%;
+      height: 200px;
+      line-height: 200px;
+      color: #333;
+      font-size: 36px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper" id="wrapper">
+    <ul class="content">
+      <li style="background-color: #FFBBFF">bs</li>
+      <li style="background-color: #FF0000">bs</li>
+      <li style="background-color: #F5F5DC">bs</li>
+      <li style="background-color: #EEEED1">bs</li>
+      <li style="background-color: #D4D4D4">bs</li>
+      <li style="background-color: #CDC5BF">bs</li>
+      <li style="background-color: #CDB38B">bs</li>
+      <li style="background-color: #ADD8E6">bs</li>
+      <li style="background-color: #98FB98">bs</li>
+    </ul>
+  </div>
+</body>
+<script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+<script src="../dist/better-scroll.min.js"></script>
+<script>
+  var vConsole = new VConsole()
+
+  let wrapper = document.getElementById('wrapper')
+
+  let li = wrapper.getElementsByTagName('li')
+
+  console.log(window.screen.availHeight)
+
+  new BScroll(wrapper, {
+
+  })
+</script>
+</html>
