@@ -5,7 +5,7 @@ const { resolve } = require('./utils')
 
 ;(async () => {
   await build()
-  portfinder.basePort = 8888
+  portfinder.basePort = 3666
   portfinder.getPort((err, port) => {
     if (err) {
       console.log(err)
