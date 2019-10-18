@@ -8,6 +8,6 @@
 	factory();
 }(function () { 'use strict';
 
-	console.log('config.js');
+	console.log(11);
 
 }));

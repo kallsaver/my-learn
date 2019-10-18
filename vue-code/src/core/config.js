@@ -1,3 +1,5 @@
+console.log(11)
 
+export default {
 
-console.log('config.js')
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <title>bs-demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+    }
+    .slide {
+      height: 100px;
+    }
+    .slide-item {
+      width: 100%;
+      height: 100px;
+      line-height: 100px;
+      text-align: center;
+      float: left;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <cube-slide
+      class="slide"
+      :options="options"
+      :loop="true"
+      :auto-play="true"
+      :data="list">
+      <cube-slide-item
+        class="slide-item"
+        v-for="(item, index) in list"
+        :key="index">
+        <a :href="item.url">
+          <img :src="item.image">
+        </a>
+      </cube-slide-item>
+    </cube-slide>
+  </div>
+</body>
+<script src="https://unpkg.com/vue@2.4.0/dist/vue.min.js"></script>
+<script src="https://unpkg.com/cube-ui@1.12.31/lib/index.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        options: {
+          probeType: 1,
+          click: true,
+          snap: {
+            loop: true,
+            threshold: 0.5
+          },
+        },
+        list: [
+          {
+            url: 'http://www.didichuxing.com/',
+            image: 'http://webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide01.png'
+          },
+          {
+            url: 'http://www.didichuxing.com/',
+            image: 'http://webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide02.png'
+          },
+          {
+            url: 'http://www.didichuxing.com/',
+            image: 'http://webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide03.png'
+          },
+          {
+            url: 'http://www.didichuxing.com/',
+            image: 'http://webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide03.png'
+          },
+          {
+            url: 'http://www.didichuxing.com/',
+            image: 'http://webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide03.png'
+          }
+        ],
+      }
+    }
+  })
+</script>
+</html>
