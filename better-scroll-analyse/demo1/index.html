@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>弹动效果 touch.js</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html, body{
+            width: 100%;
+        }
+        .app {
+            width: 100%;
+            height: 100%;
+        }
+        /* 列表的父盒子，限制宽高 */
+        /* 注意设置overflow: hidden;样式后，超出这个盒子的ul将不会显示 */
+        .draw {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #ccc;
+            overflow: hidden;
+            position: fixed;
+           /*  top: 50%;
+            transform: translateY(-50%); */
+        }
+        /* li 设置了浮动， 所以 ul 要清除浮动 */
+        ul {
+            zoom: 1;
+            padding: 0 10%;
+        }
+        ul::after {
+            content: "";
+            display:block;
+            visibility: hidden;
+            height: 0;
+            clear: both;
+        }
+        li {
+            list-style: none;
+            float: left;
+            width:100px;
+            height:100px;
+            line-height:100px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="draw" id="draw">
+            <ul>
+                <li style="background:orange"></li>
+                <li style="background:cyan"></li>
+                <li style="background:orange"></li>
+                <li style="background:olivedrab"></li>
+                <li style="background:purple"></li>
+                <li style="background:cornflowerblue"></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        var startY = 0;
+        const maxMove = 500;
+        var draw = document.getElementById('draw');
+        var ul = draw.children[0];
+        draw.addEventListener('touchstart', function(event) {
+            console.log('%ctouchstart // clientY: '+event.changedTouches[0].clientY,"color:green");
+            startY = event.changedTouches[0].clientY;
+        });
+        draw.addEventListener('touchmove', function(event) {
+            console.log('touchmove // clientY: '+event.changedTouches[0].clientY);
+            const y = event.changedTouches[0].clientY - startY <= maxMove ? event.changedTouches[0].clientY - startY : maxMove;
+            // 为了清除卡顿问题，需要清除过渡效果
+            ul.style.transition = "none";
+            // 阻尼系数0.3
+            ul.style.transform = 'translateY('+0.3*y+'px)';
+        });
+        draw.addEventListener('touchend', function(event) {
+            console.log('%ctouchend // clientY: '+event.changedTouches[0].clientY,"color:orange");
+            const y = event.changedTouches[0].clientY - startY;
+            // 添加过渡效果
+            ul.style.transition = 'transform .6s';
+            ul.style.transform = 'translateY('+0+'px)';
+        });
+    </script>
+</body>
+</html>
