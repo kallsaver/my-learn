@@ -7,7 +7,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "fontmin": "^0.9.8",
     "gulp": "^3.9.1",
+    "gulp-font-spider": "^0.3.6",
+    "gulp-fontmin": "^0.7.4",
     "gulp-imagemin": "^3.3.0",
     "gulp-plumber": "^1.1.0",
     "gulp-smushit": "^1.2.0",

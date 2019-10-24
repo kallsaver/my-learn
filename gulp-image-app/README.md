@@ -11,5 +11,5 @@
   >6. 把图片放入src/images/随便某个文件夹中,比如20190911
   >7. 开始压缩图片,cmd命令行窗口(步骤1的方式打开命令行窗口)中输入:gulp image
   >8. 到dist/images/刚刚图片所在的文件夹中,比如20190911就可以找到压缩后的图片了
-  >9. 命令说明: gulp image会把src/images的所有的图片都压缩,如果你想只压缩某个文件夹的图片在命令行窗口输入gulp image -文件夹名字,比如gulp image 20190911会只压缩src/images/20190911的文件
+  >9. 命令说明: gulp images会把src/images的所有的图片都压缩,如果你想只压缩某个文件夹的图片在命令行窗口输入gulp image -文件夹名字,比如gulp image 20190911会只压缩src/images/20190911的文件
 

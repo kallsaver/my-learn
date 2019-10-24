@@ -6,6 +6,8 @@ const smushit = require('gulp-smushit')
 const imagemin = require('gulp-imagemin')
 const plumber = require('gulp-plumber')
 const merge = require('merge-stream')
+const Fontmin = require('fontmin')
+const fontmin = new Fontmin()
 
 function existsSync(filePath) {
   try {
@@ -17,25 +19,28 @@ function existsSync(filePath) {
 }
 
 const ALL = '**'
+const IMAGES = 'images'
+const FONTS = 'fonts'
 
+let task = process.argv[2]
 let target = process.argv[3] ? process.argv[3].slice(1) : ALL
 
 let taskList = []
 
 if (target !== ALL) {
-  let isExists = existsSync(path.join(__dirname, `./src/images/${target}`))
+  let isExists = existsSync(path.join(__dirname, `./src/${task}/${target}`))
   if (!isExists) {
     taskList = ['error']
   }
 }
 
-let dest = target === ALL ? `dist/images/` : `dist/images/${target}`
+let dest = target === ALL ? `dist/${task}/` : `dist/${task}/${target}`
 
-gulp.task('image', taskList, () => {
+gulp.task('images', taskList, () => {
   // yahoo出品的图片压缩工具,对png的优化不高,对jpg,jpeg的可以压缩60%
-  let miniJpg = gulp.src([`src/images/${target}/**/*`, `!src/images/${target}/**/*.png`])
+  let miniJpg = gulp.src([`src/${IMAGES}/${target}/**/*`, `!src/${IMAGES}/${target}/**/*.png`])
     .pipe(plumber({
-      errorHandler: () => {
+      errorHandler: function() {
         this.emit('end')
       }
     }))
@@ -48,7 +53,7 @@ gulp.task('image', taskList, () => {
     .pipe(gulp.dest(dest))
 
   // 另一款图片压缩工具, 对png可以压缩一点点, 对jpg压缩率不高
-  let miniPng = gulp.src([`src/images/${target}/**/*.png`])
+  let miniPng = gulp.src([`src/${IMAGES}/${target}/**/*.png`])
     .pipe(plumber({
       errorHandler: () => {
         this.emit('end')
@@ -69,6 +74,36 @@ gulp.task('image', taskList, () => {
   return merge(miniJpg, miniPng)
 })
 
-gulp.task('error', () => {
-  console.log(`目录 src/images/${target}不存在!`)
+
+gulp.task('fonts', taskList, () => {
+  let textList = [
+    // 'qwertyuiopasdfghjklzxcvbnm',
+    // 'QWERTYUIOPASDFGHJKLZXCVBNM',
+    // '0123456789',
+    // 'TCL邀你畅玩CES亲身体验黑科技'
+    'TCL'
+  ]
+
+  let text = textList.join('')
+
+  fontmin.src(`src/${FONTS}/${target}/*.ttf`)
+    .use(Fontmin.glyph({
+      text: text
+    }))
+    .use(Fontmin.ttf2eot())
+    .use(Fontmin.ttf2woff())
+    .use(Fontmin.ttf2svg())
+    .use(Fontmin.css())
+    .dest(dest)
+
+  fontmin.run(function (err, files, stream) {
+    if (err) {
+      console.error(err)
+    }
+    console.log('done')
+  })
+})
+
+gulp.task('error', (err) => {
+  console.log(`目录 src/${task}/${target}不存在!`)
 })

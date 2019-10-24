@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "FZLanTingHeiS-H-GB";
+    src: url("FZLanTingHeiS-H-GB.eot"); /* IE9 */
+    src: url("FZLanTingHeiS-H-GB.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("FZLanTingHeiS-H-GB.woff") format("woff"), /* chrome, firefox */
+    url("FZLanTingHeiS-H-GB.ttf") format("truetype"), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+    url("FZLanTingHeiS-H-GB.svg#FZLanTingHeiS-H-GB") format("svg"); /* iOS 4.1- */
+    font-style: normal;
+    font-weight: normal;
+}
+
+
