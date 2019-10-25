@@ -1,0 +1,9 @@
+[ignore]
+.*/node_modules/.*
+.*/test/.*
+.*/scripts/.*
+.*/examples/.*
+.*/benchmarks/.*
+
+[libs]
+flow

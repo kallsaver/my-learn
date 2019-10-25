@@ -43,17 +43,3 @@ add(2, 's')
 
 // 数组
 let arr: Array<number> = [1, 2]
-
-function Man(options: Object) {
-  this.Component = function () {
-
-  }
-}
-
-function initMan(Man: Class<Component>) {
-  Man.prototype.init = function () {
-    const vm: Component = this
-  }
-}
-
-initMan(Man)
