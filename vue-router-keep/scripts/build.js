@@ -1,0 +1,7 @@
+const path = require('path')
+const buble = require('rollup-plugin-buble')
+const alias = require('rollup-plugin-alias')
+const cjs = require('rollup-plugin-commonjs')
+const replace = require('rollup-plugin-replace')
+const node = require('rollup-plugin-node-resolve')
+const flow = require('rollup-plugin-flow-no-whitespace')
