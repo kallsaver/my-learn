@@ -1,15 +1,14 @@
 const path = require('path')
-const buble = require('rollup-plugin-buble')
-const alias = require('rollup-plugin-alias')
 const cjs = require('rollup-plugin-commonjs')
-const replace = require('rollup-plugin-replace')
 const node = require('rollup-plugin-node-resolve')
-const flow = require('rollup-plugin-flow-no-whitespace')
+const babel = require('rollup-plugin-babel')
+const eslint = require('rollup-plugin-eslint').eslint
 
-const package = require('../package.json')
+const util = require('./util')
 
-const version = package.version
-const name = package.name
+const version = require('../package.json').version
+const name = require('../package.json').name
+const apiName = util.createApiName(name)
 
 const banner =
   '/*!\n' +
@@ -19,8 +18,18 @@ const banner =
   ' */'
 
 const resolve = (p) => {
-  return path.resolve(__dirname, '../', p);
+  return path.resolve(__dirname, '../', p)
 }
+
+const plugins = [
+  eslint({
+    include: [
+      resolve('src/**/*.js')
+    ]
+  }),
+  node(),
+  cjs(),
+]
 
 const builds = {
   esm: {
@@ -28,58 +37,50 @@ const builds = {
     output: {
       file: resolve(`dist/${name}.esm.js`),
       format: 'es',
+      banner: banner
     },
-    plugins: [
-      eslint({
-        include: [
-          resolve('src/**/*.js')
-        ]
-      }),
-      node(),
-      cjs(),
-    ]
+    plugins: plugins
   },
   umd: {
     input: resolve('src/index.js'),
     output: {
       file: resolve(`dist/${name}.umd.js`),
       format: 'umd',
-      name: 'ViUpload',
+      name: apiName,
+      banner: banner
     },
-    plugins: [
-      eslint({
-        include: [
-          resolve('src/**/*.js')
-        ]
-      }),
-      node(),
-      cjs(),
-      buble(),
-      babel({
-        plugins: ['external-helpers'],
-      }),
-    ]
+    plugins: plugins.concat([
+      babel()
+    ])
   },
   min: {
     input: resolve('src/index.js'),
     output: {
-      file: resolve('dist/vi-upload.min.js'),
+      file: resolve(`dist/${name}.min.js`),
       format: 'umd',
-      name: 'ViUpload',
+      name: apiName,
+      banner: banner
     },
-    plugins: [
-      eslint({
-        include: [
-          resolve('src/**/*.js')
-        ]
-      }),
-      node(),
-      cjs(),
-      // buble(),
-      babel({
-        plugins: ['external-helpers'],
-      }),
-      minify(),
-    ]
+    plugins: plugins.concat([
+      babel()
+    ])
   }
+}
+
+
+function genConfig(name) {
+  const options = builds[name]
+  let config = {
+    input: options.input,
+    output: options.output,
+    plugins: options.plugins,
+  }
+  return config
+}
+
+if (process.env.TARGET) {
+  module.exports = genConfig(process.env.TARGET)
+} else {
+  exports.getBuild = genConfig
+  exports.getAllBuilds = () => Object.keys(builds).map(genConfig)
 }

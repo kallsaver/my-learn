@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .box {
+      width: 200px;
+      height: 200px;
+      background: peru;
+    }
+  </style>
+</head>
+<body>
+  <div id="box" class="box"></div>
+</body>
+<script>
+
+  const box = document.getElementById('box')
+
+  box.addEventListener('click', () => {
+    window.setTimeout(() => {
+      console.log('setTimeout')
+    }, 0)
+    window.location.href = window.location.href + '#/?a=1'
+    console.log('click')
+  })
+
+  window.addEventListener('hashchange', () => {
+    console.log('hashchange')
+  }, false)
+</script>
+</html>
