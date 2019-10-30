@@ -57,7 +57,7 @@ export default class Stack {
   removeAll() {
     return this.list.splice(0)
   }
-  clearExclude() {
+  removeExclude() {
     for (let i = 0; i < this.list.length; i++) {
       const item = this.list[i]
       if (Array.prototype.indexOf.call(arguments, item) === -1) {

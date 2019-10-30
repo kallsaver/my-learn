@@ -44,7 +44,7 @@ const builds = {
   umd: {
     input: resolve('src/index.js'),
     output: {
-      file: resolve(`dist/${name}.umd.js`),
+      file: resolve(`dist/${name}.js`),
       format: 'umd',
       name: apiName,
       banner: banner

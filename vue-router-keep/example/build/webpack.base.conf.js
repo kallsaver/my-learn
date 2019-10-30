@@ -4,7 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -27,9 +27,10 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    chunkFilename: '[name].js',
+    publicPath: process.env.NODE_ENV === 'development'
+      ? config.dev.assetsPublicPath
+      : config.build.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -44,7 +45,7 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: vueLoaderConfig
+        options: vueLoaderConfig,
       },
       {
         test: /\.js$/,
@@ -57,7 +58,7 @@ module.exports = {
         options: {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
-        }
+        },
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
@@ -77,6 +78,8 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+  ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
     // source contains it (although only uses it if it's native).

@@ -4,6 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import Page from '@/components/page/index.js'
+
+Vue.use(Page)
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

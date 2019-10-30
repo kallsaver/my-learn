@@ -1,7 +1,4 @@
-import { inBrowser } from './util/env'
-import Component from './components/router-keep'
-import { routerMiddle } from './router-middle/index'
-import { routerKeepHelper } from './global-api/router-keep-helper'
+import config from './config/index'
 
 let isInstalled = false
 
@@ -10,17 +7,17 @@ function install(Vue, options) {
     return
   }
   isInstalled = true
-  Vue.component(Component.name, Component)
+  Object.assign(config, options)
+  const routerKeepHelper = require('./api/router-keep-helper').default
   Vue.prototype.$routerKeepHelper = routerKeepHelper
-  routerMiddle(Vue, options)
+  const Component = require('./components/router-keep').default
+  Vue.component(Component.name, Component)
+  const routerMiddle = require('./router-middle/index').default
+  routerMiddle(Vue, config)
 }
 
 const RouterKeep = {
   install: install,
-}
-
-if (inBrowser && window.Vue) {
-  window.Vue.use(RouterKeep)
 }
 
 export default RouterKeep

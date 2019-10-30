@@ -1,15 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
 
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }
-  ]
+const routes = [
+  {
+    path: '/',
+    redirect: '/index/enter',
+  },
+  {
+    path: '/index/enter',
+    name: 'indexEnter',
+    component: () => import('@/pages/index/enter.vue')
+  },
+]
+
+const router = new Router({
+  mode: 'hash',
+  routes: routes
 })
+
+export default router

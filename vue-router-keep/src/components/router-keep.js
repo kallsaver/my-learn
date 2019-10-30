@@ -1,8 +1,9 @@
 import Stack from '../util/stack'
-import historyStack from '../history/history-stack'
 import historyStateEvent from '../history/history-state-event'
 import { EVENT_HISTORY_ACTION_BACK } from '../history/history-action-name'
-import { store } from '../global-api/router-keep-helper'
+import { globalCache, globalStack } from '../store/index'
+import config from '../config/index'
+import routerKeepHelper from '../api/router-keep-helper'
 
 function isDef(v) {
   return v !== undefined && v !== null
@@ -28,37 +29,32 @@ const COMPONENT_NAME = 'router-keep'
 export default {
   name: COMPONENT_NAME,
   abstract: true,
-  props: {
-    max: {
-      type: Number,
-      default: 10,
-      validator(num) {
-        return (num | 0) === num
-      }
-    }
-  },
   created() {
     this.cache = Object.create(null)
-    this.stack = new Stack(this.max)
-    store.push({
+    globalCache.push({
       cache: this.cache,
-      stack: this.stack
     })
   },
   render(h) {
     const slot = this.$slots.default
     const vnode = getFirstComponentChild(slot)
     if (vnode) {
-      const key = window.location.href
+      const key = this.$route.name
+      // console.log(this.$route.name)
+      // console.log(this.$route.path)
+      console.log(routerKeepHelper.getStore())
       if (this.cache[key]) {
         vnode.componentInstance = this.cache[key].componentInstance
-        this.stack.add(key)
       } else {
-        if (this.max > this.stack.getSize()) {
+        if (config.max > globalStack.getSize()) {
           this.cache[key] = vnode
-          this.stack.add(key)
+        } else {
+          const lastKey = globalStack.getFooter()
+          routerKeepHelper.remove(lastKey)
+          this.cache[key] = vnode
         }
       }
+      globalStack.add(key)
       vnode.data.keepAlive = true
     }
     return vnode || (slot && slot[0])
@@ -69,8 +65,7 @@ export default {
   methods: {
     historyStateBackHandler() {
       historyStateEvent.on(EVENT_HISTORY_ACTION_BACK, () => {
-        historyStack.reduce()
-        this.remove(this.stack.getByIndex(0))
+        this.remove(globalStack.getByIndex(0))
       })
     },
     remove(key) {
@@ -84,25 +79,20 @@ export default {
       }
     },
     removeStackItem(key) {
-      this.stack.remove(key)
+      globalStack.remove(key)
     }
   },
   beforeDestroy() {
-    let index = -1
-    for (let i = 0; i < store.length; i++) {
-      const item = store[i]
-      if (item.cache === this.cache) {
+    for (const key in this.cache) {
+      this.remove(key)
+    }
+    let index
+    for (let i = 0; i < globalCache.length; i++) {
+      if (this.cache === globalCache[i]) {
         index = i
         break
       }
     }
-    if (index !== -1) {
-      store.splice(index, 1)
-    }
-    for (const key in this.cache) {
-      this.removeCacheItem(key)
-    }
-    this.cache = null
-    this.stack = null
+    globalCache.splice(index, 1)
   },
 }

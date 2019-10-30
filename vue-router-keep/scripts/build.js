@@ -44,7 +44,7 @@ async function buildEntry() {
     const config = builds[i]
     const output = config.output
     const { file, banner } = output
-    const isMin = /(min|umd)\.js$/.test(file)
+    const isMin = /(min)\.js$/.test(file)
     await (() => {
       return new Promise((resolve) => {
         rollup.rollup({
