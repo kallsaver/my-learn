@@ -31,7 +31,7 @@ const plugins = [
   cjs(),
 ]
 
-const builds = {
+const buildMap = {
   esm: {
     input: resolve('src/index.js'),
     output: {
@@ -67,20 +67,4 @@ const builds = {
   }
 }
 
-
-function genConfig(name) {
-  const options = builds[name]
-  let config = {
-    input: options.input,
-    output: options.output,
-    plugins: options.plugins,
-  }
-  return config
-}
-
-if (process.env.TARGET) {
-  module.exports = genConfig(process.env.TARGET)
-} else {
-  exports.getBuild = genConfig
-  exports.getAllBuilds = () => Object.keys(builds).map(genConfig)
-}
+module.exports = buildMap

@@ -1,10 +1,12 @@
 <template>
-  <div id="app">
+  <div :class="$style['app']">
     <transition
       :name="transitionName"
       :mode="mode"
       :duration="transitionDuration">
-      <router-view></router-view>
+      <router-keep>
+        <router-view class="router-view"></router-view>
+      </router-keep>
     </transition>
   </div>
 </template>
@@ -40,6 +42,7 @@ export default {
           }
         } else {
           this.transitionDuration = TRANSITION_DURATION
+          console.log(to.params.action)
           if (to.params.action === 'back') {
             this.transitionName = 'move-left'
             this.mode = ''
@@ -52,7 +55,6 @@ export default {
           }
         }
       },
-      immediate: true
     }
   }
 }

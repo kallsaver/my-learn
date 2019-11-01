@@ -1,23 +1,32 @@
 import config from './config/index'
+import routerKeepHelper from './api/router-keep-helper'
+import Component from './components/router-keep'
+import routerMiddle from './router-middle/index'
+import { checkInt } from './util/lang'
 
 let isInstalled = false
 
-function install(Vue, options) {
+function install(Vue, options = {}) {
+  if (!options.router) {
+    console.error(`parameter %crouter`, 'color: orange', 'is required')
+    return
+  }
+  if (options.max && !checkInt(options.max)) {
+    console.error(`parameter %cmax`, 'color: orange', 'must be an integer')
+    return
+  }
   if (isInstalled) {
     return
   }
   isInstalled = true
   Object.assign(config, options)
-  const routerKeepHelper = require('./api/router-keep-helper').default
   Vue.prototype.$routerKeepHelper = routerKeepHelper
-  const Component = require('./components/router-keep').default
   Vue.component(Component.name, Component)
-  const routerMiddle = require('./router-middle/index').default
   routerMiddle(Vue, config)
 }
 
-const RouterKeep = {
+const VueRouterKeep = {
   install: install,
 }
 
-export default RouterKeep
+export default VueRouterKeep

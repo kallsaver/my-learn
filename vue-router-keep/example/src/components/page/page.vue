@@ -52,6 +52,7 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
+  background: #fff;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;

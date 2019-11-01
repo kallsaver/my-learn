@@ -6,12 +6,22 @@ Vue.use(Router)
 const routes = [
   {
     path: '/',
-    redirect: '/index/enter',
+    redirect: '/main/enter',
   },
   {
-    path: '/index/enter',
-    name: 'indexEnter',
-    component: () => import('@/pages/index/enter.vue')
+    path: '/main/enter',
+    name: 'mainEnter',
+    component: () => import('@/pages/main/enter.vue')
+  },
+  {
+    path: '/main/list',
+    name: 'mainList',
+    component: () => import('@/pages/main/list.vue')
+  },
+  {
+    path: '/main/detail/:i',
+    name: 'mainDetail',
+    component: () => import('@/pages/main/detail.vue')
   },
 ]
 

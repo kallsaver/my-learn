@@ -3,6 +3,11 @@ const fs = require('fs')
 const rollup = require('rollup')
 const terser = require('terser')
 const zlib = require('zlib')
+const buildMap = require('./config')
+
+if (!fs.existsSync('dist')) {
+  fs.mkdirSync('dist')
+}
 
 function write(dest, code, zip) {
   return new Promise((resolve, reject) => {
@@ -37,11 +42,9 @@ function blue(str) {
   return '\x1b[1m\x1b[34m' + str + '\x1b[39m\x1b[22m'
 }
 
-const builds = require('./config').getAllBuilds()
-
 async function buildEntry() {
-  for (let i = 0; i < builds.length; i++) {
-    const config = builds[i]
+  for (const key in buildMap) {
+    const config = buildMap[key]
     const output = config.output
     const { file, banner } = output
     const isMin = /(min)\.js$/.test(file)
@@ -70,7 +73,7 @@ async function buildEntry() {
             return write(file, code)
           }
         })
-      }).catch(() => {
+      }).catch((err) => {
         console.error(err)
       })
     })()

@@ -2,7 +2,6 @@ import Stack from '../util/stack'
 import historyStateEvent from '../history/history-state-event'
 import { EVENT_HISTORY_ACTION_BACK } from '../history/history-action-name'
 import { globalCache, globalStack } from '../store/index'
-import config from '../config/index'
 import routerKeepHelper from '../api/router-keep-helper'
 
 function isDef(v) {
@@ -40,13 +39,10 @@ export default {
     const vnode = getFirstComponentChild(slot)
     if (vnode) {
       const key = this.$route.name
-      // console.log(this.$route.name)
-      // console.log(this.$route.path)
-      console.log(routerKeepHelper.getStore())
       if (this.cache[key]) {
         vnode.componentInstance = this.cache[key].componentInstance
       } else {
-        if (config.max > globalStack.getSize()) {
+        if (!globalStack.checkFull()) {
           this.cache[key] = vnode
         } else {
           const lastKey = globalStack.getFooter()

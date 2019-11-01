@@ -94,7 +94,16 @@ export default class Stack {
   getStore() {
     return this.list
   }
+  getMax() {
+    return this.max
+  }
   has(item) {
     return this.list.indexOf(item) !== -1
+  }
+  updateSize(max) {
+    this.max = max
+  }
+  checkFull() {
+    return this.max === this.list.length
   }
 }

@@ -3,11 +3,14 @@
  * (c) 2019-2019 kallsave
  * Released under the MIT License.
  */
-const inBrowser = typeof window !== 'undefined';
+const config = {
+  max: Infinity,
+  actionKey: 'action',
+};
 
 class Stack {
-  constructor(maxLength = Infinity) {
-    this.maxLength = maxLength;
+  constructor(max = Infinity) {
+    this.max = max;
     this.init();
   }
   init() {
@@ -19,7 +22,7 @@ class Stack {
       this.list.splice(index, 1);
     }
     this.list.unshift(item);
-    if (this.list.length > this.maxLength) {
+    if (this.list.length > this.max) {
       this.list.pop();
     }
   }
@@ -61,10 +64,10 @@ class Stack {
       return this.list.splice(index, 1)
     }
   }
-  clearAll() {
+  removeAll() {
     return this.list.splice(0)
   }
-  clearExclude() {
+  removeExclude() {
     for (let i = 0; i < this.list.length; i++) {
       const item = this.list[i];
       if (Array.prototype.indexOf.call(arguments, item) === -1) {
@@ -101,12 +104,84 @@ class Stack {
   getStore() {
     return this.list
   }
+  getMax() {
+    return this.max
+  }
   has(item) {
     return this.list.indexOf(item) !== -1
   }
+  updateSize(max) {
+    this.max = max;
+  }
+  checkFull() {
+    return this.max === this.list.length
+  }
 }
 
-const historyStack = new Stack();
+function checkInt(n) {
+  if (n === Infinity) {
+    return true
+  }
+  return typeof n === 'number' && n > 0 && (n | 0) === n
+}
+
+function defineReactive(data, key, val, fn) {
+  Object.defineProperty(data, key, {
+    enumerable: true,
+    configurable: true,
+    get: function () {
+      return val
+    },
+    set: function (newVal) {
+      if (newVal === val) {
+        return
+      }
+      val = newVal;
+      typeof fn === 'function' && fn(newVal);
+    }
+  });
+}
+
+const globalStack = new Stack(config.max);
+
+const globalCache = [];
+
+defineReactive(config, 'max', config.max, (newVal) => {
+  globalStack.updateSize(newVal);
+});
+
+const routerKeepHelper = {
+  remove(key) {
+    for (let i = 0; i < globalCache.length; i++) {
+      const globalCacheItem = globalCache[i];
+      const stack = globalCacheItem.stack;
+      const cache = globalCacheItem.cache;
+      if (cache[key]) {
+        cache[key].componentInstance.$destroy();
+        cache[key] = null;
+        globalStack.remove(key);
+      }
+    }
+  },
+  removeAll() {
+    for (let i = 0; i < globalCache.length; i++) {
+      const globalCacheItem = globalCache[i];
+      const stack = globalCacheItem.stack;
+      const cache = globalCacheItem.cache;
+      for (const key in cache) {
+        cache[key].componentInstance.$destroy();
+        cache[key] = null;
+      }
+    }
+    globalStack.removeAll();
+  },
+  getStore() {
+    return {
+      cache: globalCache,
+      stack: globalStack.getStore()
+    }
+  }
+};
 
 class Events {
   constructor() {
@@ -128,8 +203,10 @@ class Events {
   }
 }
 
+const historyStack = new Stack();
+
 const EVENT_HISTORY_ACTION_BACK = 'back';
-const EVENT_HISTORY_ACTION_GO = 'go';
+const EVENT_HISTORY_ACTION_FORWARD = 'forward';
 
 const historyStateEvent = new Events();
 
@@ -137,29 +214,9 @@ window.addEventListener('hashchange', () => {
   if (historyStack.getByIndex(1) === window.location.href) {
     historyStateEvent.emit(EVENT_HISTORY_ACTION_BACK);
   } else {
-    historyStateEvent.emit(EVENT_HISTORY_ACTION_GO);
+    historyStateEvent.emit(EVENT_HISTORY_ACTION_FORWARD);
   }
 });
-
-const store = [];
-
-const routerKeepHelper = {
-  add(item) {
-  },
-  remove(item) {
-  },
-  clearAll(item) {
-    for (let i = 0; i < store.length; i++) {
-      const storeItem = store[i];
-      const stack = storeItem.stack;
-      const cache = storeItem.cache;
-      for (const key in storeItem.cache) {
-        delete cache[key];
-      }
-      stack.clearAll();
-    }
-  }
-};
 
 function isDef(v) {
   return v !== undefined && v !== null
@@ -185,37 +242,29 @@ const COMPONENT_NAME = 'router-keep';
 var Component = {
   name: COMPONENT_NAME,
   abstract: true,
-  props: {
-    max: {
-      type: Number,
-      default: 10,
-      validator(num) {
-        return (num | 0) === num
-      }
-    }
-  },
   created() {
     this.cache = Object.create(null);
-    this.stack = new Stack(this.max);
-    store.push({
+    globalCache.push({
       cache: this.cache,
-      stack: this.stack
     });
   },
   render(h) {
     const slot = this.$slots.default;
     const vnode = getFirstComponentChild(slot);
     if (vnode) {
-      const key = window.location.href;
+      const key = this.$route.name;
       if (this.cache[key]) {
         vnode.componentInstance = this.cache[key].componentInstance;
-        this.stack.add(key);
       } else {
-        if (this.max > this.stack.getSize()) {
+        if (!globalStack.checkFull()) {
           this.cache[key] = vnode;
-          this.stack.add(key);
+        } else {
+          const lastKey = globalStack.getFooter();
+          routerKeepHelper.remove(lastKey);
+          this.cache[key] = vnode;
         }
       }
+      globalStack.add(key);
       vnode.data.keepAlive = true;
     }
     return vnode || (slot && slot[0])
@@ -226,84 +275,101 @@ var Component = {
   methods: {
     historyStateBackHandler() {
       historyStateEvent.on(EVENT_HISTORY_ACTION_BACK, () => {
-        historyStack.reduce();
-        this.remove(this.stack.getByIndex(0));
+        this.remove(globalStack.getByIndex(0));
       });
     },
     remove(key) {
-      const cached = this.cache[key];
-      if (cached) {
-        cached.componentInstance.$destroy();
+      this.removeCacheItem(key);
+      this.removeStackItem(key);
+    },
+    removeCacheItem(key) {
+      if (this.cache[key]) {
+        this.cache[key].componentInstance.$destroy();
         this.cache[key] = null;
-        this.stack.remove(key);
       }
+    },
+    removeStackItem(key) {
+      globalStack.remove(key);
     }
   },
   beforeDestroy() {
-    let index = -1;
-    for (let i = 0; i < store.length; i++) {
-      const item = store[i];
-      if (item.cache === this.cache) {
+    for (const key in this.cache) {
+      this.remove(key);
+    }
+    let index;
+    for (let i = 0; i < globalCache.length; i++) {
+      if (this.cache === globalCache[i]) {
         index = i;
         break
       }
     }
-    if (index !== -1) {
-      store.splice(index, 1);
-    }
-    this.cache = null;
-    this.stack = null;
+    globalCache.splice(index, 1);
   },
 };
 
 let isBack = false;
 
-historyStateEvent.on('back', () => {
+historyStateEvent.on(EVENT_HISTORY_ACTION_BACK, () => {
+  historyStack.reduce();
   isBack = true;
 });
 
-const routerMiddle = (Vue, options) => {
-  const router = options.router;
-  const actionKey = options.actionKey || 'actions';
+const routerMiddle = (Vue, config) => {
+  const router = config.router;
+  const actionKey = config.actionKey;
 
-  Vue.util.defineReactive(router.history, 'current', router.history.current, () => {
-    Vue.nextTick(() => {
-      historyStack.add(window.location.href);
-    });
-  });
+  const originPush = router.push.bind(router);
+
+  router.push = (location, onComplete, onAbort) => {
+    console.log(location);
+    console.log(onComplete);
+    console.log(onAbort);
+    originPush(location, onComplete, onAbort);
+  };
 
   router.beforeEach((to, from, next) => {
-    // let hashchange before next
+    // let hashchange I/0 event trigger callback before next trigger to get right isBack
     window.setTimeout(() => {
       if (isBack) {
         to.params[actionKey] = EVENT_HISTORY_ACTION_BACK;
       } else {
-        to.params[actionKey] = EVENT_HISTORY_ACTION_GO;
+        to.params[actionKey] = EVENT_HISTORY_ACTION_FORWARD;
       }
       isBack = false;
       next();
     }, 0);
   });
+
+  defineReactive(router.history, 'current', router.history.current, () => {
+    Vue.nextTick(() => {
+      historyStack.add(window.location.href);
+    });
+  });
 };
 
 let isInstalled = false;
 
-function install(Vue, options) {
+function install(Vue, options = {}) {
+  if (!options.router) {
+    console.error(`parameter %crouter`, 'color: orange', 'is required');
+    return
+  }
+  if (options.max && !checkInt(options.max)) {
+    console.error(`parameter %cmax`, 'color: orange', 'must be an integer');
+    return
+  }
   if (isInstalled) {
     return
   }
   isInstalled = true;
-  Vue.component(Component.name, Component);
+  Object.assign(config, options);
   Vue.prototype.$routerKeepHelper = routerKeepHelper;
-  routerMiddle(Vue, options);
+  Vue.component(Component.name, Component);
+  routerMiddle(Vue, config);
 }
 
-const RouterKeep = {
+const VueRouterKeep = {
   install: install,
 };
 
-if (inBrowser && window.Vue) {
-  window.Vue.use(RouterKeep);
-}
-
-export default RouterKeep;
+export default VueRouterKeep;
