@@ -8,60 +8,58 @@
 	</body>
 	<script>
 		//《重构:改善既有代码的设计》: 多态的最根本好处在于,你不必再向对象询问'你是什么类型'而后根据得到的答案调用对象的某个行为
-		//换句话说,多态的最根本的作用就是通过把过程化的条件分支语句转化为对象的多态性,从而消除这些条件分支语句
-		//假设要编写一个地图应用,现在有两家可选的地图API提供商供我们接入自己的应用.
-		//目前我们选择谷歌地图
+		// 换句话说,多态的最根本的作用就是通过把过程化的条件分支语句转化为对象的多态性,从而消除这些条件分支语句
+		// 假设要编写一个地图应用,现在有两家可选的地图API提供商供我们接入自己的应用.
+		// 目前我们选择谷歌地图
 		var googleMap = {
 			show : function(){
 				console.log('开始渲染谷歌地图')
 			}
 		}
-		
+
 		var renderMap = function(){
 			googleMap.show()
 		}
-		
-		renderMap();
-		
-		//后来要换成百度地图
-		
+
+		renderMap()
+
+		// 后来要换成百度地图
+
 		var baiduMap = {
-			show : function(){
+			show: function(){
 				console.log('开始渲染百度地图')
 			}
 		}
-		
+
 		var renderMap = function(type){
-			if(type === 'google'){
+			if (type === 'google') {
 				googleMap.show()
-			}
-			else if(type === 'baidu'){
+			} else if (type === 'baidu') {
 				baiduMap.show()
 			}
 		}
-		
+
 		renderMap('google')
 		renderMap('baidu')
-		
-		//可以看到,虽然renderMap函数目前保持一定的弹性,但是这种弹性是很脆弱的,一旦替换成搜搜地图,那又要改动renderMap函数,
-		//继续往里面堆砌条件分支语句
-		
-		//多态:
-		//传入的是对象
-		var renderMap = function(map){
-			if(map.show instanceof Function){
+
+		// 可以看到,虽然renderMap函数目前保持一定的弹性,但是这种弹性是很脆弱的,一旦替换成搜搜地图,那又要改动renderMap函数,
+		// 继续往里面堆砌条件分支语句
+
+		// 多态:
+		// 传入的是对象
+		var renderMap = function(map) {
+			if (map && map.show instanceof Function) {
 				map.show()
 			}
-		};
-		
+		}
+
 		renderMap(googleMap)
 		renderMap(baiduMap)
 		var sosoMap = {
-			show : function(){
+			show: function(){
 				console.log('开始渲染搜搜地图')
 			}
 		}
-		
 		renderMap(sosoMap)
 	</script>
 </html>

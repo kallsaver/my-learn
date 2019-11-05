@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  // es5
+  function Base() {}
+  function Student() {}
+  function Teacher() {
+    Teacher.prototype.type = 'Teacher'
+    Teacher.prototype.constructor = Teacher
+  }
+  function Man() {
+    this.man = 'man'
+  }
+
+  // 有通用改变原型链来继承和原型挂载共享方法是注意继承要写在前面,最保险的写法是写在内部
+  Student.prototype = new Man()
+  Teacher.prototype = new Man()
+  Student.prototype.type = 'student'
+  // Student.prototype.constructor = Student
+
+  let base = new Base()
+  let student = new Student()
+  let teacher = new Teacher()
+
+  console.log(base)
+  console.log(student)
+  console.log(teacher)
+
+  // es6
+  class Worker {
+    constructor() {
+
+    }
+  }
+  // 无效,不能通过这种方式继承
+  Worker.prototype = new Man()
+  let worker = new Worker()
+  // 有效
+  // worker.__proto__ = new Man()
+  console.log(worker)
+</script>
+</html>

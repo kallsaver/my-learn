@@ -16,9 +16,9 @@ export default {
   mounted() {
     // this.demo1()
     // this.demo2()
-    // this.demo3()
-    // this.demo4()
-    this.demo5()
+    this.demo3()
+    this.demo4()
+    // this.demo5()
   },
   methods: {
     // class和prototype比较
@@ -28,7 +28,7 @@ export default {
           // console.log(sex)
         }
         // es7的静态属性
-        static target = null
+        static target = 'target'
         static staticGrow() {
           console.log('Man staticGrow')
         }
@@ -77,8 +77,8 @@ export default {
       }
       Woman.StaticGrow()
     },
+    // class继承
     demo3() {
-      // 继承
       class Man {
         constructor(sex) {
           this.sex = sex
@@ -100,7 +100,7 @@ export default {
       class Student extends Man {
         constructor(age, name, sex) {
           // super的含义很复杂
-          // 作为函数用相当于Man.prototype.constructor.call(this)
+          // 作为函数用相当于Man.prototype.constructor.call(this, arguments)?
           // 并且做函数用只能写在子类的constructor中
           super(sex)
           console.log('super.valueOf()', super.valueOf())
@@ -128,7 +128,30 @@ export default {
       Student.study()
       console.log(a)
     },
+    // prototype继承
     demo4() {
+      function Man(sex) {
+        this.sex = sex
+      }
+      Man.prototype.talk = function () {
+        console.log('talk')
+      }
+      Man.prototype.printfSex = function () {
+        console.log(`性别: ${this.sex}`)
+      }
+      function Student(age, name, sex) {
+        Man.prototype.constructor.call(this, sex)
+      }
+      // 有通用改变原型链来继承和原型挂载共享方法是注意继承要写在前面
+      Student.prototype = new Man()
+      Student.prototype.constructor = Student
+      Student.prototype.speak = function () {}
+      let a = new Student(22, 'kallsave', '男')
+      // a.talk()
+      // a.speak()
+      console.log(a)
+    },
+    demo5() {
       // getter, setter
       class Man {
         constructor(sex, age) {
@@ -163,7 +186,7 @@ export default {
       a.age = 100
       console.log(a.age)
     },
-    demo5() {
+    demo6() {
       // 内置了getter和setter
       class MyClass {
         constructor(number) {
@@ -183,6 +206,38 @@ export default {
       inst.number = 2
 
       console.log('inst.number', inst.number)
+    },
+    demo7() {
+      // es5
+      function Student() {}
+
+      function Teacher() {
+        Teacher.prototype.type = 'Teacher'
+        Teacher.prototype.constructor = Teacher
+      }
+
+      function Man() {}
+      // Student.prototype.type这种写在外部,无法保证后面会被prototype的引用地址被冲掉
+      // Student.prototype.type = 'student'
+      Student.prototype = new Man()
+      Teacher.prototype = new Man()
+
+      let student = new Student()
+      let teacher = new Teacher()
+      console.log(student)
+      console.log(teacher)
+
+      // es6
+      class Worker {
+        constructor() {
+
+        }
+      }
+
+      Worker.prototype = new Man()
+
+      let worker = new Worker()
+      console.log(worker)
     }
   },
 }
