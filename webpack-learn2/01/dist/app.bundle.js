@@ -150,44 +150,44 @@ setTimeout(function(){
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;// AMD和CommonJs是兼容的,module.exports,exports这些语法都是相通的
 // CommonJs现加载现用
 // AMD可以使用return语法导出一个文件对象
-!(__WEBPACK_AMD_DEFINE_RESULT__ = (function(require, exports, module) {
-    'use strict';
-    console.log('AMD规范');
-    console.log(exports, module);
-    var obj = {
-        multi: function(a,b){
-            return a * b
-        },
-        multi1: function(a,b){
-            return a * b
-        },
-        multi2: function(a,b){
-            return a * b
-        },
-        num1 : 0,
-        num2 : 0,
-    }
+!(__WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, module) {
+  'use strict'
+  console.log('AMD规范')
+  console.log(exports, module)
+  var obj = {
+    multi: function(a, b) {
+      return a * b
+    },
+    multi1: function(a, b) {
+      return a * b
+    },
+    multi2: function(a, b) {
+      return a * b
+    },
+    num1 : 0,
+    num2 : 0,
+  }
 
-    setTimeout(function(){
-        obj.num1++;
-        obj.num2++;
-    },500);
+  setTimeout(() => {
+    obj.num1++
+    obj.num2++
+  }, 500)
 
-    //return obj;
-    // 或者
-    //module.exports = obj;
-    // 或者
-    for(var key in obj){
-        exports[key] = obj[key];
-    }
+  // return obj
+  // 或者
+  // module.exports = obj
+  // 或者
+  for(var key in obj) {
+    exports[key] = obj[key]
+  }
 
-    setTimeout(function(){
-        exports.num1++;
-        exports.num2++;
-    },500);
-    
+  setTimeout(() => {
+    exports.num1++
+    exports.num2++
+  }, 500)
 }).call(exports, __webpack_require__, exports, module),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
+
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module)))
 
 /***/ }),
@@ -196,29 +196,29 @@ setTimeout(function(){
 
 
 
-var name = 'b.js';
+var name = 'b.js'
 
 // module.exports = {
 //     name : name
 // }
 
 // setTimeout(function(){
-//     // 无效,module.exports只能生效一次,意味着结束
-//     module.exports = {
-//         name: 'new name'
-//     };
-// },500);
+//   // 无效,module.exports只能生效一次,意味着结束
+//   module.exports = {
+//     name: 'new name'
+//   }
+// }, 500)
 
 // 或者
-exports.name = name;
-exports.count1 = 0;
-exports.count2 = 0;
-setTimeout(function(){
-    exports.count1++;
-    exports.count2++;
-    console.log('exports.count1',exports.count1)
-    console.log('exports.count2',exports.count2)
-},500);
+exports.name = name
+exports.count1 = 0
+exports.count2 = 0
+setTimeout(() => {
+  exports.count1++
+  exports.count2++
+  console.log('exports.count1',exports.count1)
+  console.log('exports.count2',exports.count2)
+}, 500)
 
 
 /***/ }),
@@ -252,21 +252,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 // 这样可能导致导入多个文件时,会出现命名冲突
 
  
- console.log('a.js',__WEBPACK_IMPORTED_MODULE_0__a__["a"],__WEBPACK_IMPORTED_MODULE_0__a__["b" /* d */]);
- 
-// import {square, a, b, cc, add} from './tool';
+ console.log('a.js',__WEBPACK_IMPORTED_MODULE_0__a__["a"],__WEBPACK_IMPORTED_MODULE_0__a__["b" /* d */])
 
-// console.log('square(4)=',square(4));
+// import {square, a, b, cc, add} from './tool'
 
-// console.log('add(4,5)=',add(4,5));
+// console.log('square(4)=',square(4))
 
-// console.log('a',a);
+// console.log('add(4,5)=',add(4,5))
 
-// console.log('b',b);
+// console.log('a',a)
 
-// console.log('cc',cc);
+// console.log('b',b)
 
-// console.log('d',d);
+// console.log('cc',cc)
+
+// console.log('d',d)
 
 // a.js依赖tool.js   最终的app.js依赖a.js和tool.js
 // 可以看到tool.js只运行一次,
@@ -280,30 +280,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 // 使用export default导出,没有花括号,
 // 可以是对象也可以其他数据结构
 // es6 module
-//import obj from './tool';
-//console.log(obj);
+//import obj from './tool'
+//console.log(obj)
 
 // 名字也可以不和导入文件的导出变量名一样
  
- console.log('person1',__WEBPACK_IMPORTED_MODULE_1__tool__["default"]);
- var person2 = __webpack_require__(0);
- console.log('person2',person2);
+ console.log('person1',__WEBPACK_IMPORTED_MODULE_1__tool__["default"])
+ var person2 = __webpack_require__(0)
+ console.log('person2',person2)
  
- console.log('person3',__WEBPACK_IMPORTED_MODULE_1__tool__);
- console.log(person2 === __WEBPACK_IMPORTED_MODULE_1__tool__); // true
+ console.log('person3',__WEBPACK_IMPORTED_MODULE_1__tool__)
+ console.log(person2 === __WEBPACK_IMPORTED_MODULE_1__tool__) // true
 
 // import * as xx from 是把所有的export都放入一个对象中,然后导出
 // 即如果一个库不是用export default来输出的,可以用import * as xx来补救
 
 // 因为导出的语法是Es6 Module,
-// require会被编译成import * as x from 'x';
-var all1 = __webpack_require__(0);
-console.log('all',__WEBPACK_IMPORTED_MODULE_1__tool__);
-console.log('all1',all1);
-console.log(__WEBPACK_IMPORTED_MODULE_1__tool__ === all1);
+// require会被编译成import * as x from 'x'
+var all1 = __webpack_require__(0)
+console.log('all',__WEBPACK_IMPORTED_MODULE_1__tool__)
+console.log('all1',all1)
+console.log(__WEBPACK_IMPORTED_MODULE_1__tool__ === all1)
 setTimeout(function(){
-    __WEBPACK_IMPORTED_MODULE_1__tool__["default"].count += 100;
-},1000);
+    __WEBPACK_IMPORTED_MODULE_1__tool__["default"].count += 100
+},1000)
 // all的数据结构：
 // {
 //     a: 1,
@@ -316,59 +316,59 @@ setTimeout(function(){
 // }
 
 // CommonJs
-var b = __webpack_require__(2);
-console.log('b',b);
+var b = __webpack_require__(2)
+console.log('b',b)
 
-console.log('b1',__WEBPACK_IMPORTED_MODULE_2__b___default.a);
+console.log('b1',__WEBPACK_IMPORTED_MODULE_2__b___default.a)
 
-console.log('b2',__WEBPACK_IMPORTED_MODULE_2__b__);
-console.log('b ===  b1', b ===  __WEBPACK_IMPORTED_MODULE_2__b___default.a);  // true
-console.log('b1 ===  b2', __WEBPACK_IMPORTED_MODULE_2__b___default.a === __WEBPACK_IMPORTED_MODULE_2__b__); // true
+console.log('b2',__WEBPACK_IMPORTED_MODULE_2__b__)
+console.log('b ===  b1', b ===  __WEBPACK_IMPORTED_MODULE_2__b___default.a)  // true
+console.log('b1 ===  b2', __WEBPACK_IMPORTED_MODULE_2__b___default.a === __WEBPACK_IMPORTED_MODULE_2__b__) // true
 
 // setTimeout(function(){
-//     console.log('b',b.name); // b.js
-//     console.log('b1',b1.name); // b.js
-// },1000);
+//     console.log('b',b.name) // b.js
+//     console.log('b1',b1.name) // b.js
+// },1000)
 
 // CommonJs也可以用花括号
-const { count1 } = __webpack_require__(2);
+const { count1 } = __webpack_require__(2)
 
 setTimeout(function(){
     // CommonJs是普通的值传递或者引用传递,使用基本数据类型时要注意
-    console.log('count1',count1); // 0
+    console.log('count1',count1) // 0
     // ES6 Module导出的模块属性和方法是强绑定的,使用基本数据类型时要注意
-    console.log('count2',__WEBPACK_IMPORTED_MODULE_2__b__["count2"]); // 1
-},1000);
+    console.log('count2',__WEBPACK_IMPORTED_MODULE_2__b__["count2"]) // 1
+},1000)
 
 
 // amd   amd是异步加载模块
 // 并且在git的窗口发现有0.bundle.js和bundle.js
 // 并且可以看到在浏览器Network中先加载bundle.js再加载0.bundle.js
 new Promise(function(resolve) { resolve(); }).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(1)]; ((function(c){
-    console.log('amd');
-    console.log('c.multi(2,3)=',c.multi(2,3));
-}).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+    console.log('amd')
+    console.log('c.multi(2,3)=',c.multi(2,3))
+}).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe)
 
 // 用require,import一样可以转导出用AMD的语法,只不过变成同步了
 
-var c2 = __webpack_require__(1);
+var c2 = __webpack_require__(1)
 
-console.log('c1',__WEBPACK_IMPORTED_MODULE_3__c__);
-console.log('c2',c2);
-console.log('c3',__WEBPACK_IMPORTED_MODULE_3__c___default.a);
+console.log('c1',__WEBPACK_IMPORTED_MODULE_3__c__)
+console.log('c2',c2)
+console.log('c3',__WEBPACK_IMPORTED_MODULE_3__c___default.a)
 
 
-var { num2 } = __webpack_require__(1);
-setTimeout(function(){
-    // 基本数据类型强绑定是ES6 module的特征
-    console.log( 'num1', __WEBPACK_IMPORTED_MODULE_3__c__["num1"] ); // 1
-    console.log( 'num2', num2 ); // 0
-},1000)
+let { num2 } = __webpack_require__(1)
+setTimeout(() => {
+  // 基本数据类型强绑定是ES6 module的特征
+  console.log('num1', __WEBPACK_IMPORTED_MODULE_3__c__["num1"] ) // 1
+  console.log('num2', num2 ) // 0
+}, 1000)
 
-// 1.CommonJs还是ES6 Module输出都可以看成一个具备多个数据或者方法的对象 
+// 1.CommonJs还是ES6 Module输出都可以看成一个具备多个数据或者方法的对象
 // 2.default是ES6 Module所独有的关键字,export fs from 'fs'输出默认的接口对象
 // 3.import和require可以混用,
-// 如果是用ES6 Module导出,require相当于于import * as X from 'X';
+// 如果是用ES6 Module导出,require相当于于import * as X from 'X'
 // 如果是用CommmonJs导出,import相当于require
 // 4.ES6 Module中导入模块的属性或者方法是强绑定的,包括基础类型,而CommonJs则是
 // 普通的值传递或者引用传递,用import导出基本数据类型是要注意(兼容CommonJs,ES6 Module,AMD导出)
@@ -377,7 +377,9 @@ setTimeout(function(){
 // 6.使用ES6 Module导出的库,有default和没default之分,使用import x from 'x'可以导出default部分
 // 使用import * as x from 'x'可以导出全部属性,使用花括号import{ a, b } from 'x'可以导出局部属性
 // 使用require导出全部属性,使用var { a } = require('./x')通常传参的方式导出局部的变量
-// 7.兼容CommonJs,AMD,ES6 Module的库封装看18章
+// 7.使用AMD导出的库,对应的导入应该用AMD语法,
+// 兼容导入用import x from 'x'和import as x from 'x'和CommonJs的require都可以,但是变同步
+// 8.兼容CommonJs,AMD,ES6 Module的库封装看18章
 
 
 

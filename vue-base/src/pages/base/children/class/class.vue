@@ -98,6 +98,7 @@ export default {
       }
 
       class Student extends Man {
+        // 如果子类和父类的constructor参数一致,可以不用写
         constructor(age, name, sex) {
           // super的含义很复杂
           // 作为函数用相当于Man.prototype.constructor.call(this, arguments)?
@@ -152,6 +153,8 @@ export default {
       console.log(a)
     },
     demo5() {
+    },
+    demo6() {
       // getter, setter
       class Man {
         constructor(sex, age) {
@@ -186,7 +189,7 @@ export default {
       a.age = 100
       console.log(a.age)
     },
-    demo6() {
+    demo7() {
       // 内置了getter和setter
       class MyClass {
         constructor(number) {
@@ -207,7 +210,7 @@ export default {
 
       console.log('inst.number', inst.number)
     },
-    demo7() {
+    demo8() {
       // es5
       function Student() {}
 

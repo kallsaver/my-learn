@@ -278,7 +278,6 @@ export default {
           font-size: 16px;
           font-weight: 700;
         }
-
         .star-wrapper {
           margin-top: 18px;
           padding: 2px 0;
@@ -289,14 +288,12 @@ export default {
           display: flex;
           width: 80%;
           margin: 28px auto 24px auto;
-
           .line {
             flex: 1;
             position: relative;
             top: -6px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
           }
-
           .text {
             padding: 0 12px;
             font-weight: 700;
@@ -307,7 +304,6 @@ export default {
         .supports {
           width: 80%;
           margin: 0 auto;
-
           .support-item {
             padding: 0 12px;
             margin-bottom: 12px;
@@ -325,28 +321,22 @@ export default {
               margin-right: 6px;
               background-size: 16px 16px;
               background-repeat: no-repeat;
-
               &.decrease {
                 bg-image('decrease_2');
               }
-
               &.discount {
                 bg-image('discount_2');
               }
-
               &.guarantee {
                 bg-image('guarantee_2');
               }
-
               &.invoice {
                 bg-image('invoice_2');
               }
-
               &.special {
                 bg-image('special_2');
               }
             }
-
             .text {
               line-height: 16px;
               font-size: 12px;
@@ -357,7 +347,6 @@ export default {
         .bulletin {
           width: 80%;
           margin: 0 auto;
-
           .content {
             padding: 0 12px;
             line-height: 24px;

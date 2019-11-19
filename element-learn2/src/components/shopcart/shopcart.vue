@@ -17,13 +17,15 @@
         </div>
       </div>
       <div class="ball-container">
-        <div
-          :key="index"
+        <div :key="index"
           v-for="(ball, index) in balls">
-          <transition name="drop"
+          <transition
+            name="drop"
             @before-enter="beforeDrop"
-            @enter="dropping" @after-enter="afterDrop">
-            <div class="ball" v-show="ball.show">
+            @enter="dropping"
+            @after-enter="afterDrop">
+            <div class="ball"
+              v-show="ball.show">
               <div class="inner inner-hook"></div>
             </div>
           </transition>
