@@ -10,9 +10,9 @@ var localStoragePlugin = {
   },
   getItem: function (key) {
     var expireKey = __namespace__ + key
-    let expire = window.localStorage.getItem(expireKey)
-    let value = JSON.parse(window.localStorage.getItem(key))
-    let currentTime = new Date().getTime()
+    var expire = window.localStorage.getItem(expireKey)
+    var value = JSON.parse(window.localStorage.getItem(key))
+    var currentTime = new Date().getTime()
     if (expire && expire > currentTime) {
       return value
     } else {

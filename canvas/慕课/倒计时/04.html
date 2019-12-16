@@ -23,7 +23,7 @@
 <script>
   let timeStart
 
-  export const requestAnimationFrame =
+  const requestAnimationFrame =
     window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
@@ -78,7 +78,7 @@
   // 获得当前时间格式
   function getCurrentEndTimeFormat() {
     let secondsDifference = (END_DATE_MILLI_SECOND - new Date().getTime()) / 1000 | 0
-    return getCountDownDHMS(secondsDifference).slice(3)
+    return formatCountDown(secondsDifference, 'hh:mm:ss')
   }
 
   // 整个canvas画布渲染层更新

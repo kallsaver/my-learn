@@ -8,16 +8,22 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false,
+		"coverView": true,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.3",
-	"appid": "wx62998b3461c3e17c",
-	"projectname": "miniapp-learn",
+	"libVersion": "2.9.4",
+	"appid": "wx2ccd7116d4c283f7",
+	"projectname": "miniapp-learns",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

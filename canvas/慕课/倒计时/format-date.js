@@ -1,7 +1,7 @@
-function formatDate(date, fmt) {
-  if (/(Y+)/.test(fmt)) {
+function formatDate(date, format = 'YYYY-MM-DD hh:mm:ss') {
+  if (/(Y+)/.test(format)) {
     // RegExp内存指向/(y+)/
-    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+    format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
   }
 
   let o = {
@@ -14,30 +14,49 @@ function formatDate(date, fmt) {
 
   for (let k in o) {
     // es6正则写变量非常方便,用()定位,用RegExp.$1捕获
-    if (new RegExp(`(${k})`).test(fmt)) {
-      let str = o[k]
-      fmt = fmt.replace(RegExp.$1, padLeftZero(str))
+    if (new RegExp(`(${k})`).test(format)) {
+      const str = o[k]
+      format = format.replace(RegExp.$1, padLeftZero(RegExp.$1.length))
     }
   }
-
-  return fmt
+  return format
 }
 
-function padLeftZero(str) {
-  str = str + ''
-  return ('00' + str).substr(str.length)
+function stringRepeat(str, num) {
+  return new Array(num + 1).join(str)
 }
 
-// 倒计时,最大时间单位:天
-function getCountDownDHMS(secondsDifference) {
-  if (secondsDifference < 0) {
-    return '00:00:00:00'
+function padLeftZero(str, n) {
+  n = n || 2
+  return (stringRepeat('0', n) + str).substr(str.length)
+}
+
+// 倒计时
+function formatCountDown(countDownStamp, format = 'DD天 hh:mm:ss') {
+  if (countDownStamp < 0) {
+    countDownStamp = 0
   }
-
-  let seconds = secondsDifference % 60
-  let minutes = (secondsDifference - seconds) % (60 * 60) / 60
-  let hours = (secondsDifference - seconds - minutes * 60) % (60 * 60 * 24) / (60 * 60)
-  let days = secondsDifference / (60 * 60 * 24) | 0
-
-  return `${padLeftZero(days)}:${padLeftZero(hours)}:${padLeftZero(minutes)}:${padLeftZero(seconds)}`
+  const millisecond = countDownStamp % 1000
+  const restSecond = (countDownStamp - millisecond) / 1000
+  const second = restSecond % 60
+  const restMinute = (restSecond - second) / 60
+  const minute = restMinute % 60
+  const restHour = (restMinute - minute) / 60
+  const hour = restHour % 24
+  const restDay = (restHour - hour) / 24
+  const day = restDay
+  const o = {
+    'D+': day,
+    'h+': hour,
+    'm+': minute,
+    's+': second,
+    't+': millisecond
+  }
+  for (const k in o) {
+    if (new RegExp(`(${k})`).test(format)) {
+      const str = o[k] + ''
+      format = format.replace(RegExp.$1, padLeftZero(str, RegExp.$1.length))
+    }
+  }
+  return format
 }
