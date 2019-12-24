@@ -1,0 +1,12 @@
+<vi-popup id="popup">
+  <view class="tips-popup">
+    <view class="tips-popup-list">
+      <view class="tips-popup-item"
+        wx:for-item="item"
+        wx:for="{{data}}"
+        wx:key="index">
+        <text>{{item}}</text>
+      </view>
+    </view>
+  </view>
+</vi-popup>

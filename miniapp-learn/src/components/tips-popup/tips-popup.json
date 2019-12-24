@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "vi-popup": "../../plugins/vi-ui/vi-popup/vi-popup"
+  }
+}

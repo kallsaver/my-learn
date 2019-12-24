@@ -1,0 +1,10 @@
+<view class="vi-popup"
+  hidden="{{!isVisible}}"
+  catchtouchmove="preventTouchMove">
+  <view class="vi-popup-mask"></view>
+  <view class="vi-popup-mask-gray" bindtap="maskTap"></view>
+  <view class="vi-popup-content-center">
+    <slot></slot>
+  </view>
+  <slot name="custom-content"></slot>
+</view>

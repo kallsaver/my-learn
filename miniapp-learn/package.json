@@ -1,0 +1,28 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "node build/dev",
+    "build": "cross-env NODE_ENV=production node build/build",
+    "build:test": "cross-env NODE_ENV=test node build/build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^5.2.1",
+    "express": "4.17.1",
+    "gulp": "^4.0.2",
+    "gulp-cli": "2.2.0",
+    "gulp-less": "4.0.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "1.4.0",
+    "gulp-sass": "4.0.2",
+    "http-proxy-middleware": "^0.20.0",
+    "node-sass": "4.13.0",
+    "rimraf": "^3.0.0"
+  }
+}
