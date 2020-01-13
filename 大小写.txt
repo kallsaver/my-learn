@@ -1,0 +1,5 @@
+honor,HONOR
+Lenovo,LENOVO
+Meizu,MEIZU
+Xiaomi,XIAOMI
+xiaomi,XIAOMI

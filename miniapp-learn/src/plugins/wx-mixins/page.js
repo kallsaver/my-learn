@@ -3,14 +3,13 @@
 import {
   isArray,
   isPlainObject,
-  hasOwn,
 } from './util'
 
 const originProperties = [
   'data',
 ]
 
-// 叠加mixins的方法
+// 原有的会叠加mixins的方法,mixins的方法会先执行
 const originMethods = [
   'onLoad',
   'onShow',
@@ -19,14 +18,15 @@ const originMethods = [
   'onUnload',
   'onPullDownRefresh',
   'onReachBottom',
+  'onShareAppMessage',
   'onPageScroll',
   'onResize',
   'onTabItemTap',
 ]
 
-// 覆盖mixins的方法
+// 原有的会覆盖mixins的方法,mixins的方法不会执行
 const originCoverMethods = [
-  'onShareAppMessage',
+  
 ]
 
 const originPage = Page
@@ -36,7 +36,7 @@ function mergePageOptions(mixins, options) {
     if (!isPlainObject(mixin)) {
       throw new Error('mixin 类型必须为对象！')
     }
-    // 递归mixins
+    // mixins递归mixins
     if (mixin.mixins) {
       mixin = mergePageOptions(mixin.mixins, mixin)
     }
@@ -51,9 +51,13 @@ function mergePageOptions(mixins, options) {
       } else if (originMethods.indexOf(key) !== -1) {
         // mixins的方法先执行
         const originMethod = options[key]
-        options[key] = function (...args) {
-          value.call(this, ...args)
-          return originMethod && originMethod.call(this, ...args)
+        options[key] = function () {
+          let result
+          result = value.apply(this, arguments)
+          if (originMethod) {
+            result = originMethod.apply(this, arguments)
+          }
+          return result
         }
       } else if (originCoverMethods.indexOf(key) !== -1) {
         // 如果原来定义了这个方法,覆盖mixins的方法
@@ -77,8 +81,8 @@ function mergePageOptions(mixins, options) {
 Page = (options) => {
   const mixins = options.mixins
   if (isArray(mixins)) {
-    delete options.mixins
     options = mergePageOptions(mixins, options)
+    delete options.mixins
   }
   originPage(options)
 }

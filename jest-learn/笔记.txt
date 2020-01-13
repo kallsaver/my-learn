@@ -1,0 +1,11 @@
+1.jest内置了babel-jest,
+有些语法在node环境不支持,可以通过配置.babelrc
+在运行测试之前,先把代码做一次转化
+
+2.jest --init会生成jest.config.js文件
+jest --coverage会生成测试代码覆盖率
+
+
+3.jest --watchAll会监听测试文件,文件发生变化会重新触发jest
+
+
