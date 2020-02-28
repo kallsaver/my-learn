@@ -24,7 +24,7 @@ export default new Router({
       },
       children: [
         {
-          path: 'emit',
+          path: '/base/emit',
           name: 'emit',
           component: () => import('@/pages/base/children/emit/emit.vue'),
           meta: {
@@ -33,7 +33,7 @@ export default new Router({
           },
         },
         {
-          path: 'class',
+          path: '/base/class',
           name: 'class',
           component: () => import('@/pages/base/children/class/class.vue'),
           meta: {
@@ -42,7 +42,7 @@ export default new Router({
           },
         },
         {
-          path: 'async',
+          path: '/base/async',
           name: 'async',
           component: () => import('@/pages/base/children/async/async.vue'),
           meta: {
@@ -51,7 +51,7 @@ export default new Router({
           },
         },
         {
-          path: 'proxy',
+          path: '/base/proxy',
           name: 'proxy',
           component: () => import('@/pages/base/children/proxy/proxy.vue'),
           meta: {
@@ -60,8 +60,8 @@ export default new Router({
           },
         },
         {
-          path: 'Object.defineProperty',
-          name: 'Object.defineProperty',
+          path: '/base/ObjectDefineProperty',
+          name: 'ObjectDefineProperty',
           component: () => import('@/pages/base/children/Object.defineProperty/Object.defineProperty.vue'),
           meta: {
             title: 'Object.defineProperty',
@@ -86,6 +86,17 @@ export default new Router({
         title: '实战',
         index: 3
       },
+      children: [
+        {
+          path: '/action/promise',
+          name: 'Promise',
+          component: () => import('@/pages/action/children/promise/promise.vue'),
+          meta: {
+            title: 'promise',
+            index: 3
+          },
+        }
+      ]
     },
     {
       path: '/vue',

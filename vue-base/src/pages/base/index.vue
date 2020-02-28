@@ -28,8 +28,6 @@ export default {
 <style lang="stylus" scoped>
 .view
   transition: all 0.3s
-  // tranform和fixed不能同时并存
-  // tranform会让fixed失效
   transform: none
   &.move-enter-active, &.move-leave-active
     transform: translate3d(100%, 0, 0)

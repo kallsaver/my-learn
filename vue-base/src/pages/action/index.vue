@@ -1,5 +1,5 @@
 <template>
-  <div class="action">
+  <div class="base">
     <index-list :route-index="routeIndex" title="实战"></index-list>
     <transition name="move">
       <router-view class="view"></router-view>
@@ -18,7 +18,7 @@ export default {
   computed: {
     routeIndex() {
       return this.$router.options.routes.findIndex((item) => {
-        return this.$route.path.indexOf(item.path) !== -1
+        return this.$route.path.indexOf(item.path) !== -1 && item.path !== '/'
       })
     },
   },
@@ -28,8 +28,6 @@ export default {
 <style lang="stylus" scoped>
 .view
   transition: all 0.3s
-  // tranform和fixed不能同时并存
-  // tranform会让fixed失效
   transform: none
   &.move-enter-active, &.move-leave-active
     transform: translate3d(100%, 0, 0)
