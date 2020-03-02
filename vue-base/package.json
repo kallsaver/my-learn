@@ -24,6 +24,7 @@
     "animejs": "^2.2.0",
     "cube-ui": "^1.12.5",
     "dynamics.js": "^1.1.5",
+    "loadjs": "^4.2.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
