@@ -89,7 +89,7 @@
   const arrayMethods = Object.create(arrayProto)
 
   // 这些数组的方法会改变数组的元素,需要做代理
-  let methodsToPatch = [
+  const methodsToPatch = [
     'push',
     'pop',
     'shift',
