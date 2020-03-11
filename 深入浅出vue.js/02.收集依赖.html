@@ -39,7 +39,7 @@
       configurable: true,
       get: function () {
         console.log('getter')
-        if (window.currentWatch) {
+        if (Dep.target) {
           dep.depend()
         }
         return val
@@ -76,7 +76,7 @@
     }
     depend() {
       // Watch的实例addDep(Dep的实例)
-      window.currentWatch.addDep(this)
+      Dep.target.addDep(this)
     }
     notify() {
       this.subs.forEach(sub => {
@@ -95,10 +95,10 @@
       this.cb = cb
     }
     get() {
-      // window.currentWatch这个全局变量起到指针的作用
-      window.currentWatch = this
+      // Dep.target这个全局变量起到指针的作用
+      Dep.target = this
       let value = this.getter.call(this.vm, this.vm)
-      window.currentWatch = null
+      Dep.target = null
       return value
     }
     update() {
@@ -122,9 +122,7 @@
       if (/[^\w.$]/.test(exp)) {
         return
       }
-
-      let exps = exp.split('.')
-
+      const exps = exp.split('.')
       return function (obj) {
         for (let i = 0, len = exps.length; i < len; i++) {
           if (!obj) {
