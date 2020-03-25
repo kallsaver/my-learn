@@ -58,7 +58,7 @@
     Object.defineProperty(obj, key, {
       enumerable: true,
       configurable: true,
-      get: function () {
+      get() {
         // 说明被watch了并且在watch的get函数上下文中
         if (Dep.target) {
           dep.depend()
@@ -71,7 +71,7 @@
         }
         return val
       },
-      set: function (newVal) {
+      set(newVal) {
         // NaN === NaN为false
         if (newVal === val || (newVal !== newVal && val !== val)) {
           return

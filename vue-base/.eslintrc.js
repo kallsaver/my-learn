@@ -35,6 +35,7 @@ module.exports = {
       'asyncArrow': 'always'
     }],
     'no-unused-vars': 'off',
-    'no-useless-constructor': 'off'
+    'no-useless-constructor': 'off',
+    "no-callback-literal": 'off'
   }
 }

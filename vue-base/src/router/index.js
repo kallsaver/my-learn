@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -87,12 +87,21 @@ export default new Router({
         index: 3
       },
       children: [
+        // {
+        //   path: '/action/promise',
+        //   name: 'Promise',
+        //   component: () => import('@/pages/action/children/promise/promise.vue'),
+        //   meta: {
+        //     title: 'promise',
+        //     index: 3
+        //   },
+        // },
         {
-          path: '/action/promise',
-          name: 'Promise',
-          component: () => import('@/pages/action/children/promise/promise.vue'),
+          path: '/action/mvvm',
+          name: 'Mvvm',
+          component: () => import('@/pages/action/children/mvvm/mvvm.vue'),
           meta: {
-            title: 'promise',
+            title: 'mvvm',
             index: 3
           },
         }
@@ -173,4 +182,18 @@ export default new Router({
       ]
     },
   ]
+})
+
+export default router
+
+const historyList = []
+
+window.addEventListener('popstate', function () {
+  // history.pushState(null, null, historyList[historyList.length - 1])
+})
+
+router.beforeEach((to, from, next) => {
+  next()
+  // history.pushState(null, null, document.URL)
+  historyList.push(document.URL)
 })
