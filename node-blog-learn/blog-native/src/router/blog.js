@@ -1,7 +1,7 @@
 const {
   getList,
   getDetail,
-  addBlog,
+  newBlog,
   updateBolg,
   deleteBolg
 } = require('../controller/blog')
@@ -30,9 +30,9 @@ const blogRouterHandler = (req, res) => {
       return new SuccessModel(data)
     }
   } else if (method === 'POST') {
-    if (reqPath === '/api/blog/add') {
+    if (reqPath === '/api/blog/new') {
       const postData = req.body
-      const data = addBlog(postData)
+      const data = newBlog(postData)
       return new SuccessModel(data)
     } else if (reqPath === '/api/blog/update') {
       const id = req.query.id

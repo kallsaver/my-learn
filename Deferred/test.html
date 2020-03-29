@@ -6,68 +6,25 @@
 	</head>
 	<body>
 	</body>
-	<script src="js/Deferred.js"></script>
+	<script src="js/promise.js"></script>
 	<script>
-		
-		function S(){
-			
-		}
-		
-		function T(){
-			
-		}
-		
-		S.prototype = new T()
-		
-		
-		var s = new S();
-		console.log(s instanceof T)
-        
-        Deferred.prototype = new T();
-        
-        console.log(typeof Deferred)
-        
-		
-		function wait1(){
-			var def = new Deferred();
-			console.log('------')
-			//console.log(def.promise())
-			//console.log(def instanceof T)
-			console.log( def.hasOwnProperty('then') )
-			setTimeout(function(){
-				def.resolve()
-			},3000)
-			return def //.promise();
-		}
-		
-		var a = wait1();
-		
-		console.log(a)
-		
-		a.then(function(){
-			console.log(7)
-			console.log(a instanceof Deferred)
-		});
-		
-		function wait2(){
-			var def = new Deferred();
-			setTimeout(function(){
-				def.resolve()
-			},9000)
-			return def.promise();
-		}
-		
-		var b = wait2();
-	
-		
-		Deferred.when(a,b).then(function(){
-			console.log(9999)
-		})
-		
-		
-		
-		
-		
-		
+    setTimeout(() => {
+      console.log('setTimeout')
+    }, 0)
+
+    const promise = new Promise((resolve) => {
+      resolve('promise')
+    })
+
+    const es6promise = new ES6Promise((resolve) => {
+      resolve('promise')
+    })
+
+    console.log(es6promise)
+
+    es6promise.then((data) => {
+      console.log(data)
+    })
+
 	</script>
 </html>

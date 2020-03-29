@@ -7,11 +7,16 @@ const router = new Router()
 
 // 添加路由
 router.get('/', async (ctx, next) => {
+  console.log('get /')
   ctx.response.body = `<div>index page</div>`
 })
 
 router.get('/home', async (ctx, next) => {
   ctx.response.body = '<div>HOME page</div>'
+})
+
+router.get('/home/1', async (ctx, next) => {
+  ctx.response.body = '<div>HOME page 1</div>'
 })
 
 router.get('/404', async (ctx, next) => {
@@ -39,6 +44,6 @@ router.get(
 // 调用路由中间件
 app.use(router.routes())
 
-app.listen(3001, () => {
-  console.log('server is running at http://localhost:3001')
+app.listen(3005, () => {
+  console.log('server is running at http://localhost:3005')
 })

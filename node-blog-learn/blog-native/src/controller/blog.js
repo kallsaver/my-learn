@@ -27,7 +27,7 @@ const getDetail = (id) => {
   }
 }
 
-const addBlog = (blogData = {}) => {
+const newBlog = (blogData = {}) => {
   return {
     id: 3
   }
@@ -44,7 +44,7 @@ const deleteBolg = (id) => {
 module.exports = {
   getList,
   getDetail,
-  addBlog,
+  newBlog,
   updateBolg,
   deleteBolg,
 }
