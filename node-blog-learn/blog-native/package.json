@@ -19,5 +19,7 @@
     "gulp-plumber": "^1.2.1",
     "portfinder": "^1.0.20"
   },
-  "dependencies": {}
+  "dependencies": {
+    "methods": "^1.1.2"
+  }
 }

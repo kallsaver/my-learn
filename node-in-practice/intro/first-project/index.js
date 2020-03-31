@@ -11,6 +11,3 @@ https.get('https://www.manning.com', function (res) {
 countStream.on('total', function (count) {
   // console.log('Total matches:', count)
 })
-
-console.log(88)
-console.log(8800)

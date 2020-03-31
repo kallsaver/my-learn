@@ -1,4 +1,5 @@
 const querystring = require('querystring')
+const router = require('./src/lib/router/index')
 const blogRouterHandler = require('./src/router/blog')
 const userRouterHandler = require('./src/router/user')
 const testRouterHandler = require('./src/router/test')
