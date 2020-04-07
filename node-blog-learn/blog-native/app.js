@@ -1,5 +1,4 @@
 const querystring = require('querystring')
-const router = require('./src/lib/router/index')
 const blogRouterHandler = require('./src/router/blog')
 const userRouterHandler = require('./src/router/user')
 const testRouterHandler = require('./src/router/test')
@@ -63,7 +62,6 @@ const serverHandler = (req, res) => {
     if (testData) {
       if (testData instanceof Promise) {
         testData.then((result) => {
-          console.log(66)
           // 设置响应头
           res.setHeader('content-type', 'application/json')
           // http只能传输字符串
