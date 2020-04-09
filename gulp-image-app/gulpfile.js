@@ -22,23 +22,23 @@ const ALL = '**'
 const IMAGES = 'images'
 const FONTS = 'fonts'
 
-let task = process.argv[2]
-let target = process.argv[3] ? process.argv[3].slice(1) : ALL
+const task = process.argv[2]
+const target = process.argv[3] ? process.argv[3].slice(1) : ALL
 
-let taskList = []
+const taskList = []
 
 if (target !== ALL) {
-  let isExists = existsSync(path.join(__dirname, `./src/${task}/${target}`))
+  const isExists = existsSync(path.join(__dirname, `./src/${task}/${target}`))
   if (!isExists) {
     taskList = ['error']
   }
 }
 
-let dest = target === ALL ? `dist/${task}/` : `dist/${task}/${target}`
+const dest = target === ALL ? `dist/${task}/` : `dist/${task}/${target}`
 
 gulp.task('images', taskList, () => {
   // yahoo出品的图片压缩工具,对png的优化不高,对jpg,jpeg的可以压缩60%
-  let miniJpg = gulp.src([`src/${IMAGES}/${target}/**/*`, `!src/${IMAGES}/${target}/**/*.png`])
+  const miniJpg = gulp.src([`src/${IMAGES}/${target}/**/*`, `!src/${IMAGES}/${target}/**/*.png`])
     .pipe(plumber({
       errorHandler: function() {
         this.emit('end')
@@ -53,7 +53,7 @@ gulp.task('images', taskList, () => {
     .pipe(gulp.dest(dest))
 
   // 另一款图片压缩工具, 对png可以压缩一点点, 对jpg压缩率不高
-  let miniPng = gulp.src([`src/${IMAGES}/${target}/**/*.png`])
+  const miniPng = gulp.src([`src/${IMAGES}/${target}/**/*.png`])
     .pipe(plumber({
       errorHandler: () => {
         this.emit('end')

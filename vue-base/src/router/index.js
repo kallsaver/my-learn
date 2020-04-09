@@ -181,6 +181,25 @@ const router = new Router({
         },
       ]
     },
+    {
+      path: '/animation',
+      component: () => import('@/pages/animation/index.vue'),
+      meta: {
+        title: 'animation',
+        index: 2
+      },
+      children: [
+        {
+          path: '/animation/hahow',
+          name: 'hahow',
+          component: () => import('@/pages/animation/children/hahow/hahow.vue'),
+          meta: {
+            title: 'hahow',
+            index: 3
+          },
+        }
+      ]
+    }
   ]
 })
 

@@ -27,6 +27,7 @@
     "loadjs": "^4.2.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
+    "vue-router-cache": "^0.3.3",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

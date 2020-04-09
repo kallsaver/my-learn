@@ -20,6 +20,11 @@
         <router-link tag="div" to="/browser">浏览器</router-link>
       </cube-button>
     </div>
+    <div class="button">
+      <cube-button>
+        <router-link tag="div" to="/animation">动画</router-link>
+      </cube-button>
+    </div>
   </div>
 </template>
 
