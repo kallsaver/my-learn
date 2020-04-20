@@ -1,5 +1,7 @@
 <template>
-  <div class="page" :style="{'z-index': zIndex}">
+  <div ref="page"
+    class="page"
+    :style="{'z-index': zIndex}">
     <div class="page-header">
       <div class="page-title">{{title}}</div>
       <slot name="back" v-if="isShowBack">
@@ -10,15 +12,7 @@
       </slot>
     </div>
     <div class="page-wrapper">
-      <div class="page-content">
-        <slot></slot>
-        <slot name="start" v-if="isShowStart">
-          <i class="page-start w-page-icon-start" @click="start"></i>
-        </slot>
-        <slot name="to-top" v-if="isShowToTop">
-          <i class="page-to-top w-page-icon-top" @click="toTop"></i>
-        </slot>
-      </div>
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -28,7 +22,6 @@ const COMPONENT_NAME = 'page'
 
 const EVENT_RIGHT_CLICK = 'right-click'
 const EVENT_START = 'start'
-const EVENT_TO_TOP = 'to-top'
 
 export default {
   name: COMPONENT_NAME,
@@ -67,7 +60,22 @@ export default {
       default: true
     }
   },
-  created() {
+  data() {
+    return {
+      scrollTop: 0
+    }
+  },
+  mounted() {
+    this.setScreenHeight()
+    this.addEventListenerResive()
+  },
+  activated() {
+    if (this.scrollTop) {
+      this.scrollTo(0, this.scrollTop)
+    }
+  },
+  deactivated() {
+    this.scrollTop = this.$refs.page.scrollTop
   },
   methods: {
     back() {
@@ -79,9 +87,21 @@ export default {
     start() {
       this.$emit(EVENT_START)
     },
-    toTop() {
-      this.$emit(EVENT_TO_TOP)
+    scrollTo() {
+      this.$refs.page.scrollTo(...arguments)
+    },
+    setScreenHeight() {
+      this.$refs.page.style.height = `${window.innerHeight}px`
+    },
+    addEventListenerResive() {
+      window.addEventListener('resize', this.setScreenHeight)
+    },
+    removeEventListenerResive() {
+      window.removeEventListener('resize', this.setScreenHeight)
     }
+  },
+  beforeDestroy() {
+    this.removeEventListenerResive()
   }
 }
 </script>
@@ -90,7 +110,7 @@ export default {
 @import "./fonts/w-page-icon.css"
 
 .page
-  position: absolute
+  position: fixed
   z-index: 50
   top: 0
   left: 0
@@ -131,28 +151,13 @@ export default {
       font-size: 24px
       line-height: 24px
   .page-wrapper
+    box-size: border-box
     width: 100%
-    display: flex
-    flex-direction: column
     height: calc(100% - 44px)
-    overflow: hidden
+    overflow: scroll
     // 使用具有回弹效果的滚动,
     // 当手指从触摸屏上移开,内容会继续保持一段时间的滚动效果
-    // -webkit-overflow-scrolling: touch;
-    .page-content
-      flex: 1
-      position: relative
-      margin: 0px 10px 10px 10px
-      .page-start
-        position: fixed
-        top: 50px
-        right: 15px
-        font-size: 26px
-        color: #666
-      .page-to-top
-        position: fixed
-        bottom: 20px
-        right: 15px
-        font-size: 26px
-        color: #666
+    -webkit-overflow-scrolling: touch
+    &::-webkit-scrollbar
+      display: none
 </style>

@@ -1,5 +1,7 @@
 <template>
-  <div class="page" :style="{'z-index': zIndex}">
+  <div ref="page"
+    class="page"
+    :style="{'z-index': zIndex}">
     <div class="page-header">
       <div class="page-title">{{title}}</div>
       <slot name="back" v-if="isShowBack">
@@ -66,7 +68,22 @@ export default {
       default: true
     }
   },
-  created () {
+  data() {
+    return {
+      scrollTop: 0
+    }
+  },
+  mounted() {
+    this.setScreenHeight()
+    this.addEventListenerResive()
+  },
+  activated() {
+    if (this.scrollTop) {
+      this.scrollTo(0, this.scrollTop)
+    }
+  },
+  deactivated() {
+    this.scrollTop = this.$refs.page.scrollTop
   },
   methods: {
     back() {
@@ -77,7 +94,22 @@ export default {
     },
     start() {
       this.$emit(EVENT_START)
+    },
+    scrollTo() {
+      this.$refs.page.scrollTo(...arguments)
+    },
+    setScreenHeight() {
+      this.$refs.page.style.height = `${window.innerHeight}px`
+    },
+    addEventListenerResive() {
+      window.addEventListener('resize', this.setScreenHeight)
+    },
+    removeEventListenerResive() {
+      window.removeEventListener('resize', this.setScreenHeight)
     }
+  },
+  beforeDestroy() {
+    this.removeEventListenerResive()
   }
 }
 </script>
@@ -128,13 +160,14 @@ export default {
       line-height: 24px
   .page-wrapper
     width: 100%
-    display: flex
-    flex-direction: column
     height: calc(100% - 44px)
-    overflow: hidden
+    overflow: scroll
     // 使用具有回弹效果的滚动,
     // 当手指从触摸屏上移开,内容会继续保持一段时间的滚动效果
-    // -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch
+    &::-webkit-scrollbar
+      display: none
+
     .page-content
       flex: 1
       position: relative

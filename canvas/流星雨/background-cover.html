@@ -59,9 +59,10 @@
   // 改进版
   function canvasImageCoverPosition(contentWidth, contentHeight, containerWidth, containerHeight, offsetLeft, offsetTop) {
     // 源图w/h
-    let contentRatio = contentWidth / contentHeight
+    const contentRatio = contentWidth / contentHeight
     // 容器(canvas)w/h
-    let containerRatio = containerWidth / containerHeight
+    const containerRatio = containerWidth / containerHeight
+
     let resultHeight
     let resultWidth
 
@@ -80,19 +81,19 @@
     }
   }
 
-  let canvas = document.getElementById('canvas')
-  let context = canvas.getContext('2d')
+  const canvas = document.getElementById('canvas')
+  const context = canvas.getContext('2d')
 
-  let backgroundCanvas = document.createElement('canvas')
-  let backgroundContext = backgroundCanvas.getContext('2d')
+  const backgroundCanvas = document.createElement('canvas')
+  const backgroundContext = backgroundCanvas.getContext('2d')
 
-  let backgroundImage = new Image()
+  const backgroundImage = new Image()
   backgroundImage.src = './images/starry-sky.jpg'
 
   backgroundImage.onload = () => {
 
-    let sourceWidth = backgroundImage.width
-    let sourceHeight = backgroundImage.height
+    const sourceWidth = backgroundImage.width
+    const sourceHeight = backgroundImage.height
 
     // canvas.width = window.innerWidth > backgroundImage.width ? window.innerWidth : sourceWidth
     // canvas.height = window.innerHeight > backgroundImage.height ? window.innerHeight : sourceHeight
@@ -115,7 +116,7 @@
     //   backgroundCanvas.height
     // )
 
-    let imagePosition = canvasImageCoverPosition(
+    const imagePosition = canvasImageCoverPosition(
       sourceWidth,
       sourceHeight,
       canvas.width,
@@ -132,7 +133,7 @@
       imagePosition.height
     )
 
-    let pattern = context.createPattern(backgroundCanvas, 'no-repeat')
+    const pattern = context.createPattern(backgroundCanvas, 'no-repeat')
     context.fillStyle = pattern
     context.fillRect(0, 0, canvas.width, canvas.height)
   }
