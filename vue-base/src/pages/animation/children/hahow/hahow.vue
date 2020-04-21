@@ -48,6 +48,25 @@
                 <div class="circle"></div>
               </div>
             </div>
+            <div class="house2">
+              <div class="door"></div>
+            </div>
+            <div class="house3">
+              <div class="wall">
+                <div class="window"></div>
+              </div>
+              <div class="wall">
+                <div class="window"></div>
+              </div>
+              <div class="wall">
+                <div class="window"></div>
+              </div>
+              <div class="roof">
+                <div class="rooftop">
+                  <div class="cross"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </label>
@@ -96,15 +115,18 @@ export default {
     }
     .scene {
       width: 700px;
-      height: 500px;
+      height: 540px;
       position: relative;
-      border-radius: 15px;
       overflow: hidden;
       background: linear-gradient(#1D2B49, #1A45A0, #91cdff, #fff);
       background-size: 100% 300%;
       box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
       cursor: pointer;
       transition: all 2s;
+      border-radius: 15px;
+      // z-index解决border-radius会让overflow局部失效
+      z-index: 1;
+      overflow: hidden;
       // height: 500px * 3;
       // background-size: 100% 100%;
       .sun, .moon {
@@ -325,6 +347,134 @@ export default {
             border-radius: 50%;
             background-color: #534d4d;
             margin-left: 6px;
+          }
+        }
+      }
+      .house2 {
+        position: absolute;
+        width: 240px;
+        height: 170px;
+        border-radius: 0;
+        right: 130px;
+        z-index: 2;
+        background-color: #fafaf5;
+        box-shadow: inset 0px 15px #8dc9fc, inset -72px 0px #e3e2cf;
+        .door {
+          position: absolute;
+          width: 40px;
+          height: 80px;
+          border-radius: 20px 20px 0 0;
+          bottom: 0;
+          left: 45px;
+          background-color: #2C2F36;
+          box-shadow: inset 10px 2px #7cb1ff;
+        }
+      }
+      .house3 {
+        display: flex;
+        width: 320px;
+        height: 300px;
+        border-radius: 0;
+        justify-content: center;
+        align-items: center;
+        z-index: 0;
+        background-color: #fafaf5;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        .wall {
+          position: relative;
+          display: flex;
+          flex: 1;
+          height: 100%;
+          justify-content: center;
+          align-items: flex-start;
+          &:before {
+            content: "";
+            display: block;
+            width: 105%;
+            height: 20px;
+            border-radius: 0;
+            position: absolute;
+            top: -20px;
+            background-color: inherit;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+          }
+          &:nth-child(1) {
+            flex: 10;
+            background-color: #fafaf5;
+            .window {
+              box-shadow: inset 8px 0px #7cb1ff;
+            }
+            &:before {
+              z-index: 1;
+            }
+          }
+          &:nth-child(2) {
+            flex: 14;
+            background-color: #e3e2cf;
+            .window {
+              box-shadow: inset 0px 0px #7cb1ff;
+              &:before {
+                z-index: 2;
+              }
+            }
+          }
+          &:nth-child(3) {
+            flex: 10;
+            background-color: #bebdaf;
+            .window {
+              box-shadow: inset -8px 0px #7cb1ff;
+            }
+            &:before {
+              z-index: 1;
+            }
+          }
+          .window {
+            width: 24px;
+            height: 50px;
+            border-radius: 12px 12px 0px 0px;
+            margin-top: 30px;
+            background-color: #2C2F36;
+          }
+        }
+        .roof {
+          position: absolute;
+          width: 300px;
+          height: 150px;
+          top: -170px;
+          right: 5px;
+          border-radius: 150px 150px 0 0;
+          background: linear-gradient(150deg, #6fc5ff, #0058ff);
+          .rooftop {
+            position: absolute;
+            width: 28px;
+            height: 14px;
+            left: 50%;
+            top: -14px;
+            transform: translateX(-50%);
+            border-radius: 14px 14px 0 0;
+            background-color: #fff;
+          }
+          .cross {
+            position: absolute;
+            width: 4px;
+            height: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 10px;
+            border-radius: 0;
+            background-color: #fff;
+            &:before {
+              display: block;
+              position: absolute;
+              content: "";
+              width: 20px;
+              height: 4px;
+              border-radius: 0;
+              bottom: 15px;
+              left: 50%;
+              transform: translateX(-50%);
+              background-color: #fff;
+            }
           }
         }
       }
