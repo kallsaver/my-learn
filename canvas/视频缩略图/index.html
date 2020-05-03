@@ -22,24 +22,27 @@
   <canvas id="canvas"></canvas>
 </body>
 <script>
-  let canvas = document.getElementById('canvas')
-  let context = canvas.getContext('2d')
+  const canvas = document.getElementById('canvas')
+  const context = canvas.getContext('2d')
   canvas.width = 200
   canvas.height = 200
 
-  let body = document.getElementsByTagName('body')[0]
-  let video = document.createElement('video')
+  const body = document.getElementsByTagName('body')[0]
+  const video = document.createElement('video')
   video.src = './video/1.mp4'
   video.controls = 'controls'
   video.addEventListener('canplay', function () {
     // let thumbnailCanvas = document.createElement('canvas')
     // let thumbnailContext = thumbnailCanvas.getContext('2d')
-    let width = video.videoWidth
-    let height = video.videoHeight
+    const width = video.videoWidth
+    const height = video.videoHeight
+    console.log(width)
+    console.log(height)
     context.drawImage(video, 0, 0, width, height, 0, 0, canvas.width, canvas.height)
     let base64 = canvas.toDataURL('image/png')
     let image = new Image()
     image.src = base64
+    console.log(base64)
     body.appendChild(image)
   }, false)
 

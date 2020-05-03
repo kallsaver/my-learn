@@ -40,7 +40,8 @@ gulp.task('images', taskList, () => {
   // yahoo出品的图片压缩工具,对png的优化不高,对jpg,jpeg的可以压缩60%
   const miniJpg = gulp.src([`src/${IMAGES}/${target}/**/*`, `!src/${IMAGES}/${target}/**/*.png`])
     .pipe(plumber({
-      errorHandler: function() {
+      errorHandler: function(err) {
+        console.log(err)
         this.emit('end')
       }
     }))
@@ -55,7 +56,8 @@ gulp.task('images', taskList, () => {
   // 另一款图片压缩工具, 对png可以压缩一点点, 对jpg压缩率不高
   const miniPng = gulp.src([`src/${IMAGES}/${target}/**/*.png`])
     .pipe(plumber({
-      errorHandler: () => {
+      errorHandler: (err) => {
+        console.log(err)
         this.emit('end')
       }
     }))

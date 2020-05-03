@@ -13,6 +13,7 @@ export default {
   },
   mounted() {
     this.demo2()
+    this.demo3()
   },
   methods: {
     demo1() {
@@ -23,7 +24,7 @@ export default {
       // 如果throw new Error这个Promise会reject
       async function f() {
         // 取得一个1 ~ 10的正整数
-        let number = (Math.random() * 10 + 1) | 0
+        const number = (Math.random() * 10 + 1) | 0
         if (number > 5) {
           return number
         } else {
@@ -47,8 +48,9 @@ export default {
         })
       }
       async function getData() {
-        let result = await run()
-        console.log(result)
+        const result = await run()
+        // 1
+        console.log('result', result)
       }
       getData()
     },
@@ -58,8 +60,8 @@ export default {
         return 'run'
       }
       async function getData() {
-        let result = await run()
-        console.log(result)
+        const result = await run()
+        console.log('result', result)
       }
       getData()
     },
