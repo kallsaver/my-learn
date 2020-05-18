@@ -110,6 +110,10 @@ export default {
       top: -100px;
       opacity: 0;
     }
+    .switch:checked + .scene .sun {
+      top: 100px;
+      opacity: 1;
+    }
     .switch:checked + .scene .all-stars {
       opacity: 0;
     }
@@ -136,11 +140,18 @@ export default {
         position: absolute;
         left: 150px;
         top: 80px;
-        // 内阴影,始终是向内缩,
-        // 如果是正数,说明是左/上,因为阴影的坐标值是增加的
-        // 如果是复数,说明是右/下,因为阴影的坐标值是减少的
-        box-shadow: inset 10px -10px rgba(255, 255, 255, 0.9);
         transition: all 2s;
+      }
+      .sun {
+        background-color: #ffdd38;
+        box-shadow: 0px 0px 20px rgba(255, 221, 56, 0.5);
+        top: 400px;
+        opacity: 0;
+      }
+      .moon {
+        // 如果是正数,说明是左/上,因为阴影的坐标值是增加的
+        // 如果是负数,说明是右/下,因为阴影的坐标值是减少的
+        box-shadow: inset 10px -10px rgba(255, 255, 255, 0.9);
       }
       .all-stars {
         width: 100%;
@@ -152,9 +163,19 @@ export default {
           position: absolute;
           width: 3px;
           height: 3px;
-          border-radius: 50%;
+          // border-radius: 50%;
           background-color: #fff;
           animation: falling 2s infinite;
+          // &:after {
+          //   content: "";
+          //   display: block;
+          //   border: 0 solid #fff;
+          //   border-width: 0 20px 2px;
+          //   border-color: transparent transparent transparent rgba(255, 255, 255, .3);
+          //   transform: rotate(-45deg) translate(0, 2px);
+          //   box-shadow: 0 0 1px 0 rgba(255, 255, 255, .1);
+          //   transform-origin: 0% 100%;
+          // }
         }
         .star1 {
           left: 60%;
@@ -485,16 +506,23 @@ export default {
 @keyframes falling {
   0% {
     opacity: 0;
+    transform: translate(100px, 0px);
   }
   70% {
     opacity: 1;
   }
-  0% {
-    transform: translate(100px, 0px);
-  }
   100% {
     opacity: 0;
-    transform: translate(0px, 200px);
+    transform: translate(0px, 100px);
   }
 }
+
+// @keyframes moonAppear {
+//   0% {
+//     box-shadow: inset 0px 0px rgba(255, 255, 255, 0.9);
+//   }
+//   100% {
+//     box-shadow: inset 25px -25px rgba(255, 255, 255, 0.9);
+//   }
+// }
 </style>
