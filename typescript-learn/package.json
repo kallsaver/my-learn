@@ -1,0 +1,19 @@
+{
+  "name": "typescript-learn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^4.1.1",
+    "rollup": "^2.10.4",
+    "terser": "^4.7.0",
+    "typescript": "^3.9.2",
+    "zlib": "^1.0.5"
+  }
+}

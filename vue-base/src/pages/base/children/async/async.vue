@@ -12,8 +12,7 @@ export default {
     return {}
   },
   mounted() {
-    this.demo2()
-    this.demo3()
+    this.demo6()
   },
   methods: {
     demo1() {
@@ -22,7 +21,7 @@ export default {
       // 会成为then方法回调函数的参数
       // 而async函数的返回值是Promise对象
       // 如果throw new Error这个Promise会reject
-      async function f() {
+      async function run() {
         // 取得一个1 ~ 10的正整数
         const number = (Math.random() * 10 + 1) | 0
         if (number > 5) {
@@ -32,41 +31,72 @@ export default {
         }
       }
 
-      f().then((data) => {
+      run().then((data) => {
         console.log(data)
       }).catch((error) => {
         console.warn(error)
       })
     },
-    // await的return值
     demo2() {
-      function run() {
+      // await的return值
+      // await后面的函数如果是返回一个promise(说明是异步的),并且没有被then解析,那返回值是resolve的值
+      // await后面的函数如果是返回一个promise(说明是异步的),并且没有被then解析,那返回值是最后一个then的返回值的值
+      // await后面的函数如果不是返回一个promise,那么await不起作用(多余的)
+      // promise的then和catch重写resolve或者reject的值,通过return传递到下个环节
+      function firstFn() {
         return new Promise((resolve) => {
           setTimeout(() => {
             resolve(1)
           }, 1000)
         })
       }
-      async function getData() {
-        const result = await run()
-        // 1
-        console.log('result', result)
+      function SecondFn() {
+        return 2
       }
-      getData()
+      function thirdFn() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(3)
+          }, 1000)
+        }).then((res) => {
+          return 3
+        }).catch((err) => {
+          return err
+        }).then((res) => {
+          console.log('---')
+          return 30
+        }).then((res) => {
+          console.log(res)
+          return 300
+        })
+      }
+      function forthFn() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject(new Error('miss token'))
+          }, 1000)
+        }).then((res) => {
+          return 4
+        }).catch((err) => {
+          return err
+        }).then((res) => {
+
+        }, 1000)
+      }
+      async function run() {
+        const firstResult = await firstFn()
+        console.log('firstResult', firstResult)
+        const secondResult = await SecondFn()
+        console.log('secondResult', secondResult)
+        const thirdResult = await thirdFn()
+        console.log('thirdResult', thirdResult)
+        const forthResult = await forthFn()
+        console.log('forthResult', forthResult)
+      }
+      run()
     },
-    // await的return值
     demo3() {
-      function run() {
-        return 'run'
-      }
-      async function getData() {
-        const result = await run()
-        console.log('result', result)
-      }
-      getData()
-    },
-    demo4() {
-      // 最佳实践
+      // async和循环
       let arr = [0, 1, 2]
       ;(async () => {
         for (let i = 0; i < arr.length; i++) {
@@ -79,28 +109,111 @@ export default {
             })
           })()
         }
-        await (() => {
-          console.log(777)
-        })()
+        console.log(777)
       })()
     },
-    demo5() {
-      // async的回调函数
-      async function getData(fn) {
-        if (fn && typeof fn === 'function') {
-          await fn(1)
+    demo4() {
+      // async的回调函数(洋葱模型)
+      function firstFn() {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(1)
+          }, 1000)
+        })
+      }
+      async function run(next) {
+        await firstFn()
+        if (next && typeof next === 'function') {
+          await next(2)
           console.log('回调函数执行完毕')
         }
       }
 
-      getData((number) => {
+      run((number) => {
         return new Promise((resolve) => {
           setTimeout(() => {
             console.log('业务逻辑')
             resolve()
-          }, 3000)
+          }, 1000)
         })
       })
+    },
+    demo5() {
+      // async/await用try/catch处理异常
+      function firstFn() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject(new Error('miss token'))
+          }, 1000)
+        })
+      }
+      function SecondFn() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve('success')
+          }, 1000)
+        })
+      }
+      async function run() {
+        try {
+          const firstResult = await firstFn()
+          // await函数reject没有被promise的catch处理,后面不再执行
+          const secondResult = await SecondFn()
+          console.log(firstResult, secondResult)
+        } catch (err) {
+          console.log(err)
+        }
+      }
+      run()
+    },
+    demo6() {
+      // async/await用to函数处理异常
+      function to(promise) {
+        return promise.then((data) => {
+          return {
+            err: null,
+            data,
+          }
+        }).catch((err) => {
+          return {
+            err,
+          }
+        })
+      }
+      function getData() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject(new Error('miss token'))
+          }, 1000)
+        })
+      }
+      function firstFn() {
+        return new Promise((resolve, reject) => {
+          getData().then(() => {
+            resolve()
+          }).catch(() => {
+            reject(new Error('miss token'))
+          })
+        })
+      }
+      function SecondFn() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve('success')
+          }, 1000)
+        })
+      }
+      async function run() {
+        const firstResult = await to(firstFn())
+        console.log(firstResult)
+        if (firstResult.err) {
+          console.log('报错')
+          return
+        }
+        const secondResult = await to(SecondFn())
+        console.log(secondResult)
+      }
+      run()
     }
   },
 }
