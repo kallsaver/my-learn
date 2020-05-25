@@ -31,7 +31,7 @@ const buildMap = {
     input: resolve('src/index.ts'),
     output: {
       file: resolve(`dist/${name}.esm.js`),
-      format: 'es',
+      format: 'esm',
       banner: banner
     },
     plugins: plugins,
