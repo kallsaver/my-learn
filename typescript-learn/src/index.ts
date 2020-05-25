@@ -1,1 +1,5 @@
-const a : string = 's'
+import './type/index'
+
+export default {
+  version: 'VERSION',
+}
