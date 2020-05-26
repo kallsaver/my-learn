@@ -9,7 +9,6 @@ const TARGET = process.env.TARGET
 
 async function buildEntry() {
   const build = buildMap[TARGET]
-  console.log(build)
 
   if (build) {
     await (() => {
@@ -21,7 +20,6 @@ async function buildEntry() {
             copy('dist', `examples/plugins/${name}/`, function (err) {
               console.log(err)
             })
-            console.log('--')
             resolve()
           }
         })
