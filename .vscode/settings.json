@@ -3,8 +3,8 @@
     "docthis.includeTypes": false,
     "docthis.includeMemberOfOnInterfaceMembers": false,
     "docthis.includeMemberOfOnClassMembers": false,
-    "editor.fontSize": 18,
+    "editor.fontSize": 24,
     "debug.console.fontSize": 18,
     "terminal.integrated.fontSize": 18,
-    "editor.suggestFontSize": 18
+    "editor.suggestFontSize": 24
 }

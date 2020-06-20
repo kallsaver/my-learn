@@ -1,28 +1,70 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset='UTF-8'>
 		<title></title>
 	</head>
 	<body>
 	</body>
 	<script>
-	//match返回的是一个数组
-		var str = '1a2b3c4d5e1a2b3c4d5e';
-		var a1=str.match("1a")
-		console.log(a1)       //是一个只有一个元素的数组  并且有index属性:0,input属性:母字符串
-		console.log(a1.index)	//0
-		
-		
-		var a2=str.match(/1a/g)
-		console.log(a2)		  //[1a,1a]	//没有index属性
-		
-		var a3=str.match(/h/)
-		console.log(a3)       //null
-		
-		var a4=str.match(/\d/g)  //匹配数字
-		console.log(a4)			//Array[10]
-		console.log(typeof a4[0])	//String
-		
+    // match:
+    // 字符串的方法
+    // 返回的是一个数组或者null
+    // 受全局匹配的影响
+    // 非全局匹配可以提取子表达式
+
+    // exec:
+    // 正则的方法
+    // 返回的是一个数组或者null
+    // 不会全局匹配
+    // 可以提取子表达式
+
+    const str = '1a2b3c4d5e1a2b3c4d5e'
+    const pattern1 = /1a/
+    // 非全局正则,可以返回捕获组
+    const a1 = str.match(pattern1)
+    // 非全局正则,可以返回捕获组
+    const b1 = pattern1.exec(str)
+    console.log('a1', a1)
+    console.log('b1', b1)
+
+
+    const pattern2 = /1a/g
+    // 全局正则,多次匹配,返回一个数组
+    const a2 = str.match(pattern2)
+     // 全局正则没有子表达式时,单次匹配,返回一个数组
+    const b2 = pattern2.exec(str)
+    console.log('a2', a2)
+    console.log('b2', b2)
+
+    // 非全局正则,有子表达式(和exec一样)
+    const pattern3 = /1a(2b)/
+    const a3 = str.match(pattern3)
+    // 非全局正则,有子表达式
+    const b3 = pattern3.exec(str)
+    console.log('a3', a3)
+    console.log('b3', b3)
+
+    const pattern4 = /1a(2b)/g
+    // 全局正则
+    const a4 = str.match(pattern4)
+    // 全局正则,有子表达式(和非全局正则一样)
+    const b4 = pattern3.exec(str)
+    console.log('a4', a4)
+    console.log('b4', b4)
+
+		const a7 = str.match(/h/)
+		console.log('a7', a7)
+
+    const a8 = str.match(/\d/g)
+
+    function getType(fn) {
+      const match = fn && fn.toString().match(/^\s*function (\w+)/)
+      console.log(match)
+      return match ? match[1] : ''
+    }
+
+    console.log(getType(String))
+
 	</script>
 </html>

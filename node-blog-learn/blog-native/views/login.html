@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>login</title>
+  <style>
+    .login {
+      width: 100px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      color: #fff;
+      background: peru;
+      margin-bottom: 30px;
+    }
+    .login-out {
+      width: 100px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      color: #fff;
+      background: crimson;
+      margin-bottom: 30px;
+      display: none;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="username" class="username"></div>
+  <div id="login" class="login">登录</div>
+  <div id="login-out" class="login-out">退出</div>
+</body>
+<script src="/static/axios.js"></script>
+<script src="/static/js.cookie.min.js"></script>
+<script>
+
+  // cookie是通过expires和max-age控制过期的,max-age优先
+  // expires是个toUTCString的格式的字符串时间(绝对值),max-age是秒数(相对值)
+  // 清空cookie只能通过设置过期时间去做
+  // 如果不设置时间,那cookie默认的expires是session
+
+  // 不同的path,domain都算不同的cookie
+  // 默认的path是host后面第一个被/分割的路径
+  // 默认的domain是完整的域名
+  // 无法获取cookie的domain,path,expires,max-age等,这些属性不可读只能写
+  // secure属性表示只能https中传输
+
+  // const date = new Date()
+  // document.cookie = `test=0; path=/; expires=${date.toGMTString()}; max-age=10; `
+  // document.cookie = `test=0; expires=${date.toGMTString()}; max-age=10; `
+
+</script>
+<script>
+  const $login = document.getElementById('login')
+  const $loginOut = document.getElementById('login-out')
+  const $username = document.getElementById('username')
+
+  // axios({
+  //   url: '/api/user/login-check',
+  //   method: 'GET',
+  // }).then((res) => {
+  //   if (res.data.code === 1 && res.data.data) {
+  //     const isLogin = res.data.data.isLogin
+  //     if (isLogin) {
+  //       $login.style.display = 'none'
+  //       $loginOut.style.display = 'block'
+  //     }
+  //   }
+  // })
+
+  axios({
+    url: '/api/user/info',
+    method: 'GET',
+  }).then((res) => {
+    if (res.data.code === 1 && res.data.data) {
+      const username = res.data.data.username
+      $username.innerHTML = username
+      $login.style.display = 'none'
+      $loginOut.style.display = 'block'
+      console.log(res.data.message)
+    }
+  })
+
+  const params = {
+    username: 'zhs',
+    password: '123'
+  }
+
+  $login.onclick = function () {
+    axios({
+      url: '/api/user/login-in',
+      method: 'GET',
+      params,
+    }).then((res) => {
+      console.log(res)
+      if (res.data.code === 1 && res.data.data) {
+        const username = res.data.data.username
+        $login.style.display = 'none'
+        $loginOut.style.display = 'block'
+        $username.innerHTML = username
+        console.log(res.data.message)
+      } else {
+        console.log(res.data.message)
+      }
+    })
+  }
+
+  $loginOut.onclick = function () {
+    axios({
+      url: '/api/user/login-out',
+      method: 'GET',
+    }).then((res) => {
+      console.log(res)
+      if (res.data.code === 1) {
+        $login.style.display = 'block'
+        $loginOut.style.display = 'none'
+        $username.innerHTML = ''
+      } else {
+        console.log(res.data.message)
+      }
+    })
+  }
+
+</script>
+</html>

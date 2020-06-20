@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Ramjet from '@/pages/ramjet/ramjet.vue'
 
 Vue.use(Router)
 
@@ -9,7 +8,7 @@ export default new Router({
     {
       path: '/',
       name: 'ramjet',
-      component: Ramjet
+      component: () => import('@/pages/ramjet/ramjet.vue')
     }
   ]
 })

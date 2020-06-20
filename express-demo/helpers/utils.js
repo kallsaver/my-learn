@@ -1,12 +1,12 @@
 const treeify = require('treeify')
 
 module.exports = {
-  tree: function (o) {
-    if (typeof o !== 'object') {
-      console.log(o)
+  tree: function (value) {
+    if (!value || typeof value !== 'object') {
+      console.log(value)
     } else {
       console.log(
-        treeify.asTree(o, true)
+        treeify.asTree(value, true)
       )
     }
   }

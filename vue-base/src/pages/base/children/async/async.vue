@@ -7,6 +7,9 @@
 </template>
 
 <script>
+function getRandomInt(min, max) {
+  return Math.random() * (max - min + 1) + min | 0
+}
 export default {
   data() {
     return {}
@@ -23,7 +26,7 @@ export default {
       // 如果throw new Error这个Promise会reject
       async function run() {
         // 取得一个1 ~ 10的正整数
-        const number = (Math.random() * 10 + 1) | 0
+        const number = getRandomInt(1, 10)
         if (number > 5) {
           return number
         } else {

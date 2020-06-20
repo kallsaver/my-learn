@@ -1,39 +1,104 @@
-// 补零
-export function padZero(num, n = 2) {
-  let len = num.toString().length
-  while (len < n) {
-    num = '0' + num
-    len++
+const hasOwnProperty = Object.prototype.hasOwnProperty
+
+export function hasOwn(obj, key) {
+  return hasOwnProperty.call(obj, key)
+}
+
+const _toString = Object.prototype.toString
+
+function toRawType(value) {
+  return _toString.call(value).slice(8, -1)
+}
+
+function isObject(value) {
+  return value !== null && typeof value === 'object'
+}
+
+export const MOBILE_MAX_SIZE = 640
+
+export const UA = window.navigator.userAgent.toLowerCase()
+
+export let isMobile = checkIsMobile() || checkIsMobileSize()
+
+export function checkIsMobile() {
+  return !!UA.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+}
+
+export function checkIsMobileSize() {
+  return window.innerWidth < MOBILE_MAX_SIZE
+}
+
+window.addEventListener('resize', () => {
+  // basic data type in ES6 modules is strong binding
+  isMobile = checkIsMobile() || checkIsMobileSize()
+}, false)
+
+export function getUrlParams(currentUrl = window.location.href) {
+  const result = {}
+  if (currentUrl.indexOf('?') === -1) {
+    return result
   }
-  return num
-}
-
-// 返回min~max之间的整数
-function getRandomInt(min, max) {
-  // Math.random()不包括1,有缺陷
-  return Math.random() * (max - min + 1) + min | 0
-}
-
-// 打乱一个数组
-export function shuffle(arr) {
-  let _arr = arr.slice()
-  for (let i = 0; i < _arr.length; i++) {
-    let j = getRandomInt(0, i)
-    let t = _arr[i]
-    _arr[i] = _arr[j]
-    _arr[j] = t
+  const paramsUrl = currentUrl.replace(/.*\?/g, '')
+  const arr = paramsUrl.match(/[^&]+?=[^&]*/g)
+  if (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      const reg = new RegExp(`(.+?)=(.*)`)
+      reg.exec(arr[i])
+      const key = decodeURIComponent(RegExp.$1)
+      const value = decodeURIComponent(RegExp.$2)
+      result[key] = value
+    }
   }
-  return _arr
+  return result
 }
 
-export function isEmptyObject(obj) {
-  for (let key in obj) {
-    return false
+// 深度克隆
+export function deepClone(value) {
+  let ret
+  const type = toRawType(value)
+
+  if (type === 'Object') {
+    ret = {}
+  } else if (type === 'Array') {
+    ret = []
+  } else {
+    return value
   }
-  return true
+
+  Object.keys(value).forEach((key) => {
+    const copy = value[key]
+    ret[key] = deepClone(copy)
+  })
+
+  return ret
 }
 
-// 转驼峰
+// 深度合并
+export function deepAssign(origin, mixin) {
+  for (const key in mixin) {
+    const targetValue = origin[key]
+    const mixinValue = mixin[key]
+    if (!hasOwn(origin, key)) {
+      origin[key] = mixinValue
+    } else if (
+      isObject(targetValue) &&
+      isObject(mixinValue) &&
+      toRawType(targetValue) === toRawType(mixinValue)
+    ) {
+      deepAssign(targetValue, mixinValue)
+    }
+  }
+}
+
+// 深度克隆多参数版,后面的参数优先级最大
+export function multiDeepClone(target, ...rest) {
+  for (let i = 0; i < rest.length; i++) {
+    const source = deepClone(rest[i])
+    deepAssign(target, source)
+  }
+  return target
+}
+
 export function camelize(str) {
   str = String(str)
   return str.replace(/-(\w)/g, function (m, c) {
@@ -41,33 +106,46 @@ export function camelize(str) {
   })
 }
 
-// 驼峰转'-'
-export function middleline(str) {
-  str = String(str)
-  return str.replace(/([A-Z])/g, '-$1').toLowerCase()
-}
+const DEFAULT_TIME_SLICE = 400
 
-// setTimeout节流
-export function debounce(func, delay) {
-  let timer
-
-  return function (...args) {
-    if (timer) {
-      clearTimeout(timer)
+export class Debounce {
+  constructor(timeSlice = DEFAULT_TIME_SLICE) {
+    this.timeSlice = timeSlice
+  }
+  run(func) {
+    if (typeof func === 'function') {
+      if (this.timer) {
+        window.clearTimeout(this.timer)
+      }
+      this.timer = window.setTimeout(func, this.timeSlice)
     }
-    timer = setTimeout(() => {
-      func.apply(this, args)
-    }, delay)
+  }
+  destroy() {
+    window.clearTimeout(this.timer)
+    this.timer = null
+    this.timeSlice = null
   }
 }
 
-// 深度合并,不是深度克隆
-function deepAssign(to, from) {
-  for (let key in from) {
-    if (!to[key] || typeof to[key] !== 'object') {
-      to[key] = from[key]
+export class Throttle {
+  constructor(timeSlice = DEFAULT_TIME_SLICE) {
+    this.timeSlice = timeSlice
+  }
+  run(func, overload) {
+    const currentTime = new Date().getTime()
+    if (!this.lastTime || currentTime - this.lastTime > this.timeSlice) {
+      this.lastTime = currentTime
+      if (typeof func === 'function') {
+        func()
+      }
     } else {
-      deepAssign(to[key], from[key])
+      if (typeof overload === 'function') {
+        overload()
+      }
     }
+  }
+  destroy() {
+    this.timeSlice = null
+    this.lastTime = null
   }
 }

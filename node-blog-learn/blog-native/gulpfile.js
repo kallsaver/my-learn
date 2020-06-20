@@ -20,7 +20,7 @@ Debounce.prototype.run = (func) => {
   }
 }
 
-let debounce = new Debounce()
+const debounce = new Debounce()
 
 const reload = (time) => {
   time = time && typeof time === 'number' || 0
@@ -52,7 +52,7 @@ gulp.task('nodemon', (cb) => {
 })
 
 // 开发时运行server
-gulp.task('server', ['nodemon'], () => {
+gulp.task('dev', ['nodemon'], () => {
   browserSync.init({
     // 以ip地址的方式打开
     open: 'external',
@@ -67,3 +67,5 @@ gulp.task('server', ['nodemon'], () => {
 gulp.task('default', () => {
   console.log('default')
 })
+
+// dev: 升级gulp4,添加gulp-eslint

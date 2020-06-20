@@ -1,0 +1,6 @@
+babel7(@babel/preset-env)新增了useBuiltIns
+useBuiltIns是全局垫片,当值为usage按需引入polyfill(corejs)
+
+@babel/plugin-transform-runtime是局部垫片,使用局部变量替代es6,同时做了复用
+@babel/plugin-transform-runtime无法编译原型上的方法
+

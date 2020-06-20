@@ -241,6 +241,39 @@ export default {
 
       let worker = new Worker()
       console.log(worker)
+    },
+    demo9() {
+      class Man {
+        // 箭头函数的this指向申明时的父作用域,也就是永远是Man的实例
+        // bind,call,apply都改变不了
+        a = () => {
+          console.log('a')
+          console.log(this)
+        }
+        // this指向调用者
+        b = function () {
+          console.log('b')
+          console.log(this)
+        }
+        // 等同于b
+        c() {
+          console.log('c')
+          console.log(this)
+        }
+      }
+
+      const man = new Man()
+      man.a()
+      man.b()
+      man.c()
+
+      const a = man.a
+      const b = man.b
+      const c = man.c
+
+      a()
+      b()
+      c()
     }
   },
 }

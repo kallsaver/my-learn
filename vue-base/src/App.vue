@@ -1,31 +1,25 @@
 <template>
   <div id="app" class="app">
-    <transition name="move">
-      <router-view class="view"></router-view>
+    <transition
+      :name="transitionName"
+      :mode="transitionMode"
+      :duration="transitionDuration">
+      <router-cache>
+        <router-view class="router-view"></router-view>
+      </router-cache>
     </transition>
   </div>
 </template>
 
 <script>
+import routerTransitionMixins from '@/common/mixins/router-transition.js'
+
 export default {
-  name: 'App',
-  computed: {
-    transition() {
-      return this.$route.meta.index === 1 ? 'move' : ''
-    }
-  }
+  mixins: [
+    routerTransitionMixins,
+  ]
 }
 </script>
 
-<style lang="stylus" scoped>
-.view
-  transition: all 0.3s
-  // tranform和fixed不能同时并存
-  // tranform会让fixed失效
-  transform: none
-  &.move-enter
-    transform: translate3d(100%, 0, 0)
-  &.move-enter-active
-    background: red
-    transform: translate3d(100%, 0, 0)
+<style>
 </style>

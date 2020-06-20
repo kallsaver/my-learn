@@ -1,14 +1,10 @@
 <template>
   <div class="index">
     <div class="button">
-      <cube-button>
-        <router-link tag="div" to="/base">基础</router-link>
-      </cube-button>
+      <cube-button @click="pageTurn('/base')">基础</cube-button>
     </div>
     <div class="button">
-      <cube-button>
-        <router-link tag="div" to="/action">实战</router-link>
-      </cube-button>
+      <cube-button @click="pageTurn('/action')">实战</cube-button>
     </div>
     <div class="button">
       <cube-button>
@@ -21,16 +17,21 @@
       </cube-button>
     </div>
     <div class="button">
-      <cube-button>
-        <router-link tag="div" to="/animation">动画</router-link>
-      </cube-button>
+      <cube-button @click="pageTurn('/animation')">动画</cube-button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  methods: {
+    pageTurn(location) {
+      const route = this.$router.resolve(location).route
+      this.$router.push({
+        name: route.name
+      })
+    },
+  },
 }
 </script>
 

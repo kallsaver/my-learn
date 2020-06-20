@@ -13,11 +13,16 @@ router.use((req, res, next) => {
 
 
 // 路由匹配
-// router.get('/', (req, res, next) => {
-//   // request('http://www.tcl.com/api/html/footer', (error, response, body) => {
-//   //   res.send(body)
-//   // })
-//   res.send('aa')
-// })
+router.get('/', (req, res, next) => {
+  // request('http://www.tcl.com/api/html/footer', (error, response, body) => {
+  //   res.send(body)
+  // })
+  res.send('aab')
+  // 执行send之后不会再执行后面的函数了
+  console.log('++++++++++++++++')
+  next()
+}, (res) => {
+  console.log('----------------')
+})
 
 module.exports = router

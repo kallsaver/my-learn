@@ -2,7 +2,7 @@
   <div class="index">
     <cube-index-list
       :title="title"
-      :data="ListData"
+      :data="listData"
       @select="selectItem"></cube-index-list>
   </div>
 </template>
@@ -21,22 +21,22 @@ export default {
   },
   data() {
     return {
-      ListData: []
+      listData: []
     }
   },
   created() {
-    this._calculateListData()
+    this._calculatelistData()
   },
   methods: {
-    _calculateListData() {
-      let ListData = []
+    _calculatelistData() {
+      let listData = []
       if (!this.$router.options.routes[this.routeIndex].children) {
         return
       }
       let routes = this.$router.options.routes[this.routeIndex].children
       for (let i = 0; i < routes.length; i++) {
         let groupIndex = 0
-        let passed = ListData.every((item, index) => {
+        let passed = listData.every((item, index) => {
           let pass = item.name !== routes[i].name.slice(0, 1)
           if (!pass) {
             groupIndex = index
@@ -51,21 +51,21 @@ export default {
           item.name = routes[i].name
           item.value = routes[i].path
           group.items.push(item)
-          ListData.push(group)
+          listData.push(group)
         } else {
           let item = {}
           item.name = routes[i].name
           item.value = routes[i].path
-          ListData[groupIndex].items.push(item)
+          listData[groupIndex].items.push(item)
         }
       }
-      this.ListData = ListData
+      this.listData = listData
 
-      ListData.sort((a, b) => {
+      listData.sort((a, b) => {
         return a.name.charCodeAt() - b.name.charCodeAt()
       })
 
-      ListData.forEach((groups) => {
+      listData.forEach((groups) => {
         groups.items.sort((a, b) => {
           return a.name.replace(/-/g, '').charCodeAt() - b.name.replace(/-/g, '').charCodeAt()
         })

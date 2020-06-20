@@ -1,0 +1,24 @@
+{
+  "name": "ast-learn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build/index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babylon": "^6.18.0",
+    "glob": "^7.1.6",
+    "jest": "^26.0.1",
+    "treeify": "^1.1.0"
+  },
+  "dependencies": {
+    "@babel/generator": "^7.10.2",
+    "@babel/parser": "^7.10.2",
+    "@babel/traverse": "^7.10.1",
+    "@babel/types": "^7.10.2"
+  }
+}

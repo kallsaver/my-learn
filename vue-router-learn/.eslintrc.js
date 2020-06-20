@@ -2,34 +2,34 @@
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
   parserOptions: {
-    sourceType: 'module'
+    parser: "babel-eslint",
   },
   env: {
     browser: true,
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-  extends: 'standard',
+  extends: [
+    "standard",
+    "plugin:vue/essential"
+  ],
   // required to lint *.vue files
   plugins: [
-    'html'
+    "html"
   ],
   // add your custom rules here
   rules: {
-    'arrow-parens': 'off',
-    'comma-dangle': ['off'],
-    'eol-last': 'off',
-    // allow async-await
-    'generator-star-spacing': 'off',
-    // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'space-before-function-paren': ['error', {
-      'anonymous': 'always',
-      'named': 'never',
-      'asyncArrow': 'always'
+    "arrow-parens": "off",
+    "comma-dangle": ["off"],
+    "eol-last": "off",
+    "generator-star-spacing": "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
     }],
-    'no-unused-vars': 'off',
-    'no-useless-constructor': 'off'
+    "no-unused-vars": "off",
+    "no-useless-constructor": "off"
   }
 }
