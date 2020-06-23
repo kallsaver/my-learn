@@ -1,49 +1,49 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset='UTF-8'>
 		<title></title>
 	</head>
 	<body>
-		<div id="app">
-			<div id="box"></div>
+		<div id='app'>
+			<div id='box'></div>
 		</div>
 	</body>
 	<script>
-		
-		var app = document.getElementById('app');
-		var box = document.getElementById('box');
-		
+
+		var app = document.getElementById('app')
+		var box = document.getElementById('box')
+
 		// 创建一个event,这样事件会在元素的原型链上
-		//var event = document.createEvent('Event');
+		//var event = document.createEvent('Event')
 		// 定义事件名为build,是否会冒泡bubbles,是否可销毁cancelbale
-		//event.initEvent('build',true,true);
-		
-		
-		
+		//event.initEvent('build',true,true)
+
 		// 新api
-		var event = new Event('build',{"bubbles":true, "cancelable":false});
-		
+		var event = new Event('build', {
+      'bubbles': true, 'cancelable': false
+    })
+
 		// 在冒泡阶段执行
-		app.addEventListener('build',function(event){
-			console.log('触发app回调');
-			console.log(event);
-		}, false);
-		
+		app.addEventListener('build', function(event) {
+			console.log('触发app回调')
+			console.log(event)
+		}, false)
+
 		// 在冒泡阶段执行
 		box.addEventListener('build',function(event){
-			console.log('触发box回调');
-			console.log(event);
-		}, false);
-		
+			console.log('触发box回调')
+			console.log(event)
+		}, false)
+
 		// 冒泡先是box然后app,捕获先是app再是box
-		
-		box.dispatchEvent(event);
-		
+
+		box.dispatchEvent(event)
+
 		var a = document.createElement('div')
-		
+
 		console.log(a.__proto__.__proto__.__proto__.__proto__.__proto__)
-		
+
 		console.log(a.__proto__.__proto__.__proto__.__proto__.__proto__.addEventListener)
 	</script>
 </html>

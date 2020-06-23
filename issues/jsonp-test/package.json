@@ -1,0 +1,18 @@
+{
+  "name": "jsonp-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.12.1",
+    "koa-nunjucks-2": "^3.0.2",
+    "koa-router": "^9.0.1",
+    "koa2": "^2.0.0-alpha.7"
+  }
+}

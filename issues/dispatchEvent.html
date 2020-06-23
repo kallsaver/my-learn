@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .test  {
+      width: 200px;
+      height: 200px;
+      background: peru;
+    }
+    .children {
+      width: 100px;
+      height: 100px;
+      background: gold;
+    }
+  </style>
+</head>
+<body>
+  <div id="test" class="test">
+    <div id="children" class="children"></div>
+  </div>
+</body>
+<script>
+  const test = document.getElementById('test')
+  const children = document.getElementById('children')
+
+  test.addEventListener('alert', (event) => {
+    console.log(event)
+  }, false)
+
+  children.addEventListener('alert', (event) => {
+    console.log(event)
+  }, false)
+
+  // // 创建一个event
+  // const event = document.createEvent('Event')
+  // // 事件名, 是否可以冒泡, 是否阻止事件的默认操作
+  // event.initEvent('alert', true, false)
+  // // 数据
+  // event.test = 'o'
+  // // 触发事件
+  // children.dispatchEvent(event)
+
+  // 新api
+  const event = new Event('alert', {
+    bubbles: true,
+    cancelable: false,
+  })
+  event.test = 'o'
+  children.dispatchEvent(event)
+
+</script>
+</html>

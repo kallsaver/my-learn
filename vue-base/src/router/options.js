@@ -19,7 +19,7 @@ export const options = [
     },
     children: [
       {
-        path: '/base/emit/:id',
+        path: '/base/emit',
         component: () => import('@/pages/base/children/emit/emit.vue'),
         meta: {
           title: '事件分发/自定义监听事件',
@@ -29,21 +29,28 @@ export const options = [
         path: '/base/class',
         component: () => import('@/pages/base/children/class/class.vue'),
         meta: {
-          title: 'es6的class',
+          title: 'class',
+        },
+      },
+      {
+        path: '/base/promise',
+        component: () => import('@/pages/base/children/promise/promise.vue'),
+        meta: {
+          title: 'promise',
         },
       },
       {
         path: '/base/async',
         component: () => import('@/pages/base/children/async/async.vue'),
         meta: {
-          title: 'es6的async/await',
+          title: 'async/await',
         },
       },
       {
         path: '/base/proxy',
         component: () => import('@/pages/base/children/proxy/proxy.vue'),
         meta: {
-          title: 'es6的proxy',
+          title: 'proxy',
         },
       },
       {
@@ -54,7 +61,7 @@ export const options = [
         },
       },
       {
-        path: 'Set',
+        path: '/base/set',
         component: () => import('@/pages/base/children/set/set.vue'),
         meta: {
           title: 'Set',

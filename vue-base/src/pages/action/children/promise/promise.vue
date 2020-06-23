@@ -1,5 +1,9 @@
 <template>
-  <div></div>
+  <page
+    :title="$route.meta.title">
+    <div class="class">
+    </div>
+  </page>
 </template>
 
 <script>

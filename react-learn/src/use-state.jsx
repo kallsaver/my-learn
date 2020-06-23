@@ -17,6 +17,7 @@ const UseState = memo((props) => {
     height: document.documentElement.clientHeight,
   })
 
+  // useEffect是渲染之后执行
   // useEffect第二个参数为undefined时,每次渲染都会执行第一个参数
   useEffect(() => {
     // 组件挂载之后

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/no-cache/global.css">
+</head>
+
+<body>
+  <div class="index"></div>
+  <div class="index fixed"></div>
+</body>
+<script src="/no-cache/init.js"></script>
+<script src="/js/axios.js"></script>
+<script>
+  axios({
+    url: '/api/index',
+    method: 'GET'
+  }).then((res) => {
+    console.log(res)
+  })
+</script>
+</html>

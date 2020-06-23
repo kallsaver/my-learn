@@ -2,6 +2,7 @@ import React, { Component, lazy, Suspense, useState } from 'react'
 import Context from './context.jsx'
 import Memo from './memo.jsx'
 import UseState from './use-state.jsx'
+import UseMemo from './user-memo.jsx'
 
 const Lazy = lazy(() => import('./lazy.jsx'))
 
@@ -24,7 +25,8 @@ class App extends Component {
         <Context></Context>
         <Memo person={this.state.person} name={this.state.name}></Memo>
         <button onClick={this.clickHandler}>count: {this.state.count}</button>
-        <UseState></UseState>
+        {/* <UseState></UseState> */}
+        <UseMemo></UseMemo>
       </div>
     )
   }

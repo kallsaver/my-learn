@@ -24,7 +24,6 @@ router.get('/', async(ctx, next) => {
 router.get('/api/getName', async (ctx, next) => {
   ctx.response.status = 200
   let query = ctx.request.query
-  console.log(query.type)
   if (query.type !== undefined) {
     ctx.body = {
       code: 1,
