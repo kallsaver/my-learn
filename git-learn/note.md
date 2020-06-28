@@ -18,8 +18,9 @@ q退出展示表单
 在一行内显示最近提交的信息
 git log --pretty=oneline
 
-放弃修改1
+放弃修改
 ------------
+禁止使用git reset --hard [commit_id]回退版本
 
 放弃本地的所有文件的修改(未commit)
 git checkout .
@@ -29,10 +30,10 @@ git checkout .
 git status
 git checkout -- [filename]
 
-放弃已经commit的修改
+放弃已经commit未push的修改
 先查看commit id
 git log
-git reset --hard [commit id]
+git reset --soft HEAD^
 
 标签
 ------------
@@ -40,8 +41,7 @@ git reset --hard [commit id]
 一般在master分支发布版本是会打个标签
 
 查看所有的标签
-# 修正成功
-git tag
+git tag 111
 
 注释标签
 git tag -a [tagName] -m "[description]"
