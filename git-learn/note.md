@@ -1,0 +1,29 @@
+分支
+------------
+
+列出所有分支
+git branch -a
+
+切换到某分支
+git checkout [branch name]
+切换之前要git commit -m [description]到当前分支的git本地仓库
+
+
+查看提交id和信息
+------------
+
+列出最近第n次提交的信息
+git log [-n]
+
+在一行内显示最近提交的信息
+git log --pretty=oneline
+
+q退出展示表单
+
+标签
+------------
+标签是一个不变的分支,它只是指向某次提交的指针
+一般在master分支发布版本是会打个标签
+
+查看所有的标签
+git tag
