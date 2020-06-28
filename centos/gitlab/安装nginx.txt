@@ -1,0 +1,28 @@
+49.232.7.159
+
+// 安装nginx
+yum install -y nginx
+
+// nginx启动
+service nginx start
+
+// 查看nginx的活动端口
+ps -ef | grep nginx
+
+// nginx的配置所在文件
+/etc/nginx/conf.d
+
+
+// 安装node
+// 安装node的版本管理工具n
+// 先修改host文件,因为n的dns国内无法访问
+/etc/hostname
+199.232.28.133 raw.githubusercontent.com
+// 重启网络服务
+/etc/init.d/network restart
+// 下载n的安装包
+curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
+// 安装n并且设置n,npm的环境变量并且下载node的最新版本
+bash n lts(或者node的某个版本比如10.0.0)
+
+// 安装完成后n没有环境变量,可以npm install n -g

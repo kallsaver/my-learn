@@ -40,6 +40,20 @@ export const options = [
         },
       },
       {
+        path: '/base/Symbol',
+        component: () => import('@/pages/base/children/symbol/symbol.vue'),
+        meta: {
+          title: 'Symbol',
+        },
+      },
+      {
+        path: '/base/generator',
+        component: () => import('@/pages/base/children/generator/generator.vue'),
+        meta: {
+          title: 'generator',
+        },
+      },
+      {
         path: '/base/async',
         component: () => import('@/pages/base/children/async/async.vue'),
         meta: {
@@ -65,6 +79,13 @@ export const options = [
         component: () => import('@/pages/base/children/set/set.vue'),
         meta: {
           title: 'Set',
+        },
+      },
+      {
+        path: '/base/map',
+        component: () => import('@/pages/base/children/map/map.vue'),
+        meta: {
+          title: 'map',
         },
       },
     ]

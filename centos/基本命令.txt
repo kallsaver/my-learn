@@ -1,0 +1,18 @@
+查看系统版本
+uname -a
+
+查看CentOs的具体版本,需要yum install lsb后
+lsb_release -a
+
+查看内存大小
+free
+
+查看磁盘大小
+df -h
+
+查询是否有装yum
+rpm -qa | grep yum
+
+更新yum缓存
+sudo yum makecache
+

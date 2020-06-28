@@ -8,7 +8,7 @@
 <script>
 export default {
   mounted() {
-    this.demo1()
+    this.demo2()
   },
   methods: {
     demo1() {
@@ -32,7 +32,7 @@ export default {
         })
       }
 
-      let person = {
+      const person = {
         name: 'a'
       }
 
@@ -43,6 +43,26 @@ export default {
       person.name = 'dfdf'
       person.name = 'dfdfgg'
       console.log(person.name)
+    },
+    demo2() {
+      const person = {}
+      Object.defineProperties(person, {
+        name: {
+          enumerable: true,
+          configurable: true,
+          value: 'po',
+          writable: true
+        },
+        city: {
+          enumerable: true,
+          configurable: true,
+          value: 'ps',
+          writable: true
+        }
+      })
+
+      console.log(person.name)
+      console.log(person.city)
     }
   },
 }

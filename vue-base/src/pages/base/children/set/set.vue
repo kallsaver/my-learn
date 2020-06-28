@@ -8,10 +8,7 @@
 <script>
 export default {
   mounted() {
-    // this.demo1()
-    // this.demo2()
-    // this.demo3()
-    this.demo4()
+    this.demo2()
   },
   methods: {
     demo1() {
@@ -26,7 +23,7 @@ export default {
       // 获取元素个数
       console.log(set.size)
       // 转化成数组
-      let arr = [...set]
+      const arr = [...set]
       console.log('arr', arr)
 
       // 添加,返回set
@@ -42,20 +39,28 @@ export default {
       console.log('s', set)
     },
     demo2() {
-      let set = new Set(['red', 'green', 'blue'])
-
-      for (let item of set.keys()) {
-        console.log('keys', item)
+      // Set可接受for...of消费的数据结构
+      // String,Array,Set,Map,有迭代器协议的数据结构
+      const data = {
+        list: [0, 1, 2],
+        // 给for...of接口消费
+        [Symbol.iterator]() {
+          const list = this.list
+          let i = 0
+          // 返回一个迭代器(迭代器的本质)
+          return {
+            next() {
+              const done = i >= list.length
+              const value = !done ? list[i++] : undefined
+              return {
+                done,
+                value,
+              }
+            }
+          }
+        }
       }
-
-      for (let item of set.values()) {
-        console.log('values', item)
-      }
-      // entries方法返回的遍历器,同时包括键名和键值
-      // 所以每次输出一个数组,它的两个成员完全相等
-      for (let item of set.entries()) {
-        console.log('entries', item)
-      }
+      const set = new Set(data)
 
       set.forEach((value, key) => {
         console.log('forEach', key + ' : ' + value)
@@ -63,8 +68,8 @@ export default {
     },
     demo3() {
       // 数组的map和filter方法可以间接用于Set
-      let set = new Set([0, 1, 2])
-      set = new Set([...set].map((x) => {
+      const set1 = new Set([0, 1, 2])
+      const set2 = new Set([...set1].map((x) => {
         return x * 2
       }))
     },
@@ -74,17 +79,17 @@ export default {
       let b = new Set([2, 3, 4])
 
       // 并集
-      let union = new Set([...a, ...b])
+      const union = new Set([...a, ...b])
       console.log(union)
 
       // 交集
-      let intersect = new Set([...a].filter((x) => {
+      const intersect = new Set([...a].filter((x) => {
         return b.has(x)
       }))
       console.log(intersect)
 
       // a的差集
-      let difference = new Set([...a].filter((x) => {
+      const difference = new Set([...a].filter((x) => {
         return !b.has(x)
       }))
       console.log(difference)

@@ -1,0 +1,2 @@
+$host: 请求的host,不包含端口
+$request_addr: 客户端的ip地址

@@ -1,19 +1,9 @@
-// CentoOs 7
+安装gitlab
 
-查看系统版本
-uname -a
-
-查询是否有装yum
-rpm -qa | grep yum
-
-更新yum缓存
-sudo yum makecache
-
-安装gitlab:
 官网教程: https://about.gitlab.com/install/#centos-7
 yum install -y是一路yes
 
-// 关闭http,https的防火墙
+// 关闭http,https的防火墙:
 sudo yum install -y curl policycoreutils-python openssh-server
 sudo systemctl enable sshd
 sudo systemctl start sshd
@@ -22,14 +12,15 @@ sudo firewall-cmd --permanent --add-service=http
 sudo firewall-cmd --permanent --add-service=https
 sudo systemctl reload firewalld
 
+// 安装邮件服务
+sudo yum install -y postfix
+sudo systemctl enable postfix
+sudo systemctl start postfix
+
 // 下载gitlab安装包
 curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh | sudo bash
+yum install -y gitlab-ee
 
-// 安装gitlab
-rpm -i gitlab-ce-10.0.0-ce.0.el7.x86_64.rpm
-
-
-
-
-
+// 配置gitlab(注意gitlab内置了nginx)
+vim  /etc/gitlab/gitlab.rb
 

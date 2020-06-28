@@ -24,6 +24,7 @@ function access(log) {
   let text
   if (log && typeof log === 'object') {
     Object.keys(log).forEach((key) => {
+      const item = log[key]
       text += `${key}: ${log[item]}\n`
     })
   } else {

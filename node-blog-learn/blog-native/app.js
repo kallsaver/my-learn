@@ -29,7 +29,7 @@ const {
 
 const {
   access
-} = require('./utils/login')
+} = require('./utils/log')
 
 app.use(bodyParse({}))
 

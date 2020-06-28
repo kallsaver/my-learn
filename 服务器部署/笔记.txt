@@ -55,7 +55,9 @@ upstream imooc {
 }
 
 server {
+  # 端口
   listen 80;
+  # 域名
   server_name 106.13.52.209;
 
   location / {

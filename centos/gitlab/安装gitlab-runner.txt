@@ -1,0 +1,39 @@
+
+// 下载gitlab-ci-multi-runner的包
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh | sudo bash
+
+// 安装gitlab-ci-multi-runner(centos需安装gitlab-ci-multi-runner)
+sudo yum install -y gitlab-ci-multi-runner
+
+// 在gitlab的settings => CI/CD => Runners Expand
+// 可以得到服务URL(服务器的ip地址)
+// gitlab-ci的token
+
+// 注册一个gitlab-ci-multi-runner
+// gitlab-ci-multi-runner register
+// 然后输入:
+// 1.输入gitlab的服务URL
+// 2.gitlab-ci的token
+// 3.runner的描述(名字)
+// 4.这个runner的tag(这个runner的名字),在.gitlab-ci.yml文件配置流程时有用
+// 5.选择执行器，gitlab-runner实现了很多执行器，可用在不同场景中运行构建,一般选shell
+
+// 查看系统中的gitlab-ci-multi-runner
+gitlab-ci-multi-runner list
+
+// 查看runner的配置
+vim /etc/gitlab-runner/config.toml
+
+// 重启gitlab-ci-multi-runner
+gitlab-ci-multi-runner start
+
+// 看gitlab-ci-multi-runner的状态
+gitlab-ci-multi-runner status
+
+// 删除runner
+gitlab-ci-multi-runner stop
+vim /etc/gitlab-runner/config.toml 删除某个runner
+gitlab-ci-multi-runner start
+
+// 增加权限
+sudo chmod +x /usr/local/bin/gitlab-runner

@@ -64,7 +64,7 @@ export default {
       }
       let a = new Woman()
       // a.talk()
-      /* eslint no-proto: "off" */
+      /* eslint-disabled */
       // console.log(Man.prototype === a.__proto__)
       // getPrototypeOf(a)等同于a.__proto__
       // console.log(Man.prototype === Object.getPrototypeOf(a))
@@ -134,22 +134,22 @@ export default {
       function Man(sex) {
         this.sex = sex
       }
-      Man.prototype.talk = function () {
-        console.log('talk')
-      }
       Man.prototype.printfSex = function () {
         console.log(`性别: ${this.sex}`)
       }
+      Man.prototype.talk = function () {
+        console.log('talk')
+      }
       function Student(age, name, sex) {
+        // 第一步: 在函数内部借用父类的constructor
         Man.prototype.constructor.call(this, sex)
       }
-      // 有通用改变原型链来继承和原型挂载共享方法是注意继承要写在前面
-      Student.prototype = new Man()
+      // 第二步: 把原型链对象换成父类的原型链对象的克隆值
+      Student.prototype = Object.create(Man.prototype)
+      // 第二步: 把原型链对象的constructor改成函数名
       Student.prototype.constructor = Student
-      Student.prototype.speak = function () {}
-      let a = new Student(22, 'kallsave', '男')
-      // a.talk()
-      // a.speak()
+      const a = new Student(22, 'kallsave', '男')
+      a.talk()
       console.log(a)
     },
     demo5() {

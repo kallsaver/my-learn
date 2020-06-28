@@ -80,7 +80,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 .hahow {
   width: 100%;
   min-height: 100%;
