@@ -42,3 +42,6 @@ git reset --hard [commit id]
 查看所有的标签
 # 修正成功
 git tag
+
+注释标签
+git tag -a [tagName] -m "[description]"
