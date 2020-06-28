@@ -12,3 +12,4 @@
 8.git checkout master
 9.git merge hotfix
 10.get push origin master
+bug
