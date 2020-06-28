@@ -8,6 +8,16 @@ git branch -a
 git checkout [branch name]
 切换之前要git commit -m [description]到当前分支的git本地仓库
 
+查看提交id和信息
+------------
+
+列出最近第n次提交的信息
+git log [-n]
+q退出展示表单
+
+在一行内显示最近提交的信息
+git log --pretty=oneline
+
 放弃修改
 ------------
 
@@ -19,16 +29,10 @@ git checkout .
 git status
 git checkout -- [filename]
 
-查看提交id和信息
-------------
-
-列出最近第n次提交的信息
-git log [-n]
-
-在一行内显示最近提交的信息
-git log --pretty=oneline
-
-q退出展示表单
+放弃已经commit的修改
+先查看commit id
+git log
+git reset --hard [commit id]
 
 标签
 ------------
