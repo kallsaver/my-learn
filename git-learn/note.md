@@ -19,6 +19,11 @@ git checkout .
 git status
 git checkout -- [filename]
 
+放弃已经commit的修改
+先查看commit id
+git log
+git reset --hard [commit id]
+
 查看提交id和信息
 ------------
 
