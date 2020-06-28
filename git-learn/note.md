@@ -8,6 +8,16 @@ git branch -a
 git checkout [branch name]
 切换之前要git commit -m [description]到当前分支的git本地仓库
 
+放弃修改
+------------
+
+放弃本地的所有文件的修改(未commit)
+git checkout .
+
+放弃本地的某个文件的修改(未commit)
+先查看文件名(git status有放弃修改的命令说明)
+git status
+git checkout -- [filename]
 
 查看提交id和信息
 ------------
