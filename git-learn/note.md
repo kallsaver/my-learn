@@ -15,30 +15,31 @@ git checkout [branch name]
 查看提交id和信息
 ------------
 
-列出最近第n次提交的信息
-git log [-n]
-q退出展示表单
-
-在一行内显示最近提交的信息
-git log --pretty=oneline
+在一行内显示最近提交的信息,q退出展示表单
+git log --neline
 
 放弃修改
 ------------
 禁止使用git reset --hard [commit_id]回退版本
 
-放弃本地的所有文件的修改(未commit)
+放弃本地的所有文件的修改(未commit),最好借助sourcetree
 git checkout .
 
-放弃本地的某个文件的修改(未commit)
+放弃本地的某个文件的修改(未commit),最好借助sourcetree
 先查看文件名(git status有放弃修改的命令说明)
 git status
 git checkout -- [filename]
 
 放弃已经commit未push的修改
-先查看commit id
-git log
+
+上一次commit
 git reset HEAD^(取消上一次commit,并且把变更的东西放入工作区)
 git reset --soft HEAD^(取消上一次commit,并且把变更的东西放入暂存区, 相当于git reset HEAD^ 然后git add -A)
+
+上几次commit
+先查看commit id
+git log
+git reset [commit id]
 
 标签
 ------------
