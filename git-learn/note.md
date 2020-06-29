@@ -43,5 +43,18 @@ git reset --soft HEAD^
 查看所有的标签
 git tag
 
+共享标签
+git add -A
+git commit -m "[description]"
+git tag [tag name]
+git push origin master
+git push origin [tag name]
+
+共享本地未提交的所有标签
+git push origin --tags
+
+检出某个标签的提交
+git checkout -b [new branch name] [tag name]
+
 注释标签
-git tag -a [tagName] -m "[description]"
+git tag -a [tag name] -m "[description]"
