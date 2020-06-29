@@ -33,7 +33,8 @@ git checkout -- [filename]
 放弃已经commit未push的修改
 先查看commit id
 git log
-git reset --soft HEAD^
+git reset HEAD^(取消上一次commit,并且把变更的东西放入工作区)
+git reset --soft HEAD^(取消上一次commit,并且把变更的东西放入暂存区, 相当于git reset HEAD^ 然后git add -A)
 
 标签
 ------------
@@ -43,5 +44,18 @@ git reset --soft HEAD^
 查看所有的标签
 git tag
 
+共享标签
+git add -A
+git commit -m "[description]"
+git tag [tag name]
+git push origin master
+git push origin [tag name]
+
+共享本地未提交的所有标签
+git push origin --tags
+
+检出某个标签的提交
+git checkout -b [new branch name] [tag name]
+
 注释标签
-git tag -a [tagName] -m "[description]"
+git tag -a [tag name] -m "[description]"
