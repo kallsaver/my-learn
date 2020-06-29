@@ -19,3 +19,5 @@ git checkout -b [new branch name] [tag name]
 4.git commit -m "[description]"
 
 5.这是一个bug
+
+6.这是一个修改
