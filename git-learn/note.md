@@ -41,9 +41,7 @@ git reset --soft HEAD^
 一般在master分支发布版本是会打个标签
 
 查看所有的标签
-git tag 111(bug)
+git tag
 
 注释标签
 git tag -a [tagName] -m "[description]"
-
-somechange
