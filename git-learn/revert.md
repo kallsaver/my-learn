@@ -6,16 +6,27 @@ git checkout -b [new branch name] [tag name]
 git push -u origin [new branch name]
 
 方案2: 重写master
-1.把代码切换到某次commit
-git checkout -b [new branch name] [tag name]
+把代码切换到某次commit
+1.git checkout -b [new branch name] [tag name]
 # 或者git checkout -b [new branch name] [commit id]
 
+reset默认参数是--mixed,会把这个commit的变更写入工作区,暂存区此时为空
 2.git reset master
 
+把工作区带入master,即把当前master的工作区修成master未commit那时候
 3.git checkout master
 
+重新变更添加到暂存区
 3.git add -A
 
+重新提交生成新的commit id
 4.git commit -m "[description]"
 
-5.这是一个bug
+push到master分支
+5.git push origin master
+
+删除临时分支
+6.git branch -d [new branch name]
+
+切换到dev,修复bug
+7.git checkout dev
