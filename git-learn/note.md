@@ -33,7 +33,8 @@ git checkout -- [filename]
 放弃已经commit未push的修改
 先查看commit id
 git log
-git reset --soft HEAD^
+git reset HEAD^(取消上一次commit,并且把变更的东西放入工作区)
+git reset --soft HEAD^(取消上一次commit,并且把变更的东西放入暂存区, 相当于git reset HEAD^ 然后git add -A)
 
 标签
 ------------
