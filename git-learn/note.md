@@ -1,3 +1,7 @@
+区域
+------------
+分为工作区(未add),暂存区(已add未commit),仓库区(已commit)
+
 分支
 ------------
 
@@ -6,7 +10,7 @@ git branch -a
 
 切换到某分支
 git checkout [branch name]
-切换之前要git commit -m [description]到当前分支的git本地仓库
+工作区的代码可以带入切换的分支,暂存区如果有代码必须先commit存放仓库区再能做切换
 
 查看提交id和信息
 ------------

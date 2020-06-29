@@ -1,14 +1,19 @@
 场景: master线上分支出现紧急bug,需要回滚到某个commit
 
-方案1: 在hotfix分支用revert生产新的commit
+方案1: 发布部署时不再使用master分支,而是修改bug后的tag分支
+git checkout -b [new branch name] [tag name]
+# 或者git checkout -b [branch name] [commit id]
+git push -u origin [new branch name]
 
-1.git checkout hotfix
-2.git merge master
-3.git log看提交commit_id或者git reflog(简写的commit_id)
-4.git revert commit_id(完整的或者简写的都行)
-5.解决冲突后 git add -A
-6.git commit -m "[description]"
-7.git push origin hotfix
-8.git checkout master
-9.git merge hotfix
-10.get push origin master
+方案2: 重写master
+1.把代码切换到某次commit
+git checkout -b [new branch name] [tag name]
+# 或者git checkout -b [new branch name] [commit id]
+
+2.git reset master
+
+3.git checkout master
+
+3.git add -A
+
+4.git commit -m "[description]"
