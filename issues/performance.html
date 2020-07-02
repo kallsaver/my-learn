@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="nodes"></div>
+  <button id="createBtn">增加节点</button>
+</body>
+<script>
+  // https://juejin.im/post/5db2beb8e51d455b450a64b4#heading-9
+
+  // 执行时间:
+  // 在谷歌浏览器的performance上采集快照、内存(Screenshots, Memory)
+  // 可以在快照轨道上滑动,就可以知道哪里动画不顺畅
+  // bottom-up可知道哪个环节比较费时
+
+  // 内存:
+  // 有Js Heap(栈内存), Documents, Nodes, Listeners, GPU Memory等
+  // 先用一个空的html得到基本的内存状态
+  // 加入分析页面得到内存快照,如果线位一直高居不下,说明存在内存泄漏
+  // 总结就是不要使用全局变量和闭包,
+  // 设置为null并不能卸载变量内存,反而让内存变量失去追踪的名字
+  // 内存回收只能通过js自己的内存回收机制
+  // 及时removeEventListener
+
+  // 在Memory上采集内存状态
+  // 生成Snapshot
+  // 查看常见类型下的内存,有带变量名
+
+  var x = new Array(1000000);
+
+  function createSomeNodes() {
+    var frag = document.createDocumentFragment();
+    var div
+    for (i = 100; i > 0; i--) {
+      div = document.createElement('div');
+      div.appendChild(document.createTextNode(i + " - " + new Date().toTimeString()));
+      frag.appendChild(div);
+    }
+    document.getElementById('nodes').appendChild(frag);
+  }
+  function grow() {
+    createSomeNodes();
+    // 并不能回收内存
+    x = null
+  }
+
+  grow();
+
+  // var detachedTree;
+
+  //   function create() {
+  //     var ul = document.createElement('ul');
+  //     for (var i = 0; i < 10; i++) {
+  //       var li = document.createElement('li');
+  //       ul.appendChild(li);
+  //     }
+  //     detachedTree = ul;
+  //   }
+
+  // document.getElementById('createBtn').addEventListener('click', create);
+
+</script>
+</html>

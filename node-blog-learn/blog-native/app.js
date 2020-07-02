@@ -1,21 +1,18 @@
 const path = require('path')
 const send = require('send')
 
-const express = require('./plugins/express/index')
-const bodyParse = require('./plugins/express-body-parse/index')
-const static = require('./plugins/express-static/index')
+const koa = require('./plugins/koa/index')
+const bodyParse = require('./plugins/koa-body-parse/index')
+const static = require('./plugins/koa-static/index')
 
 const blogApiRouter = require('./router/api/blog')
 const userApiRouter = require('./router/api/user')
-const testApiRouter = require('./router/api/test')
-
-const userViewRouter = require('./router/views/user')
 
 // 最简单的session就是node进程中的一个变量,占用内存,缺点是访问量大了会导致内部暴涨
 // 通用方案是使用redis,不使用node进程,使用独立的进程
 // const session = require('./session/index')
 
-const app = express()
+const app = koa()
 
 const {
   getCookieExpires,
@@ -41,14 +38,19 @@ app.use(async (req, res, next) => {
   if (req.url === '/favicon.ico') {
     res.end()
     return
+  } else {
+    await next()
   }
+})
+
+app.use(async (req, res, next) => {
   access({
     method: req.method,
     url: req.url,
     'user-agent': req.headers['user-agent'],
     date: Date.now(),
   })
-  next()
+  await next()
 })
 
 app.use(async (req, res, next) => {
@@ -75,9 +77,7 @@ app.use(async (req, res, next) => {
     sessionId = createSessionId()
     const [err] = await redisSet(sessionId, {})
     if (err) {
-      const result = new ErrorModel(null, err)
-      res.setHeader('Conent-Type', 'application/json')
-      res.end(JSON.stringify(result))
+      res.body = new ErrorModel(err)
       return
     }
   } else {
@@ -91,9 +91,7 @@ app.use(async (req, res, next) => {
       sessionId = createSessionId()
       const [err] = await redisSet(sessionId, {})
       if (err) {
-        const result = new ErrorModel({}, err)
-        res.setHeader('Conent-Type', 'application/json')
-        res.end(JSON.stringify(result))
+        res.body = new ErrorModel(err)
         return
       }
     } else {
@@ -108,19 +106,16 @@ app.use(async (req, res, next) => {
   req.sessionId = sessionId
   req.session = session
   req.cookie = cookie
-  res.setHeader('set-cookie', `userId=${sessionId}; path=/; expires=${getCookieExpires()}; httpOnly;`)
-  next()
+  await next()
 })
 
-// 没做路由匹配
-app.use('/api/blog', blogApiRouter)
-app.use('/api/user', userApiRouter)
-app.use('/api/test', testApiRouter)
+app.use(blogApiRouter())
+// app.use(userApiRouter)
+// app.use(testApiRouter)
 
-app.use('/user', userViewRouter)
-
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
   send(req, path.join(__dirname, 'views/404.html')).pipe(res)
+  await next()
 })
 
 module.exports = app

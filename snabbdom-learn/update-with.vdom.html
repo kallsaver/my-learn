@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="container"></div>
+  <button id="btn-change">change</button>
+</body>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.3/snabbdom.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.3/snabbdom-class.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.3/snabbdom-props.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.3/snabbdom-style.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.3/snabbdom-eventlisteners.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.3/h.js"></script>
+<script>
+  const snabbdom = window.snabbdom
+
+  const patch = snabbdom.init([
+    snabbdom_class.default,
+    snabbdom_props.default,
+    snabbdom_style.default,
+    snabbdom_eventlisteners.default,
+  ])
+
+  // 渲染函数
+  const h = snabbdom.h
+
+  const data = [
+    {
+      name: '张三',
+      age: '20',
+      address: '北京'
+    },
+    {
+      name: '李四',
+      age: '21',
+      address: '上海'
+    },
+    {
+      name: '王五',
+      age: '22',
+      address: '广州'
+    }
+  ]
+
+  function getSel(node) {
+    const cn = node.getAttribute('class')
+    const id = node.id
+    const c = cn ? '.' + cn.split(' ').join('.') : ''
+    const i = id ? '#' + node.id : ''
+    return node.tagName.toLowerCase() + i + c
+  }
+
+  const vnodeMap = {}
+
+  function render(node, data) {
+    const sel = getSel(node)
+    const tag = node.tagName.toLowerCase()
+    const newVnode = h(sel, {}, data.vnodeMap((item) => {
+      return h(
+        'div',
+        {},
+        Object.keys(item).vnodeMap((key) => {
+          const value = item[key]
+          return h(
+            'div',
+            {},
+            `${key}: ${value}`
+          )
+        })
+      )
+    }))
+    if (!vnodeMap[sel]) {
+      patch(node, newVnode)
+    } else {
+      const oldVnode = vnodeMap[sel]
+      patch(oldVnode, newVnode)
+    }
+    vnodeMap[sel] = newVnode
+  }
+
+  render(document.getElementById('container'), data)
+
+  const btnChange = document.getElementById('btn-change')
+  btnChange.addEventListener('click', () => {
+    data[1].age = 30
+    data[2].address = '深圳'
+    render(document.getElementById('container'), data)
+  })
+
+</script>
+
+</html>

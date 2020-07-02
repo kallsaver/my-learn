@@ -1,5 +1,5 @@
-const express = require('../../plugins/express/index')
-const router = express.Router()
+const koa = require('../../plugins/koa/index')
+const router = koa.Router()
 const send = require('send')
 const path = require('path')
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="container"></div>
+  <button id="btn-change">change</button>
+</body>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.3/snabbdom.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.3/snabbdom-class.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.3/snabbdom-props.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.3/snabbdom-style.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.3/snabbdom-eventlisteners.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.3/h.js"></script>
+<script>
+  const snabbdom = window.snabbdom
+
+  const patch = snabbdom.init([
+    snabbdom_class.default,
+    snabbdom_props.default,
+    snabbdom_style.default,
+    snabbdom_eventlisteners.default,
+  ])
+
+  // 渲染函数
+  const h = snabbdom.h
+
+  // 生成 vnode
+  const vnode = h(
+    'ul#list',
+    {
+      key: 1,
+      props: {
+      },
+      style: {
+        background: 'gold'
+      },
+      class: {
+        'dr': 'dr'
+      }
+    },
+    [
+      h('li.item', {}, 'Item 1'),
+      h('li.item', {}, 'Item 2')
+    ]
+  )
+
+  console.log(vnode)
+
+  // vnode更新到dom
+  patch(container, vnode)
+
+  document.getElementById('btn-change').addEventListener('click', () => {
+    // 生成 newVnode
+    const newVnode = h('ul#list', {}, [
+      h('li.item', {}, 'Item 1'),
+      h('li.item', {}, 'Item B'),
+      h('li.item', {}, 'Item 3')
+    ])
+    patch(vnode, newVnode)
+  })
+
+</script>
+</html>

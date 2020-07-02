@@ -1,10 +1,5 @@
-const express = require('../../plugins/express/index')
-const router = express.Router()
-
-const {
-  getCookieExpires,
-  createUserId,
-} = require('../../utils/login')
+const koa = require('../../plugins/koa/index')
+const router = koa.Router()
 
 const {
   userInfoGet,
@@ -30,40 +25,30 @@ router.get('/login-in', async (req, res) => {
 
   for (const key in validate) {
     if (!validate[key]) {
-      const result = new ErrorModel(null, `${key} missing`)
-      res.setHeader('Conent-Type', 'application/json')
-      res.end(JSON.stringify(result))
+      res.body = new ErrorModel(`${key} missing`)
       return
     }
   }
 
   const [err, ret] = await userInfoGet(username)
   if (err) {
-    const result = new ErrorModel({}, err)
-    res.setHeader('Conent-Type', 'application/json')
-    res.end(JSON.stringify(result))
+    res.body = new ErrorModel(err)
     return
   }
   const userInfo = ret
   if (userInfo.password !== password) {
-    const result = new ErrorModel({}, '密码错误')
-    res.setHeader('Conent-Type', 'application/json')
-    res.end(JSON.stringify(result))
+    res.body = new ErrorModel('密码错误')
     return
   } else {
     const [err] = await redisSet(req.sessionId, userInfo)
     if (err) {
-      const result = new ErrorModel({}, err)
-      res.setHeader('Conent-Type', 'application/json')
-      res.end(JSON.stringify(result))
+      res.body = new ErrorModel(err)
       return
     }
     req.session = userInfo
-    const result = new SuccessModel({
+    res.body = new SuccessModel({
       username: ret.username
     }, '登录成功')
-    res.setHeader('Conent-Type', 'application/json')
-    res.end(JSON.stringify(result))
   }
 })
 
@@ -71,36 +56,26 @@ router.get('/login-out', async(req, res) => {
   const sessionId = req.sessionId
   const [err] = await redisDel(sessionId)
   if (err) {
-    const result = new ErrorModel({}, err)
-    res.setHeader('Conent-Type', 'application/json')
-    res.end(JSON.stringify(result))
+    res.body = new ErrorModel(err)
     return
   }
   req.session = {}
-  const result = new SuccessModel({}, '登出成功')
-  res.setHeader('Conent-Type', 'application/json')
-  res.end(JSON.stringify(result))
+  res.body = new SuccessModel({}, '登出成功')
 })
 
 // 检查是否处于登录状态
 router.get('/login-check', loginMiddle, async (req, res) => {
-  const result = new SuccessModel({ isLogin: true }, '登录')
-  res.setHeader('Conent-Type', 'application/json')
-  res.end(JSON.stringify(result))
+  res.body = new SuccessModel({ isLogin: true }, '登录')
 })
 
 // 个人信息
 router.get('/info', loginMiddle, async (req, res) => {
   const [err, ret] = await userInfoGet(req.session.username)
   if (err) {
-    const result = new ErrorModel({}, err)
-    res.setHeader('Conent-Type', 'application/json')
-    res.end(JSON.stringify(result))
+    res.body = new ErrorModel(err)
     return
   }
-  const result = new SuccessModel(ret)
-  res.setHeader('Conent-Type', 'application/json')
-  res.end(JSON.stringify(result))
+  res.body = new SuccessModel(ret)
 })
 
 module.exports = router

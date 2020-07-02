@@ -1,5 +1,4 @@
-const koa = require('../../plugins/koa/index')
-const router = koa.Router()
+const router = require('koa-router')()
 
 const {
   blogListGet,
@@ -7,33 +6,40 @@ const {
   blogCreate,
   blogUpdate,
   blogDelete,
-} = require('../../controller/blog')
+} = require('../controller/blog')
 
 const {
   SuccessModel,
   ErrorModel,
-} = require('../../model/res-model')
+} = require('../model/res-model')
 
-const loginMiddle = require('../../middleware/login')
+router.prefix('/blog')
 
-router.prefixer = '/api/blog'
+function checkValidate(ctx, validate, next) {
+  for (const key in validate) {
+    if (!validate[key]) {
+      console.log(11)
+      ctx.body = new ErrorModel(`${key} missing`)
+    }
+  }
+}
 
-router.get('/list', async (req, res, next) => {
-  const query = req.query
+router.get('/list', async (ctx, next) => {
+  const query = ctx.query
 
   const author = query.author || ''
   const keyword = query.keyword || ''
 
   const [err, ret] = await blogListGet(author, keyword)
   if (err) {
-    res.body = new ErrorModel(err)
+    ctx.body = new ErrorModel(err)
     return
   }
-  res.body = new SuccessModel(ret)
+  ctx.body = new SuccessModel(ret)
 })
 
-router.get('/detail', async (req, res) => {
-  const query = req.query
+router.get('/detail', async (ctx, next) => {
+  const query = ctx.query
 
   const id = query.id
 
@@ -41,24 +47,26 @@ router.get('/detail', async (req, res) => {
     id,
   }
 
-  for (const key in validate) {
-    if (!validate[key]) {
-      res.body = new ErrorModel(`${key} missing`)
-      return
-    }
-  }
+  // for (const key in validate) {
+  //   if (!validate[key]) {
+  //     ctx.body = new ErrorModel(`${key} missing`)
+  //     return
+  //   }
+  // }
+
+  await checkValidate(ctx, validate)
 
   const [err, ret] = await blogDetailGet(id)
   if (err) {
-    res.body = new ErrorModel(err)
+    ctx.body = new ErrorModel(err)
     return
   }
 
-  res.body = new SuccessModel(ret)
+  ctx.body = new SuccessModel(ret)
 })
 
-router.post('/create', async (req, res) => {
-  const body = req.body
+router.post('/create', async (ctx, next) => {
+  const body = ctx.request.body
 
   const blogData = {
     title: body.title,
@@ -73,22 +81,22 @@ router.post('/create', async (req, res) => {
 
   for (const key in validate) {
     if (!validate[key]) {
-      res.body = new ErrorModel(`${key} missing`)
+      ctx.body = new ErrorModel(`${key} missing`)
       return
     }
   }
 
   const [err, ret] = await blogCreate(blogData)
   if (err) {
-    res.body = new ErrorModel(err)
+    ctx.body = new ErrorModel(err)
     return
   }
 
-  res.body = new SuccessModel(ret)
+  ctx.body = new SuccessModel(ret)
 })
 
-router.post('/update', async (req, res) => {
-  const body = req.body
+router.post('/update', async (ctx, next) => {
+  const body = ctx.request.body
 
   const id = body.id
 
@@ -105,22 +113,22 @@ router.post('/update', async (req, res) => {
 
   for (const key in validate) {
     if (!validate[key]) {
-      res.body = new ErrorModel(`${key} missing`)
+      ctx.body = new ErrorModel(`${key} missing`)
       return
     }
   }
 
   const [err, ret] = await blogUpdate(id, blogData)
   if (err) {
-    res.body = new ErrorModel(err)
+    ctx.body = new ErrorModel(err)
     return
   }
 
-  res.body = new SuccessModel(ret)
+  ctx.body = new SuccessModel(ret)
 })
 
-router.post('/delete', async (req, res, next) => {
-  const body = req.body
+router.post('/delete', async (ctx, next) => {
+  const body = ctx.request.body
 
   const id = body.id
   const author = body.author
@@ -132,18 +140,18 @@ router.post('/delete', async (req, res, next) => {
 
   for (const key in validate) {
     if (!validate[key]) {
-      res.body = new ErrorModel(`${key} missing`)
+      ctx.body = new ErrorModel(`${key} missing`)
       return
     }
   }
 
   const [err, ret] = await blogDelete(id, author)
   if (err) {
-    res.body = new ErrorModel(err)
+    ctx.body = new ErrorModel(err)
     return
   }
 
-  res.body = new SuccessModel(ret)
+  ctx.body = new SuccessModel(ret)
 })
 
 module.exports = router

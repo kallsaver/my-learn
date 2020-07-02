@@ -45,7 +45,7 @@ export default {
       // await后面的函数如果是返回一个promise(说明是异步的),并且没有被then解析,那返回值是resolve的值
       // await后面的函数如果是返回一个promise(说明是异步的),并且没有被then解析,那返回值是最后一个then的返回值的值
       // await后面的函数如果不是返回一个promise,那么await不起作用(多余的)
-      // promise的then和catch重写resolve或者reject的值,通过return传递到下个环节
+      // promise的then和catch会自动return一个Promise,resolve的值是return的值
       function firstFn() {
         return new Promise((resolve) => {
           setTimeout(() => {
