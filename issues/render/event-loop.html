@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+
+  // demo1()
+  demo2()
+  // demo3()
+
+  function demo1() {
+    document.body.style = 'background:gold'
+    setTimeout(function () {
+      document.body.style = 'background:#fff'
+    }, 0)
+  }
+
+  // 宏任务执行 => 这次宏任务在事件队列里的微任务执行 => GUI渲染线程执行 => 下次宏任务执行
+  function demo2() {
+    document.body.style = 'background:perd'
+    console.log(1)
+    Promise.resolve().then(() => {
+      console.log(2)
+      document.body.style = 'background:gold'
+    })
+    setTimeout(function () {
+      document.body.style = 'background:#fff'
+    })
+    console.log(3)
+    console.log('一次宏任务执行完毕,下次宏任务执行之前')
+  }
+
+  function demo3() {
+    setTimeout(() => {
+      console.log(1)
+      Promise.resolve(3).then(data => console.log(data))
+    }, 0)
+
+    setTimeout(() => {
+      console.log(2)
+    }, 0)
+  }
+
+
+</script>
+</html>

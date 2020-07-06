@@ -88,6 +88,13 @@ export const options = [
           title: 'map',
         },
       },
+      {
+        path: '/base/decorator',
+        component: () => import('@/pages/base/children/decorator/decorator.vue'),
+        meta: {
+          title: 'decorator',
+        },
+      },
     ]
   },
   {
@@ -116,6 +123,13 @@ export const options = [
         component: () => import('@/pages/action/children/class/class.vue'),
         meta: {
           title: 'class',
+        },
+      },
+      {
+        path: '/action/load-img',
+        component: () => import('@/pages/action/children/load-img/load-img.vue'),
+        meta: {
+          title: 'load-img',
         },
       }
     ]

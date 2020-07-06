@@ -18,7 +18,6 @@ function mkdirsSync(dirname) {
 
 let txt = path.join(__dirname, './source')
 
-
 function writeFileSync(fileName) {
   let dirname = fileName.replace(/(.*)\\.*/, '$1')
   mkdirsSync(dirname)

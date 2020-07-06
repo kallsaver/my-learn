@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  function debounce(time = 400, immediate = false) {
+    let timer
+    return function (fn) {
+      if (immediate) {
+        fn && fn()
+        immediate = false
+      }
+      window.clearTimeout(timer)
+      timer = window.setTimeout(() => {
+        fn && fn()
+      }, time)
+    }
+  }
+
+  const debounceHandler = debounce(1000, true)
+
+  debounceHandler(() => {
+    console.log(1)
+  })
+
+  debounceHandler(() => {
+    console.log(2)
+  })
+
+  debounceHandler(() => {
+    console.log(3)
+  })
+
+  debounceHandler(() => {
+    console.log(4)
+  })
+
+</script>
+</html>

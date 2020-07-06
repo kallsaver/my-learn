@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  function throttle(time) {
+    let lastTime = 0
+    const handler = function (fn) {
+      const currentTime = new Date().getTime()
+      if (currentTime - lastTime >= time) {
+        lastTime = currentTime
+        fn && fn()
+      }
+    }
+    return handler
+  }
+
+  const throttleHandler = throttle(5000)
+
+  throttleHandler(() => {
+    console.log(11)
+  })
+
+  window.setInterval(() => {
+    throttleHandler(() => {
+      console.log(11)
+    })
+  }, 1000)
+
+</script>
+</html>

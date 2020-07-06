@@ -13,19 +13,30 @@
 </body>
 <script>
 
-  // 总结: vue申明的data的时候,data下申明的每一个属性都配备一个了Dep订阅/发布者
-  // 当这个属性被watch了,会先读取这个属性的值作为这个属性的oldVal存在watch实例上
-  // 并且Dep就会添加这个watch实例到订阅收集器里
-  // 这个过程中,watch中读取这个属性的值(发生在watch的作用域)会触发getter(发生在别的作用域)
-  // Dep收集的watch实例用一个全局指针衔接上下文(通常getter/setter不是自上到下传参都有这个问题)
-  // 当这个属性被修改,这个属性修改新值后会触发setter,订阅收集器就会发布oldVal,newVal出去
+  // 总结: vue申明的data的时候,data下申明的每一个属性都配备一个了dep1订阅/发布者
+  // 当属性被getter的时候触发订阅手机依赖,当setter时触发发布通知
+  // 当这个属性被watch了,
+  // 1.读取这个属性的值作为这个属性的oldVal存在watch实例上
+  // 2.dep的收集器就会添加这个watch进去
+  // 当这个属性被修改,这个属性修改新值后会触发setter,dep就会把收集器的内容都发布通知,即watch回调触发了
+
+  // 对象和数组有两个dep,一个是收集自身dep1,一个是收集自身的属性dep2
+
+  // 对象的引用被改变时,dep1的收集器会被触发,
+
+  // 对于数组的处理,给数组的原型链加一层代理层,这个代理层重写了数组能改变数组元素的7个方法
+  // 并且执行这几个方法时,dep2被触发发布通知
+  // 数组的引用被改变时,dep1的收集器会被触发发布通知
+
+  // 非对象数组类型的值被改变时,dep1的收集器会被触发发布通知
+
+
+  // 重写数组的能改变数组元素的方法,执行的时候dep2会触发发布通知
 
   // 没有提前在data申明的数据没被deepObserve应用到,无法检测
   // Object.defineProperty的特性,属性改变只能触发属性的getter/setter,不能触发父节点的getter/setter
   // 数组的元素改变不会触发数组的getter/setter,需要做代理和动态添加
 
-  // 对于数组的处理,给数组的原型链加一层代理层,这个代理层重写了数组能改变数组元素的7个方法
-  //
 
   function isObject(obj) {
     return obj !== null && typeof obj === 'object'
@@ -42,7 +53,7 @@
   }
 
   // 响应式函数,内置订阅/发布者
-  // 只做对对象的处理,不做对数组的处理(obj是一个对象)
+  // 只做对对象的处理,不做对数组的处理(obj是一个对象,key是任何类型)
   function defineReactive(obj, key, val, shallow) {
     const property = Object.getOwnPropertyDescriptor(obj, key)
     if (property && property.configurable === false) {

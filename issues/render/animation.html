@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    @keyframes ani {
+      0% {
+        left: 0;
+        /* transform: rotate(0deg) */
+      }
+      50% {
+        left: 300px;
+        /* transform: rotate(180deg) */
+      }
+      100% {
+        left: 600px;
+        /* transform: rotate(360deg) */
+      }
+    }
+
+    .box {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: peru;
+      animation-name: ani;
+      animation-duration: 1000ms;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+<script>
+  // js线程和GUI线程是互斥线程,js线程的优先级高于GUI线程
+  // transfrom走的是gpu线程,gpu和js线程不是互斥的
+
+  function fibonacci(n) {
+    return n < 2 ? n : arguments.callee(n - 1) + arguments.callee(n - 2)
+  }
+
+
+  // console.log(fibonacci(36))
+
+  // window.setTimeout(() => {
+  //   console.log(fibonacci(36))
+  //   console.log(fibonacci(36))
+  //   console.log(fibonacci(36))
+  //   console.log(fibonacci(36))
+  //   console.log(fibonacci(36))
+  //   console.log(fibonacci(36))
+  // }, 1000)
+</script>
+</html>

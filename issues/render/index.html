@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./test.css">
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log('loaded')
+    })
+  </script>
+</head>
+<body>
+  <div></div>
+  <div></div>
+</body>
+</html>
+<script src="./test.js"></script>
+<script>
+  // https://juejin.im/post/5d5b4c2df265da03dd3d73e5
+  // 本页面html解析过程:
+  // 1.html结构解析,生成dom树
+  // 2.css解析,生成css规则树
+  // 3.遇到script,执行js同步线程
+  // 4.继续解析html,生成dom树
+  // 5.遇到test.js,响应后执行,
+  // 6.js同步线程执行完,继续继续解析html,生成dom树
+  // 7.开始用dom树和css规则树绘制
+
+  // 浏览器进程:
+  // 1.主进程(前进、后退、收藏、
+  // 将渲染进程得到的内存中的Bitmap绘制到用户界面上、文件访问、网络请求)
+  // 2.GPU进程
+  // 3.渲染进程,一个tab页一个渲染进程
+  // 4.第三方插件进程
+
+
+  // 1.JS引擎线程,负责处理解析和执行javascript脚本程序
+  // 只有一个JS引擎线程单线程,与GUI渲染线程互斥,并且优先级高于GUI渲染线程,
+  // 2.GUI渲染线程,负责布局和绘制,页面需要重绘和回流时,该线程就会执行,与js引擎线程互斥，防止渲染结果不可预期
+  // 3.事件触发线程,当事件满足触发条件时,加入任务队列
+  // 当JS引擎线程空闲时,任务队列把事件加入到JS引擎执行栈中
+  // 4.xhr请求线程,浏览器有一个单独的线程用于处理AJAX请求,当请求完成时，若有回调函数，通知事件触发线程
+  // 5.定时触发线程
+
+</script>

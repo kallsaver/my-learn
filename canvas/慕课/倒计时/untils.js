@@ -9,9 +9,6 @@ function deepClone(o) {
     ret = []
   } else if (instance === 'Object') {
     ret = {}
-  } else if (instance === 'Function') {
-    /* eslint-disable no-eval */
-    return eval('(' + o.toString() + ')')
   } else {
     return o
   }

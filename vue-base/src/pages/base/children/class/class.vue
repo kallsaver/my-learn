@@ -8,16 +8,11 @@
 
 <script>
 export default {
-  data() {
-    return {
-
-    }
-  },
   mounted() {
-    // this.demo1()
+    this.demo1()
     // this.demo2()
-    this.demo3()
-    this.demo4()
+    // this.demo3()
+    // this.demo4()
     // this.demo5()
   },
   methods: {
@@ -26,6 +21,10 @@ export default {
       class Man {
         constructor() {
           // console.log(sex)
+        }
+        list = []
+        getList = () => {
+          return this.list
         }
         // es7的静态属性
         static target = 'target'
@@ -39,12 +38,13 @@ export default {
       // es6的静态属性
       Man.sex = 'man'
 
-      let a = new Man()
+      const man = new Man()
       // a.talk()
       // a.constructor === Man.prototype.constructor
-      // class类的内部所有定义的方法，都是不可枚举的
-      for (let i in a) {
-        console.log('Man key', i)
+      // class类默认类属性是不可枚举的,类变量是可以枚举的
+      for (const key in man) {
+        // 枚举了list,getList, 没有枚举talk
+        console.log('key', key)
       }
       // 静态方法
       Man.staticGrow()
@@ -195,17 +195,19 @@ export default {
         constructor(number) {
           this._number = number
         }
+
         get number() {
           console.log('getter')
           return this._number + 'px'
         }
+
         set number(value) {
           this._number = value
           console.log('setter value', value)
         }
       }
 
-      let inst = new MyClass(1)
+      const inst = new MyClass(1)
       inst.number = 2
 
       console.log('inst.number', inst.number)
@@ -225,8 +227,8 @@ export default {
       Student.prototype = new Man()
       Teacher.prototype = new Man()
 
-      let student = new Student()
-      let teacher = new Teacher()
+      const student = new Student()
+      const teacher = new Teacher()
       console.log(student)
       console.log(teacher)
 

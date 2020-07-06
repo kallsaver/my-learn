@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  function getData() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        console.log('timeout')
+        resolve()
+      }, 1000)
+    })
+  }
+
+  const mixin = {
+    async onShow() {
+      console.log('mixin onShow')
+      await getData()
+    }
+  }
+
+  const options = {
+    mixins: [mixin],
+    onShow() {
+      console.log('origin onShow')
+    }
+  }
+
+  let App = function (options) {
+    options.onShow && options.onShow()
+  }
+
+  originApp = App
+
+  const proxyHooks = ['onShow']
+
+  function noop () { }
+
+  App = function (options) {
+    const mixins = options.mixins
+    if (mixins && Array.isArray(mixins)) {
+      for (const mixinItem of mixins) {
+        for (const key in mixinItem) {
+          if (proxyHooks.indexOf(key) > -1) {
+            const originHook = options[key]
+            options[key] = function () {
+              const mixinHook = mixinItem[key]
+              mixinHook.call(this, ...arguments)
+              originHook && originHook.call(this, ...arguments)
+            }
+          }
+        }
+      }
+    }
+    originApp(options)
+  }
+
+  App(options)
+
+</script>
+</html>
