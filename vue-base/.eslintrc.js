@@ -36,6 +36,7 @@ module.exports = {
     }],
     'no-unused-vars': 'off',
     'no-useless-constructor': 'off',
-    "no-callback-literal": 'off'
+    'no-callback-literal': 'off',
+    'lines-between-class-members': 'off'
   }
 }

@@ -100,7 +100,7 @@ export default {
     },
     demo3() {
       // async和循环
-      let arr = [0, 1, 2]
+      const arr = [0, 1, 2]
       ;(async () => {
         for (let i = 0; i < arr.length; i++) {
           await (() => {

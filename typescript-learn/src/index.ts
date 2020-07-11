@@ -1,7 +1,8 @@
 // import './type/index'
-import init from './interface/index'
+// import './interface/index'
+// import './class/index'
+import './function/index'
 
 export default {
-  init: init.init,
   version: 'VERSION',
 }

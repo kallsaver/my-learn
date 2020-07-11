@@ -35,7 +35,7 @@ export default {
     }
   },
   mounted() {
-    let e = new Events()
+    const e = new Events()
     e.on('click', (name) => {
       this.name = name
     })

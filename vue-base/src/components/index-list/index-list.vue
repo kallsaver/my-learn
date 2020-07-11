@@ -17,9 +17,6 @@ export default {
       listData: []
     }
   },
-  computed: {
-
-  },
   created() {
     this.init()
   },
@@ -83,7 +80,7 @@ export default {
       return listData
     },
     selectItem(item) {
-      this.$router.push({name: item.value})
+      this.$router.push({ name: item.value })
     }
   }
 }

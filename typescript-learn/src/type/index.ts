@@ -1,20 +1,30 @@
 // 布尔值
 const isDone: boolean = false
 
+// 数字
+const count: number = 1
+
 // 数组
 const list1: Array<number> = [1, 2, 4, 6]
 const list2: number[] = [2]
 
+// 对象
+const obj: object = {}
+
+// undefined,null
+const u: undefined = undefined
+const n: undefined = null
+
 // 枚举
 // 自动赋值0, 1, 2
-enum Color {Red, Green, Blue}
+enum Color { Red, Green, Blue }
 const red: Color = Color.Red
 const green: Color = Color.Green
 console.log(red)
 console.log(green)
 
 // 手动赋值
-enum Size {L = 1, M = 3, S = 5}
+enum Size { L = 1, M = 3, S = 5 }
 const l: Size = Size.L
 console.log(l)
 
@@ -32,10 +42,6 @@ function warn(): void {
   console.log('warn')
 }
 console.log(warn)
-
-// undefined, null
-const u: undefined = undefined
-const n: undefined = null
 
 // never
 function error(message: string): never {

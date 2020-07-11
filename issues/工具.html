@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+
+  function stringRepeat(str, num) {
+      return new Array(num + 1).join(str)
+    }
+
+  function padLeftZero(str, n = 2) {
+    return (stringRepeat('0', n) + str).slice(str.length)
+  }
+
+  // 格式化时间
+  function formatDate(date, format = 'YYYY-MM-DD hh:mm:ss') {
+    const o = {
+      'Y+': date.getFullYear(),
+      'M+': date.getMonth() + 1,
+      'D+': date.getDate(),
+      'h+': date.getHours(),
+      'm+': date.getMinutes(),
+      's+': date.getSeconds(),
+      't+': date.getMilliseconds()
+    }
+    for (const k in o) {
+      if (new RegExp(`(${k})`).test(format)) {
+        const str = o[k] + ''
+        format = format.replace(RegExp.$1, padLeftZero(str, RegExp.$1.length))
+      }
+    }
+    return format
+  }
+
+  console.log(formatDate(new Date('2019'), 'YY-MM-DD: hh:mm:ss'))
+</script>
+</html>

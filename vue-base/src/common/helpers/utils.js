@@ -42,7 +42,7 @@ export function getUrlParams(currentUrl = window.location.href) {
   const arr = paramsUrl.match(/[^&]+?=[^&]*/g)
   if (arr) {
     for (let i = 0; i < arr.length; i++) {
-      const reg = new RegExp(`(.+?)=(.*)`)
+      const reg = new RegExp('(.+?)=(.*)')
       reg.exec(arr[i])
       const key = decodeURIComponent(RegExp.$1)
       const value = decodeURIComponent(RegExp.$2)

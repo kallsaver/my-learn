@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      /* box-sizing: content-box; */
+      width: 100px;
+      height: 30px;
+      color: gold;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+  <input class="input" />
+  <img src="./www.xxx.com?xss">
+</body>
+<script>
+  // 输入keyword=jaVasCript%3A%2F*-%2F*%60%2F*%60%2F*%27%2F*%22%2F**%2F(%2F*%20*%2FoNcliCk%3Dalert()%20)%2F%2F%250D%250A%250d%250a%2F%2F%3C%2FstYle%2F%3C%2FtitLe%2F%3C%2FteXtarEa%2F%3C%2FscRipt%2F--!%3E%3CsVg%2F%3CsVg%2FoNloAd%3Dalert(1)%2F%2F%3E%3E
+
+  (function () {
+    // 1
+    // 重写全局变量在闭包里面,让攻击者无法调用
+    // 现在开发环境环境写一个loader让脚本的全局变量替换成局部变量
+    const _alert = window.alert
+
+    window.alert = function (a) {
+      // 触发接口向后台告警
+      console.log(a)
+    }
+
+    // 2.
+    // 在现代前端模板中自动增加字符过滤器
+
+    // 3.对src做拦截
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        const nodes = mutation.addedNodes
+      })
+    })
+
+    observer.observe(document, {
+      subtree: true,
+      childList: true
+    })
+
+    function getUrlParams(currentUrl = window.location.href) {
+      const result = {}
+      if (currentUrl.indexOf('?') === -1) {
+        return result
+      }
+      const paramsUrl = currentUrl.replace(/.*\?/g, '')
+      const arr = paramsUrl.match(/[^&]+?=[^&]*/g)
+      if (arr) {
+        for (let i = 0; i < arr.length; i++) {
+          const reg = new RegExp(`(.+?)=(.*)`)
+          reg.exec(arr[i])
+          const key = decodeURIComponent(RegExp.$1)
+          const value = decodeURIComponent(RegExp.$2)
+          result[key] = value
+        }
+      }
+      return result
+    }
+
+    const box = document.getElementsByClassName('box')[0]
+    const input = document.getElementsByClassName('input')[0]
+    const keyword = getUrlParams().keyword
+    console.log(keyword)
+    // 使用textContent
+    box.innerHTML = keyword
+    console.log(box)
+    input.value = keyword
+
+
+  })()
+
+</script>
+</html>

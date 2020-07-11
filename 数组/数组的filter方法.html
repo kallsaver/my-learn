@@ -1,42 +1,40 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-	</body>
-	<script>
-		// 在javascript和jq中,凡是有回调函数的方法,都有迭代的作用
-		// 返回一个新数组,filter是个纯函数
-		var ar r= [
-  			{"name":"apple", "count": 2},
-  			{"name":"orange", "count": 5},
-  			{"name":"pear", "count": 3},
-  			{"name":"orange", "count": 16},
-		];
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
 
+</body>
+<script>
+  // filter不改变原数组,返回新数组
 
-		var newArr = arr.filter(function(item){
-			return item.name === "orange"			//如果return true 就filter出来
-		})
+  const arr = [
+    {
+      'name': 'apple',
+      'count': 2
+    },
+    {
+      'name': 'orange',
+      'count': 5
+    },
+    {
+      'name': 'pear',
+      'count': 3
+    },
+    {
+      'name': 'orange',
+      'count': 16
+    },
+  ]
 
+  const result = arr.filter((item, index) => {
+    return item.name === 'orange'
+  })
 
-		console.log(newArr)
-		console.log(arr)
-		var b=[]
-		b[0]=arr[0]; //拿到arr[0]的引用值
-		b[0].name="bbb"
-		console.log(arr[0].name)
-		arr[1].name="ooo"
-		console.log(newArr)		//数组的filter方法也是拿引用值
-
-		var arr1 = [1,2,3,4,5]
-		var newArr1 = arr1.filter(function(item,index,arr1){
-			console.log(arguments)   //可以看出是item,index,arr1
-			return    //null,'',false等都等同鱼false
-		})
-		console.log(newArr1)
-
-	</script>
+  console.log(arr)
+  console.log(result)
+</script>
 </html>

@@ -47,15 +47,6 @@ const plugins = [
 const input = resolve('src/index.ts')
 
 const buildMap = {
-  esm: {
-    input,
-    output: {
-      file: resolve(`dist/${name}.esm.js`),
-      format: 'esm',
-      banner,
-    },
-    plugins: plugins,
-  },
   main: {
     input,
     output: {
@@ -66,16 +57,6 @@ const buildMap = {
     },
     plugins: plugins,
   },
-  min: {
-    input,
-    output: {
-      file: resolve(`dist/${name}.min.js`),
-      format: 'umd',
-      name: apiName,
-      banner,
-    },
-    plugins: plugins,
-  }
 }
 
 module.exports = buildMap

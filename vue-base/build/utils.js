@@ -1,8 +1,8 @@
 'use strict'
 const path = require('path')
 const config = require('../config')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 exports.assetsPath = function (_path) {
   const assetsSubDirectory = process.env.NODE_ENV === 'production'
@@ -14,10 +14,6 @@ exports.assetsPath = function (_path) {
 
 exports.cssLoaders = function (options) {
   options = options || {}
-
-  const stylusOptions = {
-    'resolve url': true
-  }
 
   const cssLoader = {
     loader: 'css-loader',
@@ -34,7 +30,7 @@ exports.cssLoaders = function (options) {
   }
 
   // generate loader string to be used with extract text plugin
-  function generateLoaders (loader, loaderOptions) {
+  function generateLoaders(loader, loaderOptions) {
     const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
 
     if (loader) {
@@ -46,16 +42,14 @@ exports.cssLoaders = function (options) {
       })
     }
 
-    // Extract CSS when that option is specified
-    // (which is the case during production build)
-    if (options.extract) {
-      return ExtractTextPlugin.extract({
-        use: loaders,
-        fallback: 'vue-style-loader'
-      })
-    } else {
-      return ['vue-style-loader'].concat(loaders)
-    }
+    return [
+      'vue-style-loader',
+      MiniCssExtractPlugin.loader
+    ].concat(loaders)
+  }
+
+  const stylusOptions = {
+    'resolve url': true
   }
 
   // https://vue-loader.vuejs.org/en/configurations/extract-css.html
@@ -101,18 +95,5 @@ exports.createNotifierCallback = () => {
       subtitle: filename || '',
       icon: path.join(__dirname, 'logo.png')
     })
-  }
-}
-
-exports.getIPAddress = () => {
-  let interfaces = require('os').networkInterfaces()
-  for (let devName in interfaces) {
-    let iface = interfaces[devName]
-    for (let i = 0; i < iface.length; i++) {
-      let alias = iface[i]
-      if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
-        return alias.address;
-      }
-    }
   }
 }

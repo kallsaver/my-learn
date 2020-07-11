@@ -22,6 +22,7 @@
   }
 
   // 宏任务执行 => 这次宏任务在事件队列里的微任务执行 => GUI渲染线程执行 => 下次宏任务执行
+  // js重排语句会导致GUI渲染线程马上执行
   function demo2() {
     document.body.style = 'background:perd'
     console.log(1)
@@ -46,7 +47,6 @@
       console.log(2)
     }, 0)
   }
-
 
 </script>
 </html>

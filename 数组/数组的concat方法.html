@@ -1,43 +1,21 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-	</body>
-	<script>
-/*		var a1=[1,2,3]
-		var a2=[4,5,6]
-		var a3=[7,8,9]
-		
-		var arr=a1.concat(a2,a3)	//concat可以加无限个参数  并且返回一个新数组,那么它是怎么实现的呢
-		console.log(a1)
-		console.log(a2)
-		console.log(a3)
-		console.log(arr)
-		arr[0]=0;
-		console.log(a1)*/
-		
-		//实现concat
-		/*Array.prototype.concat=function(){
-			var length=arguments.length;
-			var arr=[];
-			arr.push.apply(arr,this);
-			for(var i=0;i<length;i++){
-				Array.prototype.push.apply(arr,arguments[i])
-			}
-			return arr;
-			
-		}
-		
-		console.log([1,2].concat([3,4,5]))*/
-		
-		var arr = [0,1,2]
-		var a = [].concat.call(arr,arr)
-		console.log(a)
-		
-		
-		
-	</script>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  // concat不改变原数组,返回新数组
+
+  const a = [1, 4]
+  const b = [2, 5]
+  const result = a.concat(b)
+
+  console.log(a)
+  console.log(result)
+</script>
 </html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  const obj = {
+    name: 'obj'
+  }
+
+  function run(key) {
+    console.log(this)
+    console.log(key)
+    console.log(this[key])
+  }
+
+  Function.prototype.callPro = function (vm) {
+    vm = vm ? Object(vm) : window
+    vm.fn = this
+    var args = []
+    for (var i = 1, len = arguments.length; i < len; i++) {
+      args.push('arguments[' + i + ']')
+    }
+    const result = eval('vm.fn(' + args + ')')
+    delete vm.fn
+    return result
+  }
+
+  Function.prototype.applyPro = function (vm, arr) {
+    vm = vm ? Object(vm) : window
+    vm.fn = this
+
+    if (Object.prototype.toString.callPro(arr).slice(8, -1) !== 'Array') {
+      throw new Error('must be array')
+      return
+    }
+
+    var args = []
+    for (var i = 0, len = arr.length; i < len; i++) {
+      args.push('arr[' + i + ']')
+    }
+    const result = eval('vm.fn(' + args + ')')
+    delete vm.fn
+    return result
+  }
+
+  Function.prototype.bindPro = function (vm) {
+    vm = vm ? Object(vm) : window
+    originFn = this
+
+    const preArgs = arguments
+    const args = []
+
+    for (var i = 0, len = preArgs.length; i < len; i++) {
+      args.push('preArgs['+ i +']')
+    }
+
+    return function () {
+      for (var i = 0, len = arguments.length; i < len; i++) {
+        args.push('arguments[' + i + ']')
+      }
+      eval('originFn.callPro('+  args +')')
+    }
+  }
+
+  const runBind = run.bindPro(obj, 'name')
+  runBind()
+
+</script>
+</html>

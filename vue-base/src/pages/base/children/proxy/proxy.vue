@@ -1,7 +1,7 @@
 <template>
   <page
     :title="$route.meta.title">
-    <div class="async"></div>
+    <div class="proxy"></div>
   </page>
 </template>
 
@@ -11,14 +11,12 @@ export default {
     return {}
   },
   mounted() {
-    this.demo4()
+    this.demo3()
   },
   methods: {
     demo1() {
-      let target = {}
-      let proxy = new Proxy(target, {})
-
-      console.log(target === proxy)
+      const target = {}
+      const proxy = new Proxy(target, {})
 
       proxy.title = 5
       console.log(target.title)
@@ -27,17 +25,15 @@ export default {
       console.log(proxy.title)
     },
     demo2() {
-      let person = {
+      const person = {
         name: 'a'
       }
 
-      let proxy = new Proxy(person, {
+      const proxy = new Proxy(person, {
         get(target, property) {
           if (property in target) {
             console.log('get')
             return target[property]
-          } else {
-            throw new ReferenceError('error')
           }
         }
       })
@@ -46,7 +42,7 @@ export default {
       console.log(proxy.title)
     },
     demo3() {
-      let proxy = new Proxy({}, {
+      const proxy = new Proxy({}, {
         get(target, property, receiver) {
           console.log(receiver === proxy)
           return 1

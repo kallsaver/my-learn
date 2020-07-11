@@ -1,31 +1,22 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-	</body>
-	<script>
-	//返回的是一个字符串		和字符串的split方法刚刚相反
-		var arr=[0,1,2,3,4,5]
-		
-		
-		var a=arr.join(",");
-		var b=arr.join("|");
-		var c=arr.join();	//默认","
-		console.log(a)		//"0,1,2,3,4,5"
-		console.log(b)		//"0|1|2|3|4|5"
-		console.log(c)		//"0,1,2,3,4,5"
-		console.log(arr)	//不变
-		
-		if("a"=="a"){
-			alert(1)	
-		}
-		
-		if(a==c){
-			alert(2)
-		}
-		
-	</script>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  // join返回已参数为分隔符的字符串
+
+  const arr = [0, 1, 2, 3]
+
+  const a = arr.join()
+  const b = arr.join('|')
+
+  console.log(a)
+  console.log(b)
+</script>
 </html>

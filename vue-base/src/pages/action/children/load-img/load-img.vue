@@ -51,7 +51,7 @@ export default {
       window.addEventListener('scroll', () => {
         console.log('scroll')
       }, false)
-    }
+    },
   },
 }
 </script>

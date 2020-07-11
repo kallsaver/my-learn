@@ -7,75 +7,54 @@
 </template>
 
 <script>
+import { deepClone } from '@/common/helpers/utils'
+
 export default {
   mounted() {
-    this.demo1()
-    // this.demo2()
-    // this.demo3()
-    // this.demo4()
-    // this.demo5()
+    this.demo6()
   },
   methods: {
-    // class和prototype比较
     demo1() {
       class Man {
         constructor() {
           // console.log(sex)
         }
-        list = []
-        getList = () => {
-          return this.list
+        // 类属性
+        propsList = []
+        getPropsList = () => {
+          return this.propsList
         }
         // es7的静态属性
-        static target = 'target'
-        static staticGrow() {
-          console.log('Man staticGrow')
+        static staticProps = 'static props'
+        static staticFn() {
+          console.log('static fn')
         }
-        talk() {
-          console.log('Man talk')
+        // 类成员
+        memberFn() {
+          console.log('member fn')
         }
       }
       // es6的静态属性
-      Man.sex = 'man'
-
+      Man.staticSex = 'static sex'
       const man = new Man()
-      // a.talk()
-      // a.constructor === Man.prototype.constructor
-      // class类默认类属性是不可枚举的,类变量是可以枚举的
+
       for (const key in man) {
-        // 枚举了list,getList, 没有枚举talk
-        console.log('key', key)
+        // 枚举了propsList,getPropsList, 没有枚举memberFn
+        console.log('可枚举的key:', key)
       }
-      // 静态方法
-      Man.staticGrow()
-      // 静态属性
-      console.log(Man.target)
-      console.log(Man.sex)
     },
-    // class和prototype比较
     demo2() {
       function Woman() {}
-      Woman.StaticGrow = function () {
+      Woman.staticGrow = function () {
         console.log('Woman StaticGrow')
       }
-      // 所有实例
       Woman.prototype.talk = function () {
         console.log('Woman talk')
       }
-      let a = new Woman()
-      // a.talk()
-      /* eslint-disabled */
-      // console.log(Man.prototype === a.__proto__)
-      // getPrototypeOf(a)等同于a.__proto__
-      // console.log(Man.prototype === Object.getPrototypeOf(a))
-      // console.log(a)
-      // constructor就是构造函数
-      // console.log(a.constructor === Man.prototype.constructor === Man)
-      // prototype加的方法是可以枚举的
-      for (let i in a) {
-        console.log('Woman key', i)
+      const a = new Woman()
+      for (const key in a) {
+        console.log('可枚举的key:', key)
       }
-      Woman.StaticGrow()
     },
     // class继承
     demo3() {
@@ -98,36 +77,27 @@ export default {
       }
 
       class Student extends Man {
-        // 如果子类和父类的constructor参数一致,可以不用写
+        // 如果子类和父类的constructor参数一致,可以不用写constructor
         constructor(age, name, sex) {
-          // super的含义很复杂
-          // 作为函数用相当于Man.prototype.constructor.call(this, arguments)?
-          // 并且做函数用只能写在子类的constructor中
+          // super虽然在不同的地方指向不同,但是都很方便理解和使用
           super(sex)
-          console.log('super.valueOf()', super.valueOf())
-          // 作为对象用相当于this.printfSex()
-          // super.printfSex()
         }
 
-        static study() {
-          console.log('study')
-          // super在静态方法拿到的是父类构造函数
-          console.log('super.valueOf()', super.valueOf())
-          super.grow()
+        static staticGrow() {
+          console.log('staticGrow')
         }
 
         speak() {
           console.log('speak')
-          // super在动态方法拿到的是实例
-          super.talk()
+        }
+
+        smile() {
+          console.log('smile')
         }
       }
 
-      let a = new Student(22, 'kallsave', '男')
-      a.talk()
-      a.speak()
-      Student.study()
-      console.log(a)
+      const student = new Student(22, 'kallsave', '男')
+      console.log(student)
     },
     // prototype继承
     demo4() {
@@ -146,16 +116,16 @@ export default {
       }
       // 第二步: 把原型链对象换成父类的原型链对象的克隆值
       Student.prototype = Object.create(Man.prototype)
-      // 第二步: 把原型链对象的constructor改成函数名
+      // 第三步: 把原型链对象的constructor改成函数名
       Student.prototype.constructor = Student
-      const a = new Student(22, 'kallsave', '男')
-      a.talk()
-      console.log(a)
+      const student = new Student(22, 'kallsave', '男')
+      console.log(student)
     },
     demo5() {
-    },
-    demo6() {
       // getter, setter
+      // class的getter,setter是挂载在构造层的
+      // 而Object的getter,setter是挂载在私有层的
+
       class Man {
         constructor(sex, age) {
           this.sex = sex
@@ -179,19 +149,30 @@ export default {
         }
 
         set age(newVal) {
-          console.log(`setter ${newVal}`)
           this._age = newVal
         }
       }
 
-      let a = new Man('男', 0)
-      console.log(a.age)
-      a.age = 100
-      console.log(a.age)
+      const man = new Man('男', 0)
+      console.log(man)
+      // 给私有层设值,但是也触发了挂载在钩子层的setter
+      man.age = 100
+      console.log(man.age)
     },
-    demo7() {
+    demo6() {
+      // 或者:
+      function isEnumerable(isAble = true) {
+        return function (target, name, descriptor) {
+          descriptor.enumerable = isAble
+          return descriptor
+        }
+      }
+
       // 内置了getter和setter
       class MyClass {
+        // @isEnumerable(false)
+        _number
+
         constructor(number) {
           this._number = number
         }
@@ -207,44 +188,14 @@ export default {
         }
       }
 
-      const inst = new MyClass(1)
-      inst.number = 2
-
-      console.log('inst.number', inst.number)
-    },
-    demo8() {
-      // es5
-      function Student() {}
-
-      function Teacher() {
-        Teacher.prototype.type = 'Teacher'
-        Teacher.prototype.constructor = Teacher
+      const stance = new MyClass(1)
+      stance.number = 2
+      console.log(stance)
+      for (const key in stance) {
+        console.log('可枚举的key', key)
       }
-
-      function Man() {}
-      // Student.prototype.type这种写在外部,无法保证后面会被prototype的引用地址被冲掉
-      // Student.prototype.type = 'student'
-      Student.prototype = new Man()
-      Teacher.prototype = new Man()
-
-      const student = new Student()
-      const teacher = new Teacher()
-      console.log(student)
-      console.log(teacher)
-
-      // es6
-      class Worker {
-        constructor() {
-
-        }
-      }
-
-      Worker.prototype = new Man()
-
-      let worker = new Worker()
-      console.log(worker)
     },
-    demo9() {
+    demo7() {
       class Man {
         // 箭头函数的this指向申明时的父作用域,也就是永远是Man的实例
         // bind,call,apply都改变不了
@@ -276,7 +227,142 @@ export default {
       a()
       b()
       c()
-    }
+    },
+    demo10() {
+      class Person {
+        constructor(firstname, lastname) {
+          this._firstname = firstname
+          this._lastname = lastname
+        }
+
+        a = 1
+
+        get firstname() {
+          console.log('getter')
+          return this._firstname
+        }
+
+        set firstname(firstname) {
+          console.log('setter')
+          this._firstname = firstname
+        }
+      }
+
+      const person = new Person('Turm', 'Sam')
+      // class上的getter无法被Object.keys遍历,因为不是自身的属性,是在原型链的构造层上
+      // Object.defineProperty定义的属性是在自身,而class和obj的getter是在原型链上
+      console.log(Object.keys(person))
+      console.log(person)
+      person.firstname = 'x'
+      console.log(person.firstname)
+      console.log('a', person.a)
+      const personCreate = Object.create(person)
+      console.log(personCreate)
+
+      const obj = {
+        _firstname: 'JSON',
+        get firstname() {
+          console.log('getter')
+          return this._firstname
+        },
+        set firstname(firstname) {
+          console.log('setter')
+          this._firstname = firstname
+        }
+      }
+
+      console.log(obj.firstname)
+      // 对象上的getter可以被Object.keys遍历,是自身的属性
+      console.log(Object.keys(obj))
+      console.log(obj)
+      obj._firstname = 'x'
+      console.log(obj.firstname)
+
+      const objClone = deepClone(obj)
+      objClone.firstname = 'gg'
+      console.log(objClone.firstname)
+
+      const objCreate = Object.create(obj)
+      console.log(objCreate)
+    },
+    demo12() {
+      function isObject(value) {
+        return value && typeof value === 'object'
+      }
+
+      // 递归冻结
+      function deepFreeze(value) {
+        if (isObject(value)) {
+          // Object.keys无法冻结原型链上的,for in可以
+          Object.keys(value).forEach((key) => {
+            console.log('key', key)
+            deepFreeze(value[key])
+          })
+          // for (const key in value) {
+          //   console.log(key)
+          //   deepFreeze(value[key])
+          // }
+          if (!Object.isFrozen(value)) {
+            Object.freeze(value)
+          }
+        }
+      }
+
+      // Object.freeze
+      class Person {
+        constructor(firstname, lastname, address) {
+          this._firstname = firstname
+          this._lastname = lastname
+          this._address = address
+        }
+
+        get firstname() {
+          console.log('getter')
+          return this._firstname
+        }
+
+        set firstname(firstname) {
+          console.log('setter')
+          this._firstname = firstname
+        }
+
+        get address() {
+          return this._address
+        }
+
+        set address(address) {
+          this._address = address
+        }
+      }
+
+      const person = new Person('Turm', 'Sam', {})
+      // 对象的属性不被允许修改(包括继承来的属性)
+      // 浅冻结
+      Object.freeze(person)
+      // 已经被冻结
+      // console.log(Object.isFrozen(person))
+      console.log(person.firstname)
+      console.log(Object.keys(person))
+      // person.firstname = 'x'
+      // 嵌套的对象的属性不会被冻结
+      person.address.city = 'sg'
+      deepFreeze(person)
+      console.log(person)
+      // person.address.city = 'sg'
+
+      const list = [1, 2, 3]
+      Object.freeze(list)
+      // 数组一样适用
+      // list[0] = 1
+
+      function run() {
+
+      }
+      run.test = 'x'
+      Object.freeze(run)
+      // 函数一样适用
+      // run.test = 'g'
+    },
   },
 }
 </script>

@@ -9,16 +9,15 @@
   (global = global || self, global.TypescriptLearn = factory());
 }(this, (function () { 'use strict';
 
-  function init(options) {
-      console.log(options.label);
+  function add(x, y) {
+      console.log(x);
+      return x + y;
   }
-  var init$1 = {
-      init: init,
-  };
+  var myAdd = add;
+  myAdd(1, 0);
 
   // import './type/index'
   var index = {
-      init: init$1.init,
       version: '1.0.0',
   };
 

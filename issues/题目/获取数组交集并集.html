@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+
+  // set实现求并集
+  function getUnion(...args) {
+    const all = args.reduce((prev, next) => {
+      return prev.concat(next)
+    })
+    const set = new Set(all)
+    return [...set]
+  }
+
+  // 求并集
+  // function getUnion(...args) {
+  //   const result = []
+  //   for (const list of args) {
+  //     for (const item of list) {
+  //       if (result.indexOf(item) > -1) {
+  //         continue
+  //       }
+  //       result.push(item)
+  //     }
+  //   }
+  //   return result
+  // }
+
+  // 求交集
+  function getMix(...args) {
+    return args.reduce((prev, next) => {
+      return prev.filter((item) => {
+        return next.indexOf(item) > -1
+      })
+    })
+  }
+
+  const a = [1, 5, 3, 0]
+  const b = [2, 3, 6, 5]
+  const c = [3, 0, 1, 9]
+
+  const setList = getUnion(a, b, c)
+  const mixList = getMix(a, b, c)
+
+  console.log(setList)
+  console.log(mixList)
+
+</script>
+</html>

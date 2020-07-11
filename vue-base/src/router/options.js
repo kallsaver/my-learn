@@ -68,6 +68,13 @@ export const options = [
         },
       },
       {
+        path: '/base/reflect',
+        component: () => import('@/pages/base/children/reflect/reflect.vue'),
+        meta: {
+          title: 'reflect',
+        },
+      },
+      {
         path: '/base/ObjectDefineProperty',
         component: () => import('@/pages/base/children/Object.defineProperty/Object.defineProperty.vue'),
         meta: {
@@ -116,13 +123,6 @@ export const options = [
         component: () => import('@/pages/action/children/mvvm/mvvm.vue'),
         meta: {
           title: 'mvvm',
-        },
-      },
-      {
-        path: '/action/class',
-        component: () => import('@/pages/action/children/class/class.vue'),
-        meta: {
-          title: 'class',
         },
       },
       {

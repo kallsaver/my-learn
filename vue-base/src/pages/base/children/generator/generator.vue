@@ -90,7 +90,7 @@ export default {
       console.log(iterator.next())
       console.log(iterator.next())
       // for of可以遍历迭代器类型的数据结构
-      for (let item of value) {
+      for (const item of value) {
         console.log(item)
       }
     },

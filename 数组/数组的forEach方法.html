@@ -1,50 +1,15 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-	</body>
-	<script>
-		// 在IE中  数组是没有forEach方法的
-		// forEach是没有返回值的
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
 
-		// 如果想改变数组的元素,forEach带入第三个参数oldArr
-		// 如果想处理数组的数据并返回新的数据,
-		// 但是只是一维的克隆,可以用map;或者在forEach里面用一个全局变量push处理后的数据
+</body>
+<script>
+  // forEach没有返回值
 
-		// 一个流程中需要这个数组做相关操作,不需要返回值用forEach
-		// 需要对一个数组做映射处理返回新数组,用map纯函数
-		// 需要对一个数组做映射过滤返回新数组,用filter纯函数
-
-		var arr = [1,2,3,4,5,6,7,8,9]
-		//跟jq的each很像  为每个元素执行对应的方法  不过jq的参数是index,item,反过来
-
-		var arr1 = []
-		var a = arr.forEach(function(item,index,oldArr){
-			//console.log(item)
-
-			if(index === 0){				//forEach方法传参传的是number数据类型
-				item += 100	;			    //所以在回调函数中处理item的值 原数组是不会有任何变化的
-			}
-			// 如果希望原数组发生变化,用oldArr
-			if(index === 8){
-				oldArr[index] = 900;
-			}
-
-			//console.log(item)
-			arr1.push(item);
-			// 无效
-			return 1;
-
-		});
-		// 同样不改变原数组
-		console.log(arr);
-		console.log(arr1);
-		// forEach没有返回值
-		console.log(a);
-		// arr.forEach(1)	 //throw new TypeError()
-
-	</script>
+</script>
 </html>

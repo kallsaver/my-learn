@@ -17,7 +17,7 @@ export default {
       // 注: NaN === NaN false
       const set = new Set(['0', 0, 1, 2, 3, 4, 5, 5, NaN, NaN])
       // 遍历Set数据结构
-      for (let i of set) {
+      for (const i of set) {
         console.log('i', i)
       }
       // 获取元素个数
@@ -75,8 +75,8 @@ export default {
     },
     demo4() {
       // 利用Set做并集/交集,差集
-      let a = new Set([1, 2, 3])
-      let b = new Set([2, 3, 4])
+      const a = new Set([1, 2, 3])
+      const b = new Set([2, 3, 4])
 
       // 并集
       const union = new Set([...a, ...b])

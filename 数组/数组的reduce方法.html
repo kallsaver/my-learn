@@ -1,59 +1,36 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-	</body>
-	<script>
-	//reduct这种处理数据的方式  可以称之为递归回调
-		//if (typeof Array.prototype.reduce != "function") {
- 		 	Array.prototype.reduce = function (callback, initialValue ) {
-     			var previous = initialValue, k = 0, length = this.length;
-     			if (typeof initialValue === "undefined") {
-       				previous = this[0];
-        			k = 1;
-     			}
-     
-    			if (typeof callback === "function") {
-      				for (k; k < length; k++) {				
-         				this.hasOwnProperty(k) && (previous = callback(previous, this[k], k, this));
-      				}
-    			}
-    			return previous;
-  			};
-		//}
-	
-		var arr = [0, 1, 2, 3, 4];	
-		//prev一开始是arr[0]的值 ,current是arr[1]的值  然后prev就是每一次迭代回调函数的返回值  迭代了length-1次
-		var a1 = arr.reduce(function(prev, current, index, array) {
-			//console.log(prev)		//
-			return prev + current;
-		});
-		
-		console.log('a1', a1);
-		
-		
-		//reduce降维:	
-		var b = [
-			[1, 2],
-			[3, 4],
-			[5, 6]
-		];
-		
-		var c = b.reduce(function (prev, current) {
-			return prev.concat(current);
-		})
-		console.log(c)
-		
-		//reduce运行过程:	回调函数的返回值是prev
-		//[x1, x2, x3, x4].reduce(f) = f(f(f(x1, x2), x3), x4) 
-		
-		//统计一个数组中有
-		
-		var str = "add"
-		console.log(str.indexOf("d","a")) 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
 
-	</script>
+</body>
+<script>
+  // reduce是数组的递归方法
+
+  // 利用reduce求和
+  const countList = [0, 1, 2]
+
+  const count = countList.reduce((prev, next) => {
+    return prev + next
+  })
+
+  console.log(count)
+
+  // 利用reduce降维
+  const high = [
+    [3, 4, 5],
+    [6, 7, 8],
+  ]
+
+  const low = high.reduce((prev, next) => {
+    return prev.concat(next)
+  })
+
+  console.log(low)
+
+</script>
 </html>

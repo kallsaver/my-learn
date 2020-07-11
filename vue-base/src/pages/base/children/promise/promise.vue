@@ -85,7 +85,7 @@ export default {
         // 相当于return {name: 's'},
         // 不同的是外层是另一个新的promise并且解析了a的resolve
         a = new Promise((resolve) => {
-          resolve({name: 's'})
+          resolve({ name: 's' })
         })
         return a
       })

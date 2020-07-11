@@ -21,7 +21,3 @@ function createSquare(config: SquareConfig): {color: string, width: number} {
   }
   return square
 }
-
-export default {
-  init,
-}
