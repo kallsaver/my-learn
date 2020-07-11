@@ -1,6 +1,6 @@
 module.exports = {
   "presets": [
-    "@babel/preset-react",
+    'react-app'
   ],
   "plugins": [
     ["@babel/plugin-proposal-decorators", { "legacy": true }],

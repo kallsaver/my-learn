@@ -10,11 +10,13 @@ module.exports = {
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
   extends: [
+    "react-app",
     "standard",
     "plugin:react/recommended",
   ],
   plugins: [
-    "react"
+    "react",
+    "react-hooks",
   ],
   // add your custom rules here
   rules: {

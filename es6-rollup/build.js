@@ -16,8 +16,8 @@ const deepClone = (source, target) => {
   return merge(true, source, target)
 }
 
-const tree = obj => {
-  if (typeof obj !== 'object') {
+function tree(obj) {
+  if (!obj || typeof obj !== 'object') {
     console.log(obj)
     return
   }
