@@ -5,7 +5,9 @@
   "dependencies": {
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-router-config": "^5.1.1",
+    "react-router-dom": "^5.2.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
@@ -133,7 +135,6 @@
     "sass-loader": "^8.0.2",
     "semver": "6.3.0",
     "style-loader": "0.23.1",
-    "styled-components": "^5.1.1",
     "terser-webpack-plugin": "2.3.5",
     "ts-pnp": "1.1.6",
     "url-loader": "2.3.0",

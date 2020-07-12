@@ -1,10 +1,17 @@
 import React from 'react'
-import Index from './pages/home/home.jsx'
+import { HashRouter } from 'react-router-dom'
+import { renderRoutes } from 'react-router-config'
+import router from './router/index.js'
+
+import CHeader from './components/c-header/c-header'
 
 function App() {
   return (
-    <div className="App">
-      <Index title="迭代"></Index>
+    <div>
+      <CHeader></CHeader>
+      <HashRouter>
+        {renderRoutes(router)}
+      </HashRouter>
     </div>
   )
 }
