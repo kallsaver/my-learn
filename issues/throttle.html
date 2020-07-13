@@ -11,14 +11,13 @@
 <script>
   function throttle(time) {
     let lastTime = 0
-    const handler = function (fn) {
+    return function (fn) {
       const currentTime = new Date().getTime()
       if (currentTime - lastTime >= time) {
         lastTime = currentTime
         fn && fn()
       }
     }
-    return handler
   }
 
   const throttleHandler = throttle(5000)

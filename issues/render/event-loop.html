@@ -4,48 +4,88 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      transition: transform 1000ms;
+    }
+  </style>
 </head>
 <body>
-
+  <div class="box"></div>
 </body>
 <script>
+  // https://blog.csdn.net/weixin_33851177/article/details/91457957
+
+  function sleep(timeout) {
+    const currentTime = new Date().getTime()
+    while (true) {
+      if (new Date().getTime() > currentTime + timeout) {
+        return
+      }
+    }
+  }
+
+  const box = document.getElementsByClassName('box')[0]
 
   // demo1()
   demo2()
   // demo3()
+  // demo4()
 
   function demo1() {
-    document.body.style = 'background:gold'
+    box.style = 'background:gold'
     setTimeout(function () {
-      document.body.style = 'background:#fff'
+      box.style = 'background:#fff'
     }, 0)
   }
 
-  // 宏任务执行 => 这次宏任务在事件队列里的微任务执行 => GUI渲染线程执行 => 下次宏任务执行
-  // js重排语句会导致GUI渲染线程马上执行
+  // 宏任务执行(如果导致重排,会让dom树重新排列并计算但是不会立即GUI渲染) =>
+  // 这次宏任务在事件队列里的微任务执行 =>
+  // GUI渲染线程执行 => 下次宏任务执行
   function demo2() {
-    document.body.style = 'background:perd'
-    console.log(1)
+    box.style.transform = `translate(300px, 0)`
+    box.style.background = 'peru'
+    // alert(1)
     Promise.resolve().then(() => {
-      console.log(2)
-      document.body.style = 'background:gold'
+      // alert(2)
+      // 触发了重排,dom树重新排列并计算位置为下次GUI渲染做数据准备,但是不会触发GUI渲染
+      // const offsetHeight = box.offsetHeight
+      // transform和background都不会导致重排,而只是重绘
+      box.style.transform = `translate(100px, 0)`
+      box.style.background = 'blue'
+      // alert(3)
     })
-    setTimeout(function () {
-      document.body.style = 'background:#fff'
-    })
-    console.log(3)
+    // setTimeout(function () {
+    //   box.style.background = '#fff'
+    // })
     console.log('一次宏任务执行完毕,下次宏任务执行之前')
   }
+
+  // vue之所以使用nextTick是因为想得到所有同步队列后最终的dom结果
+  // 但是nextTick的时候,GUI渲染并没有发生(浏览器没有真正渲染到页面上而是计算好了下次渲染的数据)
+  // nextTick执行完毕后,js线程空闲后,GUI开始渲染
 
   function demo3() {
     setTimeout(() => {
       console.log(1)
-      Promise.resolve(3).then(data => console.log(data))
+      Promise.resolve(2).then(data => console.log(data))
     }, 0)
 
     setTimeout(() => {
-      console.log(2)
+      console.log(3)
     }, 0)
+  }
+
+  function demo4() {
+    try {
+      console.log(1)
+    } catch (err) {
+    } finally {
+      console.log(2)
+    }
+    console.log(3)
   }
 
 </script>

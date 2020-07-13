@@ -8,4 +8,32 @@
 <body>
 
 </body>
+<script>
+  const _toString = Object.prototype.toString
+
+  function toRawType(value) {
+    return _toString.call(value).slice(8, -1)
+  }
+
+  function deepClone(value) {
+    let ret
+    const type = toRawType(value)
+
+    if (type === 'Object') {
+      ret = {}
+    } else if (type === 'Array') {
+      ret = []
+    } else {
+      return value
+    }
+
+    Object.keys(value).forEach((key) => {
+      const copy = value[key]
+      ret[key] = deepClone(copy)
+    })
+
+    return ret
+  }
+
+</script>
 </html>

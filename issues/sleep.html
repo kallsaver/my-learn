@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+<script>
+  function sleep(timeout) {
+    const currentTime = new Date().getTime()
+    while (true) {
+      if (new Date().getTime() > currentTime + timeout) {
+        return
+      }
+    }
+  }
+
+  const box = document.getElementsByClassName('box')[0]
+  box.style.background = 'peru'
+  box.style.width = '100px'
+  console.log(1)
+  sleep(2000)
+  box.style.width = '400px'
+  console.log(2)
+
+</script>
+</html>
