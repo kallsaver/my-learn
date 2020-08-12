@@ -1,34 +1,33 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-	</body>
-	<script>
-	//在全局调用正则的exec方法时,
-		var reg=/\d/g;
-		var a=reg.exec("aaalb2cc3")
-		console.log(a)				//[2]		
-		console.log(a.index)		//5
-		
-		var b=reg.exec("aaalb2cc3")
-		console.log(b)				//[3]
-		console.log(b.index)		//8
-		
-		var c=reg.exec("aaalb2cc3")
-		console.log(c)				//null
-		console.log(c.index)		//undefined
-		
-		
-		
-		//------------------------------------
-		var reg1=/\d/g;
-		var reg1=/\d/g;
-		while(r=reg1.exec("a1b2c3")){
-    		console.log(r.index+':'+r[0]);
-		}
-		
-	</script>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  // 在循环中反复地调用exec()方法是唯一一种获得全局模式的完整模式匹配信息的方法
+
+  // 全局
+  var reg = /\d/g
+  var a = reg.exec('aaalb2cc3')
+  console.log(a)
+  console.log(a.index)
+
+  var b = reg.exec('aaalb2cc3')
+  console.log(b)
+  console.log(b.index)
+
+  var reg1 = /\d/g
+  let result
+  while (result = reg1.exec('a1b2c3')) {
+    console.log(result.index + ':' + result[0])
+  }
+
+  console.log(/\d/.exec('a1b2c3'))
+
+</script>
 </html>

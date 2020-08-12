@@ -43,7 +43,7 @@
     let result = ''
 
     while (number > 0) {
-      let rem = (number % radix)
+      let rem = number % radix
       number = number / radix | 0
       remStack.push(rem)
     }

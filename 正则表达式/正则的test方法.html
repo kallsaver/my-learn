@@ -1,36 +1,20 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-	</body>
-	<script>
-		//常用于表单验证  test本身就是全局的了
-		var reg=/\d+\.\d{1,2}$/
-		
-		console.log(reg.test('123.45'))		//true
-		console.log(reg.test('123*45'))		//false
-		console.log(reg.test('123.456'))	//false
-		console.log(reg.test('1.4'))		//true
-		
-		console.log(/^\d{1,}/.test('+123'))  //false
-		console.log(/[^\+\-]/.test('-123'))  //true
-		
-		let files = ['my/learn/gen/src/d.js']
-		
-		let folder = 'gen';
-	    let build = files.map((file) => {
-	        console.log(file)
-	        let reg = new RegExp('.*?[\\\/]learn[\\\/]' + folder + '[\\\/].*');
-	        console.log('try', reg.test(file));
-	        if (reg.test(file)) {
-	        	console.log('find')
-	        }else{
-	        }
-	    });
-		
-		
-	</script>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  // test本身就是全局g的了,只要里面的字符有正则的片段,就返回true
+  // 一般配合^ $使用
+  const reg = /^\d+\.\d{1,2}$/g
+
+  console.log(reg.test('123.45'))
+  console.log(reg.test('123.456'))
+  console.log(reg.test('1.4'))
+</script>
 </html>

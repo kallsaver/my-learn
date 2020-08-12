@@ -31,10 +31,18 @@ class Index extends PureComponent {
   }
 
   componentDidMount() {
-    const { articleList } = homeJson.data
+    let { articleList } = homeJson.data
 
     this.setState({
       articleList,
+    })
+
+    setTimeout(() => {
+      articleList = articleList.concat(articleList)
+      console.log('---update---')
+      this.setState({
+        articleList,
+      })
     })
   }
 

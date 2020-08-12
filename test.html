@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .root {
+      display: inline-block;
+    }
+
+    .parent {
+      /* display: inline-block; */
+      background: peru;
+      margin: 20px;
+    }
+
+    .parent div {
+      margin: 20px;
+      padding: 20px;
+      border: 10px #000 solid;
+      width: 100px;
+      height: 100px;
+    }
+
+    .child-b {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div class="root">
+    <div class="parent">
+      <div class="child-a"></div>
+      <div class="child-c"></div>
+      <div class="child-b"></div>
+    </div>
+  </div>
+</body>
+</html>

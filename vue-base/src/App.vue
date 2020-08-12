@@ -1,13 +1,6 @@
 <template>
   <div id="app" class="app">
-    <transition
-      :name="transitionName"
-      :mode="transitionMode"
-      :duration="transitionDuration">
-      <router-cache>
-        <router-view class="router-view"></router-view>
-      </router-cache>
-    </transition>
+    <router-view class="router-view"></router-view>
   </div>
 </template>
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  function simple (str) {
+    // 不带()的正则,replace的第一个参数是匹配的字符,第二个参数是index
+    const regExp = /-\w/g
+    return str.replace(regExp, function (item, index) {
+      return item.toUpperCase()
+    })
+  }
+  // console.log(simple('aa-bb-cc'))
+
+  function camelize(str) {
+    // 带()的正则,replace的第一个参数是匹配到的字符,第二个参数匹配到是()里面的字符,第三个参数是index
+    const regExp = /-(\w)/g
+    return str.replace(regExp, function (item, inner, index) {
+      console.log('item', item)
+      console.log('inner', inner)
+      return inner.toUpperCase()
+    })
+  }
+  console.log(camelize('aa-bb-cc'))
+
+</script>
+</html>

@@ -4,8 +4,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .box{
+      background: #f4f4f4;
+      height: 100%;
+      margin-left: 50px;
+    }
+    .left {
+      background: peru;
+      opacity: 0.5;
+      width: 200px;
+      height: 200px;
+      float: left;
+    }
+    .right {
+      background: gold;
+      opacity: 0.5;
+      width: 400px;
+      min-height: 100px;
+    }
+    .little{
+      background: #fff;
+      width: 50px;
+      height: 50px;
+      margin: 10px;
+      float: left;
+    }
+    .BFC {
+      overflow: hidden;
+    }
+  </style>
 </head>
 <body>
-
+  <div class='box BFC'>
+    <div class='left'> </div>
+    <div class='right BFC'>
+      <div class='little'></div>
+      <div class='little'></div>
+      <div class='little'></div>
+    </div>
+  </div>
 </body>
+<script>
+  // https://juejin.im/post/59b73d5bf265da064618731d
+  // 根元素或其它包含它的元素；
+  // 浮动(元素的float不为none) ；
+  // 绝对定位元素(元素的position为absolute或fixed) ；
+  // 行内块inline - blocks(元素的 display: inline - block) ；
+  // 表格单元格(元素的display: table - cell，HTML表格单元格默认属性) ；
+  // overflow的值不为visible的元素；
+  // 弹性盒 flex boxes(元素的display: flex或inline - flex) ；
+
+</script>
 </html>

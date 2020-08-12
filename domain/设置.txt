@@ -1,5 +1,0 @@
-0. web1和web2是两个顶级域名相同的网站,域名分别是web1.web.com, web2.web.com
-
-1.  C:\Windows\System32\drivers\etc 改host:
-## 本地调试服务开80
-127.0.0.1  web1.web.com

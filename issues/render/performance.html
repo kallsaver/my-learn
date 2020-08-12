@@ -7,34 +7,15 @@
   <title>Document</title>
   <link rel="stylesheet" href="./test.css">
   <script>
-    const startTime = Date.now()
-
-    // 页面元素加载完毕,但是一些资源比如图片还无法看到
-    document.addEventListener('DOMContentLoaded', ready, false)
-
-    function ready() {
-      console.log('DOMContentLoaded')
-      // 白屏时间
-      const firstPaint = Date.now()
-      console.log(firstPaint - startTime)
-      console.log(firstPaint - performance.timing.navigationStart)
-      document.removeEventListener('DOMContentLoaded', arguments.callee, false)
-    }
-
-    // 页面上所有的资源,图片,音频,视频等加载完成
-    window.addEventListener('load', () => {
-      console.log('loaded')
-    })
+    // 白屏时间分析在node-blog-learn/blog-native项目
   </script>
 </head>
-
 <body>
   <div></div>
   <div></div>
 </body>
 
 </html>
-<script src="./test.js"></script>
 <script>
 
 </script>

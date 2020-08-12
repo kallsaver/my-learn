@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+
+    // window.onerror只能获取运行错误,不能捕获资源加载错误
+    window.onerror = function (message, source, lineno, colno, error) {
+      console.log(message)
+      console.log(source)
+
+      // 行数
+      console.log(lineno)
+      // 列数
+      console.log(colno)
+
+      console.log(error)
+    }
+
+  </script>
+</head>
+<body>
+  <div></div>
+</body>
+<script src="./a.js"></script>
+</html>

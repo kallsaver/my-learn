@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  const arrayA = [4, 2, 1, 2, 5]
+  const arrayB = [2, 3, 1, 6]
+
+  function process(arrayA, arrayB) {
+    const result = []
+    arrayA.forEach((item) => {
+      if (arrayB.indexOf(item) > -1 && result.indexOf(item) === -1) {
+        result.push(item)
+      }
+    })
+    result.sort((prev, next) => {
+      return prev - next
+    })
+    return result
+  }
+
+  console.log(process(arrayA, arrayB))
+
+</script>
+</html>

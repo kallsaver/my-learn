@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  // 方法一:
+  // const originLog = console.log
+  // const originSetTimeout = setTimeout
+
+  // function setTimeout(fn, time()) {
+  //   const now = Date.now()
+  //   while (Date.now() - now < time) {
+  //     continue
+  //   }
+  //   fn()
+  // }
+
+  // console.log = function () {
+  //   const args = [...arguments]
+  //   args[0] += 1
+  //   originLog(...args)
+  // }
+
+  // for (var i = 0; i < 5; i++) {
+  //   setTimeout(function () {
+  //     console.log(i)
+  //   }, 1000)
+  // }
+
+  // console.log = originLog
+  // setTimeout = originSetTimeout
+
+  // 方法二
+  // ;(async () => {
+  //   for (let i = 0; i < 5; i++) {
+  //     await (() => {
+  //       return new Promise((resolve) => {
+  //         setTimeout(() => {
+  //           console.log(i + 1)
+  //           resolve()
+  //         }, 1000)
+  //       })
+  //     })()
+  //   }
+  // })();
+
+  for (let i = 0; i < 5;) {
+    i++
+    setTimeout(() => {
+      console.log(i)
+    }, i * 1000)
+  }
+
+</script>
+</html>

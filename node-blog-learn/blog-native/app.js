@@ -1,5 +1,6 @@
 const path = require('path')
 const send = require('send')
+var URLParse = require('url-parse')
 
 const koa = require('./plugins/koa/index')
 const bodyParse = require('./plugins/koa-body-parse/index')
@@ -7,6 +8,13 @@ const static = require('./plugins/koa-static/index')
 
 const blogApiRouter = require('./router/api/blog')
 const userApiRouter = require('./router/api/user')
+
+const whiteNameList = [
+  '192.168.1.101',
+  // 'localhost',
+  // 直接在url上打开
+  ''
+]
 
 // 最简单的session就是node进程中的一个变量,占用内存,缺点是访问量大了会导致内部暴涨
 // 通用方案是使用redis,不使用node进程,使用独立的进程
@@ -29,6 +37,21 @@ const {
 } = require('./utils/log')
 
 app.use(bodyParse({}))
+
+app.use(async (req, res, next) => {
+  const referrer = req.headers.referer || ''
+  console.log(referrer)
+  const url = new URLParse(referrer)
+  const hostname = url.hostname
+  if (whiteNameList.indexOf(hostname) === -1) {
+    console.log('防盗链')
+    res.end()
+    return
+  }
+  req.__referrerHost = hostname
+  console.log(hostname)
+  await next()
+})
 
 // 用nginx就不需要static处理了
 app.use(static(path.join(__dirname, 'public')))

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" box="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    window.navigationStart = Date.now()
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .item {
+      width: 200px;
+      height: 200px;
+      background: peru;
+      margin-bottom: 20px;
+    }
+    .box {
+      position: relative;
+      padding-top: 50px;
+    }
+    img {
+      width: 200px;
+    }
+    .active {
+      border: 10px solid gold;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- <div class="item"></div> -->
+    <div class="box">
+      <div class="item"></div>
+      <!-- <div class="item">
+        <img src="./images/1.jpg" />
+      </div>
+      <div class="item">
+        <img src="./images/3.jpg" />
+      </div> -->
+      <div class="item"></div>
+      <div class="item active"></div>
+    </div>
+  </div>
+</body>
+<script>
+  // 视口的高度
+  // console.log(window.innerHeight)
+
+  // offsetTop: 盒子content顶部距离position不为static的父元素content顶部的高度
+  // const active = document.querySelectorAll('.active')[0]
+  // console.log(active.offsetTop)
+
+  window.navigationStart = performance.timing.navigationStart || window.navigationStart
+
+  const innerHeight = window.innerHeight
+
+  function getOffsetTop(el) {
+    let offsetTop = el.offsetTop
+    let offsetParent = el.offsetParent
+    while (offsetParent) {
+      offsetTop += offsetParent.offsetTop
+      offsetParent = offsetParent.offsetParent
+    }
+    return offsetTop
+  }
+
+  const images = document.querySelectorAll('img')
+  let firstScreenImageCount = 0
+  let firstScreenImageLoadCount = 0
+
+  for (const item of images) {
+    const offsetTop = getOffsetTop(item)
+    if (offsetTop <= innerHeight) {
+      firstScreenImageCount++
+      item.addEventListener('load', () => {
+        firstScreenImageLoadCount++
+        if (firstScreenImageCount === firstScreenImageLoadCount) {
+          console.log('首屏的图片全部加载完成1')
+          getFirstScreenTime()
+        }
+      }, false)
+
+      item.addEventListener('error', () => {
+        firstScreenImageCount--
+        if (firstScreenImageCount === firstScreenImageLoadCount) {
+          console.log('首屏的图片全部加载完成2')
+          getFirstScreenTime()
+        }
+      })
+    }
+  }
+  if (!firstScreenImageCount || 1) {
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOMContentLoaded')
+      getFirstScreenTime()
+    }, false)
+  }
+
+  function getFirstScreenTime() {
+    const firstScreenTime = Date.now() - window.navigationStart
+    console.log(firstScreenTime)
+    return firstScreenTime
+  }
+
+</script>
+</html>

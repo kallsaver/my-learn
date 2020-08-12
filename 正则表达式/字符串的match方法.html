@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  var str = 'sd334gsd834oe'
+
+  const match1 = str.match(/\d+/)
+  const match2 = str.match(/\d+/g)
+  const match3 = str.match(/.*?(\d+).*?(\d+).*/)
+  const match4 = str.match(/.*?(\d+).*?(\d+).*/g)
+
+  // 返回一个特殊的数组,只有一个元素,并且还带有其它非自然数的属性
+  console.log(match1)
+
+  // 返回这个字符串中所有的匹配项
+  console.log(match2)
+
+  // 可以match到括号的内容
+  console.log(match3)
+
+  // 不能match到括号的内容
+  console.log(match4)
+</script>
+</html>

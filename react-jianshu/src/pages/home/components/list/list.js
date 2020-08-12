@@ -1,9 +1,10 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import style from './list.scss'
 import PropTypes from 'prop-types'
 
-class List extends PureComponent {
+class List extends React.Component {
   render() {
+    console.log('render')
     const { data } = this.props
 
     return (
@@ -27,7 +28,17 @@ class List extends PureComponent {
   }
 
   componentDidMount() {
-    console.log('mount')
+    console.log('componentDidMount')
+  }
+
+  // PureComponent替代
+  shouldComponentUpdate() {
+    console.log('shouldComponentUpdate')
+    return true
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate')
   }
 
   itemClickHandler = (item) => {

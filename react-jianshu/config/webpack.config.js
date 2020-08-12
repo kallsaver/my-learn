@@ -24,7 +24,7 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
-
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const postcssNormalize = require('postcss-normalize');
 
 const appPackageJson = require(paths.appPackageJson);
@@ -331,10 +331,10 @@ module.exports = function(webpackEnv) {
             {
               options: {
                 cache: true,
-                formatter: require.resolve('react-dev-utils/eslintFormatter'),
+                formatter: require('eslint-friendly-formatter'),
                 eslintPath: require.resolve('eslint'),
                 resolvePluginsRelativeTo: __dirname,
-
+                emitWarning: false
               },
               loader: require.resolve('eslint-loader'),
             },
@@ -532,18 +532,16 @@ module.exports = function(webpackEnv) {
       // during a production build.
       // Otherwise React will be compiled in the very slow development mode.
       new webpack.DefinePlugin(env.stringified),
+      isEnvDevelopment &&
       // This is necessary to emit hot updates (currently CSS only):
       isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
       // Watcher doesn't work well if you mistype casing in a path so we use
       // a plugin that prints an error when you attempt to do this.
       // See https://github.com/facebook/create-react-app/issues/240
       isEnvDevelopment && new CaseSensitivePathsPlugin(),
-      // If you require a missing module and then `npm install` it, you still have
-      // to restart the development server for webpack to discover it. This plugin
-      // makes the discovery automatic so you don't have to restart.
-      // See https://github.com/facebook/create-react-app/issues/186
-      isEnvDevelopment &&
-        new WatchMissingNodeModulesPlugin(paths.appNodeModules),
+
+      new WatchMissingNodeModulesPlugin(paths.appNodeModules),
+
       isEnvProduction &&
         new MiniCssExtractPlugin({
           // Options similar to the same options in webpackOptions.output

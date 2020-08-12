@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  // 由于现在部分浏览器基于对系统性能的优化
+  // 在使用setInterval的时候
+  // 在页面没有获得关注的状态
+  // 浏览器可以会自动将setInterval终端
+  // 等到该页面重新获得关注时再开启。
+  // 暂时无法模拟clearInterval
+
+  function setIntervalPro(fn, time = 30) {
+    let timer
+    timer = setTimeout(() => {
+      clearTimeout(timer)
+      const args = Array.prototype.slice.call(arguments, 2)
+      fn(...args)
+      setIntervalPro(...arguments)
+    }, time)
+    return timer
+  }
+
+  function clearIntervalPro(id) {
+    clearTimeout(id)
+  }
+
+  setIntervalPro((a) => {
+    console.log(a)
+  }, 5000, 99)
+
+
+  // setTimeout的第三个参数
+  // setTimeout((a) => {
+  //   console.log(a)
+  // }, 1000, 100)
+
+  // setInterval的第三个参数
+  // setInterval((a) => {
+  //   console.log(a)
+  // }, 1000, 100)
+
+</script>
+</html>

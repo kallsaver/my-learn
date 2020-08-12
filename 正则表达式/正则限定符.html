@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  // 限定符有6种
+  // *或+或?或{n}或{n,}或{n,m}共6种
+  // * 相当于{0, }
+  // + 相当于{1, }
+  // ? 相当于{0, 1}
+  // 其中3种是特殊符号
+  // 限定符总是贪婪的
+
+  const str1 = 'doesdodsodoesesdododd'
+  // ?限定符修饰的是e,多个字符串用()
+  const a1 = str1.match(/doe?/g)
+  // 先考虑does再考虑do 贪婪
+  const a2 = str1.match(/do(es)?/g)
+  // do被提取了,does就没了,|会从左到右优先匹配
+  const a3 = str1.match(/do|does/g)
+  // does提取了,do就没了,|会从左到右优先匹配
+  const a4 = str1.match(/does|do/g)
+  // ()等于无效
+  const a5 = str1.match(/do(es)/g)
+
+  // [doe, do, doe, do, do]
+  console.log('a1', a1)
+  // [does, do, does, do, do]
+  console.log('a2', a2)
+  // [do, do, do, do, do]
+  console.log('a3',a3)
+  // [does, do, does, do, do]
+  console.log('a4',a4)
+  // [does, does]
+  console.log('a5',a5)
+
+  // 限定符都是贪婪的,它们会尽可能多的匹配文字,后面加?就可以实现非贪婪或最小匹配。
+  const str2 = '<H1> Chapter 1 – Introduction to Regular Expressions</H1>'
+
+  const b2 = str2.match(/<.*>/g)
+  const b3 = str2.match(/<.*?>/g)
+  console.log('b2', b2)
+  console.log('b3', b3)
+
+  // ^,$和?{0,1},*{0,},{0,n}修饰同一个匹配项时但匹配项没有时,就失去意义
+  const reg1 = /^\d+(\.\d{1,2}?)*$/
+
+  const c1 = reg1.test('0.55')
+  const c2 = reg1.test('.55')
+  const c3 = reg1.test('.5')
+  const c4 = reg1.test('12')
+  const c5 = reg1.test('12.')
+  const c6 = reg1.test('')
+
+  // true
+  console.log('c1', c1)
+  // true
+  console.log('c2', c2)
+  // true
+  console.log('c3', c3)
+  // true
+  console.log('c4', c4)
+  // false
+  console.log('c5', c5)
+  // false
+  console.log('c6', c6)
+
+</script>
+</html>

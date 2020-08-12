@@ -19,11 +19,26 @@
     <div class="button">
       <cube-button @click="pageTurn('/animation')">动画</cube-button>
     </div>
+    <img src="http://www.t.com/test.png" />
+    <img :src="bg" />
   </div>
 </template>
 
 <script>
+import bg from '@/assets/images/bg01.jpg'
+
 export default {
+  data() {
+    return {
+      bg,
+    }
+  },
+  mounted() {
+    function run() {
+      throw new Error('vue mounted')
+    }
+    run()
+  },
   methods: {
     pageTurn(location) {
       const route = this.$router.resolve(location).route
@@ -39,4 +54,6 @@ export default {
 .index
   .button
     margin-bottom: 30px
+    img
+      width: 100px
 </style>

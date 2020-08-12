@@ -1,0 +1,17 @@
+{
+  "name": "cypress-learn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cypress": "npm run mock & cypress open --env NODE_ENV=development",
+    "mock": "json-server --watch api/db.js --port 3000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "cypress": "^4.11.0"
+  }
+}

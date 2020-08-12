@@ -5,6 +5,7 @@ import routes from './options'
 Vue.use(Router)
 
 const router = new Router({
+  base: '/vue-base/',
   routes,
 })
 

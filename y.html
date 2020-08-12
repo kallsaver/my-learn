@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>change-to-flex</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    .border-re {
+      width: 100px;
+      height: 100px;
+      border: 1px solid blue;
+      margin: 20px;
+    }
+
+    .border {
+      width: 100px;
+      height: 100px;
+      border: 1px solid blue;
+      margin: 20px;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="border-re"></div>
+    <div class="border"></div>
+  </div>
+</body>
+<script>
+  // parseInt第一个参数是数字字符串,结合第二个参数表示是某个进制的数,
+  // parseInt第二个参数是进制,默认是0,以10进制转换处理,如果小于2,则返回NaN
+  // 返回十进制的数
+  // 比如parseInt('2', 2),二进制没有2的数,所以返回NaN
+  console.log(parseInt('2', 2))
+  // '102'会舍弃后面不合法的数=>变成'10'
+  console.log(parseInt('102', 2))
+  const result = ['1', '2', '2', '4', '15'].map(parseInt)
+  console.log(result)
+
+</script>
+</html>

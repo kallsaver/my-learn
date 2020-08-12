@@ -1,0 +1,9 @@
+// https://www.never-nop.com/?p=3786
+1. 执行emulator -avd [模拟器名字] 打开虚拟机时,报
+PANIC: Missing emulator engine program for ‘x86’ CPU.
+
+這是Android虛擬機的問題
+Android因為更新SDK將emulator虛擬機目錄改到tools的子目錄下，因此造成環境變數抓不到目錄。
+
+ 到/Users/你的名字/Library/Android/sdk/
+ 把emulator和tools目录互换名字

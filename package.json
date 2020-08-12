@@ -21,7 +21,4 @@
     "url": "https://github.com/kallsaver/my-learn/issues"
   },
   "homepage": "https://github.com/kallsaver/my-learn#readme",
-  "devDependencies": {
-    "recast": "^0.19.1"
-  }
 }

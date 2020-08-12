@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 方式一 */
+    .wrapper {
+      display: flex;
+      width: 300px;
+      height: 300px;
+      background: peru;
+      /* 元素的交叉轴穿过各个元素的中间,如果是单轴,那么这个交叉轴在容器中间 */
+      align-items: center;
+      /* 多轴模式才生效,将子项元素作为一个整体进行对齐 */
+      /* align-content: center; */
+    }
+    .box {
+      width: 200px;
+      height: 200px;
+      background: gold;
+    }
+
+    /* 方式二 */
+    /* .wrapper {
+      display: flex;
+      width: 300px;
+      height: 300px;
+      background: peru;
+    }
+    .box {
+      width: 200px;
+      height: 200px;
+      align-self: center;
+      background: gold;
+    } */
+
+    /* .wrapper {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      background: peru;
+    }
+    .box {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: gold;
+    } */
+
+    /* .wrapper {
+      display: table;
+      width: 300px;
+      height: 300px;
+      background: peru;
+    }
+    .box {
+      vertical-align: middle;
+      display: table-cell;
+      width: 50%;
+      height: 50%;
+      background: gold;
+    } */
+
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="box"></div>
+  </div>
+</body>
+<script>
+
+</script>
+</html>

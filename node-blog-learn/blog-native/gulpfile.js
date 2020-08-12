@@ -23,7 +23,7 @@ Debounce.prototype.run = (func) => {
 const debounce = new Debounce()
 
 const reload = (time) => {
-  time = time && typeof time === 'number' || 0
+  time = typeof time === 'number' && time ? time : 0
   setTimeout(() => {
     browserSync.reload()
   }, time)

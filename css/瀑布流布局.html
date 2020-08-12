@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .masonry {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+    }
+    @media only screen and (min-width: 500px) {
+      .masonry {
+        flex-direction: row;
+      }
+    }
+    .column {
+      display: flex;
+      flex-flow: column wrap;
+      width: 50%;
+    }
+
+    .column:nth-child(2n) .item__content {
+      height: 300px;
+    }
+
+    .item {
+      margin: 20px;
+    }
+
+    .item__content {
+      padding: 20px;
+      height: 200px;
+      background: cadetblue;
+    }
+
+    /* .item__content {
+      height: 300px;
+    } */
+
+  </style>
+</head>
+<body>
+  <div class="masonry">
+    <div class="column">
+      <div class="item">
+        <div class="item__content"></div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="item">
+        <div class="item__content"></div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="item">
+        <div class="item__content"></div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="item">
+        <div class="item__content"></div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="item">
+        <div class="item__content"></div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="item">
+        <div class="item__content"></div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="item">
+        <div class="item__content"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

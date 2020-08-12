@@ -1,3 +1,4 @@
+// 可选类型
 export type Method =
   | 'get'
   | 'GET'
